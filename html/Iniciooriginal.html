@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Início - SGI - FACASI</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        sgi: {
+                            green: '#2e8b57',
+                            blue: '#1e40af',
+                            gold: '#d4af37'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        .section-title {
+            position: relative;
+            padding-left: 1rem;
+        }
+        .section-title:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(to bottom, #1e40af, #2e8b57);
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+<!-- Contenido de la página (sin sidebar y topbar) -->
+<main class="p-5 bg-gray-50">
+<!-- Banner de Boas-vindas -->
+<div class="bg-gradient-to-r from-sgi-blue to-sgi-green rounded-lg shadow-md text-white p-8 mb-8">
+<div class="flex flex-col md:flex-row items-center justify-between">
+<div class="mb-6 md:mb-0 md:mr-6">
+<h2 class="text-3xl font-bold mb-2">Bem-vindo à FACASI</h2>
+<p class="text-blue-100">Sistema de Gestão Integrado para as normas ISO 9001:2015 e ISO 45001:2018</p>
+</div>
+<div class="flex-shrink-0">
+<div class="bg-white bg-opacity-20 rounded-full p-2">
+<img alt="FACASI" class="w-16 h-16 object-cover rounded-full" height="320" loading="lazy" src="../Logotipo/logo.png" width="320"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Tarjetas de Acceso Rápido -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<a class="feature-card bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-all duration-300" href="Clausulas.html">
+<div class="flex items-center mb-4">
+<div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+<i class="fas fa-file-contract text-blue-600 text-xl"></i>
+</div>
+<h3 class="text-lg font-semibold text-gray-800">Cláusulas do SGI</h3>
+</div>
+<p class="text-gray-600">Acede à documentação das normas ISO 9001:2015 e ISO 45001:2018 de forma integrada.</p>
+</a>
+<a class="feature-card bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-all duration-300" href="apresentacao.html">
+<div class="flex items-center mb-4">
+<div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+<i class="fas fa-building text-green-600 text-xl"></i>
+</div>
+<h3 class="text-lg font-semibold text-gray-800">A nossa empresa</h3>
+</div>
+<p class="text-gray-600">Conheça mais sobre a nossa organização, missão e valores.</p>
+</a>
+<a class="feature-card bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-all duration-300" href="ADMCambioClimatico.html">
+<div class="flex items-center mb-4">
+<div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+<i class="fas fa-globe-americas text-purple-600 text-xl"></i>
+</div>
+<h3 class="text-lg font-semibold text-gray-800">Mudanças Climáticas</h3>
+</div>
+<p class="text-gray-600">A nossa abordagem a questões ambientais e alterações climáticas.</p>
+</a>
+</div>
+<!-- Secciones de contenido -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+<!-- Columna izquierda -->
+<div class="space-y-6">
+<!-- Como Usar o SGI -->
+<div class="bg-white p-6 rounded-lg border border-gray-200">
+<h3 class="text-xl font-semibold text-gray-800 mb-4 section-title"><a href="comousarmanual.html">como Usar o SGI</a></h3>
+<p class="text-gray-600 mb-4">Manual completo de utilização do Sistema de Gestão Integrado.</p>
+<a class="inline-flex items-center text-sgi-blue hover:text-sgi-green font-medium" href="comousarmanual.html">
+<span>Aceder ao manual</span> <i class="fas fa-arrow-right ml-2"></i>
+</a>
+</div>
+<!-- Capacitaçãoes -->
+<div class="bg-white p-6 rounded-lg border border-gray-200">
+<h3 class="text-xl font-semibold text-gray-800 mb-4 section-title"><a href="cursos.html">Formaçãoes</a></h3>
+<p class="text-gray-600 mb-4">Programas de formação e desenvolvimento de competências.</p>
+<a class="inline-flex items-center text-sgi-blue hover:text-sgi-green font-medium" href="cursos.html">
+<span>Ver programas disponibles</span> <i class="fas fa-graduation-cap ml-2"></i>
+</a>
+</div>
+<!-- Certificados del Sistema de Gestão Integrado -->
+<div class="bg-white p-6 rounded-lg border border-gray-200">
+<h3 class="text-xl font-semibold text-gray-800 mb-4 section-title"><a href="certificados.html">Certificados do SGI</a></h3>
+<p class="text-gray-600 mb-4">Certificações e acreditações do Sistema de Gestão Integrado.</p>
+<a class="inline-flex items-center text-sgi-blue hover:text-sgi-green font-medium" href="certificados.html">
+<span>Ver certificados</span>
+<i class="fas fa-certificate ml-2"></i>
+</a>
+</div>
+<!-- Cláusulas -->
+<div class="bg-white p-6 rounded-lg border border-gray-200">
+<h3 class="text-xl font-semibold text-gray-800 mb-4 section-title"><a href="Clausulas.html">Cláusulas</a></h3>
+<p class="text-gray-600 mb-4">Requisitos e cláusulas das normas ISO aplicáveis.</p>
+<a class="inline-flex items-center text-sgi-blue hover:text-sgi-green font-medium" href="Clausulas.html">
+<span>Consultar cláusulas</span>
+<i class="fas fa-file-contract ml-2"></i>
+</a>
+</div>
+</div>
+<!-- Columna derecha -->
+<div class="space-y-6">
+<!-- Registos -->
+<div class="bg-white p-6 rounded-lg border border-gray-200">
+<h3 class="text-xl font-semibold text-gray-800 mb-4 section-title"><a href="Sistema-de-Registros.html">Registos</a></h3>
+<p class="text-gray-600 mb-4">Gestão dos processos do sistema de gestão integrado.</p>
+<a class="inline-flex items-center text-sgi-blue hover:text-sgi-green font-medium" href="Sistema-de-Registros.html">
+<span>Gerir processos</span> <i class="fas fa-arrow-right ml-2"></i>
+</a>
+</div>
+<!-- Procedimentos -->
+<div class="bg-white p-6 rounded-lg border border-gray-200">
+<h3 class="text-xl font-semibold text-gray-800 mb-4 section-title"><a href="poes.html">Procedimentos</a></h3>
+<p class="text-gray-600 mb-4">Documentação e gestão de procedimentos do SGI.</p>
+<a class="inline-flex items-center text-sgi-blue hover:text-sgi-green font-medium" href="poes.html">
+<span>Ver procedimentos</span> <i class="fas fa-arrow-right ml-2"></i>
+</a>
+</div>
+<!-- Índice Documental del SGI -->
+<div class="bg-white p-6 rounded-lg border border-gray-200">
+<h3 class="text-xl font-semibold text-gray-800 mb-4 section-title"><a href="indice_documental_moderno.html">Índice Documental do SGI</a></h3>
+<p class="text-gray-600 mb-4">Estrutura e organização da documentação do sistema.</p>
+<a class="inline-flex items-center text-sgi-blue hover:text-sgi-green font-medium" href="indice_documental_moderno.html">
+<span>Explorar índice documental</span> <i class="fas fa-folder-tree ml-2"></i>
+</a>
+</div>
+<!-- Manuales y Documentação -->
+<div class="bg-white p-6 rounded-lg border border-gray-200">
+<h3 class="text-xl font-semibold text-gray-800 mb-4 section-title"><a href="indice_documental_moderno.html">Manuales e Documentação</a></h3>
+<p class="text-gray-600 mb-4">Manuales completos e documentação técnica do SGI.</p>
+<a class="inline-flex items-center text-sgi-blue hover:text-sgi-green font-medium" href="indice_documental_moderno.html">
+<span>Aceder aos manuais</span> <i class="fas fa-book ml-2"></i>
+</a>
+</div>
+</div>
+</div>
+<!-- Acesso Rápido às Normas -->
+<div class="bg-white p-6 rounded-lg border border-gray-200">
+<h3 class="text-xl font-semibold text-gray-800 mb-4">Acesso Rápido às Normas</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<a class="flex items-center hover:bg-blue-50 rounded-lg p-2 transition-colors" href="Clausulas.html">
+<div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+<i class="fas fa-certificate text-blue-600"></i>
+</div>
+<div>
+<h4 class="font-medium text-gray-800">ISO 9001:2015</h4>
+<p class="text-sm text-gray-600">Gestão da Qualidade</p>
+</div>
+</a>
+<a class="flex items-center hover:bg-red-50 rounded-lg p-2 transition-colors" href="Clausulas.html">
+<div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center mr-3">
+<i class="fas fa-hard-hat text-red-600"></i>
+</div>
+<div>
+<h4 class="font-medium text-gray-800">ISO 45001:2018</h4>
+<p class="text-sm text-gray-600">Segurança e Saúde no Trabalho</p>
+</div>
+</a>
+</div>
+</div>
+</main>
+</body>
+</html>

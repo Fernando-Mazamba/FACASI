@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>FACASI · Sistema de Registos</title>
+<meta content="Sistema de gestión de registros integrados - ISO 9001:2015 e ISO 45001:2018 para a FACASI" name="description"/>
+<link href="../Logotipo/logo.png" rel="icon" type="image/png"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+    :root {
+      --sidebar: 255 255 255 / .92;
+      --primary-color: #00695c;
+      --secondary-color: #26a69a;
+      --accent-color: #ffab00;
+      --quality-color: #3b82f6;
+      --environment-color: #10b981;
+      --sst-color: #dc2626;
+    }
+    .glass { background: rgba(var(--sidebar)); backdrop-filter: blur(10px); }
+    .ring-soft { box-shadow: 0 0 0 1px rgba(15,23,42,.06), 0 1px 2px rgba(15,23,42,.06); }
+    .active { background-color: #e0f2fe !important; color: #075985 !important; }
+    
+    .storage-card {
+      transition: all 0.3s ease;
+    }
+    .storage-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    .energy-gradient {
+      background: linear-gradient(135deg, #00695c 0%, #26a69a 100%);
+    }
+    
+    .quality-gradient {
+      background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+    }
+    
+    .environment-gradient {
+      background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+    }
+    
+    .sst-gradient {
+      background: linear-gradient(135deg, #dc2626 0%, #f87171 100%);
+    }
+    
+    .trinorma-gradient {
+      background: linear-gradient(135deg, #3b82f6 0%, #10b981 50%, #dc2626 100%);
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-slate-800">
+<!-- Botón Volver -->
+<div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4">
+<a class="inline-flex items-center px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors" href="Iniciooriginal.html">
+<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+      Volver ao Início
+    </a>
+</div>
+<!-- Contenido Principal -->
+<div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+<!-- Header -->
+<div class="trinorma-gradient rounded-2xl ring-soft p-6 mb-6 text-white">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center">
+<div class="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center mr-4">
+<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div>
+<h1 class="text-2xl font-bold">Sistema de Registos Integrados</h1>
+<p class="text-white text-opacity-90">Gestão documental do Sistema Integrado de Gestão (SIG)</p>
+</div>
+</div>
+<div class="text-sm bg-white bg-opacity-20 px-3 py-1 rounded-lg">
+          SIG - ISO 9001:2015 ·:2015 · 45001:2018
+        </div>
+</div>
+</div>
+<!-- Plataformas de Almacenamiento -->
+<div class="mb-8">
+<h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+<svg class="w-6 h-6 mr-2 text-gray-700" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+        Plataformas de Armazenamento na Nuvem
+      </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Google Drive -->
+<div class="storage-card bg-white rounded-2xl ring-soft p-6">
+<div class="flex items-center mb-4">
+<div class="w-16 h-16 bg-blue-50 rounded-xl flex items-center justify-center mr-4">
+<svg class="w-8 h-8 text-blue-500" fill="currentColor" viewbox="0 0 24 24">
+<path d="M11.344 5.71c0-0.73 0.074-1.229 1.199-1.229h8.894v-4.48h-13.144c-4.889 0-5.743 3.664-5.743 5.744v13.497c0 4.073 1.919 5.758 5.743 5.758h13.497c3.584 0 5.738-2.195 5.738-5.758v-8.894h-4.495v7.144c0 1.199-0.73 1.973-1.973 1.973h-9.42c-1.199 0-1.973-0.774-1.973-1.973v-9.42c0-1.199 0.774-1.973 1.973-1.973h7.144v-4.495h-6.669z"></path>
+</svg>
+</div>
+<div>
+<h3 class="text-lg font-semibold text-gray-800">Google Drive</h3>
+<p class="text-sm text-gray-600">documentos do Sistema Integrado de Gestão</p>
+</div>
+</div>
+<div class="mt-4">
+<a class="w-full trinorma-gradient text-white text-center py-3 rounded-lg hover:opacity-90 transition-all block" href="https://drive.google.com" target="_blank">
+              Aceder ao Google Drive
+            </a>
+</div>
+</div>
+<!-- OneDrive -->
+<div class="storage-card bg-white rounded-2xl ring-soft p-6">
+<div class="flex items-center mb-4">
+<div class="w-16 h-16 bg-blue-50 rounded-xl flex items-center justify-center mr-4">
+<svg class="w-8 h-8 text-blue-600" fill="currentColor" viewbox="0 0 24 24">
+<path d="M21.5 11.5c0 2.485-2.015 4.5-4.5 4.5h-10c-2.485 0-4.5-2.015-4.5-4.5s2.015-4.5 4.5-4.5h10c2.485 0 4.5 2.015 4.5 4.5z"></path>
+</svg>
+</div>
+<div>
+<h3 class="text-lg font-semibold text-gray-800">OneDrive</h3>
+<p class="text-sm text-gray-600">Archivos corporativos e registos técnicos</p>
+</div>
+</div>
+<div class="mt-4">
+<a class="w-full trinorma-gradient text-white text-center py-3 rounded-lg hover:opacity-90 transition-all block" href="https://onedrive.live.com" target="_blank">
+              Aceder ao OneDrive
+            </a>
+</div>
+</div>
+<!-- Dropbox -->
+<div class="storage-card bg-white rounded-2xl ring-soft p-6">
+<div class="flex items-center mb-4">
+<div class="w-16 h-16 bg-blue-50 rounded-xl flex items-center justify-center mr-4">
+<svg class="w-8 h-8 text-blue-500" fill="currentColor" viewbox="0 0 24 24">
+<path d="M6 6l12-4-8 10-4-6zm12 4l-12 4 8-10 4 6zm-12 4l12 4-8-10-4 6z"></path>
+</svg>
+</div>
+<div>
+<h3 class="text-lg font-semibold text-gray-800">Dropbox</h3>
+<p class="text-sm text-gray-600">Archivos compartidos e colaborativos</p>
+</div>
+</div>
+<div class="mt-4">
+<a class="w-full trinorma-gradient text-white text-center py-3 rounded-lg hover:opacity-90 transition-all block" href="https://dropbox.com" target="_blank">
+              Aceder ao Dropbox
+            </a>
+</div>
+</div>
+</div>
+</div>
+<!-- Tipos de Registos por Norma ISO -->
+<div class="mb-8">
+<h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+<svg class="w-6 h-6 mr-2 text-gray-700" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+        Registos por Norma ISO
+      </h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- ISO 9001:2015 - Calidad -->
+<div class="bg-white rounded-2xl ring-soft p-6">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center">
+<div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+<svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div>
+<h3 class="font-semibold text-gray-800">ISO 9001:2015</h3>
+<p class="text-sm text-gray-600">Sistema de Gestão Integrado</p>
+</div>
+</div>
+<span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">Qualidade</span>
+</div>
+<ul class="text-sm text-gray-600 space-y-2">
+<li class="flex items-center">
+<svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+              não conformidades e ações corretivas
+            </li>
+<li class="flex items-center">
+<svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+              Auditorías internas de qualidade
+            </li>
+<li class="flex items-center">
+<svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+              Satisfação do cliente
+            </li>
+<li class="flex items-center">
+<svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+              controlo de documentos e registos
+            </li>
+<li class="flex items-center">
+<svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+              Revisiones por a direção
+            </li>
+</ul>
+<div class="mt-4 pt-4 border-t border-gray-100">
+<a class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center" href="registros-calidad.html">
+              Ver todos os registos de qualidade
+              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</a>
+</div>
+</div>
+<!--:2015 - Ambiental -->
+<div class="bg-white rounded-2xl ring-soft p-6">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center">
+<div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+<svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div>
+<h3 class="font-semibold text-gray-800">:2015</h3>
+<p class="text-sm text-gray-600">Sistema de Gestão ambiental</p>
+</div>
+</div>
+<span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded">ambiental</span>
+</div>
+<ul class="text-sm text-gray-600 space-y-2">
+<li class="flex items-center">
+<svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+              Gestão de residuos e aspectos ambientales
+            </li>
+<li class="flex items-center">
+<svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+              Consumo de agua e recursos naturales
+            </li>
+<li class="flex items-center">
+<svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+              Emergencias ambientales
+            </li>
+<li class="flex items-center">
+<svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+              cumprimento legal ambiental
+            </li>
+<li class="flex items-center">
+<svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+              Auditorías ambientales
+            </li>
+</ul>
+<div class="mt-4 pt-4 border-t border-gray-100">
+<span class="text-gray-400 italic" title="Documento não aplicável ao escopo FACASI (9001/45001)">
+              Ver todos os registos ambientais
+              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</span>
+</div>
+</div>
+<!-- ISO 45001:2018 - Segurança e Saúde no Trabalho -->
+<div class="bg-white rounded-2xl ring-soft p-6">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center">
+<div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mr-3">
+<svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div>
+<h3 class="font-semibold text-gray-800">ISO 45001:2018</h3>
+<p class="text-sm text-gray-600">Segurança e Saúde no Trabalho</p>
+</div>
+</div>
+<span class="bg-red-100 text-red-800 text-xs font-semibold px-2.5 py-0.5 rounded">SST</span>
+</div>
+<ul class="text-sm text-gray-600 space-y-2">
+<li class="flex items-center">
+<svg class="w-4 h-4 mr-2 text-red-500" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+              Identificação de peligros e avaliação de riscos
+            </li>
+<li class="flex items-center">
+<svg class="w-4 h-4 mr-2 text-red-500" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+              Accidentes e incidentes laborales
+            </li>
+<li class="flex items-center">
+<svg class="w-4 h-4 mr-2 text-red-500" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+              Vigilância da saúde
+            </li>
+<li class="flex items-center">
+<svg class="w-4 h-4 mr-2 text-red-500" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+              Formação em SST
+            </li>
+<li class="flex items-center">
+<svg class="w-4 h-4 mr-2 text-red-500" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+              Inspeções de segurança
+            </li>
+</ul>
+<div class="mt-4 pt-4 border-t border-gray-100">
+<a class="text-red-600 hover:text-red-800 text-sm font-medium flex items-center" href="registros-sst.html">
+              Ver todos os registos de SST
+              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Registos Integrados Específicos -->
+<div class="mb-8">
+<h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center"> <svg class="w-6 h-6 mr-2 text-gray-700" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg> <a href="../Registros/index.html">Registos Integrados do SGI </a>
+</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+<div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+<h3 class="font-semibold text-blue-800 mb-2">documentos Comunes</h3>
+<ul class="text-sm text-blue-700 space-y-1">
+<li>• Política Integrada (qualidade, Ambiente, SST)</li>
+<li>• Manual do Sistema Integrado de Gestão</li>
+<li>• Procedimentos integrados</li>
+</ul>
+</div>
+<div class="bg-green-50 p-4 rounded-lg border border-green-200">
+<h3 class="font-semibold text-green-800 mb-2">Auditorías Integradas</h3>
+<ul class="text-sm text-green-700 space-y-1">
+<li>• Plano anual de auditorias integradas</li>
+<li>• Relatórios de auditoria integrada</li>
+<li>• acompanhamento de ações integradas</li>
+</ul>
+</div>
+<div class="bg-red-50 p-4 rounded-lg border border-red-200">
+<h3 class="font-semibold text-red-800 mb-2">indicadores</h3>
+<ul class="text-sm text-red-700 space-y-1">
+<li>• Quadro de controlo integrado</li>
+<li>• indicadores combinados</li>
+<li>• Relatórios de desempenho integrado</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Acciones Rápidas Integradas -->
+<div class="bg-white rounded-2xl ring-soft p-6">
+<h2 class="text-xl font-bold text-gray-800 mb-4">Acesso Rápido Integrado</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"> <a class="flex items-center justify-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors" href="https://drive.google.com" target="_blank">
+<svg class="w-6 h-6 text-blue-600 mr-3" fill="currentColor" viewbox="0 0 24 24">
+<path d="M11.344 5.71c0-0.73 0.074-1.229 1.199-1.229h8.894v-4.48h-13.144c-4.889 0-5.743 3.664-5.743 5.744v13.497c0 4.073 1.919 5.758 5.743 5.758h13.497c3.584 0 5.738-2.195 5.738-5.758v-8.894h-4.495v7.144c0 1.199-0.73 1.973-1.973 1.973h-9.42c-1.199 0-1.973-0.774-1.973-1.973v-9.42c0-1.199 0.774-1.973 1.973-1.973h7.144v-4.495h-6.669z"></path>
+</svg> <span class="font-medium text-gray-700">Google Drive</span> </a>
+<a class="flex items-center justify-center p-4 trinorma-gradient text-white rounded-lg hover:opacity-90 transition-all" href="comousarmanual.html">
+<svg class="w-6 h-6 text-white mr-3" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg> <span class="font-medium">Manual SIG</span> </a> <a class="flex items-center justify-center p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-colors" href="../Registros/index.html">
+<svg class="w-6 h-6 text-green-600 mr-3" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg> <span class="font-medium text-gray-700">Registos SGI</span> </a>
+<a class="flex items-center justify-center p-4 bg-red-50 rounded-lg hover:bg-red-100 transition-colors" href="../Registros/Auditorias/index.html">
+<svg class="w-6 h-6 text-red-600 mr-3" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg> <span class="font-medium text-gray-700">Auditorías</span> </a> </div>
+<!-- Acceso por Norma Específica -->
+<div class="mt-6 pt-6 border-t border-gray-100">
+<h3 class="font-semibold text-gray-700 mb-3">Acesso específico por Norma</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+<a class="px-4 py-2 quality-gradient text-white rounded-lg hover:opacity-90 transition-all text-sm text-center" href="registros-calidad.html">
+            ISO 9001:2015 - qualidade
+          </a>
+<span class="text-gray-400 italic" title="Documento não aplicável ao escopo FACASI (9001/45001)">:2015 - ambiental
+          </span>
+<a class="px-4 py-2 sst-gradient text-white rounded-lg hover:opacity-90 transition-all text-sm text-center" href="registros-sst.html">
+            ISO 45001:2018 - SST
+          </a>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

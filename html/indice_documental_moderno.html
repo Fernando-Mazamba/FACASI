@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Índice Documental | SGI</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe', 300: '#a5b4fc', 400: '#818cf8',
+              500: '#6366f1', 600: '#4f46e5', 700: '#4338ca', 800: '#3730a3', 900: '#312e81'
+            }
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    details[open] summary svg { transform: rotate(180deg); }
+    
+    .doc-row, .category-section {
+      transition: all 0.3s ease;
+    }
+    
+    .file-icon {
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 8px;
+    }
+    
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 6px;
+    }
+    .status-active { background-color: #10b981; }
+    .status-pending { background-color: #f59e0b; }
+    .status-expired { background-color: #ef4444; }
+    
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+    .loading {
+      animation: pulse 2s infinite;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen">
+<!-- Header -->
+<header class="sticky top-0 z-40 border-b bg-white/80 backdrop-blur">
+<div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+<div class="flex items-center gap-3">
+<div class="w-2 h-6 rounded-full bg-brand-500"></div>
+<h1 class="text-xl sm:text-2xl font-semibold">Índice Documental do Sistema de Gestão Integrado (SGI)</h1>
+</div>
+<button class="p-2 rounded-full hover:bg-slate-100" id="themeToggle">
+<svg class="h-5 w-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+</header>
+<!-- Breadcrumb -->
+<nav class="max-w-6xl mx-auto px-4 mt-4 text-sm text-slate-600">
+<ol class="flex items-center gap-2 flex-wrap">
+<li><a class="hover:text-brand-600" href="../index.html">Início</a></li>
+<li class="text-slate-400">/</li>
+<li>Documentação</li>
+<li class="text-slate-400">/</li>
+<li class="text-slate-900">Índice Documental</li>
+</ol>
+</nav>
+<!-- Filtros / Buscador -->
+<section class="max-w-6xl mx-auto px-4 mt-4">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="md:col-span-2">
+<label class="block text-sm font-medium mb-1" for="search">Buscar documentos</label>
+<div class="relative">
+<input class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 pe-10 focus:outline-none focus:ring-2 focus:ring-brand-500" id="search" placeholder="Pesquisar por nome, categoria ou identificador…" type="text"/>
+<svg class="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M21 21l-4.35-4.35M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+</svg>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div>
+<label class="block text-sm font-medium mb-1" for="filterStatus">Estado</label>
+<select class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500" id="filterStatus">
+<option value="all">Todos</option>
+<option value="active">Activos</option>
+<option value="pending">Pendentes</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium mb-1" for="filterCategory">Categoria</label>
+<select class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500" id="filterCategory">
+<option value="all">Todas</option>
+<option value="Anexos">Anexos</option>
+<option value="Descripciones">Descrições</option>
+<option value="Documentos">documentos</option>
+<option value="Formulários">Formulários</option>
+<option value="Manuales">Manuales</option>
+<option value="Objetivos">Objetivos</option>
+<option value="Procedimentos">Procedimentos</option>
+<option value="Reglamentos">Reglamentos</option>
+<option value="Externos">Externos</option>
+</select>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap items-center justify-between mt-3 gap-2">
+<div class="flex gap-2 items-center">
+<span class="text-xs uppercase tracking-wide text-slate-500">Vista:</span>
+<button class="px-3 py-2 text-sm rounded-lg border bg-white hover:bg-slate-50" id="btnCards">Tarjetas</button>
+<button class="px-3 py-2 text-sm rounded-lg border bg-white hover:bg-slate-50 bg-brand-100" id="btnTable">Tabela</button>
+<button class="px-3 py-2 text-sm rounded-lg border bg-white hover:bg-slate-50 flex items-center gap-1" id="btnExport">
+<svg class="h-4 w-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+          Exportar
+        </button>
+</div>
+<div class="text-xs text-slate-500">
+<span id="resultCount">0</span> documentos encontrados
+      </div>
+</div>
+<p class="mt-2 text-xs text-slate-500">Dica: pode escrever "DOC", "FORM", "PRO", "MAN", "PSC", "REG", "Anexos", etc., para filtrar rapidamente.</p>
+</section>
+<!-- Contenido -->
+<main class="max-w-6xl mx-auto px-4 mt-6 mb-24">
+<!-- Indicador de carga -->
+<div class="hidden p-4 text-center" id="loadingIndicator">
+<div class="inline-flex items-center gap-2 text-slate-500">
+<svg class="h-5 w-5 animate-spin" fill="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 4.75V6.25" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+<path d="M17.1266 6.87347L16.0659 7.93413" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+<path d="M19.25 12L17.75 12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+<path d="M17.1266 17.1265L16.0659 16.0659" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+<path d="M12 19.25V17.75" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+<path d="M7.9342 16.0659L6.87354 17.1265" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+<path d="M6.25 12L4.75 12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+<path d="M7.9342 7.93413L6.87354 6.87347" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+</svg>
+        Cargando documentos...
+      </div>
+</div>
+<!-- Acordeones por categoría -->
+<div class="space-y-4" id="accordions">
+<template id="row-template">
+<div class="doc-row grid grid-cols-12 gap-3 items-center rounded-xl border p-3 bg-white hover:shadow-sm transition-shadow">
+<div class="col-span-12 sm:col-span-2 flex items-center gap-2">
+<span class="status-dot status-active"></span>
+<span class="inline-flex text-xs font-medium px-2 py-1 rounded bg-slate-100 text-slate-700 cat">—</span>
+</div>
+<div class="col-span-6 sm:col-span-3 font-mono text-xs text-slate-600 id flex items-center">—</div>
+<div class="col-span-6 sm:col-span-7 truncate flex items-center">
+<a class="name text-brand-700 hover:underline" href="#" target="_blank">—</a>
+</div>
+</div>
+</template>
+<div id="categories-container"></div>
+</div>
+</main>
+<footer class="border-t bg-white">
+<div class="max-w-6xl mx-auto px-4 py-6 text-sm text-slate-500 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+<p>© SGI · Índice Documental</p>
+<p class="opacity-80">Rutas relativas preservadas (../PDF-01, ../Excel-trinormas, ../Manualesyleyes, etc.).</p>
+</div>
+</footer>
+<script>
+    // TODOS LOS DOCUMENTOS COMPLETOS (com nova adição DOC-007)
+    const ITEMS = [
+      // Anexos
+
+
+
+
+      // Descripciones (DES)
+      {cat:'Descripciones', id:'DES', name:'001-Gerente-General', url:'../PDF-01/DES-001-Gerente-General.html', type:'pdf', status:'active'},
+      {cat:'Descripciones', id:'DES', name:'002-Gerente-Administrativo', url:'../PDF-01/DES-002-Gerente-Administrativo.html', type:'pdf', status:'active'},
+      {cat:'Descripciones', id:'DES', name:'003-Contador (tercerizado)', url:'../PDF-01/DES-003-Contador-tercerizado.html', type:'pdf', status:'active'},
+      {cat:'Descripciones', id:'DES', name:'004-Asistente-Administrativo', url:'../PDF-01/DES-004-Asistente-Administrativo.html', type:'pdf', status:'active'},
+      {cat:'Descripciones', id:'DES', name:'005-Gerente-de-Operaciones', url:'../PDF-01/DES-005-Gerente-de-Operaciones.html', type:'pdf', status:'active'},
+      {cat:'Descripciones', id:'DES', name:'006-Coordinador-Fiscalizador', url:'../PDF-01/DES-006-Coordinador-Fiscalizador.html', type:'pdf', status:'active'},
+      {cat:'Descripciones', id:'DES', name:'007-Operários', url:'../PDF-01/DES-007-Operarios.html', type:'pdf', status:'active'},
+      {cat:'Descripciones', id:'DES', name:'008-Gerente-de-RRHH', url:'../PDF-01/DES-008-GerentedeRRHH.html', type:'pdf', status:'active'},
+      {cat:'Descripciones', id:'DES', name:'009-Asistente-RRHH', url:'../PDF-01/DES-009-AsistenteRRHH.html', type:'pdf', status:'active'},
+      {cat:'Descripciones', id:'DES', name:'010-Gerente-Comercial', url:'../PDF-01/DES-010-GerenteComercial.html', type:'pdf', status:'active'},
+      {cat:'Descripciones', id:'DES', name:'011-Asistente-Comercial', url:'../PDF-01/DES-011-Asistente-Comercial.html', type:'pdf', status:'active'},
+      {cat:'Descripciones', id:'DES', name:'013-Coordinador-del-SGI', url:'../PDF-01/DES-013-Coordinador-del-SGI.html', type:'pdf', status:'active'},
+
+      // Documentos (DOC)
+      {cat:'Documentos', id:'DOC', name:'001-Alcance-SGI', url:'../PDF-01/DOC-001-Alcance-SGI.html', type:'pdf', status:'active'},
+      {cat:'Documentos', id:'DOC', name:'002-Análise-do-Contexto', url:'../PDF-01/DOC-002-AnalisisdelContexto.html', type:'pdf', status:'active'},
+      {cat:'Documentos', id:'DOC', name:'003-Análise-Partes-Interessadas', url:'../PDF-01/DOC-003-Analisis-Partes-Interesadas.html', type:'pdf', status:'active'},
+      {cat:'Documentos', id:'DOC', name:'004-Mapa-de-Procesos', url:'../PDF-01/DOC-004-Mapa-de-Procesos.html', type:'pdf', status:'active'},
+      {cat:'Documentos', id:'DOC', name:'005-Política-da-Qualidade', url:'../PDF-01/DOC-005-Politica-de-la-Calidad.html', type:'pdf', status:'active'},
+
+      // NUEVO DOCUMENTO
+      {cat:'Documentos', id:'DOC', name:'007-Política SST', url:'../PDF-01/DOC-007-politica-de-syso.html', type:'pdf', status:'active'},
+      {cat:'Documentos', id:'DOC', name:'008-Política-RSE', url:'../PDF-01/DOC-008-Politica-RSE.html', type:'pdf', status:'active'},
+      {cat:'Documentos', id:'DOC', name:'009-Política-de-Gestão-de-Riscos-Integrada', url:'../PDF-01/DOC-009-Politica-de-Gestion-de-Riesgos-Integrada-SGI.html', type:'pdf', status:'active'},
+      {cat:'Documentos', id:'DOC', name:'010-Propiedad-del-cliente', url:'../PDF-01/DOC-010-Propiedad-del-cliente.html', type:'pdf', status:'active'},
+      {cat:'Documentos', id:'DOC', name:'011-Organograma', url:'../PDF-01/DOC-011-ORGANOGRAMA.html', type:'pdf', status:'active'},
+      {cat:'Documentos', id:'DOC', name:'012-Missão-Visão-Valores', url:'../PDF-01/DOC-012-Mision-Vision-Valores.html', type:'pdf', status:'active'},
+      {cat:'Documentos', id:'DOC', name:'013-Recursos-de-Medição - KPIs', url:'../PDF-01/DOC-013-RecursosdeMedicion-KPIs.html', type:'pdf', status:'active'},
+      {cat:'Documentos', id:'DOC', name:'014-Plano-de-Emergência-Climática', url:'../PDF-01/DOC-014-Plan-de-Emergencia-Climatica.html', type:'pdf', status:'active'},
+      {cat:'Documentos', id:'DOC', name:'015-Plano-de-Ação-de-Mitigação-de-GEE', url:'../PDF-01/DOC-015-Plan-de-Accion-de-Mitigacion-de-GEI.html', type:'pdf', status:'active'},
+      {cat:'Documentos', id:'DOC', name:'016-Plano-de-Adaptação-às-Alterações-Climáticas', url:'../PDF-01/DOC-016-Plan-de-Adaptacion-al-Cambio-Climatico.html', type:'pdf', status:'active'},
+      {cat:'Documentos', id:'DOC', name:'017-Plano-de-ação SST', url:'../PDF-01/DOC-017-Plan-de-accion-syso.html', type:'pdf', status:'active'},
+
+      {cat:'Documentos', id:'DOC', name:'019-Plano de Mitigação de Riscos', url:'../PDF-01/DOC-019-Plan_de_Mitigacion_de_Riesgos.html', type:'pdf', status:'active'},
+
+
+
+
+
+
+      // Outro documento adicionado anteriormente
+      {cat:'Documentos', id:'DOC', name:'024-Plano de Tratamento de Riscos', url:'../PDF-01/DOC-024-Plan-de-Tratamiento-de-Riesgos.html', type:'pdf', status:'active'},
+
+      // Formulários (FORM)
+      {cat:'Formulários', id:'FICHAS', name:'EXTINTORES', url:'../PDF-01/FICHAS-EXTINTORES.html', type:'pdf', status:'active'},
+
+
+
+
+
+      {cat:'Formulários', id:'FORM', name:'001-Quejas-y-Reclamos', url:'../Excel-trinormas/FORM-001-Quejas-y-Reclamos.html', type:'excel', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'002-Comunicação-interna-e-externa', url:'../Excel-trinormas/FORM-002-Comunicacion-interna-y-externa.html', type:'excel', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'004-Calibração-de-equipamentos', url:'../Excel-trinormas/FORM-004-Calibracion-de-equipos.html', type:'excel', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'007-Não Conformidade', url:'../PDF-01/FORM-007-NoConformidad.html', type:'pdf', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'008-Registo-Não-Conformidade / Oportunidade de Melhoria', url:'../Excel-trinormas/FORM-008-Registro-No-Conformidad-Oportunidades.html', type:'excel', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'010-Plano de Auditoria', url:'../PDF-01/FORM-010-Plan-de-Auditoria.html', type:'pdf', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'011-Programa de auditoria interna', url:'../Excel-trinormas/FORM-011-programa-de-auditoria-interna.html', type:'excel', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'012-Revisão pela direção', url:'../PDF-01/FORM-012-Revision-por-direccion.html', type:'pdf', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'013-Plano de Ação Climática', url:'../PDF-01/FORM-013-PLAN-DE-ACCION-CLIMATICA.html', type:'pdf', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'014-Avaliação de desempenho', url:'../PDF-01/FORM-014-Evaluacion-de-desempeno.html', type:'pdf', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'015-Relatório de Auditoria Interna', url:'../PDF-01/FORM-015-Reporte-de-Auditoria-Interna.html', type:'pdf', status:'active'},
+
+      {cat:'Formulários', id:'FORM', name:'017-Avaliação de Fornecedores', url:'../PDF-01/FORM-017-EvaluaciondeProveedores.html', type:'pdf', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'018-Ordem de Compra', url:'../PDF-01/FORM-018-Oden-de-Compra.html', type:'pdf', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'020-Programa de Revisão pela Direção', url:'../Excel-trinormas/FORM-020-PROGRAMA-DE-REVISION-POR-LA-GERENCIA-ESTRATEGICA.html', type:'excel', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'021-Programa de formação em SST', url:'../Excel-trinormas/FORM-021-Programa-de-capacitacion-en-syso.html', type:'excel', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'022-Inquérito Satisfação do Cliente', url:'../Excel-trinormas/FORM-022-Encuesta-Satisfaccion-Cliente.html', type:'excel', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'023-Certificado de Análise de Qualidade', url:'../Excel-trinormas/FORM-023-CERTIFICADO-DE-ANALISIS-DE-CALIDAD.html', type:'excel', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'024-Avaliação de Formação', url:'../Excel-trinormas/FORM-024-EVALUACION-DE-CAPACITACION.html', type:'excel', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'025-Consulta ou Retirada de Documentos Inativos', url:'../Excel-trinormas/FORM-025-CONSULTA-O-RETIRO-DE-DOCUMENTOS-INACTIVOS.html', type:'excel', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'026-Planeamento das alterações', url:'../Excel-trinormas/FORM-026-PLANIFICACION-DE-LOS-CAMBIOS.html', type:'excel', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'027-Inventário de Documentos Internos', url:'../Excel-trinormas/FORM-027-INVENTARIO-DE-DOCUMENTOS-INACTIVOS.html', type:'excel', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'028-Entrega EPP', url:'../Excel-trinormas/FORM-028-ENTREGA-EPP.html', type:'excel', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'029-Registo Entrega EPI (Completo)', url:'../Excel-trinormas/FORM-029-Registro-Entrega-EPI-Completo.html', type:'excel', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'030-Registo de Acidentes e Incidentes', url:'../Excel-trinormas/FORM-030-REGISTRO-DE-ACCIDENTES-E-INCIDENTES.html', type:'excel', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'031-Registo de Quilometragem', url:'../Excel-trinormas/FORM-031-de-Kilometraje.html', type:'excel', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'032-Plano de manutenção de instalações', url:'../Excel-trinormas/FORM-032-Plan-de-Mantenimiento-de-Instalaciones.html', type:'excel', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'033-Ata Reunião Segurança (modelo)', url:'../PDF-01/FORM-033-Acta_Reuniao_Seguranca_Modelo.html', type:'pdf', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'034-Matriz trabajadores', url:'../Excel-trinormas/FORM-034-Matriz-trabajadores.html', type:'excel', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'035-Inquérito Perceção de Riscos (modelo)', url:'../Excel-trinormas/FORM-035-Encuesta_Percepcion_Riesgos_Modelo_Espanol.html', type:'excel', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'036-Registo de Feedback dos Trabalhadores', url:'../PDF-01/FORM-036-Registro-de-Retroalimentacion-de-Trabajadores.html', type:'pdf', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'039-SIPOC', url:'../Excel-trinormas/FORM-039-SIPOC.html', type:'excel', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'037-Plano de Ação para Riscos', url:'../PDF-01/FORM-037-PlandeAccionparaRiesgos.html', type:'pdf', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'043-Registo de Rastreabilidade', url:'../PDF-01/FORM-043-RegistrodeTrazabilidad.html', type:'pdf', status:'active'},
+      {cat:'Formulários', id:'Formato', name:'Editável - tamanho A4', url:'../PDF-01/modelo.html', type:'pdf', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'RRHH-001-Plano de formação', url:'../Excel-trinormas/FORM-RRHH-001-Plan-de-capacitacion.html', type:'excel', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'RRHH-002-Necessidades de Formação', url:'../Excel-trinormas/FORM-RRHH-002-Necesidades-de-Capacitacion.html', type:'excel', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'RRHH-003-Avaliação de Desempenho', url:'../Excel-trinormas/FORM-RRHH-003-evaluacion-de-Desempeno.html', type:'excel', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'RRHH-004-Solicitação de Licença', url:'../Excel-trinormas/FORM-RRHH-004-Solicitud-de-Permiso.html', type:'excel', status:'active'},
+      {cat:'Formulários', id:'FORM', name:'RRHH-005-Pedido de Férias', url:'../PDF-01/FORM-RRHH-05Solicitud-de-vacaciones.html', type:'pdf', status:'active'},
+
+      // Manuales (MAN)
+      {cat:'Manuales', id:'MAN004', name:'Manual de Emergências', url:'../PDF-01/MAN004-ManualdeEmergencias.html', type:'pdf', status:'active'},
+      {cat:'Manuales', id:'MAN', name:'005-Manual de Trabalho Seguro', url:'../PDF-01/MAN-005-Manualde-Trabajo-Seguro.html', type:'pdf', status:'active'},
+      {cat:'Manuales', id:'MAN', name:'EXT-001-Manual básico de prevenção de riscos', url:'../Manualesyleyes/MAN-EXT-001-manual-basico-de-prevencion de riesgos-laborales_seguridad_y_medio_ambiente_es.pdf', type:'pdf', status:'active'},
+      {cat:'Manuales', id:'MAN', name:'EXT-002-Manual de procedimentos de segurança', url:'../Manualesyleyes/MAN-EXT-002-Manual-de-procedimientos-de-prevencion-de-riesgos-laborales-Guia-de-elaboracion.pdf', type:'pdf', status:'active'},
+      {cat:'Manuales', id:'MAN', name:'MAN-EXT-003-Manual: Risco Elétrico, Incêndios e Evacuação', url:'../Manualesyleyes/MAN-EXT-003-Manual-Riesgo-Electrico-Incendios-y-Evacuacion.pdf', type:'pdf', status:'active'},
+
+      // Objetivos y Controles (OC)
+      {cat:'Objetivos', id:'OC', name:'001-Objetivos da qualidade', url:'../PDF-01/OC-001-Objetivos-de-la-calidad.html', type:'pdf', status:'active'},
+
+      {cat:'Objetivos', id:'OC', name:'003-Objetivos SYSO', url:'../PDF-01/OC-003-Objetivos-syso.html', type:'pdf', status:'active'},
+
+      // Procedimentos (PRO/PSC/PCS)
+      {cat:'Procedimentos', id:'PRO', name:'022-Procedimentos de Cumprimento Normativo', url:'../PDF-01/PRO-022-Procedimientos-de_Cumplimiento_Normativo.html', type:'pdf', status:'active'},
+
+
+
+
+
+      {cat:'Procedimentos', id:'PRO', name:'001-Controlo de informação documentada', url:'../PDF-01/PRO-001-control-informacion-documentada.html', type:'pdf', status:'active'},
+      {cat:'Procedimentos', id:'PRO', name:'002-Controlo de registos', url:'../PDF-01/PRO-002-control-registros.html', type:'pdf', status:'active'},
+      {cat:'Procedimentos', id:'PRO', name:'003-Produto não conforme', url:'../PDF-01/PRO-003-producto-no-conforme.html', type:'pdf', status:'active'},
+      {cat:'Procedimentos', id:'PRO', name:'004-Auditorias internas', url:'../PDF-01/PRO-004-auditorias-internas.html', type:'pdf', status:'active'},
+      {cat:'Procedimentos', id:'PRO', name:'005-Acciones correctivas', url:'../PDF-01/PRO-005-acciones-correctivas.html', type:'pdf', status:'active'},
+      {cat:'Procedimentos', id:'PRO', name:'006-Acciones preventivas', url:'../PDF-01/PRO-006-acciones-preventivas.html', type:'pdf', status:'active'},
+      {cat:'Procedimentos', id:'PRO', name:'007-Gestão de riscos', url:'../PDF-01/PRO-007-gestion-riesgo.html', type:'pdf', status:'active'},
+      {cat:'Procedimentos', id:'PRO', name:'008-Gestão de clientes', url:'../PDF-01/PRO-008-gestion-cliente.html', type:'pdf', status:'active'},
+      {cat:'Procedimentos', id:'PRO', name:'009-Gestão de talento humano', url:'../PDF-01/PRO-009-gestion-talentohumano.html', type:'pdf', status:'active'},
+      {cat:'Procedimentos', id:'PRO', name:'010-Gestão de comunicações', url:'../PDF-01/PRO-010-Gestion-Comunicaciones.html', type:'pdf', status:'active'},
+      {cat:'Procedimentos', id:'PRO', name:'011-Gestão de comunicações internas', url:'../PDF-01/PRO-010-Gestion-Comunicaciones.html', type:'pdf', status:'active'},
+      {cat:'Procedimentos', id:'PRO', name:'012-Gestão da liderança', url:'../PDF-01/PRO-012-Gestiondelliderazgo.html', type:'pdf', status:'active'},
+      {cat:'Procedimentos', id:'PRO', name:'013-Compras e Subcontratação', url:'../PDF-01/PRO-016-Procedimiento-compras.html', type:'pdf', status:'active'},
+
+      {cat:'Procedimentos', id:'PRO', name:'015-Plano de emergência (resumido)', url:'../PDF-01/PRO-015-Plan-de-emergencia-resumido.html', type:'pdf', status:'active'},
+      {cat:'Procedimentos', id:'PRO', name:'016-Procedimento de compras', url:'../PDF-01/PRO-016-Procedimiento-compras.html', type:'pdf', status:'active'},
+      {cat:'Procedimentos', id:'PRO', name:'017-Gestão das Alterações Climáticas no SGI', url:'../PDF-01/PRO-017-Gestion-del-Cambio-Climatico-en-el-SGI.html', type:'pdf', status:'active'},
+      {cat:'Procedimentos', id:'PRO', name:'018-Gestão de Riscos Climáticos', url:'../PDF-01/PRO-018-Gestion-de-Riesgos-Climaticos.html', type:'pdf', status:'active'},
+      {cat:'Procedimentos', id:'PRO', name:'019-Avaliação de Riscos e Oportunidades', url:'../PDF-01/PRO-019-Evaluacion-de-Riesgos-y-Oportunidades.html', type:'pdf', status:'active'},
+      {cat:'Procedimentos', id:'PRO', name:'020-Gestão de Equipamentos de Proteção Individual (EPI)', url:'../PDF-01/PRO-020-PROCEDIMIENTO-DE-GESTION-DE-EQUIPOS-DE-PROTECCION-INDIVIDUAL-EPI.html', type:'pdf', status:'active'},
+      {cat:'Procedimentos', id:'PRO', name:'021-Controlo de Segurança / Saúde Ocupacional', url:'../PDF-01/PRO-021-PROCEDIMIENTO-DE-CONTROL-DE-SALUD-OCUPACIONAL.html', type:'pdf', status:'active'},
+      {cat:'Procedimentos', id:'PRO', name:'023-Participação e Consulta', url:'../PDF-01/PRO-023-ProcedimientodeParticipacionyConsulta.html', type:'pdf', status:'active'},
+      {cat:'Procedimentos', id:'PRO', name:'024-Gestão da Mudança', url:'../PDF-01/PRO-024-GestiondelCambio.html', type:'pdf', status:'active'},
+      {cat:'Procedimentos', id:'PRO', name:'026-Identificação e Avaliação de Riscos / Rastreabilidade', url:'../PDF-01/PRO-026 -ProcedimientodeIdentificacionyTrazabilidad.html', type:'pdf', status:'active'},
+      {cat:'Procedimentos', id:'PRO', name:'030-Preservação de Produto', url:'../PDF-01/PRO-030-Procedimiento-de-Preservacion-de-Producto.html', type:'pdf', status:'active'},
+      {cat:'Procedimentos', id:'PRO', name:'031-Controlo de Produção e prestação de serviços', url:'../PDF-01/PRO-031-ControledaProducaoeprestacaodoservico.html', type:'pdf', status:'active'},
+      {cat:'Procesos', id:'PSC', name:'001-Processo Liderança', url:'../PDF-01/PSC-001-Proceso-Liderazgo.html', type:'pdf', status:'active'},
+      {cat:'Procesos', id:'PSC', name:'002-Gestão dos recursos', url:'../PDF-01/PSC-002-Gestiondelosrecursos.html', type:'pdf', status:'active'},
+
+      {cat:'Procesos', id:'PSC', name:'004-SYSO', url:'../PDF-01/PSC-004-SYSO.html', type:'pdf', status:'active'},
+      {cat:'Procesos', id:'PSC', name:'007-Análise e desenho do serviço', url:'../PDF-01/PSC-007-Analisisydisenodelservicio.html', type:'pdf', status:'active'},
+      {cat:'Procesos', id:'PSC', name:'008-Desenvolvimento do Serviço', url:'../PDF-01/PSC-008-Desarrollo-del-Servicio.html', type:'pdf', status:'active'},
+      {cat:'Procesos', id:'PSC', name:'009-Post-venta', url:'../PDF-01/PSC-009-Post-venta.html', type:'pdf', status:'active'},
+      {cat:'Procesos', id:'PSC', name:'010-Administração e RH', url:'../PDF-01/PSC-010-Administraciony-RRHH.html', type:'pdf', status:'active'},
+      {cat:'Procesos', id:'PSC', name:'011-Gestão de fornecedores', url:'../PDF-01/PSC-011-Gestion-de-proveedores.html', type:'pdf', status:'active'},
+      {cat:'Procesos', id:'PSC', name:'012-Gestão logística', url:'../PDF-01/PSC-012-Gestion-logisitca.html', type:'pdf', status:'active'},
+      {cat:'Procesos', id:'PCS', name:'005-Cumprimento e Melhoria', url:'../PDF-01/PCS-005-CumplimientoyMejora.html', type:'pdf', status:'active'},
+      {cat:'Procesos', id:'PCS', name:'006-Gestão do cliente', url:'../PDF-01/PCS-006-Gestion-del-cliente.html', type:'pdf', status:'active'},
+
+      // Reglamentos (REG)
+      {cat:'Reglamentos', id:'REG', name:'001-Regulamento do Comité de Segurança e Saúde no Trabalho', url:'../PDF-01/REG-001-Reglamento-del-Comite-de-Seguridad-y-Salud-en-el-Trabajo.html', type:'pdf', status:'active'},
+      
+      // Manuales y leyes (Externos)
+      {cat:'Externos', id:'CERT-001', name:'Certificado ISO 9001:2015 (PT/EN)', url:'../NormasISO/Certificados/certificados-iso-9001-45001-portugues.pdf', type:'pdf', status:'active'},
+      {cat:'Externos', id:'CERT-002', name:'Certificado ISO 45001:2018 (PT/EN)', url:'../NormasISO/Certificados/certificados-iso-9001-45001-ingles.pdf', type:'pdf', status:'active'},
+      {cat:'Externos', id:'REC-001', name:'Cartas de Reconhecimento da entidade certificadora', url:'../NormasISO/Certificados/cartas-de-reconhecimento.pdf', type:'pdf', status:'active'},
+      {cat:'Externos', id:'Manual de Biossegurança', name:'OMS', url:'../Manualesyleyes/3-Manual-de-Bioseguridad-OMS.pdf', type:'pdf', status:'active'},
+      {cat:'Externos', id:'—', name:'Conceitos Básicos de Segurança', url:'../Manualesyleyes/CONCEPTOS-BASICOS-DE-SEGURIDAD.pdf', type:'pdf', status:'active'},
+      {cat:'Externos', id:'—', name:'Guia de Construção', url:'../Manualesyleyes/Dsso-guia-construccion.pdf', type:'pdf', status:'active'},
+      {cat:'Externos', id:'—', name:'Prevenção de Riscos Laborais e Alterações Climáticas', url:'../Manualesyleyes/Prevencion-de Riesgos-LaboralesyCambiClimatico.pdf', type:'pdf', status:'active'},
+      {cat:'Externos', id:'—', name:'Incidentes', url:'../Manualesyleyes/incidente.pdf', type:'pdf', status:'active'},
+    ];
+
+    // Categorías (sin)
+    const CATEGORIES = [
+      { id: 'Anexos', name: 'Anexos', icon: 'A' },
+      { id: 'Descripciones', name: 'Descrições de Cargos', icon: 'DES' },
+      { id: 'Documentos', name: 'Documentos', icon: 'DOC' },
+      { id: 'Formulários', name: 'Formulários', icon: 'FORM' },
+      { id: 'Manuales', name: 'Manuales', icon: 'MAN' },
+      { id: 'Objetivos', name: 'Objetivos y Controles', icon: 'OC' },
+      { id: 'Procedimentos', name: 'Procedimentos (PRO)', icon: 'PRO' },
+      { id: 'Procesos', name: 'Procesos (PSC / PCS)', icon: 'PSC' },
+      { id: 'Matrices', name: 'Matrices', icon: 'MAT' },
+      { id: 'Reglamentos', name: 'Reglamentos', icon: 'REG' },
+      { id: 'Externos', name: 'Manuales y Leyes', icon: 'EXT' }
+    ];
+
+    // Estado de la aplicación
+    let currentView = 'table';
+    let currentSearch = '';
+    let currentStatusFilter = 'all';
+    let currentCategoryFilter = 'all';
+    let filteredItems = [...ITEMS];
+
+    // Renderizar categorías
+    function renderCategories() {
+      const container = document.getElementById('categories-container');
+      container.innerHTML = '';
+      
+      CATEGORIES.forEach(cat => {
+        const categoryItems = filteredItems.filter(item => item.cat === cat.id);
+        if (categoryItems.length === 0) return;
+        
+        const categorySection = document.createElement('details');
+        categorySection.className = 'group rounded-2xl border bg-white overflow-hidden category-section';
+        categorySection.open = true;
+        
+        categorySection.innerHTML = `
+          <summary class="flex items-center justify-between px-4 py-3 cursor-pointer select-none">
+            <div class="flex items-center gap-3">
+              <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-brand-100 text-brand-700 font-semibold">${cat.icon}</span>
+              <h3 class="text-lg font-semibold">${cat.name}</h3>
+              <span class="text-xs text-slate-500 ml-2" data-count="${cat.id}">${categoryItems.length} itens</span>
+            </div>
+            <svg class="h-5 w-5 text-slate-400 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 9l6 6 6-6"/>
+            </svg>
+          </summary>
+          <div class="p-4 space-y-2" id="list-${cat.id}"></div>
+        `;
+        
+        container.appendChild(categorySection);
+        renderList(cat.id, `list-${cat.id}`, categoryItems);
+      });
+      
+      updateResultCount();
+    }
+
+    // Renderizar lista de documentos
+    function renderList(cat, containerId, items) {
+      const container = document.getElementById(containerId);
+      const tmpl = document.getElementById('row-template');
+      container.innerHTML = '';
+      
+      items.forEach(it => {
+        const row = tmpl.content.cloneNode(true);
+        row.querySelector('.cat').textContent = cat;
+        row.querySelector('.id').textContent = it.id;
+        
+        const a = row.querySelector('.name');
+        a.textContent = it.name;
+        a.href = it.url;
+        a.setAttribute('title', `Abrir ${it.name}`);
+        
+        // Actualizar indicador de estado
+        const statusIndicator = row.querySelector('.status-dot');
+        statusIndicator.className = `status-dot status-${it.status}`;
+        
+        container.appendChild(row);
+      });
+    }
+
+    // Aplicar filtros
+    function applyFilters() {
+      showLoading();
+      
+      setTimeout(() => {
+        filteredItems = ITEMS.filter(item => {
+          const searchMatch = !currentSearch || 
+            item.cat.toLowerCase().includes(currentSearch.toLowerCase()) ||
+            item.id.toLowerCase().includes(currentSearch.toLowerCase()) ||
+            item.name.toLowerCase().includes(currentSearch.toLowerCase());
+          
+          const statusMatch = currentStatusFilter === 'all' || item.status === currentStatusFilter;
+          const categoryMatch = currentCategoryFilter === 'all' || item.cat === currentCategoryFilter;
+          
+          return searchMatch && statusMatch && categoryMatch;
+        });
+        
+        renderCategories();
+        hideLoading();
+      }, 300);
+    }
+
+    // Actualizar contador de resultados
+    function updateResultCount() {
+      const countElement = document.getElementById('resultCount');
+      countElement.textContent = filteredItems.length;
+    }
+
+    // Alternar vista (Tarjetas vs Tabla)
+    function switchView(to) {
+      currentView = to;
+      const rows = document.querySelectorAll('.doc-row');
+      
+      rows.forEach(r => {
+        if (to === 'cards') {
+          r.classList.remove('grid-cols-12');
+          r.classList.add('grid-cols-1', 'text-center');
+          r.querySelector('.id').classList.add('mt-1', 'text-center');
+        } else {
+          r.classList.add('grid-cols-12');
+          r.classList.remove('grid-cols-1', 'text-center');
+          r.querySelector('.id').classList.remove('mt-1', 'text-center');
+        }
+      });
+      
+      document.getElementById('btnCards').classList.toggle('bg-brand-100', to === 'cards');
+      document.getElementById('btnTable').classList.toggle('bg-brand-100', to === 'table');
+    }
+
+    // Exportar lista
+    function exportList() {
+      const data = filteredItems.map(item => ({
+        Categoría: item.cat,
+        ID: item.id,
+        Nombre: item.name,
+        Estado: item.status,
+        URL: item.url
+      }));
+      
+      const csvContent = "data:text/csv;charset=utf-8," 
+        + "Categoria,ID,Nome,Estado,URL\n"
+        + data.map(e => Object.values(e).join(",")).join("\n");
+      
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", "indice_documental.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // Mostrar/ocultar indicador de carga
+    function showLoading() {
+      document.getElementById('loadingIndicator').classList.remove('hidden');
+    }
+    
+    function hideLoading() {
+      document.getElementById('loadingIndicator').classList.add('hidden');
+    }
+
+    // Inicializar
+    function init() {
+      renderCategories();
+      
+      // Event listeners
+      document.getElementById('search').addEventListener('input', (e) => {
+        currentSearch = e.target.value;
+        applyFilters();
+      });
+      
+      document.getElementById('filterStatus').addEventListener('change', (e) => {
+        currentStatusFilter = e.target.value;
+        applyFilters();
+      });
+      
+      document.getElementById('filterCategory').addEventListener('change', (e) => {
+        currentCategoryFilter = e.target.value;
+        applyFilters();
+      });
+      
+      document.getElementById('btnCards').addEventListener('click', () => switchView('cards'));
+      document.getElementById('btnTable').addEventListener('click', () => switchView('table'));
+      document.getElementById('btnExport').addEventListener('click', exportList);
+      
+      switchView('table');
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>

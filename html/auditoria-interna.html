@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Auditoria Interna - Sistema de Gestão</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      background-color: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .header {
+      background: linear-gradient(90deg, #1a237e, #283593);
+      color: white;
+      padding: 40px 30px;
+      text-align: center;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      gap: 20px;
+    }
+
+    .logo-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: contain;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      background-color: white;
+      padding: 5px;
+    }
+
+    .logo-text {
+      text-align: left;
+    }
+
+    .logo-text h1 {
+      font-size: 1.8rem;
+      margin-bottom: 5px;
+      color: white;
+    }
+
+    .logo-text p {
+      font-size: 1rem;
+      opacity: 0.9;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .system-badge {
+      display: inline-block;
+      background-color: #ffd700;
+      color: #1a237e;
+      padding: 10px 25px;
+      border-radius: 25px;
+      font-weight: bold;
+      margin-top: 15px;
+      font-size: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .main-content {
+      padding: 50px 30px;
+      text-align: center;
+    }
+
+    .welcome-text {
+      margin-bottom: 50px;
+    }
+
+    .welcome-text h2 {
+      color: #1a237e;
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+    }
+
+    .welcome-text p {
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+    }
+
+    .buttons-container {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    /* ESTILO PARA LINKS COMO BOTÕES */
+    .pdf-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      padding: 25px 30px;
+      border: none;
+      border-radius: 15px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: white;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .pdf-link:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .pdf-link:active {
+      transform: translateY(-2px);
+    }
+
+    .audit-link {
+      background: linear-gradient(135deg, #4caf50, #2e7d32);
+    }
+
+    .review-link {
+      background: linear-gradient(135deg, #2196f3, #1565c0);
+    }
+
+    .cert-plan-link {
+      background: linear-gradient(135deg, #ff9800, #ef6c00);
+    }
+
+    .cert-report1-link {
+      background: linear-gradient(135deg, #9c27b0, #6a1b9a);
+    }
+
+    .cert-report2-link {
+      background: linear-gradient(135deg, #607d8b, #37474f);
+    }
+
+    .section-divider {
+      margin: 10px 0 5px;
+      color: #999;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    .pdf-link i {
+      font-size: 1.8rem;
+    }
+
+    footer {
+      background-color: #f8f9fa;
+      padding: 25px 30px;
+      text-align: center;
+      border-top: 1px solid #eee;
+    }
+
+    .footer-text {
+      color: #666;
+      margin-bottom: 15px;
+      font-size: 0.95rem;
+    }
+
+    .copyright {
+      color: #888;
+      font-size: 0.85rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header {
+        padding: 30px 20px;
+      }
+      
+      .logo-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+      }
+      
+      .logo-text {
+        text-align: center;
+      }
+      
+      .logo-text h1 {
+        font-size: 1.6rem;
+      }
+      
+      .main-content {
+        padding: 40px 20px;
+      }
+      
+      .pdf-link {
+        padding: 22px 25px;
+        font-size: 1.2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 15px;
+      }
+      
+      .container {
+        border-radius: 15px;
+      }
+      
+      .logo-text h1 {
+        font-size: 1.4rem;
+      }
+      
+      .logo-image {
+        width: 70px;
+        height: 70px;
+      }
+      
+      .welcome-text h2 {
+        font-size: 1.5rem;
+      }
+      
+      .pdf-link {
+        padding: 20px;
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+<header class="header">
+<div class="logo-container">
+<img alt="Logótipo do Sistema de Gestão" class="logo-image" onerror="this.style.display='none';" src="../Logotipo/logo.png"/>
+<div class="logo-text">
+<h1>Sistema de Gestão Integrado</h1>
+<p>Portal de Documentação</p>
+</div>
+</div>
+<div class="system-badge">
+<i class="fas fa-certificate"></i> SISTEMA DE gestão
+      </div>
+</header>
+<main class="main-content">
+<div class="welcome-text">
+<h2>Auditoria Interna e Revisão pela Direção</h2>
+<p>Acceda a os documentos do sistema de gestão para auditoria interna e revisão pela direção</p>
+</div>
+<div class="buttons-container">
+<!-- Link de Auditoria Interna -->
+<a class="pdf-link audit-link" href="../Revisionyauditoria/Reporte-Auditoria.pdf" target="_blank"> <i class="fas fa-clipboard-check"></i>
+<span>Auditoria Interna</span> </a>
+<!-- Link de Revisão pela Direção -->
+<a class="pdf-link review-link" href="../Revisionyauditoria/Revision-direccion.pdf" target="_blank"> <i class="fas fa-users-cog"></i> <span>revisão 
+    por a direção</span> </a>
+
+<p class="section-divider">Documentos de Certificação</p>
+
+<!-- Link do Plano de Auditoria Fase 2 -->
+<a class="pdf-link cert-plan-link" href="../Revisionyauditoria/Plano_Auditoria_Fase_2_FACASI_REESTRUTURADO.pdf" target="_blank"> <i class="fas fa-file-signature"></i>
+<span>Plano de Auditoria - Fase 2</span> </a>
+
+<!-- Link do Relatório de Auditoria Fase 1 -->
+<a class="pdf-link cert-report1-link" href="../Revisionyauditoria/Relatorio_Auditoria_Fase_1.pdf" target="_blank"> <i class="fas fa-file-alt"></i>
+<span>Relatório de Auditoria - Fase 1</span> </a>
+
+<!-- Link do Relatório de Auditoria Fase 2 -->
+<a class="pdf-link cert-report2-link" href="../Revisionyauditoria/Relatorio_Auditoria_Fase_2.pdf" target="_blank"> <i class="fas fa-file-invoice"></i>
+<span>Relatório de Auditoria - Fase 2</span> </a>
+</div>
+</main>
+<footer>
+<p class="footer-text">Portal de Documentação - Sistema de Gestão</p>
+<p class="copyright">
+        © <span id="currentYear"></span> Sistema de Gestão Integrado. Documentação interna.
+      </p>
+</footer>
+</div>
+<script>
+    // Obtener año actual para el copyright
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Efecto de clique nos links
+    document.querySelectorAll('.pdf-link').forEach(link => {
+      link.addEventListener('click', function() {
+        const originalText = this.querySelector('span').textContent;
+        const icon = this.querySelector('i');
+        const originalIconClass = icon.className;
+        
+        // Mostrar animação de carregamento
+        this.querySelector('span').textContent = 'Abriendo...';
+        icon.className = 'fas fa-spinner fa-spin';
+        
+        // Restaurar después de 1 segundo (siempre se ejecuta)
+        setTimeout(() => {
+          this.querySelector('span').textContent = originalText;
+          icon.className = originalIconClass;
+        }, 1000);
+      });
+    });
+
+    // Manejar logo genérico si no se encuentra la imagen
+    document.addEventListener('DOMContentLoaded', function() {
+      const logo = document.querySelector('.logo-image');
+      
+      if (logo) {
+        logo.onerror = function() {
+          // Crear un ícono genérico como fallback
+          const fallbackIcon = document.createElement('div');
+          fallbackIcon.className = 'logo-icon-fallback';
+          fallbackIcon.innerHTML = '<i class="fas fa-chart-line"></i>';
+          fallbackIcon.style.cssText = `
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #ffd700;
+            color: #1a237e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+          `;
+          logo.parentNode.replaceChild(fallbackIcon, logo);
+        };
+      }
+
+      // Verificar si los archivos PDF existen
+      const links = document.querySelectorAll('.pdf-link');
+      links.forEach(link => {
+        const url = link.getAttribute('href');
+        
+        // Solo hacer fetch si es un archivo local (no URL externa)
+        if (url && !url.startsWith('http')) {
+          fetch(url, { method: 'HEAD' })
+            .then(response => {
+              if (!response.ok) {
+                console.warn(`Ficheiro não encontrado: ${url}`);
+                link.style.opacity = '0.7';
+                link.title = 'Ficheiro não encontrado no servidor';
+              }
+            })
+            .catch(error => {
+              console.warn(`Erro ao verificar o ficheiro ${url}:`, error);
+              link.style.opacity = '0.7';
+              link.title = 'Erro ao aceder ao ficheiro';
+            });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

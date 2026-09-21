@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="FACASI - Comércio Geral e Prestação de Serviços. Inspeção, inspeção e certificação de equipamentos, manutenção, reparação, logística, apoio a operações, END/NDT, UTM e limpeza de tanques em Angola. Sistema de Gestão Integrado (SGI) nas normas ISO 9001:2015 e ISO 45001:2018." name="description"/>
+<title>FACASI - Oil &amp; Gas Inspection | Sistema de Gestão Integrado</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+    :root {
+      --primary-color: #1e40af;
+      --secondary-color: #2563eb;
+      --accent-color: #f59e0b;
+      --light-color: #f4f6f8;
+      --dark-color: #333;
+      --white: #fff;
+      --shadow: 0 4px 12px rgba(0,0,0,0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--dark-color);
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: var(--white);
+      padding: 60px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+      background-size: cover;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    header p {
+      font-size: 1.3rem;
+      max-width: 800px;
+      margin: 0 auto 25px;
+      opacity: 0.95;
+    }
+
+    .cert-badge {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+
+    .cert-badge img {
+      height: 60px;
+      width: auto;
+      filter: brightness(0) invert(1);
+      opacity: 0.9;
+      transition: var(--transition);
+    }
+
+    .cert-badge img:hover {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    .cta-button {
+      display: inline-block;
+      background-color: var(--accent-color);
+      color: #333;
+      padding: 14px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-top: 10px;
+      transition: var(--transition);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .cta-button:hover {
+      background-color: #ffb300;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      text-decoration: none;
+    }
+
+    /* Secciones */
+    section {
+      margin: 50px auto;
+      background: var(--white);
+      border-radius: 15px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .section-content {
+      padding: 40px;
+    }
+
+    h2 {
+      color: var(--primary-color);
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 3px solid var(--secondary-color);
+      font-size: 2rem;
+      position: relative;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 80px;
+      height: 3px;
+      background-color: var(--accent-color);
+    }
+
+    /* Tarjetas de información */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background: var(--light-color);
+      padding: 25px;
+      border-radius: 10px;
+      border-left: 5px solid var(--secondary-color);
+      transition: var(--transition);
+      height: 100%;
+    }
+
+    .card:hover {
+      border-left-color: var(--accent-color);
+      transform: translateX(5px);
+    }
+
+    .card i {
+      color: var(--secondary-color);
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+
+    .card strong {
+      color: var(--primary-color);
+      font-size: 1.1rem;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    /* Certificaciones */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .cert-item {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      border-radius: 10px;
+      padding: 25px;
+      text-align: center;
+      border-bottom: 4px solid var(--accent-color);
+      transition: var(--transition);
+    }
+
+    .cert-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    }
+
+    .cert-item i {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+    }
+
+    .cert-item h3 {
+      color: var(--primary-color);
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+    }
+
+    .cert-item p {
+      font-size: 0.95rem;
+      color: #555;
+      margin: 5px 0;
+    }
+
+    .cert-badge-status {
+      display: inline-block;
+      background: #22c55e;
+      color: white;
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    /* Servicios */
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .service-item {
+      background: var(--light-color);
+      padding: 25px;
+      border-radius: 10px;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .service-item:hover {
+      background: var(--secondary-color);
+      color: var(--white);
+    }
+
+    .service-item:hover i {
+      color: var(--white);
+    }
+
+    .service-item i {
+      color: var(--secondary-color);
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .service-item h3 {
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+    }
+
+    /* Redes sociales */
+    .social-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      background: var(--light-color);
+      padding: 12px 20px;
+      border-radius: 50px;
+      text-decoration: none;
+      color: var(--dark-color);
+      transition: var(--transition);
+      font-weight: 600;
+    }
+
+    .social-link:hover {
+      background: var(--secondary-color);
+      color: var(--white);
+      transform: translateY(-3px);
+    }
+
+    .social-link i {
+      margin-right: 10px;
+      font-size: 1.2rem;
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(135deg, var(--primary-color), #1e3a8a);
+      color: var(--white);
+      text-align: center;
+      padding: 40px 20px;
+      margin-top: 60px;
+    }
+
+    .footer-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    footer p {
+      margin: 15px 0;
+      opacity: 0.9;
+    }
+
+    .footer-logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: var(--accent-color);
+    }
+
+    .copyright {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.2rem;
+      }
+      
+      header p {
+        font-size: 1.1rem;
+      }
+      
+      .section-content {
+        padding: 25px;
+      }
+      
+      .info-grid, .services, .cert-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+<div class="container header-content">
+<h1>FACASI</h1>
+<p>Oil &amp; Gas Inspection — Inspeção, manutenção, reparação e apoio a operações industriais em Angola</p>
+<div class="cert-badge">
+<img alt="ISO 9001" src="../Logotipo/9001.png" style="height: 60px; filter: none; background: white; border-radius: 8px; padding: 4px;"/>
+<img alt="ISO 45001" src="../Logotipo/45001.png" style="height: 60px; filter: none; background: white; border-radius: 8px; padding: 4px;"/>
+</div>
+<a class="cta-button" href="#contacto">Solicitar Informação</a>
+</div>
+</header>
+<main class="container">
+<section id="sobre-nosotros">
+<div class="section-content">
+<h2>Sobre a empresa</h2>
+<p>
+<strong>FACASI – Comércio Geral e Prestação de Serviços</strong>, a operar sob a marca
+        <strong>FACASI Oil &amp; Gas Inspection</strong>, é uma empresa angolana com sede em Luanda,
+        especializada na prestação de serviços de inspeção, inspeção e certificação de equipamentos,
+        manutenção, reparação, logística e apoio a operações para o setor industrial e de óleo e gás,
+        incluindo inspeção END/NDT (Ensaios Não Destrutivos) e UTM (medição de espessura por ultrassom).
+      </p>
+<p>
+        Com um enfoque na qualidade técnica, na segurança dos trabalhadores e na conformidade normativa,
+        a FACASI implementou e certificou o seu Sistema de Gestão Integrado nas normas ISO 9001:2015 (Gestão da Qualidade) e ISO 45001:2018 (Saúde e Segurança Ocupacional), certificação emitida por organismo acreditado e membro do acordo multilateral IAF.
+      </p>
+</div>
+</section>
+<section id="certificaciones">
+<div class="section-content">
+<h2>O Nosso Sistema de Gestão Integrado</h2>
+<p>Na FACASI estamos empenhados na excelência operacional. O nosso Sistema de Gestão Integrado está certificado em duas normas internacionais:</p>
+<div class="cert-grid">
+<div class="cert-item">
+<i class="fas fa-clipboard-check"></i>
+<h3>ISO 9001:2015</h3>
+<p><strong>Sistema de Gestão da Qualidade</strong></p>
+<span class="cert-badge-status" style="background:#16a34a;">Certificado</span>
+</div>
+<div class="cert-item">
+<i class="fas fa-shield-alt"></i>
+<h3>ISO 45001:2018</h3>
+<p><strong>Sistema de Gestão de Segurança e Saúde no Trabalho</strong></p>
+<span class="cert-badge-status" style="background:#16a34a;">Certificado</span>
+</div>
+</div>
+<p style="text-align: center; margin-top: 20px; font-size: 0.95rem; color: #666;">
+<i class="fas fa-certificate" style="color: var(--accent-color);"></i>
+        Consulte os certificados e os respetivos dados na secção <a href="certificados.html" style="color: var(--secondary-color);">Certificados</a>.
+      </p>
+</div>
+</section>
+<section id="servicios">
+<div class="section-content">
+<h2>Os Nossos Serviços</h2>
+<p>O nosso alcance de serviços inclui uma ampla gama de soluções técnicas especializadas para o setor industrial e de óleo e gás:</p>
+<div class="services">
+<div class="service-item">
+<i class="fas fa-magnifying-glass"></i>
+<h3>Inspeção de Equipamentos</h3>
+<p>Inspeção e certificação de equipamentos industriais, incluindo ensaios não destrutivos (END/NDT) e medição de espessura por ultrassom (UTM).</p>
+</div>
+<div class="service-item">
+<i class="fas fa-screwdriver-wrench"></i>
+<h3>Manutenção e Reparação</h3>
+<p>Manutenção preventiva e corretiva, e reparação de equipamentos e instalações industriais.</p>
+</div>
+<div class="service-item">
+<i class="fas fa-boxes-stacked"></i>
+<h3>Logística e Apoio a Operações</h3>
+<p>Serviços de logística e apoio operacional a atividades industriais e de óleo e gás.</p>
+</div>
+<div class="service-item">
+<i class="fas fa-droplet-slash"></i>
+<h3>Limpeza de Tanques</h3>
+<p>Serviços especializados de limpeza de tanques em instalações industriais e petrolíferas.</p>
+</div>
+<div class="service-item">
+<i class="fas fa-helmet-safety"></i>
+<h3>Inspeção END/NDT e UTM</h3>
+<p>Ensaios não destrutivos e medição de espessura por ultrassom para controlo de integridade de equipamentos.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="informacion-corporativa">
+<div class="section-content">
+<h2>Informação Corporativa</h2>
+<div class="info-grid">
+<div class="card">
+<i class="fas fa-building"></i>
+<strong>Razão Social:</strong>
+          FACASI - Comércio Geral e Prestação de Serviços (SU), Lda
+        </div>
+<div class="card">
+<i class="fas fa-hashtag"></i>
+<strong>NIF:</strong>
+          5000793175
+        </div>
+<div class="card">
+<i class="fas fa-map-marker-alt"></i>
+<strong>Sede:</strong>
+          Rua dos Cabritos, Bairro Futungo, casa nº 143, Distrito Urbano do Futungo de Belas, Município do Talatona, Luanda, Angola
+        </div>
+<div class="card">
+<i class="fas fa-location-dot"></i>
+<strong>2º Local:</strong>
+          Boa Vida, Office 76, Bairro Urbanização Boa Vida, Município de Belas, Luanda, Angola
+        </div>
+<div class="card">
+<i class="fas fa-industry"></i>
+<strong>Ramo de Atividade:</strong>
+          Inspeção, Inspeção e Certificação de Equipamentos, Manutenção, Reparação, Logística, Apoio a Operações, Inspeção END/NDT, UTM, Limpeza de Tanques
+        </div>
+<div class="card">
+<i class="fas fa-user-tie"></i>
+<strong>CEO:</strong>
+          Fernando Mbilua Casimiro
+        </div>
+<div class="card">
+<i class="fas fa-calendar-check"></i>
+<strong>Normas do SGI:</strong>
+          ISO 9001:2015 · ISO 45001:2018 (certificado)
+        </div>
+<div class="card">
+<i class="fas fa-users"></i>
+<strong>colaboradores:</strong>
+          Aproximadamente 20
+        </div>
+</div>
+</div>
+</section>
+<section id="contacto">
+<div class="section-content">
+<h2>Contacto</h2>
+<p>Estamos disponíveis para atender às suas necessidades e oferecer soluções à medida da sua organização:</p>
+<div class="social-links">
+<a class="social-link" href="mailto:admin@facasi.com">
+<i class="fas fa-envelope"></i> admin@facasi.com
+        </a>
+<a class="social-link" href="tel:+244938566188">
+<i class="fas fa-phone"></i> +244 938 566 188
+        </a>
+<a class="social-link" href="https://www.facasi.com" target="_blank">
+<i class="fas fa-globe"></i> www.facasi.com
+        </a>
+</div>
+</div>
+</section>
+</main>
+<footer>
+<div class="footer-content">
+<div class="footer-logo">FACASI</div>
+<p>Oil &amp; Gas Inspection — Inspeção, Manutenção, Reparação, Logística e Apoio a Operações com Padrões Internacionais de Qualidade e Segurança</p>
+<p>Luanda, Angola</p>
+<div class="copyright">
+      © 2026 FACASI · Todos os direitos reservados.<br/>
+      Sistema de Gestão Integrado certificado segundo as normas ISO 9001:2015 e ISO 45001:2018.
+    </div>
+</div>
+</footer>
+</body>
+</html>
