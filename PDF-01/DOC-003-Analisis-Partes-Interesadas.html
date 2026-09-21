@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DOC-003 Análise de Partes Interessadas</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c5282;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5282;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c5282;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #2c5282;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #2c5282;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .toc-item:before {
+            content: "•";
+            color: #2c5282;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .toc-link {
+            color: #2c5282;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #4299e1;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #2c5282;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .section-description {
+            margin-bottom: 20px;
+            color: #4a5568;
+            line-height: 1.7;
+        }
+        
+        .analysis-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .analysis-table th {
+            background-color: #2c5282;
+            color: white;
+            text-align: left;
+            padding: 15px;
+            font-weight: bold;
+            border: 1px solid #1a365d;
+        }
+        
+        .analysis-table td {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        
+        .analysis-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .norma-badge {
+            display: inline-block;
+            background-color: #e6fffa;
+            color: #234e52;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 13px;
+            margin: 3px 3px 3px 0;
+            border-left: 3px solid #38b2ac;
+            white-space: nowrap;
+        }
+        
+        .norma-badge.editable {
+            display: inline-block;
+            min-height: 30px;
+            min-width: 120px;
+            cursor: text;
+        }
+        
+        .norma-badge.editing {
+            background-color: #fff9e6;
+            border-left: 3px solid #d69e2e;
+        }
+        
+        .climate-section {
+            background-color: #f0fff4;
+            border: 1px solid #c6f6d5;
+            border-radius: 5px;
+            padding: 25px;
+            margin-top: 40px;
+            border-left: 4px solid #38a169;
+        }
+        
+        .climate-title {
+            color: #22543d;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #c6f6d5;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2c5282;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c5282;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .controls-panel {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .edit-btn {
+            background-color: #2c5282;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .edit-btn:hover {
+            background-color: #4299e1;
+        }
+        
+        .action-btn {
+            background-color: #38a169;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        
+        .action-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .action-btn.secondary {
+            background-color: #718096;
+        }
+        
+        .action-btn.secondary:hover {
+            background-color: #4a5568;
+        }
+        
+        .download-btn {
+            background-color: #805ad5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .download-btn:hover {
+            background-color: #6b46c1;
+        }
+        
+        .editable {
+            min-height: 20px;
+            outline: none;
+            cursor: text;
+        }
+        
+        .editing {
+            background-color: #fff9e6;
+            border-left: 3px solid #d69e2e;
+            padding-left: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .edit-indicator {
+            display: inline-block;
+            background-color: #d69e2e;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .controls-panel {
+                display: none;
+            }
+            
+            .analysis-table {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            
+            .edit-indicator {
+                display: none;
+            }
+            
+            .editable {
+                cursor: default;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .toc-list {
+                padding-left: 0;
+            }
+            
+            .toc-item {
+                padding-left: 15px;
+            }
+            
+            .analysis-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .controls-panel {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .edit-btn, .action-btn, .download-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabecera con logo e información de la organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        Pendente de validação
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título del documento -->
+<div class="doc-title">Análise de Partes Interessadas</div>
+<div class="doc-code">Código: DOC-003</div>
+<!-- Panel de controles de edición -->
+<div class="controls-panel" id="controlsPanel">
+<button class="edit-btn" id="editContentBtn">EDITAR CONTEÚDO</button>
+<button class="download-btn" id="downloadBtn">DESCARREGAR documento</button>
+<button class="action-btn secondary" id="saveBtn">GUARDAR no NAVEGADOR</button>
+<button class="action-btn" id="exportBtn">EXPORTAR como HTML</button>
+<button class="action-btn secondary" id="loadBtn">CARREGAR EDIÇÕES GUARDADAS</button>
+<span id="editStatus" style="margin-left: auto; font-size: 14px; color: #666;">Modo de leitura ativo</span>
+</div>
+<!-- Contenido principal -->
+<div class="content">
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#analisis-partes">Análise de Partes Interessadas</a></li>
+<li class="toc-item"><a class="toc-link" href="#impacto-climatico">Análise do Impacto das Alterações Climáticas nas Partes Interessadas</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Sección 1: Análisis de Partes Interessadas -->
+<div class="section" id="analisis-partes">
+<div class="section-title">Análise de Partes Interessadas <span class="edit-indicator" id="editIndicator1" style="display: none;">A EDITAR</span></div>
+<div class="section-description editable" id="descripcion-analisis">
+                    Este documento identifica as partes interessadas relevantes para a FACASI, os seus requisitos e necessidades, a forma como a organização lhes dá resposta e as normas correspondentes, conforme a cláusula 4.2 das normas ISO 9001:2015 e ISO 45001:2018.
+                </div>
+<table class="analysis-table">
+<thead>
+<tr>
+<th class="editable" id="columna-grupo">Parte Interessada</th>
+<th class="editable" id="columna-requisitos">Requisitos e Necessidades</th>
+<th class="editable" id="columna-atencion">Como a Organização Responde</th>
+<th class="editable" id="columna-norma">Norma Aplicável</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="editable" id="grupo-clientes"><strong>Clientes (operadoras e contratantes)</strong></td>
+<td class="editable" id="requisitos-clientes">Relatórios e certificados de inspeção fiáveis e tecnicamente defensáveis. Cumprimento dos prazos acordados. Técnicos qualificados e equipamentos calibrados. Cumprimento dos requisitos de SST para acesso às instalações.</td>
+<td class="editable" id="atencion-clientes">Processos normalizados de execução e revisão técnica dos relatórios, controlo de calibração dos equipamentos, verificação das qualificações do pessoal, monitorização da satisfação e tratamento de reclamações.</td>
+<td class="editable" id="norma-clientes">
+<span class="norma-badge editable">ISO 9001:2015</span><br/>
+<span class="norma-badge editable">ISO 45001:2018</span>
+</td>
+</tr>
+<tr>
+<td class="editable" id="grupo-trabajadores"><strong>Trabalhadores</strong></td>
+<td class="editable" id="requisitos-trabajadores">Condições de trabalho seguras, sobretudo em espaços confinados, trabalho em altura e instalações de terceiros. Equipamento de proteção adequado. Formação e manutenção das qualificações técnicas. Participação nas decisões de SST.</td>
+<td class="editable" id="atencion-trabajadores">Avaliação de riscos por tarefa, hierarquia de controlos, fornecimento e controlo de EPI, vigilância da saúde, programas de formação e mecanismos de consulta e participação sem receio de represálias.</td>
+<td class="editable" id="norma-trabajadores">
+<span class="norma-badge editable">ISO 45001:2018</span>
+</td>
+</tr>
+<tr>
+<td class="editable" id="grupo-autoridades"><strong>Autoridades e organismos reguladores</strong></td>
+<td class="editable" id="requisitos-autoridades">Cumprimento da legislação angolana aplicável, nomeadamente em matéria laboral e de segurança e saúde no trabalho. Comunicação de acidentes de trabalho. Licenciamentos exigidos para a atividade.</td>
+<td class="editable" id="atencion-autoridades">Levantamento e atualização dos requisitos legais aplicáveis, avaliação periódica do cumprimento, manutenção de registos e comunicação transparente com as autoridades.</td>
+<td class="editable" id="norma-autoridades">
+<span class="norma-badge editable">ISO 9001:2015</span><br/>
+<span class="norma-badge editable">ISO 45001:2018</span>
+</td>
+</tr>
+<tr>
+<td class="editable" id="grupo-proveedores"><strong>Fornecedores e subcontratados</strong></td>
+<td class="editable" id="requisitos-proveedores">Condições contratuais claras. Critérios de avaliação conhecidos. Regras de SST aplicáveis quando trabalham em nome da FACASI.</td>
+<td class="editable" id="atencion-proveedores">Seleção baseada em critérios de qualidade e SST, verificação prévia das qualificações e da aptidão do pessoal subcontratado, contratos com requisitos explícitos e reavaliação periódica do desempenho.</td>
+<td class="editable" id="norma-proveedores">
+<span class="norma-badge editable">ISO 9001:2015</span><br/>
+<span class="norma-badge editable">ISO 45001:2018</span>
+</td>
+</tr>
+<tr>
+<td class="editable" id="grupo-organismo-certificador"><strong>Organismo certificador</strong></td>
+<td class="editable" id="requisitos-organismo-certificador">Evidência objetiva de implementação do SGI. Registos disponíveis e coerentes. Acesso às instalações e ao pessoal durante as auditorias.</td>
+<td class="editable" id="atencion-organismo-certificador">Sistema documental estruturado, manutenção dos registos exigidos, realização de auditorias internas e revisão pela direção antes da auditoria de certificação.</td>
+<td class="editable" id="norma-organismo-certificador">
+<span class="norma-badge editable">ISO 9001:2015</span><br/>
+<span class="norma-badge editable">ISO 45001:2018</span>
+</td>
+</tr>
+<tr>
+<td class="editable" id="grupo-sociedad"><strong>Comunidade local</strong></td>
+<td class="editable" id="requisitos-sociedad">Operação responsável, sem impactos negativos sobre a comunidade. Criação de emprego local e desenvolvimento de competências técnicas em Angola.</td>
+<td class="editable" id="atencion-sociedad">Gestão adequada dos resíduos gerados nas operações, cumprimento das exigências ambientais dos clientes e contratação e formação de pessoal local.</td>
+<td class="editable" id="norma-sociedad">
+<span class="norma-badge editable">ISO 45001:2018</span>
+</td>
+</tr>
+<tr>
+<td class="editable" id="grupo-inversores"><strong>Sócios e Alta Direção</strong></td>
+<td class="editable" id="requisitos-inversores">Sustentabilidade e crescimento da organização. Gestão eficiente dos recursos. Ausência de passivos decorrentes de acidentes ou de relatórios contestados.</td>
+<td class="editable" id="atencion-inversores">Gestão eficiente dos recursos, foco na melhoria contínua, decisões baseadas em evidência e prevenção de riscos operacionais e legais.</td>
+<td class="editable" id="norma-inversores">
+<span class="norma-badge editable">ISO 9001:2015</span><br/>
+<span class="norma-badge editable">ISO 45001:2018</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Sección 2: Análisis del Impacto del Mudanças Climáticas -->
+<div class="climate-section" id="impacto-climatico">
+<div class="climate-title">Análise do Impacto das Alterações Climáticas nas Partes Interessadas <span class="edit-indicator" id="editIndicator2" style="display: none;">A EDITAR</span></div>
+<div class="section-description editable" id="descripcion-clima">
+                    Esta análise identifica como as necessidades e requisitos das partes interessadas são influenciados pelas alterações climáticas e como a organização aborda estas necessidades relacionadas com a sustentabilidade e a adaptação climática.
+                </div>
+<table class="analysis-table">
+<thead>
+<tr>
+<th class="editable" id="columna-grupo-clima">Grupo de Interesse</th>
+<th class="editable" id="columna-requisitos-clima">Requisitos e Necessidades em Relação às Alterações Climáticas</th>
+<th class="editable" id="columna-atencion-clima">Como a Organização Aborda Estas Necessidades Relacionadas com as Alterações Climáticas</th>
+<th class="editable" id="columna-norma-clima">Norma Correspondente</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="editable" id="grupo-clientes-clima"><strong>clientes</strong></td>
+<td class="editable" id="requisitos-clientes-clima">Preferência por produtos/serviços sustentáveis e que contribuam para a redução da pegada de carbono.</td>
+<td class="editable" id="atencion-clientes-clima">Assegurar que os produtos/serviços são fabricados/prestados com processos sustentáveis, considerando a eficiência energética, o uso responsável de recursos e a implementação de materiais recicláveis e de baixo impacto ambiental.</td>
+<td class="editable" id="norma-clientes-clima">
+<span class="norma-badge editable">ISO 9001:2015</span><br/>
+<span class="norma-badge editable">:2015</span>
+</td>
+</tr>
+<tr>
+<td class="editable" id="grupo-trabajadores-clima"><strong>trabalhadores</strong></td>
+<td class="editable" id="requisitos-trabajadores-clima">Condições laborais que incluam um ambiente saudável com respeito pela proteção do meio ambiente.</td>
+<td class="editable" id="atencion-trabajadores-clima">Implementação de políticas de trabalho verde, formação sobre sustentabilidade, promoção de hábitos ecológicos e energeticamente eficientes nas instalações e nas atividades diárias do pessoal.</td>
+<td class="editable" id="norma-trabajadores-clima">
+<span class="norma-badge editable">ISO 45001:2018</span><br/>
+<span class="norma-badge editable">:2015</span>
+</td>
+</tr>
+<tr>
+<td class="editable" id="grupo-autoridades-clima"><strong>Autoridades (Locales/Reguladoras)</strong></td>
+<td class="editable" id="requisitos-autoridades-clima">cumprimento com as normativas medioambientales relacionadas com o mudanças climáticas.</td>
+<td class="editable" id="atencion-autoridades-clima">Adaptação de processos internos às novas normativas ambientais, redução de emissões e participação em iniciativas que promovam a sustentabilidade, como a redução da pegada de carbono corporativa.</td>
+<td class="editable" id="norma-autoridades-clima">
+<span class="norma-badge editable">:2015</span><br/>
+<span class="norma-badge editable">ISO 9001:2015</span>
+</td>
+</tr>
+<tr>
+<td class="editable" id="grupo-proveedores-clima"><strong>fornecedores e Contratistas</strong></td>
+<td class="editable" id="requisitos-proveedores-clima">Expectativa de trabalhar com organizações que promovam práticas sustentáveis e respeitadoras do clima.</td>
+<td class="editable" id="atencion-proveedores-clima">Avaliação de fornecedores com critérios de sustentabilidade ambiental, como o uso de energias renováveis, redução de resíduos e cumprimento de normativas de redução de emissões. Colaboração para melhorar as cadeias de abastecimento verdes.</td>
+<td class="editable" id="norma-proveedores-clima">
+<span class="norma-badge editable">ISO 9001:2015</span><br/>
+<span class="norma-badge editable">:2015</span>
+</td>
+</tr>
+<tr>
+<td class="editable" id="grupo-sociedad-clima"><strong>Sociedade</strong></td>
+<td class="editable" id="requisitos-sociedad-clima">Maior procura de serviços responsáveis com o ambiente, que promovam o bem-estar coletivo e a adaptação às alterações climáticas.</td>
+<td class="editable" id="atencion-sociedad-clima">Desenvolvimento de projetos de responsabilidade social empresarial focados na adaptação às alterações climáticas, educação ambiental e promoção de práticas verdes dentro da comunidade.</td>
+<td class="editable" id="norma-sociedad-clima">
+<span class="norma-badge editable">ISO 9001:2015</span><br/>
+<span class="norma-badge editable">:2015</span>
+</td>
+</tr>
+<tr>
+<td class="editable" id="grupo-organismos-clima"><strong>Organismos Reguladores</strong></td>
+<td class="editable" id="requisitos-organismos-clima">monitorização e cumprimento com as leyes e normativas ambientales e de mudanças climáticas.</td>
+<td class="editable" id="atencion-organismos-clima">Implementação de um sistema robusto de monitorização e reporte sobre as emissões de carbono e outras métricas ambientais, assegurando a conformidade com todas as leis relacionadas com as alterações climáticas.</td>
+<td class="editable" id="norma-organismos-clima">
+<span class="norma-badge editable">ISO 9001:2015</span><br/>
+<span class="norma-badge editable">:2015</span><br/>
+<span class="norma-badge editable">ISO 45001:2018</span>
+</td>
+</tr>
+<tr>
+<td class="editable" id="grupo-inversores-clima"><strong>Propietarios/Inversores</strong></td>
+<td class="editable" id="requisitos-inversores-clima">Interesse no retorno sobre o investimento a longo prazo, priorizando negócios sustentáveis.</td>
+<td class="editable" id="atencion-inversores-clima">Fomento de uma gestão empresarial que integre critérios de sustentabilidade na tomada de decisões estratégicas, investimento em projetos verdes e promoção de práticas empresariais sustentáveis que assegurem a rentabilidade futura.</td>
+<td class="editable" id="norma-inversores-clima">
+<span class="norma-badge editable">ISO 9001:2015</span><br/>
+<span class="norma-badge editable">ISO 45001:2018</span><br/>
+<span class="norma-badge editable">:2015</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Historial de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>Pendente de validação</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Pie de página -->
+<div class="footer">
+<p>Código: DOC-003 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        class DocumentEditor {
+            constructor() {
+                this.editMode = false;
+                this.storageKey = 'DOC-003-edited-content';
+                this.originalContent = {};
+                this.init();
+            }
+            
+            init() {
+                // Guardar contenido original
+                this.saveOriginalContent();
+                
+                // Configurar eventos de los botones
+                document.getElementById('editContentBtn').addEventListener('click', () => this.toggleEditMode());
+                document.getElementById('downloadBtn').addEventListener('click', () => this.downloadDocument());
+                document.getElementById('saveBtn').addEventListener('click', () => this.saveToBrowser());
+                document.getElementById('exportBtn').addEventListener('click', () => this.exportToHTML());
+                document.getElementById('loadBtn').addEventListener('click', () => this.loadFromStorage());
+                
+                // Verificar si hay contenido guardado
+                if (localStorage.getItem(this.storageKey)) {
+                    console.log('Foram detetadas edições guardadas. Utilize "CARREGAR EDIÇÕES GUARDADAS" para as carregar.');
+                }
+                
+                // Verificar si el logo existe
+                const logoImg = document.querySelector('.logo');
+                if (logoImg) {
+                    logoImg.onerror = function() {
+                        this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c5282" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                        console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+                    };
+                }
+                
+                // Configurar scroll suave para los enlaces del TOC
+                document.querySelectorAll('.toc-link').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href').substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 20,
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                });
+            }
+            
+            saveOriginalContent() {
+                // Guardar contenido original de todos los elementos editables
+                const editableElements = document.querySelectorAll('.editable');
+                this.originalContent = {};
+                
+                editableElements.forEach((element, index) => {
+                    const id = element.id || `editable-${index}`;
+                    this.originalContent[id] = element.innerHTML;
+                });
+            }
+            
+            toggleEditMode() {
+                this.editMode = !this.editMode;
+                const editBtn = document.getElementById('editContentBtn');
+                const editStatus = document.getElementById('editStatus');
+                const editableElements = document.querySelectorAll('.editable');
+                const editIndicators = document.querySelectorAll('.edit-indicator');
+                const normaBadges = document.querySelectorAll('.norma-badge');
+                
+                if (this.editMode) {
+                    // Activar modo edición
+                    editBtn.textContent = 'DESATIVAR EDIÇÃO';
+                    editBtn.style.backgroundColor = '#d69e2e';
+                    editStatus.textContent = 'Modo de edição ativo';
+                    editStatus.style.color = '#d69e2e';
+                    
+                    // Hacer elementos editables
+                    editableElements.forEach(element => {
+                        element.setAttribute('contenteditable', 'true');
+                        element.classList.add('editing');
+                    });
+                    
+                    // Hacer badges de norma editables
+                    normaBadges.forEach(badge => {
+                        badge.setAttribute('contenteditable', 'true');
+                        badge.classList.add('editing');
+                    });
+                    
+                    // Mostrar indicadores de edición
+                    editIndicators.forEach(indicator => {
+                        indicator.style.display = 'inline-block';
+                    });
+                    
+                } else {
+                    // Desactivar modo edición
+                    editBtn.textContent = 'EDITAR CONTEÚDO';
+                    editBtn.style.backgroundColor = '#2c5282';
+                    editStatus.textContent = 'Modo de leitura ativo';
+                    editStatus.style.color = '#666';
+                    
+                    // Deshacer elementos editables
+                    editableElements.forEach(element => {
+                        element.setAttribute('contenteditable', 'false');
+                        element.classList.remove('editing');
+                    });
+                    
+                    // Deshacer badges de norma editables
+                    normaBadges.forEach(badge => {
+                        badge.setAttribute('contenteditable', 'false');
+                        badge.classList.remove('editing');
+                    });
+                    
+                    // Ocultar indicadores de edición
+                    editIndicators.forEach(indicator => {
+                        indicator.style.display = 'none';
+                    });
+                }
+            }
+            
+            downloadDocument() {
+                // Crear un blob con el contenido HTML actual
+                const htmlContent = document.documentElement.outerHTML;
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                
+                // Crear elemento de descarga
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'DOC-003-Analisis-Partes-Interesadas.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                alert('Documento descarregado corretamente.');
+            }
+            
+            saveToBrowser() {
+                if (!this.editMode) {
+                    alert('Ative primeiro o modo de edição para poder guardar alterações.');
+                    return;
+                }
+                
+                const editableElements = document.querySelectorAll('.editable');
+                const savedContent = {};
+                
+                editableElements.forEach((element, index) => {
+                    const id = element.id || `editable-${index}`;
+                    savedContent[id] = element.innerHTML;
+                });
+                
+                try {
+                    localStorage.setItem(this.storageKey, JSON.stringify(savedContent));
+                    alert('As edições foram guardadas no navegador corretamente.');
+                } catch (error) {
+                    alert('Erro ao guardar as edições: ' + error.message);
+                }
+            }
+            
+            loadFromStorage() {
+                const savedData = localStorage.getItem(this.storageKey);
+                
+                if (!savedData) {
+                    alert('Não foram encontradas edições guardadas no navegador.');
+                    return;
+                }
+                
+                if (confirm('Carregar as edições guardadas? Isto substituirá o conteúdo atual.')) {
+                    try {
+                        const savedContent = JSON.parse(savedData);
+                        const editableElements = document.querySelectorAll('.editable');
+                        
+                        editableElements.forEach((element, index) => {
+                            const id = element.id || `editable-${index}`;
+                            if (savedContent[id]) {
+                                element.innerHTML = savedContent[id];
+                            }
+                        });
+                        
+                        alert('Edições carregadas corretamente a partir do navegador.');
+                    } catch (error) {
+                        alert('Erro ao carregar as edições: ' + error.message);
+                    }
+                }
+            }
+            
+            exportToHTML() {
+                // Crear una copia del documento para exportar
+                const docClone = document.documentElement.cloneNode(true);
+                
+                // Remover atributos de edición
+                const editables = docClone.querySelectorAll('.editable');
+                editables.forEach(element => {
+                    element.removeAttribute('contenteditable');
+                    element.classList.remove('editing');
+                });
+                
+                // Remover panel de controles
+                const controlsPanel = docClone.querySelector('#controlsPanel');
+                if (controlsPanel) {
+                    controlsPanel.remove();
+                }
+                
+                // Remover indicadores de edición
+                const editIndicators = docClone.querySelectorAll('.edit-indicator');
+                editIndicators.forEach(indicator => {
+                    indicator.remove();
+                });
+                
+                // Remover scripts (excepto el necesario para el logo)
+                const scripts = docClone.querySelectorAll('script');
+                scripts.forEach(script => {
+                    if (!script.textContent.includes('logo.onerror')) {
+                        script.remove();
+                    }
+                });
+                
+                // Crear blob y descargar
+                const htmlContent = `<!DOCTYPE html>\n${docClone.outerHTML}`;
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'DOC-003-Analisis-Partes-Interesadas-Editado.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                alert('Documento exportado como HTML. A descarregar...');
+            }
+            
+            resetToOriginal() {
+                if (confirm('Restaurar o conteúdo original? Isto eliminará todas as edições atuais.')) {
+                    const editableElements = document.querySelectorAll('.editable');
+                    
+                    editableElements.forEach((element, index) => {
+                        const id = element.id || `editable-${index}`;
+                        if (this.originalContent[id]) {
+                            element.innerHTML = this.originalContent[id];
+                        }
+                    });
+                    
+                    alert('Conteúdo original restaurado.');
+                }
+            }
+        }
+        
+        // Inicializar el editor cuando el DOM esté cargado
+        document.addEventListener('DOMContentLoaded', () => {
+            window.documentEditor = new DocumentEditor();
+        });
+    </script>
+</body>
+</html>

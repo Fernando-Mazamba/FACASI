@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PRO-021 controlo de saúde Ocupacional - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #065f46;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        /* Barra de herramientas */
+        .toolbar {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            padding: 15px 40px;
+            background-color: #e2e8f0;
+            border-bottom: 2px solid #065f46;
+        }
+        
+        .toolbar-btn {
+            background-color: #065f46;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.3s, transform 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .toolbar-btn:hover {
+            background-color: #10b981;
+        }
+        
+        .toolbar-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #065f46;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #065f46;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #065f46;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #065f46;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #065f46;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #10b981;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #065f46;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-subtitle {
+            color: #064e3b;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 30px 0 20px;
+            padding-left: 10px;
+            border-left: 4px solid #065f46;
+        }
+        
+        .subsection-title {
+            color: #065f46;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+        }
+        
+        .intro-text {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #065f46;
+            font-size: 16px;
+        }
+        
+        .content-text {
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .bullet-list {
+            list-style-type: none;
+            margin: 15px 0 20px 20px;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .bullet-list li:before {
+            content: "•";
+            color: #065f46;
+            font-weight: bold;
+            font-size: 18px;
+            position: absolute;
+            left: 0;
+        }
+        
+        .numbered-list {
+            list-style-type: none;
+            margin: 15px 0 20px 20px;
+            counter-reset: item;
+        }
+        
+        .numbered-list li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+            counter-increment: item;
+        }
+        
+        .numbered-list li:before {
+            content: counter(item) ".";
+            color: #065f46;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .definition-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .definition-table th, .definition-table td {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        .definition-table th {
+            background-color: #065f46;
+            color: white;
+            font-weight: bold;
+            width: 30%;
+        }
+        
+        .definition-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .definition-table tr:hover {
+            background-color: #f0fdf4;
+        }
+        
+        .responsibility-container {
+            margin: 25px 0;
+        }
+        
+        .responsibility-item {
+            background-color: #f0fdf4;
+            border: 1px solid #86efac;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #10b981;
+        }
+        
+        .responsibility-title {
+            color: #065f46;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .exam-container {
+            background-color: #eff6ff;
+            border: 1px solid #93c5fd;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .exam-title {
+            color: #1e40af;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .exam-type {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .exam-type-title {
+            color: #065f46;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .frequency-list {
+            list-style-type: none;
+            margin: 10px 0 0 20px;
+        }
+        
+        .frequency-list li {
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .frequency-list li:before {
+            content: "○";
+            color: #3b82f6;
+            position: absolute;
+            left: 0;
+        }
+        
+        .warning-box {
+            background-color: #fef3c7;
+            border: 1px solid #fbbf24;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #f59e0b;
+        }
+        
+        .warning-title {
+            color: #92400e;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .warning-list {
+            list-style-type: none;
+            margin: 10px 0 15px 20px;
+        }
+        
+        .warning-list li {
+            margin-bottom: 10px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .warning-list li:before {
+            content: "⚠";
+            color: #dc2626;
+            font-size: 18px;
+            position: absolute;
+            left: 0;
+        }
+        
+        .indicator-box {
+            background-color: #f8f9fa;
+            border: 1px solid #d1d5db;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .indicator-title {
+            color: #374151;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .indicator-list {
+            list-style-type: none;
+            margin: 10px 0 15px 20px;
+        }
+        
+        .indicator-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .indicator-list li:before {
+            content: "►";
+            color: #065f46;
+            position: absolute;
+            left: 0;
+        }
+        
+        .flow-box {
+            background-color: #f0f9ff;
+            border: 1px solid #7dd3fc;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .flow-title {
+            color: #0369a1;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .flow-step {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 60px;
+        }
+        
+        .flow-step:before {
+            content: counter(step);
+            counter-increment: step;
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #0ea5e9;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .prevention-box {
+            background-color: #fef3c7;
+            border: 1px solid #fbbf24;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .prevention-title {
+            color: #92400e;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .records-box {
+            background-color: #f8f9fa;
+            border: 1px solid #d1d5db;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .records-title {
+            color: #374151;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #065f46;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #065f46;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #065f46;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #10b981;
+        }
+        
+        /* Estilo para elementos editables (cuando el modo edición está activo) */
+        .editable-active [contenteditable="true"] {
+            outline: 2px dashed #065f46;
+            outline-offset: 4px;
+            background-color: #fffff0;
+            transition: outline 0.2s, background-color 0.2s;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .toolbar, .print-btn {
+                display: none;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+            
+            .definition-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .definition-table th,
+            .definition-table td {
+                padding: 10px;
+                font-size: 14px;
+            }
+            
+            .flow-step {
+                padding-left: 50px;
+            }
+            
+            .flow-step:before {
+                width: 30px;
+                height: 30px;
+                font-size: 14px;
+            }
+            
+            .toolbar {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabecera con logo e información de la organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        Pendente de validação
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Barra de herramientas -->
+<div class="toolbar">
+<button class="toolbar-btn" onclick="window.print()"><i class="fas fa-print"></i> Imprimir</button>
+<button class="toolbar-btn" id="downloadBtn"><i class="fas fa-download"></i> Descarregar HTML</button>
+<button class="toolbar-btn" id="editBtn"><i class="fas fa-edit"></i> Editar conteúdo</button>
+</div>
+<!-- Título del documento -->
+<div class="doc-title">Procedimento de controlo de saúde Ocupacional</div>
+<div class="doc-code">Código: PRO-021</div>
+<!-- Contenido principal -->
+<div class="content">
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#objetivo">1. Objetivo</a></li>
+<li class="toc-item"><a class="toc-link" href="#alcance">2. Alcance</a></li>
+<li class="toc-item"><a class="toc-link" href="#referencias">3. Referências Normativas</a></li>
+<li class="toc-item"><a class="toc-link" href="#definiciones">4. Definições</a></li>
+<li class="toc-item"><a class="toc-link" href="#responsabilidades">5. Responsabilidades</a></li>
+<li class="toc-item"><a class="toc-link" href="#proceso">6. Processo Detalhado</a></li>
+<li class="toc-item"><a class="toc-link" href="#registros">7. Registos e Confidencialidad</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Sección 1: Objetivo -->
+<div class="section" id="objetivo">
+<div class="section-title">1. Objetivo</div>
+<div class="content-text">
+                    Estabelecer um sistema de vigilância da saúde dos trabalhadores da FACASI que permita:
+                </div>
+<ul class="bullet-list">
+<li>Monitorizar o estado de saúde dos colaboradores</li>
+<li>Identificar efeitos adversos relacionados com o trabalho</li>
+<li>Cumprir os exames médicos obrigatórios aplicáveis</li>
+<li>Implementar medidas preventivas e corretivas</li>
+</ul>
+</div>
+<!-- Sección 2: Alcance -->
+<div class="section" id="alcance">
+<div class="section-title">2. Alcance</div>
+<div class="content-text">
+                    Aplica-se a:
+                </div>
+<ul class="bullet-list">
+<li>Pessoal permanente e temporário</li>
+<li>Subcontratados com exposição prolongada nas operações da FACASI</li>
+<li>Trabalhadores em funções de risco elevado — nomeadamente operários que executam trabalhos em espaços confinados (limpeza de tanques), trabalhos em altura, ensaios com fontes radioativas e manuseamento de produtos químicos</li>
+</ul>
+</div>
+<!-- Sección 3: Referencias Normativas -->
+<div class="section" id="referencias">
+<div class="section-title">3. Referências Normativas</div>
+<ul class="bullet-list">
+<li><strong>ISO 45001:2018</strong> (cláusulas 6.1.2 — Identificação de perigos e avaliação de riscos; 8.1.2 — Eliminação de perigos e redução de riscos)</li>
+<li>Legislação angolana em matéria de saúde ocupacional e medicina do trabalho — <em>levantamento pendente de validação pela organização</em></li>
+<li>Requisitos de aptidão médica exigidos pelos clientes do setor de óleo e gás para acesso às suas instalações</li>
+</ul>
+</div>
+<!-- Sección 4: Definiciones -->
+<div class="section" id="definiciones">
+<div class="section-title">4. Definições</div>
+<table class="definition-table">
+<thead>
+<tr>
+<th>Termo</th>
+<th>Definição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Exame de admissão</strong></td>
+<td>Avaliação médica realizada antes da contratação</td>
+</tr>
+<tr>
+<td><strong>Vigilância periódica</strong></td>
+<td>Controlos médicos programados durante a relação de trabalho</td>
+</tr>
+<tr>
+<td><strong>Vigilância epidemiológica laboral</strong></td>
+<td>Estudo de padrões de doença associados à atividade profissional</td>
+</tr>
+<tr>
+<td><strong>Aptidão laboral</strong></td>
+<td>Certificação médica de capacidade para desempenhar as funções do posto de trabalho</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Sección 5: Responsabilidades -->
+<div class="section" id="responsabilidades">
+<div class="section-title">5. Responsabilidades</div>
+<div class="subsection-title">5.1 Alta Direção (CEO)</div>
+<ul class="bullet-list">
+<li>Garantir os recursos necessários ao programa de saúde ocupacional</li>
+<li>Aprovar as políticas de saúde ocupacional</li>
+</ul>
+<div class="subsection-title">5.2 Serviço de Medicina do Trabalho (externo)</div>
+<ul class="bullet-list">
+<li>Realizar as avaliações médicas</li>
+<li>Manter os processos clínicos individuais em condições de confidencialidade</li>
+<li>Emitir os certificados de aptidão e as recomendações de adaptação do posto de trabalho</li>
+</ul>
+<div class="subsection-title">5.3 Gerente de RH</div>
+<ul class="bullet-list">
+<li>Gerir o calendário de exames e assegurar a sua realização atempada</li>
+<li>Arquivar os certificados de aptidão, sem aceder à informação clínica</li>
+</ul>
+<div class="subsection-title">5.4 Gerente de Operações e Coordenador/Fiscalizador</div>
+<ul class="bullet-list">
+<li>Facilitar a comparência dos trabalhadores aos exames</li>
+<li>Implementar as adaptações de posto recomendadas e não afetar a trabalhos incompatíveis com a aptidão certificada</li>
+</ul>
+<div class="subsection-title">5.5 Trabalhadores</div>
+<ul class="bullet-list">
+<li>Participar nas avaliações médicas programadas</li>
+<li>Reportar sintomas que possam estar relacionados com a atividade profissional</li>
+</ul>
+</div>
+<!-- Sección 6: Proceso Detallado -->
+<div class="section" id="proceso">
+<div class="section-title">6. Processo Detalhado</div>
+<div class="subsection-title">6.1 Avaliações Médicas</div>
+<div class="content-text">
+<strong>Tipos de exames:</strong>
+</div>
+<div class="exam-container">
+<div class="exam-title">Tipos de Avaliações Médicas Ocupacionais</div>
+<div class="exam-type">
+<div class="exam-type-title">1. Admissão (inclui avaliação de aptidão para a função)</div>
+</div>
+<div class="exam-type">
+<div class="exam-type-title">2. Periódicos (frequência em função do risco da função):</div>
+<ul class="frequency-list">
+<li>A frequência é definida em função do nível de risco da função e dos requisitos legais aplicáveis</li>
+<li><em>As periodicidades concretas ficam pendentes de definição pela organização, com base no parecer do serviço de medicina do trabalho e na legislação angolana aplicável</em></li>
+</ul>
+</div>
+<div class="exam-type">
+<div class="exam-type-title">3. De retoma (após ausências prolongadas)</div>
+</div>
+<div class="exam-type">
+<div class="exam-type-title">4. De cessação (no termo do contrato)</div>
+</div>
+</div>
+<div class="content-text">
+<strong>Protocolos específicos para as exposições das atividades da FACASI:</strong>
+</div>
+<div class="warning-box">
+<div class="warning-title">Protocolos Especiais de Vigilância Médica</div>
+<ul class="warning-list">
+<li>Exposição a ruído em ambiente industrial</li>
+<li>Manuseamento de substâncias químicas (limpeza de tanques, consumíveis de ensaio)</li>
+<li>Trabalho em altura</li>
+<li>Trabalho em espaços confinados</li>
+<li>Exposição potencial a radiação ionizante em ensaios radiográficos, quando aplicável — com vigilância dosimétrica conforme a regulamentação específica</li>
+</ul>
+<p style="margin-top:10px;font-size:0.9em;"><em>Os exames e a periodicidade associados a cada protocolo devem ser determinados pelo serviço de medicina do trabalho, em função da avaliação de riscos (PRO-019) e da legislação aplicável. Este procedimento não prescreve exames clínicos concretos.</em></p>
+</div>
+<div class="subsection-title">6.2 Sistema de Vigilância</div>
+<div class="content-text">
+<strong>Componentes:</strong>
+</div>
+<ul class="bullet-list">
+<li>Registo dos certificados de aptidão e das datas de validade</li>
+<li>Análise de tendências agregadas, sem identificação individual</li>
+<li>Alertas de vencimento de exames e de reavaliação por exposição</li>
+</ul>
+<div class="content-text">
+<strong>Indicadores-chave:</strong>
+</div>
+<div class="indicator-box">
+<div class="indicator-title">Indicadores de Desempenho do Sistema de Saúde Ocupacional</div>
+<ul class="indicator-list">
+<li>Percentagem de trabalhadores com exames em dia</li>
+<li>Tempo de resposta às recomendações emitidas</li>
+<li>Número de adaptações de posto implementadas</li>
+</ul>
+</div>
+<div class="subsection-title">6.3 Gestão de Casos</div>
+<div class="content-text">
+<strong>Fluxo de atuação:</strong>
+</div>
+<div class="flow-box" style="counter-reset: step;">
+<div class="flow-title">Fluxo de Gestão de Casos de Saúde Ocupacional</div>
+<div class="flow-step">
+<strong>1. Deteção de alteração</strong>
+<p>Identificação, pelo serviço de medicina do trabalho, de condições de saúde que requerem atenção especial.</p>
+</div>
+<div class="flow-step">
+<strong>2. Avaliação da relação com o trabalho</strong>
+<p>Determinação, pelo médico do trabalho, do eventual vínculo entre a condição de saúde e a atividade desempenhada.</p>
+</div>
+<div class="flow-step">
+<strong>3. Determinação de medidas:</strong>
+<ul class="frequency-list">
+<li>Adaptação do posto de trabalho</li>
+<li>Reafetação a funções compatíveis</li>
+<li>Reforço das medidas de proteção</li>
+</ul>
+</div>
+<div class="flow-step">
+<strong>4. Acompanhamento médico</strong>
+<p>Monitorização contínua do estado de saúde do trabalhador pelo serviço de medicina do trabalho.</p>
+</div>
+</div>
+<div class="subsection-title">6.4 Prevenção</div>
+<div class="content-text">
+<strong>Programas a implementar:</strong>
+</div>
+<div class="prevention-box">
+<div class="prevention-title">Programas de Prevenção em Saúde Ocupacional</div>
+<ul class="bullet-list">
+<li>Ergonomia no trabalho</li>
+<li>Controlo do stress térmico, relevante nas condições climáticas de trabalho em Angola</li>
+<li>Sensibilização para a saúde no trabalho</li>
+<li>Outros programas a definir em função dos resultados da vigilância e da avaliação de riscos</li>
+</ul>
+</div>
+</div>
+<!-- Sección 7: Registos y Confidencialidad -->
+<div class="section" id="registros">
+<div class="section-title">7. Registos e Confidencialidade</div>
+<div class="content-text">
+<strong>Documentação exigida:</strong>
+</div>
+<div class="records-box">
+<div class="records-title">Documentação do Sistema de Saúde Ocupacional</div>
+<ol class="numbered-list">
+<li>Processo clínico individual — <strong>à guarda exclusiva do serviço de medicina do trabalho</strong></li>
+<li>Certificados de aptidão (apto / apto com restrições / inapto), arquivados pela organização</li>
+<li>Relatórios agregados de vigilância, sem dados individuais identificáveis</li>
+<li>Consentimentos informados</li>
+</ol>
+</div>
+<div class="warning-box" style="margin-top:14px;">
+<div class="warning-title">Confidencialidade dos Dados de Saúde</div>
+<p>A informação clínica dos trabalhadores é confidencial e está sujeita a sigilo médico. A organização tem acesso apenas ao resultado de aptidão e às recomendações de adaptação do posto de trabalho, nunca ao diagnóstico ou aos dados clínicos. Os processos clínicos são conservados pelo serviço de medicina do trabalho em condições que garantam a sua proteção, nos termos da legislação aplicável.</p>
+</div>
+</div>
+<!-- Botón de impresión -->
+<button class="print-btn" onclick="window.print()"><i class="fas fa-print"></i> Imprimir documento</button>
+<!-- Historial de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>Pendente de validação</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Pie de página -->
+<div class="footer">
+<p>Código: PRO-021 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        // Configurar scroll suave para los enlaces del TOC
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Verifica si el logo existe, caso contrario muestra un placeholder
+        const logoImg = document.querySelector('.logo');
+        if (logoImg) {
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%23065f46" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+            };
+        }
+
+        // Función para descargar el HTML actual
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'PRO-021-PROCEDIMIENTO-DE-CONTROL-DE-SALUD-OCUPACIONAL.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('📁 Documento descarregado como ficheiro HTML.');
+        });
+
+        // Modo edición
+        const editBtn = document.getElementById('editBtn');
+        let editModeActive = false;
+
+        // Elementos que serán editables (todo el texto del documento, excepto botones y logo)
+        const editableElements = [
+            document.querySelector('.org-info'),
+            document.querySelector('.doc-title'),
+            document.querySelector('.doc-code'),
+            document.querySelector('.content'),
+            document.querySelector('.footer')
+        ].filter(el => el !== null);
+
+        editBtn.addEventListener('click', function() {
+            editModeActive = !editModeActive;
+            
+            editableElements.forEach(el => {
+                if (editModeActive) {
+                    el.setAttribute('contenteditable', 'true');
+                } else {
+                    el.removeAttribute('contenteditable');
+                }
+            });
+            
+            // Añadir o quitar clase al body para feedback visual
+            if (editModeActive) {
+                document.body.classList.add('editable-active');
+                editBtn.innerHTML = '<i class="fas fa-lock"></i> Terminar edição';
+                editBtn.style.backgroundColor = '#c53030'; // rojo para indicar modo activo
+            } else {
+                document.body.classList.remove('editable-active');
+                editBtn.innerHTML = '<i class="fas fa-edit"></i> Editar conteúdo';
+                editBtn.style.backgroundColor = '#065f46'; // color original
+            }
+        });
+    </script>
+</body>
+</html>

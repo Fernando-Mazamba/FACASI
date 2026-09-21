@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DOC-017 Plano de Ação para segurança e saúde Ocupacional - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        /* Barra de herramientas */
+        .toolbar {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            padding: 15px 40px;
+            background-color: #e2e8f0;
+            border-bottom: 2px solid #4a5568;
+        }
+        
+        .toolbar-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.3s, transform 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .toolbar-btn:hover {
+            background-color: #718096;
+        }
+        
+        .toolbar-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .section-subtitle {
+            color: #2d3748;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 30px 0 20px;
+            padding-left: 15px;
+            border-left: 4px solid #e53e3e;
+        }
+        
+        .intro-text {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4a5568;
+            font-size: 16px;
+        }
+        
+        .sso-section {
+            background-color: #fff5f5;
+            border: 1px solid #fed7d7;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
+        .sso-title {
+            color: #c53030;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .action-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-size: 14px;
+        }
+        
+        .action-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        .action-table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+        
+        .action-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .action-table tr:hover {
+            background-color: #f0f4f8;
+        }
+        
+        .objective-row {
+            background-color: #fed7d7 !important;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        
+        .objective-cell {
+            font-weight: bold;
+            color: #c53030;
+        }
+        
+        .objective-code {
+            display: inline-block;
+            background-color: #c53030;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-right: 8px;
+        }
+        
+        .followup-list {
+            list-style-type: none;
+            margin: 20px 0 20px 20px;
+        }
+        
+        .followup-list li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .followup-list li:before {
+            content: "•";
+            color: #e53e3e;
+            font-weight: bold;
+            font-size: 20px;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Mantenemos el botón de impresión original por compatibilidad */
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        /* Indicador visual de modo edición */
+        .editable-active [contenteditable="true"] {
+            outline: 2px dashed #4a5568;
+            outline-offset: 4px;
+            background-color: #fffff0;
+            transition: outline 0.2s, background-color 0.2s;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .toolbar {
+                display: none;
+            }
+            
+            .print-btn {
+                display: none;
+            }
+            
+            .section {
+                page-break-inside: avoid;
+            }
+            
+            .action-table {
+                page-break-inside: auto;
+            }
+        }
+        
+        @media screen and (max-width: 1200px) {
+            .action-table {
+                font-size: 13px;
+            }
+            
+            .action-table th, .action-table td {
+                padding: 10px 12px;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+            
+            .action-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .sso-section {
+                padding: 15px;
+            }
+            
+            .toolbar {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabecera con logo e información de la organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Barra de herramientas con nuevas opciones -->
+<div class="toolbar">
+<button class="toolbar-btn" id="printToolbarBtn" onclick="window.print()">
+                🖨️ Imprimir
+            </button>
+<button class="toolbar-btn" id="downloadBtn">
+                ⬇️ Descarregar HTML
+            </button>
+<button class="toolbar-btn" id="editBtn">
+                ✏️ Editar conteúdo
+            </button>
+</div>
+<!-- Título del documento -->
+<div class="doc-title">Plano de Ação para segurança e saúde Ocupacional</div>
+<div class="doc-code">Código: DOC-017</div>
+<!-- Contenido principal -->
+<div class="content">
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#objetivo">1. Objetivo</a></li>
+<li class="toc-item"><a class="toc-link" href="#alcance">2. Alcance</a></li>
+<li class="toc-item"><a class="toc-link" href="#acciones">3. Ações Planificadas</a></li>
+<li class="toc-item"><a class="toc-link" href="#seguimiento">4. acompanhamento e avaliação</a></li>
+<li class="toc-item"><a class="toc-link" href="#disposiciones">5. Disposições Finais</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Introducción -->
+<div class="intro-text">
+<p><strong>Este documento estabelece o Plano de Ação para Segurança e Saúde Ocupacional (SSO)</strong> do Sistema de Gestão Integrado (SGI), em cumprimento dos requisitos da norma ISO 45001:2018. O plano define objetivos específicos, ações concretas, responsáveis, prazos e mecanismos de acompanhamento para garantir a prevenção de incidentes e a melhoria contínua em segurança e saúde ocupacional.</p>
+</div>
+<!-- Sección 1: Objetivo -->
+<div class="section" id="objetivo">
+<div class="section-title">1. Objetivo</div>
+<div class="sso-section">
+<p>Definir as ações necessárias para alcançar os objetivos de Segurança e Saúde Ocupacional (SSO), garantindo a prevenção de incidentes, a melhoria contínua e o cumprimento da norma ISO 45001:2018.</p>
+</div>
+</div>
+<!-- Sección 2: Alcance -->
+<div class="section" id="alcance">
+<div class="section-title">2. Alcance</div>
+<div class="sso-section">
+<p>Este plano de ação aplica-se a todas as áreas e processos da organização, envolvendo colaboradores, contratados e outras partes interessadas no SGI.</p>
+</div>
+</div>
+<!-- Sección 3: Acciones Planificadas -->
+<div class="section" id="acciones">
+<div class="section-title">3. Ações Planificadas</div>
+<div class="intro-text">
+<p>De seguida apresentam-se os objetivos de Segurança e Saúde Ocupacional com as respetivas ações, responsáveis, prazos e mecanismos de acompanhamento:</p>
+</div>
+<table class="action-table">
+<thead>
+<tr>
+<th width="20%">Objetivo</th>
+<th width="25%">Ação</th>
+<th width="15%">Responsável</th>
+<th width="10%">Prazo</th>
+<th width="15%">Recursos necessários</th>
+<th width="15%">Indicador de Desempenho</th>
+</tr>
+</thead>
+<tbody>
+<!-- OC-001 -->
+<tr class="objective-row">
+<td class="objective-cell" colspan="6">
+<span class="objective-code">OC-001</span> Cumprir a Legislação e requisitos em SST
+                            </td>
+</tr>
+<tr>
+<td rowspan="3" style="border-left: 3px solid #c53030;"></td>
+<td>Implementar auditorias de cumprimento normativo periódicas.</td>
+<td>responsável de SYSO</td>
+<td>12 meses</td>
+<td>Recursos para auditoria, tempo do pessoal</td>
+<td>Percentagem de cumprimento de Normas de SST</td>
+</tr>
+<tr>
+<td>Realizar formações sobre a normativa vigente.</td>
+<td>responsável de Formação</td>
+<td>6 meses</td>
+<td>Material de formação, tempo dos colaboradores</td>
+<td>Percentagem de cumprimento de Normas de SST</td>
+</tr>
+<tr>
+<td>Elaborar planes de ação corretiva em caso de não conformidades.</td>
+<td>responsável de SYSO</td>
+<td>3 meses</td>
+<td>Ferramentas para plano de ação</td>
+<td>Percentagem de cumprimento de Normas de SST</td>
+</tr>
+<!-- OC-002 -->
+<tr class="objective-row">
+<td class="objective-cell" colspan="6">
+<span class="objective-code">OC-002</span> prevenir Lesiones e Enfermedades Ocupacionales
+                            </td>
+</tr>
+<tr>
+<td rowspan="3" style="border-left: 3px solid #c53030;"></td>
+<td>implementar programas de prevenção de riscos.</td>
+<td>Coordenador de segurança</td>
+<td>12 meses</td>
+<td>Material informativo, orçamento para prevenção</td>
+<td>Índice de Incidência de Lesões e Doenças Ocupacionais</td>
+</tr>
+<tr>
+<td>Realizar inspeções de segurança periódicas.</td>
+<td>responsável de SYSO</td>
+<td>6 meses</td>
+<td>Equipamento para inspeção, recursos humanos</td>
+<td>Índice de Incidência de Lesões e Doenças Ocupacionais</td>
+</tr>
+<tr>
+<td>Fortalecer a cultura de reporte de incidentes e actos inseguros.</td>
+<td>Recursos Humanos</td>
+<td>9 meses</td>
+<td>Campanhas de consciencialização, orçamento para materiais</td>
+<td>Índice de Incidência de Lesões e Doenças Ocupacionais</td>
+</tr>
+<!-- OC-003 -->
+<tr class="objective-row">
+<td class="objective-cell" colspan="6">
+<span class="objective-code">OC-003</span> Fomentar a Participação e Consulta dos trabalhadores
+                            </td>
+</tr>
+<tr>
+<td rowspan="3" style="border-left: 3px solid #c53030;"></td>
+<td>implementar reuniones periódicas de segurança.</td>
+<td>Gerentes de Área</td>
+<td>3 meses</td>
+<td>Espaços para reuniões, tempo do pessoal</td>
+<td>Percentagem de Participação em Reuniões de SST</td>
+</tr>
+<tr>
+<td>Fomentar a consulta e sugerencias dos empleados.</td>
+<td>responsável de SYSO</td>
+<td>6 meses</td>
+<td>Herramientas para consultas, recursos para incentivos</td>
+<td>Percentagem de Participação em Reuniões de SST</td>
+</tr>
+<tr>
+<td>Desenvolver campanhas de consciencialização sobre SST.</td>
+<td>Departamento de Comunicação</td>
+<td>9 meses</td>
+<td>Materiais gráficos, orçamento para campanhas</td>
+<td>Percentagem de Participação em Reuniões de SST</td>
+</tr>
+<!-- OC-004 -->
+<tr class="objective-row">
+<td class="objective-cell" colspan="6">
+<span class="objective-code">OC-004</span> Melhorar Continuamente em Segurança e Saúde Ocupacional
+                            </td>
+</tr>
+<tr>
+<td rowspan="3" style="border-left: 3px solid #c53030;"></td>
+<td>Implementar planos de melhoria baseados em auditorias e avaliações de riscos.</td>
+<td>responsável de SYSO</td>
+<td>Anual</td>
+<td>Recursos para auditorias, tempo do pessoal</td>
+<td>Número de Ações Corretivas Implementadas em SYSO</td>
+</tr>
+<tr>
+<td>monitorizar a implementação de ações corretivas.</td>
+<td>Coordenador de SST</td>
+<td>6 meses</td>
+<td>Ferramentas para acompanhamento, equipa de trabalho</td>
+<td>Número de Ações Corretivas Implementadas em SYSO</td>
+</tr>
+<tr>
+<td>Rever periodicamente o desempenho em SST.</td>
+<td>Alta direção</td>
+<td>12 meses</td>
+<td>Relatórios de desempenho, reuniões periódicas</td>
+<td>Número de Ações Corretivas Implementadas em SYSO</td>
+</tr>
+<!-- OC-005 -->
+<tr class="objective-row">
+<td class="objective-cell" colspan="6">
+<span class="objective-code">OC-005</span> Formar ao pessoal em segurança e saúde Ocupacional
+                            </td>
+</tr>
+<tr>
+<td rowspan="3" style="border-left: 3px solid #c53030;"></td>
+<td>Implementar um programa de formação contínua em SST.</td>
+<td>responsável de Formação</td>
+<td>12 meses</td>
+<td>Recursos para formação, materiais didáticos</td>
+<td>Percentagem de pessoal Formado em SST</td>
+</tr>
+<tr>
+<td>Avaliar a eficácia das formações através de testes e inquéritos.</td>
+<td>Departamento de Formação</td>
+<td>6 meses</td>
+<td>Inquéritos, materiais para avaliações</td>
+<td>Percentagem de pessoal Formado em SST</td>
+</tr>
+<tr>
+<td>Desenvolver materiais didáticos adaptados a cada área da empresa.</td>
+<td>responsável de Formação</td>
+<td>6 meses</td>
+<td>Materiais, recursos para design</td>
+<td>Percentagem de pessoal Formado em SST</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Sección 4: Seguimiento y Evaluación -->
+<div class="section" id="seguimiento">
+<div class="section-title">4. acompanhamento e avaliação</div>
+<div class="sso-section">
+<ul class="followup-list">
+<li>Realizar-se-ão reuniões trimestrais para avaliar o progresso do plano.</li>
+<li>Serão atribuídos responsáveis para supervisionar o cumprimento de cada ação.</li>
+<li>Em caso de desvios, implementar-se-ão medidas corretivas e ajustes ao plano.</li>
+<li>Documentar-se-ão os resultados e as aprendizagens para futuras melhorias.</li>
+</ul>
+</div>
+</div>
+<!-- Sección 5: Disposiciones Finales -->
+<div class="section" id="disposiciones">
+<div class="section-title">5. Disposições Finais</div>
+<div class="sso-section">
+<p>Este plano de ação será revisto periodicamente para garantir o seu alinhamento com os objetivos estratégicos da organização e as normativas vigentes.</p>
+</div>
+</div>
+<!-- Botón de impresión (original) -->
+<button class="print-btn" onclick="window.print()">📄 Imprimir documento</button>
+<!-- Historial de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Pie de página -->
+<div class="footer">
+<p>Código: DOC-017 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        // Configurar scroll suave para los enlaces del TOC
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Verifica si el logo existe, caso contrario muestra un placeholder
+        const logoImg = document.querySelector('.logo');
+        if (logoImg) {
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+            };
+        }
+
+        // Función para descargar el HTML actual
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'DOC-017-Plan-de-accion-syso.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        // Función para activar/desactivar modo edición
+        const editBtn = document.getElementById('editBtn');
+        let editModeActive = false;
+
+        // Elementos que serán editables (todo el texto del documento, excepto botones y logo)
+        const editableElements = [
+            document.querySelector('.org-info'),
+            document.querySelector('.doc-title'),
+            document.querySelector('.doc-code'),
+            document.querySelector('.content'),
+            document.querySelector('.footer')
+        ].filter(el => el !== null);
+
+        editBtn.addEventListener('click', function() {
+            editModeActive = !editModeActive;
+            
+            editableElements.forEach(el => {
+                if (editModeActive) {
+                    el.setAttribute('contenteditable', 'true');
+                } else {
+                    el.removeAttribute('contenteditable');
+                }
+            });
+            
+            // Añadir o quitar una clase al body para dar feedback visual
+            if (editModeActive) {
+                document.body.classList.add('editable-active');
+                editBtn.innerHTML = '🔒 Terminar edição';
+                editBtn.style.backgroundColor = '#c53030'; // rojo para indicar modo activo
+            } else {
+                document.body.classList.remove('editable-active');
+                editBtn.innerHTML = '✏️ Editar conteúdo';
+                editBtn.style.backgroundColor = '#4a5568'; // color original
+            }
+        });
+    </script>
+</body>
+</html>

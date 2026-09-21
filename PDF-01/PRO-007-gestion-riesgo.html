@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PRO-007 Procedimento de Gestão de risco (editable)</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        /* Barra de herramientas superior */
+        .toolbar {
+            max-width: 1200px;
+            margin: 0 auto 15px auto;
+            background-color: #2d3748;
+            border-radius: 40px;
+            padding: 12px 25px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: flex-end;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .toolbar button {
+            background-color: #edf2f7;
+            border: none;
+            color: #2d3748;
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        
+        .toolbar button:hover {
+            background-color: #cbd5e0;
+            transform: scale(1.02);
+        }
+        
+        .toolbar button.editar-activo {
+            background-color: #38a169;
+            color: white;
+        }
+        
+        .toolbar button i { font-style: normal; font-size: 1.2em; }
+        
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c5282;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5282;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c5282;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        /* Resaltado cuando la edición está activa */
+        .content.editable-active {
+            outline: 3px dashed #38a169;
+            outline-offset: 8px;
+            background-color: #fffff0;
+            border-radius: 12px;
+            transition: outline 0.2s;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #2c5282;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #2c5282;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .toc-item:before {
+            content: "•";
+            color: #2c5282;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .toc-link {
+            color: #2c5282;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #4299e1;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #2c5282;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .subsection-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .subsubsection-title {
+            color: #718096;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0 10px;
+        }
+        
+        .section-description {
+            margin-bottom: 20px;
+            color: #4a5568;
+            line-height: 1.7;
+        }
+        
+        .procedure-list {
+            list-style-type: decimal;
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .procedure-list li {
+            margin-bottom: 15px;
+            padding-left: 10px;
+        }
+        
+        .procedure-sublist {
+            list-style-type: lower-alpha;
+            margin-left: 25px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .procedure-sublist li {
+            margin-bottom: 8px;
+        }
+        
+        .responsibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .responsibility-table th {
+            background-color: #2c5282;
+            color: white;
+            text-align: left;
+            padding: 15px;
+            font-weight: bold;
+            border: 1px solid #1a365d;
+        }
+        
+        .responsibility-table td {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        
+        .responsibility-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .risk-matrix {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            font-size: 14px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .risk-matrix th, .risk-matrix td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .risk-matrix th {
+            background-color: #2c5282;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .risk-matrix .header-cell {
+            background-color: #1a365d;
+            font-weight: bold;
+        }
+        
+        .risk-low {
+            background-color: #c6f6d5;
+            color: #22543d;
+        }
+        
+        .risk-medium {
+            background-color: #fed7d7;
+            color: #742a2a;
+        }
+        
+        .risk-high {
+            background-color: #fed7d7;
+            color: #742a2a;
+            font-weight: bold;
+        }
+        
+        .risk-intolerable {
+            background-color: #742a2a;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .norma-badge {
+            display: inline-block;
+            background-color: #e6fffa;
+            color: #234e52;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 13px;
+            margin: 3px 3px 3px 0;
+            border-left: 3px solid #38b2ac;
+            white-space: nowrap;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2c5282;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c5282;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .pyramid-container {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .pyramid-placeholder {
+            background-color: #e2e8f0;
+            color: #4a5568;
+            padding: 60px 20px;
+            border-radius: 5px;
+            font-style: italic;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #2c5282;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #4299e1;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .toolbar, .print-btn {
+                display: none !important;
+            }
+            
+            .responsibility-table, .risk-matrix {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .toc-list {
+                padding-left: 0;
+            }
+            
+            .toc-item {
+                padding-left: 15px;
+            }
+            
+            .responsibility-table, .risk-matrix {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .risk-matrix {
+                font-size: 12px;
+            }
+            
+            .risk-matrix th, .risk-matrix td {
+                padding: 8px 6px;
+            }
+            
+            .toolbar {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Barra de herramientas (botones) -->
+<div class="toolbar">
+<button id="btnEditar" title="Ativar/desativar edição do conteúdo">
+<i>✎</i> Editar
+        </button>
+<button id="btnHtml" title="Descarregar o documento como ficheiro HTML">
+<i>⬇️</i> Descarregar HTML
+        </button>
+<button id="btnPdf" title="Guardar como PDF (usar impressora → guardar como PDF)">
+<i>📄</i> Descarregar PDF
+        </button>
+</div>
+<div class="document-container">
+<!-- Cabecera con logo e información de la organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        Pendente de validação
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        001
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título del documento -->
+<div class="doc-title">Procedimento de Gestão de risco</div>
+<div class="doc-code">Código: PRO-007</div>
+<!-- Contenido principal (editable) -->
+<div class="content" id="mainContent">
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#objetivo">Objetivo</a></li>
+<li class="toc-item"><a class="toc-link" href="#alcance">Alcance</a></li>
+<li class="toc-item"><a class="toc-link" href="#definiciones">Definições</a></li>
+<li class="toc-item"><a class="toc-link" href="#responsabilidades">Responsabilidades</a></li>
+<li class="toc-item"><a class="toc-link" href="#procedimiento-comun">Procedimento Comum de Gestão do Risco</a></li>
+<li class="toc-item"><a class="toc-link" href="#gestion-especificos">Gestão de Riscos específicos</a></li>
+<li class="toc-item"><a class="toc-link" href="#metodologia-comun">Metodologia Comum</a></li>
+<li class="toc-item"><a class="toc-link" href="#documentos-relacionados">documentos Relacionados</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial-versiones">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Sección 1: Objetivo -->
+<div class="section" id="objetivo">
+<div class="section-title">1. Objetivo</div>
+<div class="section-description">
+                    Estabelecer uma metodologia comum para a identificação, avaliação e tratamento dos riscos e oportunidades na organização, aplicada aos âmbitos de qualidade, ambiente e segurança e saúde no trabalho, conforme os princípios das <strong>normas ISO de gestão de riscos</strong> e os requisitos específicos das <strong>normas ISO</strong>.
+                </div>
+</div>
+<!-- Sección 2: Alcance -->
+<div class="section" id="alcance">
+<div class="section-title">2. Alcance</div>
+<div class="section-description">
+                    Este procedimento aplica-se a todas as áreas da organização e abrange a gestão de riscos associados à qualidade, ao ambiente e à segurança e saúde no trabalho, com o objetivo de minimizar o impacto dos riscos e melhorar continuamente o Sistema de Gestão Integrado (SGI).
+                </div>
+</div>
+<!-- Sección 3: Definiciones -->
+<div class="section" id="definiciones">
+<div class="section-title">3. Definições</div>
+<div class="section-description">
+<ul style="list-style-type: disc; margin-left: 20px;">
+<li><strong>risco:</strong> Efeito da incerteza sobre os objetivos. Pode ter efeitos positivos ou negativos.</li>
+<li><strong>risco a saúde e segurança ocupacional:</strong> De acordo com as normas ISO, o risco no âmbito da saúde e segurança no trabalho define-se como a probabilidade de que um perigo se materialize e afete o bem-estar dos trabalhadores. Para a SST o risco apenas possui um efeito negativo.</li>
+<li><strong>Gestão do risco:</strong> Atividades coordenadas para dirigir e controlar uma organização relativamente ao risco.</li>
+<li><strong>avaliação do risco:</strong> Processo global de identificação, análise e avaliação do risco.</li>
+</ul>
+</div>
+</div>
+<!-- Sección 4: Responsabilidades -->
+<div class="section" id="responsabilidades">
+<div class="section-title">4. Responsabilidades</div>
+<table class="responsibility-table">
+<thead>
+<tr>
+<th>Rol</th>
+<th>Responsabilidades</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Diretor (CEO)</strong></td>
+<td>Aprova a estratégia de gestão de riscos e revê os resultados da gestão de riscos nos três âmbitos.</td>
+</tr>
+<tr>
+<td><strong>Encarregado do SGI</strong></td>
+<td>Coordina o processo de gestão de riscos, facilitando a identificação, avaliação e controlo de riscos em qualidade, meio ambiente e segurança e saúde no trabalho.</td>
+</tr>
+<tr>
+<td><strong>Responsáveis de Área</strong></td>
+<td>Identificam e avaliam os riscos nas suas áreas e colaboram na implementação de medidas de controlo para mitigar os riscos.</td>
+</tr>
+<tr>
+<td><strong>pessoal Operativo</strong></td>
+<td>Reportan posibles riscos e siguen as medidas de controlo establecidas.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Sección 5: Procedimento Común de Gestão del Riesgo -->
+<div class="section" id="procedimiento-comun">
+<div class="section-title">5. Procedimento Comum de Gestão do Risco</div>
+<div class="subsection-title">5.1 Identificação de riscos</div>
+<div class="section-description">
+<ul style="list-style-type: disc; margin-left: 20px;">
+<li>Os riscos identificam-se através de análise de processos, auditorias, análise de incidentes, observações e sugestões do pessoal, entre outras fontes.</li>
+<li>La identificação de riscos se documenta no <strong>Registo de riscos</strong>, com a seguinte informação:
+                            <ul style="list-style-type: circle; margin-left: 30px; margin-top: 10px;">
+<li>Descrição do risco.</li>
+<li>Área de impacto (qualidade, ambiente ou segurança e saúde).</li>
+<li>Causas potenciales.</li>
+<li>Consecuencias esperadas.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="subsection-title">5.2 Análise e avaliação de riscos</div>
+<div class="section-description">
+<ul style="list-style-type: disc; margin-left: 20px;">
+<li>Cada risco identificado é analisado para determinar o seu nível de impacto e probabilidade de ocorrência.</li>
+<li>Se utiliza uma <strong>matriz de riscos</strong> Para classificar os riscos conforme a sua severidade e frequência.</li>
+<li>Os riscos avaliam-se e priorizam-se, atribuindo um nível de risco: baixo, médio ou alto.</li>
+</ul>
+</div>
+<div class="subsection-title">5.3 Tratamento de riscos</div>
+<div class="section-description">
+<ul style="list-style-type: disc; margin-left: 20px;">
+<li>Para cada risco significativo, determinam-se e aplicam-se medidas de controlo que possam:
+                            <ul style="list-style-type: circle; margin-left: 30px; margin-top: 10px;">
+<li><strong>Eliminar o risco</strong> (evitação).</li>
+<li><strong>Reduzir a probabilidade ou o impacto</strong> do risco (mitigação).</li>
+<li><strong>Transferir o risco</strong> a um terceiro.</li>
+<li><strong>Aceitar o risco</strong> se é baixo e está controlado.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="subsection-title">5.4 acompanhamento e revisão de riscos</div>
+<div class="section-description">
+<ul style="list-style-type: disc; margin-left: 20px;">
+<li>Os riscos revêem-se periodicamente e sempre que ocorra uma alteração significativa nos processos ou no ambiente.</li>
+<li>O Encarregado do SGI atualiza o <strong>Registo de riscos</strong> com qualquer cambio o medida de controlo aplicada.</li>
+</ul>
+</div>
+</div>
+<!-- Sección 6: Gestão de Riscos Específicos -->
+<div class="section" id="gestion-especificos">
+<div class="section-title">6. Gestão de Riscos Específicos</div>
+<div class="subsection-title">6.1 Riscos da Qualidade (ISO 9001:2015)</div>
+<div class="subsubsection-title">6.1.1 Identificação</div>
+<div class="section-description">
+<ul style="list-style-type: disc; margin-left: 20px;">
+<li>Os riscos e oportunidades da qualidade são identificados em todos os processos da FACASI, considerando a satisfação do cliente, o cumprimento dos requisitos contratuais e a conformidade do serviço prestado — nomeadamente a fiabilidade dos relatórios de inspeção emitidos.</li>
+<li>São documentados no próprio processo ou numa matriz de riscos e oportunidades.</li>
+</ul>
+</div>
+<div class="subsubsection-title">6.1.2 Análise e avaliação</div>
+<div class="section-description">
+<ul style="list-style-type: disc; margin-left: 20px;">
+<li>Os riscos são avaliados quanto ao seu impacto na qualidade do serviço e na capacidade de cumprir os requisitos do cliente.</li>
+<li>É aplicada a metodologia de matriz de riscos para os priorizar em função do impacto e da probabilidade.</li>
+</ul>
+</div>
+<div class="subsubsection-title">6.1.3 Tratamento</div>
+<div class="section-description">
+<ul style="list-style-type: disc; margin-left: 20px;">
+<li>As ações preventivas (PRO-006) e corretivas (PRO-005) são as principais medidas de controlo.</li>
+<li>Controlos específicos incluem formação e requalificação técnica, melhoria de procedimentos, calibração de equipamentos de medição e revisão dos relatórios antes da emissão.</li>
+</ul>
+</div>
+<div class="subsubsection-title">6.1.4 Acompanhamento e revisão</div>
+<div class="section-description">
+<ul style="list-style-type: disc; margin-left: 20px;">
+<li>O Coordenador do SGI acompanha regularmente os riscos e os controlos aplicados, assegurando a conformidade contínua com os requisitos da norma.</li>
+</ul>
+</div>
+<div class="subsubsection-title">6.1.5 Ferramentas de análise</div>
+<div class="section-description">
+<ul style="list-style-type: disc; margin-left: 20px;">
+<li>Análise SWOT (FOFA)</li>
+<li>Análise PESTEL</li>
+<li>Matriz de identificação de riscos e oportunidades</li>
+</ul>
+</div>
+<div class="subsection-title">6.2 Riscos de Segurança e Saúde no Trabalho (ISO 45001:2018)</div>
+<div class="subsubsection-title">6.2.1 Identificação</div>
+<div class="section-description">
+<ul style="list-style-type: disc; margin-left: 20px;">
+<li>Os riscos de segurança e saúde são identificados através de avaliações de riscos laborais, análise de incidentes e quase-acidentes, observações em campo e retorno dos trabalhadores, conforme o PRO-019.</li>
+<li>São considerados tanto as condições de trabalho como as atividades específicas de cada função — com atenção particular a espaços confinados, trabalho em altura, radiação ionizante e produtos químicos.</li>
+</ul>
+</div>
+<div class="subsubsection-title">6.2.2 Análise e avaliação</div>
+<div class="section-description">
+<ul style="list-style-type: disc; margin-left: 20px;">
+<li>Cada risco é avaliado em função do seu potencial para causar dano aos trabalhadores.</li>
+<li>A matriz de riscos é aplicada para os classificar conforme a severidade e a probabilidade, destacando os que requerem controlo imediato.</li>
+</ul>
+</div>
+<div class="subsubsection-title">6.2.3 Tratamento</div>
+<div class="section-description">
+<ul style="list-style-type: disc; margin-left: 20px;">
+<li>As medidas de controlo seguem a hierarquia de controlos definida no PRO-019: eliminação, substituição, controlos de engenharia, controlos administrativos e, por último, EPI (PRO-020).</li>
+<li>Os controlos específicos são documentados e supervisionados para assegurar a prevenção de incidentes.</li>
+</ul>
+</div>
+<div class="subsubsection-title">6.2.4 Acompanhamento e revisão</div>
+<div class="section-description">
+<ul style="list-style-type: disc; margin-left: 20px;">
+<li>Os riscos e os respetivos controlos são revistos regularmente e sempre que ocorram alterações nas condições de trabalho, conforme o PRO-024 (Gestão da Mudança).</li>
+</ul>
+</div>
+<div class="subsubsection-title">6.2.5 Cálculo do nível de risco</div>
+<div class="section-description">
+<p>O nível de risco resulta da combinação da probabilidade de ocorrência do perigo com a gravidade do dano que este pode causar.</p>
+</div>
+</div>
+<!-- Sección 7: Metodología Común -->
+<div class="section" id="metodologia-comun">
+<div class="section-title">7. Metodologia Comum</div>
+<div class="subsection-title">7.1 Identificação de Riscos e oportunidades</div>
+<div class="section-description">
+<p>La identificação de riscos e oportunidades se realiza em os siguientes momentos:</p>
+<ul style="list-style-type: disc; margin-left: 20px;">
+<li>Durante a planeamento anual do SGI.</li>
+<li>Al implementar o modificar processos significativos.</li>
+<li>Em resposta a alterações externas (legais, normativas, tecnológicas, etc.) que possam afetar a organização.</li>
+<li>Durante a revisão pela direção.</li>
+<li>A partir dos resultados de auditorías internas e externas.</li>
+<li>Em reuniões periódicas de avaliação de desempenho.</li>
+</ul>
+</div>
+<div class="subsection-title">7.2 avaliação de Riscos e oportunidades</div>
+<div class="section-description">
+<ol style="list-style-type: decimal; margin-left: 20px;">
+<li><strong>Contextualização:</strong> Para cada risco e oportunidade identificada, determina-se o contexto interno ou externo que influencia o seu aparecimento.</li>
+<li><strong>Análise e avaliação:</strong>
+<ul style="list-style-type: disc; margin-left: 30px; margin-top: 10px;">
+<li>Classifica-se o nível de risco tendo em conta dois critérios:
+                                    <ul style="list-style-type: circle; margin-left: 40px; margin-top: 5px;">
+<li>Probabilidade de ocorrência (baixa, média, alta).</li>
+<li>Impacto sobre os resultados do SGI (baixo, médio, alto).</li>
+</ul>
+</li>
+<li>Atribuem-se níveis de criticidade com base numa Matriz de riscos, estabelecendo prioridades de atenção.</li>
+</ul>
+</li>
+<li><strong>oportunidades:</strong>
+<ul style="list-style-type: disc; margin-left: 30px; margin-top: 10px;">
+<li>Avalia-se o potencial benefício de cada oportunidade, considerando a viabilidade e os recursos necessários para o seu aproveitamento.</li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="subsection-title">7.2.1 Matriz de avaliação do risco</div>
+<div class="section-description">
+<p>A seguinte matriz utiliza-se para avaliar o nível de risco:</p>
+</div>
+<table class="risk-matrix">
+<thead>
+<tr>
+<th class="header-cell" colspan="2" rowspan="2">Probabilidade vs Impacto</th>
+<th class="header-cell" colspan="5">IMPACTO DO EVENTO SOBRE OS OBJETIVOS OU RESULTADOS</th>
+</tr>
+<tr>
+<th><strong>1</strong><br/>Baixo impacto</th>
+<th><strong>2</strong><br/>Impacto Moderado</th>
+<th><strong>3</strong><br/>Impacto médio</th>
+<th><strong>4</strong><br/>Alto Impacto</th>
+<th><strong>5</strong><br/>Extremamente Grave</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td rowspan="5" style="writing-mode: vertical-lr; text-align: center; font-weight: bold; background-color: #f8f9fa;">Probabilidade de ocorrência do evento que se analisa</td>
+<td style="font-weight: bold; background-color: #f8f9fa;">1<br/>POCO PROBABLE<br/>(Nunca sucedió)</td>
+<td class="risk-low"><strong>1</strong><br/>Pode aceitar-se com medidas de controlo</td>
+<td class="risk-low"><strong>2</strong><br/>Pode aceitar-se com medidas de controlo</td>
+<td class="risk-low"><strong>3</strong><br/>Pode aceitar-se com medidas de controlo</td>
+<td class="risk-medium"><strong>4</strong><br/>Deve analisar-se e determinar substituição ou controlos de Eng.</td>
+<td class="risk-medium"><strong>5</strong><br/>Deve analisar-se e determinar substituição ou controlos de Eng.</td>
+</tr>
+<tr>
+<td style="font-weight: bold; background-color: #f8f9fa;">2<br/>PROBABLE<br/>(Sucede pelo menos 2 vezes por ano)</td>
+<td class="risk-low"><strong>2</strong><br/>Pode aceitar-se com medidas de controlo</td>
+<td class="risk-medium"><strong>4</strong><br/>Deve analisar-se e determinar substituição ou controlos de Eng.</td>
+<td class="risk-medium"><strong>6</strong><br/>Deve analisar-se e determinar substituição ou controlos de Eng.</td>
+<td class="risk-high"><strong>8</strong><br/>deve gestionarse</td>
+<td class="risk-high"><strong>10</strong><br/>deve gestionarse</td>
+</tr>
+<tr>
+<td style="font-weight: bold; background-color: #f8f9fa;">3<br/>MUITO PROVÁVEL<br/>(Sucede a cada 4 meses)</td>
+<td class="risk-low"><strong>3</strong><br/>Pode aceitar-se com medidas de controlo</td>
+<td class="risk-medium"><strong>6</strong><br/>Deve analisar-se e determinar substituição ou controlos de Eng.</td>
+<td class="risk-high"><strong>9</strong><br/>deve gestionarse</td>
+<td class="risk-intolerable"><strong>12</strong><br/>Intolerável</td>
+<td class="risk-intolerable"><strong>15</strong><br/>Intolerável</td>
+</tr>
+<tr>
+<td style="font-weight: bold; background-color: #f8f9fa;">4<br/>SUELE OCURRIR<br/>(Frequência mensal)</td>
+<td class="risk-medium"><strong>4</strong><br/>Deve analisar-se e determinar substituição ou controlos de Eng.</td>
+<td class="risk-high"><strong>8</strong><br/>deve gestionarse</td>
+<td class="risk-intolerable"><strong>12</strong><br/>Intolerável</td>
+<td class="risk-intolerable"><strong>16</strong><br/>Intolerável</td>
+<td class="risk-intolerable"><strong>20</strong><br/>Intolerável</td>
+</tr>
+<tr>
+<td style="font-weight: bold; background-color: #f8f9fa;">5<br/>CERTEZA ABSOLUTA<br/>(É constante na sua aparição)</td>
+<td class="risk-medium"><strong>5</strong><br/>Deve analisar-se e determinar substituição ou controlos de Eng.</td>
+<td class="risk-high"><strong>10</strong><br/>deve gestionarse</td>
+<td class="risk-intolerable"><strong>15</strong><br/>Intolerável</td>
+<td class="risk-intolerable"><strong>20</strong><br/>Intolerável</td>
+<td class="risk-intolerable"><strong>25</strong><br/>Intolerável</td>
+</tr>
+</tbody>
+</table>
+<div class="subsection-title">7.3 Tratamento de Riscos e oportunidades</div>
+<div class="section-description">
+<p><strong>riscos:</strong> Para cada risco identificado, determina-se a ação adequada entre as seguintes opções:</p>
+<ul style="list-style-type: disc; margin-left: 20px;">
+<li>Evitar o risco.</li>
+<li>Mitigar o risco através da implementação de controles.</li>
+<li>Partilhar o risco (por exemplo, através de subcontratação ou seguro).</li>
+<li>Aceitar o risco, sempre que seja controlável e justificado.</li>
+</ul>
+<div class="pyramid-container">
+<div class="pyramid-placeholder">
+                            [Imagem: Pirâmide de prioridades relativas à ação face ao risco]<br/>
+<em>Nota: na versão digital completa incluir-se-ia aqui a imagem da pirâmide de prioridades.</em>
+</div>
+</div>
+<p><strong>oportunidades:</strong> Para cada oportunidade, definem-se ações para a aproveitar, atribuindo responsáveis e prazos para a implementação.</p>
+</div>
+<div class="subsection-title">7.4 Registo e acompanhamento</div>
+<div class="section-description">
+<ul style="list-style-type: disc; margin-left: 20px;">
+<li>Todos os riscos e oportunidades identificados, avaliados e tratados registam-se na Matriz de Riscos e oportunidades.</li>
+<li>O Encarregado da qualidade ou Oficial de cumprimento é responsável por atualizar esta matriz e monitorizar as ações corretivas e preventivas associadas.</li>
+<li>Leva-se a cabo um acompanhamento regular para assegurar que as ações são eficazes e, em caso contrário, tomam-se medidas adicionais.</li>
+</ul>
+</div>
+<div class="subsection-title">7.5 revisão</div>
+<div class="section-description">
+<p>Este procedimento revê-se como parte da Revisão pela Direção e quando ocorram alterações significativas no contexto da empresa, nos processos ou no ambiente normativo.</p>
+</div>
+</div>
+<!-- Sección 8: Documentos Relacionados -->
+<div class="section" id="documentos-relacionados">
+<div class="section-title">8. documentos Relacionados</div>
+<div class="section-description">
+<ul style="list-style-type: disc; margin-left: 20px;">
+<li><strong>Registo de riscos</strong> (formato Word)</li>
+<li><strong>PRO-005</strong>: Procedimento de Ações Corretivas</li>
+<li><strong>PRO-006</strong>: Procedimento de Ações Preventivas</li>
+<li><strong>Matrices de risco</strong></li>
+</ul>
+</div>
+</div>
+<!-- Botón de impresión original (lo mantenemos) -->
+<button class="print-btn" onclick="window.print()">📄 Imprimir documento</button>
+<!-- Historial de versiones -->
+<div class="version-history" id="historial-versiones">
+<div class="section-title">9. Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>001</td>
+<td>Pendente de validação</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div> <!-- fin .content -->
+<!-- Pie de página -->
+<div class="footer">
+<p>Código: PRO-007 | Revisão: 001 | Página 1 de 1</p>
+</div>
+</div> <!-- fin .document-container -->
+<script>
+        (function() {
+            // Elementos de la barra de herramientas
+            const contentEl = document.getElementById('mainContent');
+            const btnEditar = document.getElementById('btnEditar');
+            const btnHtml = document.getElementById('btnHtml');
+            const btnPdf = document.getElementById('btnPdf');
+
+            // Estado de edición
+            let editable = false;
+
+            function toggleEdicion() {
+                editable = !editable;
+                if (editable) {
+                    contentEl.setAttribute('contenteditable', 'true');
+                    contentEl.classList.add('editable-active');
+                    btnEditar.classList.add('editar-activo');
+                    btnEditar.innerHTML = '<i>🔒</i> Desativar edição';
+                } else {
+                    contentEl.removeAttribute('contenteditable');
+                    contentEl.classList.remove('editable-active');
+                    btnEditar.classList.remove('editar-activo');
+                    btnEditar.innerHTML = '<i>✎</i> Editar';
+                }
+            }
+
+            btnEditar.addEventListener('click', toggleEdicion);
+
+            // Descargar HTML
+            function descargarHTML() {
+                const styles = document.querySelector('style').innerHTML;
+                const containerHTML = document.querySelector('.document-container').outerHTML;
+                const htmlCompleto = `<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRO-007 Gestão de Risco - SGI</title>
+    <style>${styles}</style>
+</head>
+<body>
+    ${containerHTML}
+</body>
+</html>`;
+
+                const blob = new Blob([htmlCompleto], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'PRO-007_gestion_riesgo.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+
+            btnHtml.addEventListener('click', descargarHTML);
+
+            // PDF (impresión)
+            btnPdf.addEventListener('click', function() {
+                window.print();
+            });
+
+            // Scroll suave para enlaces del TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Logo fallback
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c5282" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                    console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+                };
+            }
+        })();
+    </script>
+</body>
+</html>

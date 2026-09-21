@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PRO-009 Procedimento de Gestão do Recursos Humanos (editable)</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        /* Barra de herramientas superior */
+        .toolbar {
+            max-width: 1200px;
+            margin: 0 auto 15px auto;
+            background-color: #2d3748;
+            border-radius: 40px;
+            padding: 12px 25px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: flex-end;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .toolbar button {
+            background-color: #edf2f7;
+            border: none;
+            color: #2d3748;
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        
+        .toolbar button:hover {
+            background-color: #cbd5e0;
+            transform: scale(1.02);
+        }
+        
+        .toolbar button.editar-activo {
+            background-color: #38a169;
+            color: white;
+        }
+        
+        .toolbar button i { font-style: normal; font-size: 1.2em; }
+        
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c5282;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5282;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c5282;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        /* Resaltado cuando la edición está activa */
+        .content.editable-active {
+            outline: 3px dashed #38a169;
+            outline-offset: 8px;
+            background-color: #fffff0;
+            border-radius: 12px;
+            transition: outline 0.2s;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #2c5282;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #2c5282;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .toc-item:before {
+            content: "•";
+            color: #2c5282;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .toc-link {
+            color: #2c5282;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #4299e1;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #2c5282;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .subsection-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .subsubsection-title {
+            color: #718096;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0 10px;
+        }
+        
+        .section-description {
+            margin-bottom: 20px;
+            color: #4a5568;
+            line-height: 1.7;
+        }
+        
+        .procedure-list {
+            list-style-type: decimal;
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .procedure-list li {
+            margin-bottom: 15px;
+            padding-left: 10px;
+        }
+        
+        .procedure-sublist {
+            list-style-type: disc;
+            margin-left: 40px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .procedure-sublist li {
+            margin-bottom: 8px;
+        }
+        
+        .responsibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .responsibility-table th {
+            background-color: #2c5282;
+            color: white;
+            text-align: left;
+            padding: 15px;
+            font-weight: bold;
+            border: 1px solid #1a365d;
+        }
+        
+        .responsibility-table td {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        
+        .responsibility-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .definition-list {
+            list-style-type: none;
+            margin-left: 20px;
+        }
+        
+        .definition-list li {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .definition-list li:before {
+            content: "•";
+            color: #2c5282;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .norma-badge {
+            display: inline-block;
+            background-color: #e6fffa;
+            color: #234e52;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 13px;
+            margin: 3px 3px 3px 0;
+            border-left: 3px solid #38b2ac;
+            white-space: nowrap;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2c5282;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c5282;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .kpi-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .kpi-item {
+            background-color: #f0fff4;
+            border: 1px solid #c6f6d5;
+            border-radius: 5px;
+            padding: 15px;
+            border-left: 4px solid #38a169;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #2c5282;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #4299e1;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .toolbar, .print-btn {
+                display: none !important;
+            }
+            
+            .responsibility-table {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .toc-list {
+                padding-left: 0;
+            }
+            
+            .toc-item {
+                padding-left: 15px;
+            }
+            
+            .responsibility-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .kpi-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .toolbar {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Barra de herramientas (botones) -->
+<div class="toolbar">
+<button id="btnEditar" title="Ativar/desativar edição do conteúdo">
+<i>✎</i> Editar
+        </button>
+<button id="btnHtml" title="Descarregar o documento como ficheiro HTML">
+<i>⬇️</i> Descarregar HTML
+        </button>
+<button id="btnPdf" title="Guardar como PDF (usar impressora → guardar como PDF)">
+<i>📄</i> Descarregar PDF
+        </button>
+</div>
+<div class="document-container">
+<!-- Cabecera con logo e información de la organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        Pendente de validação
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título del documento -->
+<div class="doc-title">Procedimento de Gestão do Recursos Humanos</div>
+<div class="doc-code">Código: PRO-009</div>
+<!-- Contenido principal (editable) -->
+<div class="content" id="mainContent">
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#objetivo">Objetivo</a></li>
+<li class="toc-item"><a class="toc-link" href="#alcance">Alcance</a></li>
+<li class="toc-item"><a class="toc-link" href="#definiciones">Definições</a></li>
+<li class="toc-item"><a class="toc-link" href="#responsabilidades">Responsabilidades</a></li>
+<li class="toc-item"><a class="toc-link" href="#procedimiento-comun">Procedimento Comum de Gestão de Recursos Humanos</a></li>
+<li class="toc-item"><a class="toc-link" href="#seguimiento-evaluacion">acompanhamento e avaliação da Gestão do Recursos Humanos</a></li>
+<li class="toc-item"><a class="toc-link" href="#documentos-relacionados">documentos relacionados</a></li>
+<li class="toc-item"><a class="toc-link" href="#referencias-normativas">Referências Normativas</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial-versiones">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Sección 1: Objetivo -->
+<div class="section" id="objetivo">
+<div class="section-title">1. Objetivo</div>
+<div class="section-description">
+                    Estabelecer um procedimento para a gestão dos recursos humanos da FACASI, assegurando a contratação, o desenvolvimento e a retenção de colaboradores competentes. Este procedimento visa garantir que as pessoas que executam trabalhos que afetam a qualidade do serviço e a segurança possuem a competência necessária, em conformidade com a <strong>ISO 9001:2015</strong> (cláusulas 7.2 — Competência; 7.3 — Consciencialização) e a <strong>ISO 45001:2018</strong> (cláusulas 7.2 e 7.3).
+                </div>
+</div>
+<!-- Sección 2: Alcance -->
+<div class="section" id="alcance">
+<div class="section-title">2. Alcance</div>
+<div class="section-description">
+                    Este procedimento aplica-se a todas as atividades relacionadas com a gestão de pessoal na FACASI, incluindo recrutamento, formação, qualificação técnica, avaliação, bem-estar e segurança. Abrange colaboradores permanentes e temporários. No caso de subcontratados, a verificação de competência segue o PRO-016.
+                </div>
+</div>
+<!-- Sección 3: Definiciones -->
+<div class="section" id="definiciones">
+<div class="section-title">3. Definições</div>
+<div class="section-description">
+<ul class="definition-list">
+<li><strong>Competência:</strong> conjunto de conhecimentos, aptidões e experiência que permitem a uma pessoa realizar eficazmente um trabalho, demonstrável através de formação, certificação ou experiência comprovada.</li>
+<li><strong>Qualificação técnica:</strong> certificação formal que habilita um técnico a executar determinados métodos de ensaio (END/NDT, UTM), emitida por entidade reconhecida e com validade definida.</li>
+<li><strong>Desempenho:</strong> avaliação do cumprimento das expectativas e objetivos estabelecidos pela organização.</li>
+<li><strong>Consciencialização:</strong> compreensão, por parte do colaborador, da política do SGI, do seu contributo para a eficácia do sistema e das implicações de não cumprir os requisitos, incluindo os de segurança.</li>
+</ul>
+</div>
+</div>
+<!-- Sección 4: Responsabilidades -->
+<div class="section" id="responsabilidades">
+<div class="section-title">4. Responsabilidades</div>
+<table class="responsibility-table">
+<thead>
+<tr>
+<th>Função</th>
+<th>Responsabilidades</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Alta Direção (CEO)</strong></td>
+<td>Estabelece os objetivos da gestão de pessoal e garante os recursos necessários ao desenvolvimento e bem-estar dos colaboradores.</td>
+</tr>
+<tr>
+<td><strong>Gerente de RH</strong></td>
+<td>Coordena as atividades de recrutamento, formação e desenvolvimento, assegurando a implementação das políticas de recursos humanos e o cumprimento da legislação laboral angolana.</td>
+</tr>
+<tr>
+<td><strong>Gerente de Operações</strong></td>
+<td>Define os requisitos de competência técnica das funções operacionais e verifica que apenas pessoal qualificado é afetado a cada tipo de trabalho.</td>
+</tr>
+<tr>
+<td><strong>Coordenador do SGI</strong></td>
+<td>Assegura que as necessidades de formação em qualidade e SST são identificadas e que a eficácia da formação é avaliada.</td>
+</tr>
+<tr>
+<td><strong>Colaboradores</strong></td>
+<td>Participam ativamente no seu desenvolvimento profissional, mantêm válidas as suas qualificações técnicas e cumprem as políticas e procedimentos de qualidade e segurança.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Sección 5: Procedimento Común de Gestão del Recursos Humanos -->
+<div class="section" id="procedimiento-comun">
+<div class="section-title">5. Procedimento de Gestão dos Recursos Humanos</div>
+<div class="subsection-title">5.1 Recrutamento e Seleção</div>
+<div class="section-description">
+<ul style="list-style-type: disc; margin-left: 20px;">
+<li>O processo de recrutamento e seleção é conduzido de forma transparente e objetiva, garantindo que os candidatos selecionados possuem as competências necessárias para a função.</li>
+<li>Os critérios de seleção baseiam-se nos requisitos da função definidos na respetiva descrição de cargo (DES-001 a DES-013) e nas competências relacionadas com a qualidade e a segurança no trabalho.</li>
+<li>Para funções técnicas, é verificada a existência e validade das qualificações exigidas (END/NDT, UTM) antes da afetação a trabalhos que as requeiram.</li>
+<li>O processo inclui entrevistas, verificação de competências e confirmação de aptidão médica antes do início de funções, conforme o PRO-021.</li>
+</ul>
+</div>
+<div class="subsection-title">5.2 Formação e Desenvolvimento</div>
+<div class="section-description">
+<ul style="list-style-type: disc; margin-left: 20px;">
+<li>É elaborado um plano de formação que contempla as necessidades de formação identificadas para o desempenho das funções e para a melhoria contínua.</li>
+<li>As formações incluem:
+                            <ul style="list-style-type: circle; margin-left: 30px; margin-top: 10px;">
+<li>Formação técnica relacionada com a função, incluindo requalificação e renovação de certificações de ensaio.</li>
+<li>Formação em segurança e saúde no trabalho, uso de EPI e resposta a emergências.</li>
+<li>Consciencialização sobre a política do SGI, os objetivos e o contributo individual para a sua eficácia.</li>
+</ul>
+</li>
+<li><strong>Avaliação da eficácia:</strong> após cada ação de formação é avaliada a sua eficácia, verificando se a competência pretendida foi efetivamente adquirida — requisito expresso das cláusulas 7.2 de ambas as normas.</li>
+<li>É mantido um registo atualizado das qualificações e certificações de cada colaborador, com as respetivas datas de validade e alertas de renovação.</li>
+</ul>
+</div>
+<div class="subsection-title">5.3 Avaliação do Desempenho</div>
+<div class="section-description">
+<ul style="list-style-type: disc; margin-left: 20px;">
+<li>O desempenho dos colaboradores é avaliado periodicamente, alinhando as expectativas com os objetivos organizacionais.</li>
+<li>São utilizadas ferramentas de avaliação baseadas na análise das metas alcançadas, das competências e do comportamento no trabalho.</li>
+<li>O feedback inclui aspetos de qualidade técnica e de cumprimento das regras de segurança.</li>
+</ul>
+</div>
+<div class="subsection-title">5.4 Gestão da Saúde e Segurança no Trabalho</div>
+<div class="section-description">
+<ul style="list-style-type: disc; margin-left: 20px;">
+<li>A organização compromete-se a proporcionar um ambiente laboral seguro e saudável, cumprindo os requisitos da ISO 45001:2018.</li>
+<li>Os colaboradores recebem formação sobre práticas de segurança, uso adequado de EPI e procedimentos em caso de emergência, conforme o PRO-020 e o PRO-015.</li>
+<li>São realizadas avaliações periódicas dos riscos laborais e implementadas ações preventivas e corretivas, conforme o PRO-019.</li>
+<li>A vigilância da saúde dos trabalhadores segue o PRO-021.</li>
+</ul>
+</div>
+<div class="subsection-title">5.5 Bem-estar Laboral e Clima Organizacional</div>
+<div class="section-description">
+<ul style="list-style-type: disc; margin-left: 20px;">
+<li>A organização promove um ambiente laboral inclusivo, respeitador e motivador.</li>
+<li>O Gerente de RH recolhe periodicamente o retorno dos colaboradores sobre o clima organizacional e gere iniciativas de melhoria.</li>
+<li>A participação e consulta dos trabalhadores em matéria de SST segue o PRO-023.</li>
+</ul>
+</div>
+<div class="subsection-title">5.6 Retenção</div>
+<div class="section-description">
+<ul style="list-style-type: disc; margin-left: 20px;">
+<li>São estabelecidas políticas claras de desenvolvimento profissional e oportunidades de progressão interna.</li>
+<li><em>Eventuais programas de reconhecimento e recompensa ficam pendentes de definição pela Alta Direção.</em></li>
+</ul>
+</div>
+</div>
+<!-- Sección 6: Seguimiento y Evaluación de la Gestão del Recursos Humanos -->
+<div class="section" id="seguimiento-evaluacion">
+<div class="section-title">6. acompanhamento e avaliação da Gestão do Recursos Humanos</div>
+<div class="subsection-title">6.1 monitorização de indicadores</div>
+<div class="section-description">
+<p>Estabelecem-se indicadores-chave de desempenho (KPIs) relacionados com a gestão do talento humano, tais como:</p>
+<div class="kpi-list">
+<div class="kpi-item">
+<strong>Taxa de rotatividade de colaboradores</strong>
+</div>
+<div class="kpi-item">
+<strong>nível de satisfação dos empleados</strong>
+</div>
+<div class="kpi-item">
+<strong>Cumprimento dos programas de formação</strong>
+</div>
+<div class="kpi-item">
+<strong>Accidentes laborales e cumprimento de medidas de segurança</strong>
+</div>
+</div>
+</div>
+<div class="subsection-title">6.2 Revisão e melhoria</div>
+<div class="section-description">
+<ul style="list-style-type: disc; margin-left: 20px;">
+<li>Este procedimento revê-se de forma periódica como parte do processo de melhoria contínua. A revisão baseia-se nos resultados obtidos das avaliações de desempenho, no feedback dos colaboradores e no cumprimento dos objetivos organizacionais.</li>
+<li>As políticas e procedimentos ajustam-se conforme as alterações no ambiente laboral e os requisitos legais relacionados com o talento humano, a qualidade, a segurança e o ambiente.</li>
+</ul>
+</div>
+</div>
+<!-- Sección 7: Documentos relacionados -->
+<div class="section" id="documentos-relacionados">
+<div class="section-title">7. documentos relacionados</div>
+<div class="section-description">
+<ul style="list-style-type: disc; margin-left: 20px;">
+<li>Registo de Formação</li>
+<li>Avaliação do Desempenho</li>
+<li>Registo de Acidentes e Incidentes</li>
+<li>Política de Segurança e Saúde no Trabalho</li>
+<li>Planos de Desenvolvimento Individual (PDI)</li>
+<li>Inquéritos de Satisfação do Colaborador</li>
+</ul>
+</div>
+</div>
+<!-- Sección 8: Referencias Normativas (modificada para ser genérica) -->
+<div class="section" id="referencias-normativas">
+<div class="section-title">8. Referências Normativas</div>
+<div class="section-description">
+<span class="norma-badge">Normas ISO de gestão de qualidade</span>
+<span class="norma-badge">Normas ISO de gestão ambiental</span>
+<span class="norma-badge">Normas ISO de segurança e saúde</span>
+</div>
+</div>
+<!-- Botón de impresión original (lo mantenemos) -->
+<button class="print-btn" onclick="window.print()">📄 Imprimir documento</button>
+<!-- Historial de versiones -->
+<div class="version-history" id="historial-versiones">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>Pendente de validação</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div> <!-- fin .content -->
+<!-- Pie de página -->
+<div class="footer">
+<p>Código: PRO-009 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div> <!-- fin .document-container -->
+<script>
+        (function() {
+            // Elementos de la barra de herramientas
+            const contentEl = document.getElementById('mainContent');
+            const btnEditar = document.getElementById('btnEditar');
+            const btnHtml = document.getElementById('btnHtml');
+            const btnPdf = document.getElementById('btnPdf');
+
+            // Estado de edición
+            let editable = false;
+
+            function toggleEdicion() {
+                editable = !editable;
+                if (editable) {
+                    contentEl.setAttribute('contenteditable', 'true');
+                    contentEl.classList.add('editable-active');
+                    btnEditar.classList.add('editar-activo');
+                    btnEditar.innerHTML = '<i>🔒</i> Desativar edição';
+                } else {
+                    contentEl.removeAttribute('contenteditable');
+                    contentEl.classList.remove('editable-active');
+                    btnEditar.classList.remove('editar-activo');
+                    btnEditar.innerHTML = '<i>✎</i> Editar';
+                }
+            }
+
+            btnEditar.addEventListener('click', toggleEdicion);
+
+            // Descargar HTML
+            function descargarHTML() {
+                const styles = document.querySelector('style').innerHTML;
+                const containerHTML = document.querySelector('.document-container').outerHTML;
+                const htmlCompleto = `<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRO-009 Gestão de Recursos Humanos - SGI</title>
+    <style>${styles}</style>
+</head>
+<body>
+    ${containerHTML}
+</body>
+</html>`;
+
+                const blob = new Blob([htmlCompleto], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'PRO-009_gestion_talentohumano.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+
+            btnHtml.addEventListener('click', descargarHTML);
+
+            // PDF (impresión)
+            btnPdf.addEventListener('click', function() {
+                window.print();
+            });
+
+            // Scroll suave para enlaces del TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Logo fallback
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c5282" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                    console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+                };
+            }
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DOC-001 Alcance do Sistema de Gestão Integrado</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c5282;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5282;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c5282;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+            position: relative;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #2c5282;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .section-description {
+            margin-bottom: 20px;
+            color: #4a5568;
+            line-height: 1.7;
+        }
+        
+        .company-info {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .company-info h3 {
+            color: #2c5282;
+            margin-bottom: 15px;
+        }
+        
+        .company-location {
+            margin-bottom: 20px;
+        }
+        
+        .location-item {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .location-item:before {
+            content: "📍";
+            position: absolute;
+            left: 0;
+        }
+        
+        .scope-box {
+            background-color: #f0fff4;
+            border: 1px solid #c6f6d5;
+            border-radius: 5px;
+            padding: 30px;
+            margin: 30px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .scope-title {
+            color: #22543d;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .scope-content {
+            font-size: 18px;
+            line-height: 1.8;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .standards-section {
+            background-color: #e6f7ff;
+            border: 1px solid #91d5ff;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #1890ff;
+        }
+        
+        .standards-title {
+            color: #0050b3;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .signature-section {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #2c5282;
+            text-align: center;
+        }
+        
+        .signature-line {
+            margin: 40px 0;
+        }
+        
+        .signature-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #2c5282;
+        }
+        
+        .signature-title {
+            font-size: 16px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .company-stamp {
+            margin-top: 30px;
+            font-style: italic;
+            color: #666;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2c5282;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c5282;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .controls-panel {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .edit-btn {
+            background-color: #2c5282;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .edit-btn:hover {
+            background-color: #4299e1;
+        }
+        
+        .action-btn {
+            background-color: #38a169;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        
+        .action-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .action-btn.secondary {
+            background-color: #718096;
+        }
+        
+        .action-btn.secondary:hover {
+            background-color: #4a5568;
+        }
+        
+        .editable {
+            min-height: 20px;
+            outline: none;
+        }
+        
+        .editing {
+            background-color: #fff9e6;
+            border-left: 3px solid #d69e2e;
+            padding-left: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .edit-indicator {
+            display: inline-block;
+            background-color: #d69e2e;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .controls-panel {
+                display: none;
+            }
+            
+            .edit-indicator {
+                display: none;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .controls-panel {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .edit-btn, .action-btn {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .company-info {
+                padding: 15px;
+            }
+            
+            .scope-box {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabecera con logo e información de la organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da FACASI" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        Pendente de validação pela organização
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        Coordenador do SGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título do documento -->
+<div class="doc-title">Alcance do Sistema de Gestão Integrado</div>
+<div class="doc-code">Código: DOC-001</div>
+<!-- Panel de controles de edición -->
+<div class="controls-panel" id="controlsPanel">
+<button class="edit-btn" id="editContentBtn">EDITAR CONTEÚDO</button>
+<button class="action-btn secondary" id="saveBtn">GUARDAR no NAVEGADOR</button>
+<button class="action-btn" id="exportBtn">EXPORTAR como HTML</button>
+<button class="action-btn secondary" id="loadBtn">CARREGAR EDIÇÕES GUARDADAS</button>
+<span id="editStatus" style="margin-left: auto; font-size: 14px; color: #666;">Modo de leitura ativo</span>
+</div>
+<!-- Contenido principal -->
+<div class="content" id="mainContent">
+<!-- Información de la empresa -->
+<div class="company-info">
+<h3>FACASI - Comércio Geral e Prestação de Serviços</h3>
+<div class="company-location">
+<div class="section-description editable" id="company-description">
+                        Em Luanda, Angola, a empresa FACASI - Comércio Geral e Prestação de Serviços (SU), Lda (marca comercial "FACASI Oil &amp; Gas Inspection"), NIF 5000793175, com operações nas seguintes localizações:
+                    </div>
+<div class="location-item editable" id="location-1">
+                        Sede: Rua dos Cabritos, Bairro Futungo, casa nº 143, Distrito Urbano do Futungo de Belas, Município do Talatona, Luanda, Angola
+                    </div>
+<div class="location-item editable" id="location-2">
+                        2º Local: Boa Vida, Office 76, Bairro Urbanização Boa Vida, Município de Belas, Luanda, Angola
+                    </div>
+<div class="section-description editable" id="declaration-text" style="margin-top: 20px;">
+                        declara o alcance do seu Sistema de Gestão Integrado, certificado em conformidade com os requisitos das normas ISO 9001:2015 e ISO 45001:2018 - cláusula 4.3:
+                    </div>
+</div>
+</div>
+<!-- Alcance do SGI -->
+<div class="scope-box">
+<div class="scope-title">ÂMBITO <span class="edit-indicator" id="editIndicator1" style="display: none;">A EDITAR</span></div>
+<div class="scope-content editable" id="scope-content">
+                    Prestação de serviços de inspeção industrial, inspeção e certificação de equipamentos, manutenção, reparação, logística e apoio a operações, incluindo inspeção por ensaios não destrutivos (END/NDT), medição de espessura por ultrassom (UTM) e limpeza de tanques, para clientes do setor industrial e de óleo e gás em Angola.
+                </div>
+</div>
+<!-- Normas aplicáveis -->
+<div class="standards-section">
+<div class="standards-title">Normas aplicáveis ao Sistema de Gestão Integrado:</div>
+<div class="section-description editable" id="standards-description">
+                    O presente Sistema de Gestão Integrado está certificado em conformidade com os requisitos das seguintes normas internacionais:
+                </div>
+<div style="margin-top: 15px;">
+<div class="location-item editable" id="norm-1">
+<strong>ISO 9001:2015</strong> - Sistema de Gestão da Qualidade
+                    </div>
+<div class="location-item editable" id="norm-3">
+<strong>ISO 45001:2018</strong> - Sistema de Gestão de Segurança e Saúde no Trabalho
+                    </div>
+</div>
+<p style="font-size: 12px; color: #888; margin-top: 10px;">Nota: o Sistema de Gestão Integrado da FACASI está certificado segundo as normas ISO 9001:2015 e ISO 45001:2018. Os dados da certificação constam da secção Certificados do sistema.</p>
+</div>
+<!-- Assinatura e aprovação -->
+<div class="signature-section">
+<div class="section-description editable" id="signature-description">
+                    O presente alcance é aprovado e entra em vigor a partir da data indicada.
+                </div>
+<div class="signature-line">
+<div style="border-top: 1px solid #333; width: 300px; margin: 0 auto; padding-top: 40px;"></div>
+<div class="signature-name editable" id="signature-name">
+                        Fernando Mbilua Casimiro
+                    </div>
+<div class="signature-title editable" id="signature-title">
+                        CEO
+                    </div>
+</div>
+<div class="company-stamp editable" id="company-stamp">
+                    FACASI
+                </div>
+</div>
+<!-- Historial de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>Pendente de validação pela organização</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Pie de página -->
+<div class="footer">
+<p>Código: DOC-001 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        class DocumentEditor {
+            constructor() {
+                this.editMode = false;
+                this.storageKey = 'DOC-001-edited-content';
+                this.originalContent = {};
+                this.init();
+            }
+            
+            init() {
+                // Guardar contenido original
+                this.saveOriginalContent();
+                
+                // Configurar eventos de los botones
+                document.getElementById('editContentBtn').addEventListener('click', () => this.toggleEditMode());
+                document.getElementById('saveBtn').addEventListener('click', () => this.saveToBrowser());
+                document.getElementById('exportBtn').addEventListener('click', () => this.exportToHTML());
+                document.getElementById('loadBtn').addEventListener('click', () => this.loadFromStorage());
+                
+                // Verificar si hay contenido guardado
+                if (localStorage.getItem(this.storageKey)) {
+                    console.log('Foram detetadas edições guardadas. Utilize "CARREGAR EDIÇÕES GUARDADAS" para as carregar.');
+                }
+                
+                // Verificar si el logo existe
+                const logoImg = document.querySelector('.logo');
+                if (logoImg) {
+                    logoImg.onerror = function() {
+                        this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c5282" dy="5">FACASI</text></svg>';
+                        console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+                    };
+                }
+            }
+            
+            saveOriginalContent() {
+                // Guardar contenido original de todos los elementos editables
+                const editableElements = document.querySelectorAll('.editable');
+                this.originalContent = {};
+                
+                editableElements.forEach((element, index) => {
+                    const id = element.id || `editable-${index}`;
+                    this.originalContent[id] = element.innerHTML;
+                });
+            }
+            
+            toggleEditMode() {
+                this.editMode = !this.editMode;
+                const editBtn = document.getElementById('editContentBtn');
+                const editStatus = document.getElementById('editStatus');
+                const editableElements = document.querySelectorAll('.editable');
+                const editIndicators = document.querySelectorAll('.edit-indicator');
+                
+                if (this.editMode) {
+                    // Activar modo edición
+                    editBtn.textContent = 'DESATIVAR EDIÇÃO';
+                    editBtn.style.backgroundColor = '#d69e2e';
+                    editStatus.textContent = 'Modo de edição ativo';
+                    editStatus.style.color = '#d69e2e';
+                    
+                    // Hacer elementos editables
+                    editableElements.forEach(element => {
+                        element.setAttribute('contenteditable', 'true');
+                        element.classList.add('editing');
+                    });
+                    
+                    // Mostrar indicadores de edición
+                    editIndicators.forEach(indicator => {
+                        indicator.style.display = 'inline-block';
+                    });
+                    
+                } else {
+                    // Desactivar modo edición
+                    editBtn.textContent = 'EDITAR CONTEÚDO';
+                    editBtn.style.backgroundColor = '#2c5282';
+                    editStatus.textContent = 'Modo de leitura ativo';
+                    editStatus.style.color = '#666';
+                    
+                    // Deshacer elementos editables
+                    editableElements.forEach(element => {
+                        element.setAttribute('contenteditable', 'false');
+                        element.classList.remove('editing');
+                    });
+                    
+                    // Ocultar indicadores de edición
+                    editIndicators.forEach(indicator => {
+                        indicator.style.display = 'none';
+                    });
+                }
+            }
+            
+            saveToBrowser() {
+                if (!this.editMode) {
+                    alert('Ative primeiro o modo de edição para poder guardar alterações.');
+                    return;
+                }
+                
+                const editableElements = document.querySelectorAll('.editable');
+                const savedContent = {};
+                
+                editableElements.forEach((element, index) => {
+                    const id = element.id || `editable-${index}`;
+                    savedContent[id] = element.innerHTML;
+                });
+                
+                try {
+                    localStorage.setItem(this.storageKey, JSON.stringify(savedContent));
+                    alert('As edições foram guardadas no navegador corretamente.');
+                } catch (error) {
+                    alert('Erro ao guardar as edições: ' + error.message);
+                }
+            }
+            
+            loadFromStorage() {
+                const savedData = localStorage.getItem(this.storageKey);
+                
+                if (!savedData) {
+                    alert('Não foram encontradas edições guardadas no navegador.');
+                    return;
+                }
+                
+                if (confirm('Carregar as edições guardadas? Isto substituirá o conteúdo atual.')) {
+                    try {
+                        const savedContent = JSON.parse(savedData);
+                        const editableElements = document.querySelectorAll('.editable');
+                        
+                        editableElements.forEach((element, index) => {
+                            const id = element.id || `editable-${index}`;
+                            if (savedContent[id]) {
+                                element.innerHTML = savedContent[id];
+                            }
+                        });
+                        
+                        alert('Edições carregadas corretamente a partir do navegador.');
+                    } catch (error) {
+                        alert('Erro ao carregar as edições: ' + error.message);
+                    }
+                }
+            }
+            
+            exportToHTML() {
+                // Crear una copia del documento para exportar
+                const docClone = document.documentElement.cloneNode(true);
+                
+                // Remover atributos de edición
+                const editables = docClone.querySelectorAll('.editable');
+                editables.forEach(element => {
+                    element.removeAttribute('contenteditable');
+                    element.classList.remove('editing');
+                });
+                
+                // Remover panel de controles
+                const controlsPanel = docClone.querySelector('#controlsPanel');
+                if (controlsPanel) {
+                    controlsPanel.remove();
+                }
+                
+                // Remover indicadores de edición
+                const editIndicators = docClone.querySelectorAll('.edit-indicator');
+                editIndicators.forEach(indicator => {
+                    indicator.remove();
+                });
+                
+                // Remover scripts (excepto el necesario para el logo)
+                const scripts = docClone.querySelectorAll('script');
+                scripts.forEach(script => {
+                    if (!script.textContent.includes('logo.onerror')) {
+                        script.remove();
+                    }
+                });
+                
+                // Crear blob y descargar
+                const htmlContent = `<!DOCTYPE html>\n${docClone.outerHTML}`;
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'DOC-001-Alcance-SGI-FACASI.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                alert('Documento exportado como HTML. A descarregar...');
+            }
+            
+            resetToOriginal() {
+                if (confirm('Restaurar o conteúdo original? Isto eliminará todas as edições atuais.')) {
+                    const editableElements = document.querySelectorAll('.editable');
+                    
+                    editableElements.forEach((element, index) => {
+                        const id = element.id || `editable-${index}`;
+                        if (this.originalContent[id]) {
+                            element.innerHTML = this.originalContent[id];
+                        }
+                    });
+                    
+                    alert('Conteúdo original restaurado.');
+                }
+            }
+        }
+        
+        // Inicializar el editor cuando el DOM esté cargado
+        document.addEventListener('DOMContentLoaded', () => {
+            window.documentEditor = new DocumentEditor();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DOC-017 Avaliação de Fornecedores do SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .section-subtitle {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+        }
+        
+        .provider-info {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .provider-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .form-field {
+            margin-bottom: 15px;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: white;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #4a5568;
+            box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+        }
+        
+        .evaluation-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .evaluation-table th {
+            background-color: #2d3748;
+            color: white;
+            font-weight: bold;
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #4a5568;
+        }
+        
+        .evaluation-table td {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        
+        .evaluation-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .evaluation-table tr:hover {
+            background-color: #edf2f7;
+        }
+        
+        .rating-stars {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .star {
+            cursor: pointer;
+            font-size: 24px;
+            color: #e2e8f0;
+            transition: color 0.3s;
+        }
+        
+        .star.selected {
+            color: #f6ad55;
+        }
+        
+        .star:hover {
+            color: #f6ad55;
+        }
+        
+        .comments-textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+            min-height: 80px;
+            resize: vertical;
+        }
+        
+        .comments-textarea:focus {
+            outline: none;
+            border-color: #4a5568;
+            box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+        }
+        
+        .score-display {
+            text-align: center;
+            padding: 30px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            margin: 25px 0;
+        }
+        
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #4a5568;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            font-size: 36px;
+            font-weight: bold;
+        }
+        
+        .score-label {
+            font-size: 18px;
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 10px;
+        }
+        
+        .score-formula {
+            font-style: italic;
+            color: #666;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        
+        .result-levels {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .level-box {
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .level-excellent {
+            background-color: #c6f6d5;
+            color: #276749;
+            border: 2px solid #9ae6b4;
+        }
+        
+        .level-acceptable {
+            background-color: #fed7d7;
+            color: #c53030;
+            border: 2px solid #fc8181;
+        }
+        
+        .level-needs-improvement {
+            background-color: #fefcbf;
+            color: #975a16;
+            border: 2px solid #f6e05e;
+        }
+        
+        .level-not-acceptable {
+            background-color: #e2e8f0;
+            color: #4a5568;
+            border: 2px solid #cbd5e0;
+        }
+        
+        .level-title {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .level-range {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .conclusion-section {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .approval-section {
+            margin-bottom: 25px;
+        }
+        
+        .approval-options {
+            display: flex;
+            gap: 30px;
+            margin-top: 10px;
+        }
+        
+        .approval-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .signature-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .signature-block {
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+            max-width: 400px;
+        }
+        
+        .signature-line {
+            height: 1px;
+            background-color: #cbd5e0;
+            margin: 20px 0;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .print-btn, .save-btn, .calculate-btn, .download-btn {
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+            flex: 1 1 auto;
+        }
+        
+        .save-btn {
+            background-color: #38a169;
+        }
+        
+        .calculate-btn {
+            background-color: #3182ce;
+        }
+        
+        .download-btn {
+            background-color: #9f7aea;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        .save-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .calculate-btn:hover {
+            background-color: #2c5282;
+        }
+        
+        .download-btn:hover {
+            background-color: #805ad5;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn, .save-btn, .calculate-btn, .download-btn {
+                display: none;
+            }
+            
+            .evaluation-table {
+                page-break-inside: avoid;
+            }
+            
+            .form-input, .comments-textarea {
+                border: 1px solid #999;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .provider-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .evaluation-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .result-levels {
+                grid-template-columns: 1fr;
+            }
+            
+            .approval-options {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .print-btn, .save-btn, .calculate-btn, .download-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabeçalho com logo e informações da organização -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título do documento -->
+<div class="doc-title">Avaliação de Fornecedores do Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-code">Código: FORM-017</div>
+<!-- Conteúdo principal -->
+<div class="content">
+<!-- Información del proveedor -->
+<div class="section">
+<div class="section-title">Informação do fornecedor</div>
+<div class="provider-info">
+<div class="provider-grid">
+<div>
+<div class="form-field">
+<label class="form-label">fornecedor:</label>
+<input class="form-input" id="proveedor" placeholder="Nome do fornecedor" type="text"/>
+</div>
+<div class="form-field">
+<label class="form-label">Produto/serviço:</label>
+<input class="form-input" id="producto" placeholder="Produto ou serviço fornecido" type="text"/>
+</div>
+</div>
+<div>
+<div class="form-field">
+<label class="form-label">Data de avaliação:</label>
+<input class="form-input" id="fecha-evaluacion" type="date"/>
+</div>
+<div class="form-field">
+<label class="form-label">Avaliador:</label>
+<input class="form-input" id="evaluador" placeholder="Nome do avaliador" type="text"/>
+</div>
+</div>
+</div>
+<div class="form-field" style="margin-top: 15px;">
+<label class="form-label">Código do fornecedor (se aplicável):</label>
+<input class="form-input" id="codigo-proveedor" placeholder="Código interno do fornecedor" type="text"/>
+</div>
+</div>
+</div>
+<!-- Criterios de evaluación -->
+<div class="section">
+<div class="section-title">Critérios de avaliação</div>
+<p>Avalie o fornecedor em cada um dos seguintes critérios utilizando o sistema de estrelas (1-5 estrelas):</p>
+<table class="evaluation-table">
+<thead>
+<tr>
+<th style="width: 40%;">Critério</th>
+<th style="width: 25%;">Pontuação (1-5)</th>
+<th style="width: 35%;">Comentarios</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<strong>1. Qualidade do produto/serviço</strong><br/>
+<span style="font-size: 13px; color: #666;">Cumprimento de especificações, qualidade consistente, ausência de defeitos</span>
+</td>
+<td>
+<div class="rating-stars" id="rating-calidad">
+<span class="star" data-value="1">★</span>
+<span class="star" data-value="2">★</span>
+<span class="star" data-value="3">★</span>
+<span class="star" data-value="4">★</span>
+<span class="star" data-value="5">★</span>
+</div>
+<input id="score-calidad" type="hidden" value="0"/>
+</td>
+<td>
+<textarea class="comments-textarea" id="comments-calidad" placeholder="Comentários sobre a qualidade do produto/serviço"></textarea>
+</td>
+</tr>
+<tr>
+<td>
+<strong>2. Cumprimento de prazos de entrega</strong><br/>
+<span style="font-size: 13px; color: #666;">Pontualidade nas entregas, comunicação sobre atrasos, fiabilidade</span>
+</td>
+<td>
+<div class="rating-stars" id="rating-plazos">
+<span class="star" data-value="1">★</span>
+<span class="star" data-value="2">★</span>
+<span class="star" data-value="3">★</span>
+<span class="star" data-value="4">★</span>
+<span class="star" data-value="5">★</span>
+</div>
+<input id="score-plazos" type="hidden" value="0"/>
+</td>
+<td>
+<textarea class="comments-textarea" id="comments-plazos" placeholder="Comentários sobre o cumprimento de prazos"></textarea>
+</td>
+</tr>
+<tr>
+<td>
+<strong>3. Preço competitivo</strong><br/>
+<span style="font-size: 13px; color: #666;">Relação qualidade-preço, competitividade no mercado, transparência nos custos</span>
+</td>
+<td>
+<div class="rating-stars" id="rating-precio">
+<span class="star" data-value="1">★</span>
+<span class="star" data-value="2">★</span>
+<span class="star" data-value="3">★</span>
+<span class="star" data-value="4">★</span>
+<span class="star" data-value="5">★</span>
+</div>
+<input id="score-precio" type="hidden" value="0"/>
+</td>
+<td>
+<textarea class="comments-textarea" id="comments-precio" placeholder="Comentários sobre preços e competitividade"></textarea>
+</td>
+</tr>
+<tr>
+<td>
+<strong>4. Condições de pagamento</strong><br/>
+<span style="font-size: 13px; color: #666;">Flexibilidade, termos claros, facilidades de pagamento, cumprimento de faturação</span>
+</td>
+<td>
+<div class="rating-stars" id="rating-pago">
+<span class="star" data-value="1">★</span>
+<span class="star" data-value="2">★</span>
+<span class="star" data-value="3">★</span>
+<span class="star" data-value="4">★</span>
+<span class="star" data-value="5">★</span>
+</div>
+<input id="score-pago" type="hidden" value="0"/>
+</td>
+<td>
+<textarea class="comments-textarea" id="comments-pago" placeholder="Comentários sobre condições de pagamento"></textarea>
+</td>
+</tr>
+<tr>
+<td>
+<strong>5. Cumprimento de requisitos normativos</strong><br/>
+<span style="font-size: 13px; color: #666;">Certificações (ISO 9001, 45001), cumprimento legal, normas do setor</span>
+</td>
+<td>
+<div class="rating-stars" id="rating-normativos">
+<span class="star" data-value="1">★</span>
+<span class="star" data-value="2">★</span>
+<span class="star" data-value="3">★</span>
+<span class="star" data-value="4">★</span>
+<span class="star" data-value="5">★</span>
+</div>
+<input id="score-normativos" type="hidden" value="0"/>
+</td>
+<td>
+<textarea class="comments-textarea" id="comments-normativos" placeholder="Comentários sobre o cumprimento normativo"></textarea>
+</td>
+</tr>
+<tr>
+<td>
+<strong>6. Atendimento ao cliente e suporte pós-venda</strong><br/>
+<span style="font-size: 13px; color: #666;">Resposta a consultas, resolução de problemas, serviço técnico, comunicação</span>
+</td>
+<td>
+<div class="rating-stars" id="rating-soporte">
+<span class="star" data-value="1">★</span>
+<span class="star" data-value="2">★</span>
+<span class="star" data-value="3">★</span>
+<span class="star" data-value="4">★</span>
+<span class="star" data-value="5">★</span>
+</div>
+<input id="score-soporte" type="hidden" value="0"/>
+</td>
+<td>
+<textarea class="comments-textarea" id="comments-soporte" placeholder="Comentários sobre o atendimento ao cliente e suporte"></textarea>
+</td>
+</tr>
+</tbody>
+</table>
+<div style="text-align: center; margin: 20px 0;">
+<button class="calculate-btn" onclick="calcularPuntuacion()">📊 Calcular Pontuação Total</button>
+</div>
+</div>
+<!-- Puntuación total -->
+<div class="section">
+<div class="section-title">Pontuação Total</div>
+<div class="score-display">
+<div class="score-label">Pontuação do fornecedor:</div>
+<div class="score-circle" id="score-circle">
+<div id="score-percentage">0%</div>
+<div style="font-size: 16px; margin-top: 5px;">Pontuação</div>
+</div>
+<div id="score-details" style="margin-top: 20px; display: none;">
+<div style="font-size: 16px; margin-bottom: 10px;">
+<strong>Discriminação da pontuação:</strong>
+</div>
+<div id="score-breakdown" style="font-size: 14px; color: #666;"></div>
+</div>
+<div class="score-formula">
+                        Pontuação total = (Σ pontuações / 30) × 100<br/>
+                        (30 = 6 critérios × pontuação máxima possível de 5)
+                    </div>
+</div>
+</div>
+<!-- Resultado de la evaluación -->
+<div class="section">
+<div class="section-title">Resultado da avaliação</div>
+<div class="result-levels">
+<div class="level-box level-excellent">
+<div class="level-title">Excelente</div>
+<div class="level-range">90 - 100%</div>
+<div style="font-size: 14px; margin-top: 10px;">Fornecedor de alto desempenho</div>
+</div>
+<div class="level-box level-acceptable">
+<div class="level-title">Aceitável</div>
+<div class="level-range">80 - 89%</div>
+<div style="font-size: 14px; margin-top: 10px;">Fornecedor aprovado</div>
+</div>
+<div class="level-box level-needs-improvement">
+<div class="level-title">Necessita Melhorias</div>
+<div class="level-range">70 - 79%</div>
+<div style="font-size: 14px; margin-top: 10px;">Requer acompanhamento</div>
+</div>
+<div class="level-box level-not-acceptable">
+<div class="level-title">Não Aceitável</div>
+<div class="level-range">&lt; 70%</div>
+<div style="font-size: 14px; margin-top: 10px;">Não aprovado</div>
+</div>
+</div>
+</div>
+<!-- Conclusión y acciones -->
+<div class="section">
+<div class="section-title">Conclusão e Ações Recomendadas</div>
+<div class="conclusion-section">
+<div class="approval-section">
+<div class="form-label">Aprovação do fornecedor:</div>
+<div class="approval-options">
+<div class="approval-option">
+<input id="aprobacion-si" name="aprobacion" type="radio" value="si"/>
+<label for="aprobacion-si">Sim - Fornecedor Aprovado</label>
+</div>
+<div class="approval-option">
+<input id="aprobacion-no" name="aprobacion" type="radio" value="no"/>
+<label for="aprobacion-no">Não - Fornecedor Não Aprovado</label>
+</div>
+<div class="approval-option">
+<input id="aprobacion-condicional" name="aprobacion" type="radio" value="condicional"/>
+<label for="aprobacion-condicional">Aprovação Condicional</label>
+</div>
+</div>
+</div>
+<div class="form-field">
+<label class="form-label">Ações Corretivas (se aplicável):</label>
+<textarea class="comments-textarea" id="acciones-correctivas" placeholder="Descrição de ações corretivas a implementar, prazos, responsabilidades"></textarea>
+</div>
+<div class="form-field">
+<label class="form-label">Recomendações:</label>
+<textarea class="comments-textarea" id="recomendaciones" placeholder="Recomendações específicas para o fornecedor"></textarea>
+</div>
+<div class="signature-section">
+<div class="form-label">Assinatura do Avaliador:</div>
+<div class="signature-block">
+<div class="form-field">
+<label class="form-label">Nome:</label>
+<input class="form-input" id="nombre-evaluador" placeholder="Nome completo do avaliador" type="text"/>
+</div>
+<div class="form-field">
+<label class="form-label">Assinatura:</label>
+<div class="signature-line"></div>
+</div>
+<div class="form-field">
+<label class="form-label">Data:</label>
+<input class="form-input" id="fecha-firma" type="date"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Botones de acción -->
+<div class="action-buttons">
+<button class="save-btn" onclick="guardarEvaluacion()">💾 Guardar Avaliação</button>
+<button class="download-btn" onclick="descargarFormulário()">📥 Descarregar HTML</button>
+<button class="print-btn" onclick="window.print()">📄 Imprimir documento</button>
+</div>
+<!-- Histórico de versiones -->
+<div class="version-history">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Rodapé -->
+<div class="footer">
+<p>Código: FORM-017 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        // Configurar fecha actual por defecto solo si están vacías
+        document.addEventListener('DOMContentLoaded', function() {
+            const fechaEvaluacion = document.getElementById('fecha-evaluacion');
+            const fechaFirma = document.getElementById('fecha-firma');
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0];
+            
+            if (!fechaEvaluacion.value) {
+                fechaEvaluacion.value = formattedDate;
+            }
+            if (!fechaFirma.value) {
+                fechaFirma.value = formattedDate;
+            }
+            
+            // Verifica se o logo existe, caso contrário mostra um placeholder
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+            };
+            
+            // Configurar sistema de estrellas y sincronizar con valores ocultos
+            configurarSistemaEstrellas();
+            sincronizarEstrellasConInputs();
+        });
+        
+        // Sincroniza las estrellas con los valores de los inputs ocultos
+        function sincronizarEstrellasConInputs() {
+            const starContainers = document.querySelectorAll('.rating-stars');
+            
+            starContainers.forEach(container => {
+                const stars = container.querySelectorAll('.star');
+                const hiddenInput = document.getElementById(container.id.replace('rating-', 'score-'));
+                const value = parseInt(hiddenInput.value) || 0;
+                
+                stars.forEach(star => {
+                    const starValue = parseInt(star.getAttribute('data-value'));
+                    if (starValue <= value) {
+                        star.classList.add('selected');
+                    } else {
+                        star.classList.remove('selected');
+                    }
+                });
+            });
+        }
+        
+        // Configurar sistema de calificación por estrellas
+        function configurarSistemaEstrellas() {
+            const starContainers = document.querySelectorAll('.rating-stars');
+            
+            starContainers.forEach(container => {
+                const stars = container.querySelectorAll('.star');
+                const hiddenInput = document.getElementById(container.id.replace('rating-', 'score-'));
+                
+                stars.forEach(star => {
+                    star.addEventListener('click', function() {
+                        const value = parseInt(this.getAttribute('data-value'));
+                        hiddenInput.value = value;
+                        
+                        // Actualizar visualización de estrellas
+                        stars.forEach(s => {
+                            if (parseInt(s.getAttribute('data-value')) <= value) {
+                                s.classList.add('selected');
+                            } else {
+                                s.classList.remove('selected');
+                            }
+                        });
+                    });
+                });
+            });
+        }
+        
+        // Calcular puntuación total
+        function calcularPuntuacion() {
+            const scores = [
+                parseInt(document.getElementById('score-calidad').value) || 0,
+                parseInt(document.getElementById('score-plazos').value) || 0,
+                parseInt(document.getElementById('score-precio').value) || 0,
+                parseInt(document.getElementById('score-pago').value) || 0,
+                parseInt(document.getElementById('score-normativos').value) || 0,
+                parseInt(document.getElementById('score-soporte').value) || 0
+            ];
+            
+            const totalScore = scores.reduce((sum, score) => sum + score, 0);
+            const maxPossibleScore = 6 * 5; // 6 criterios × 5 puntos máximo
+            const percentage = Math.round((totalScore / maxPossibleScore) * 100);
+            
+            // Actualizar visualización
+            document.getElementById('score-percentage').textContent = percentage + '%';
+            
+            // Actualizar color del círculo según puntuación
+            const scoreCircle = document.getElementById('score-circle');
+            scoreCircle.style.backgroundColor = obtenerColorPuntuacion(percentage);
+            
+            // Mostrar desglose
+            const breakdown = document.getElementById('score-breakdown');
+            const criteria = [
+                'Qualidade do produto/serviço',
+                'Cumprimento de prazos de entrega',
+                'Preço competitivo',
+                'Condições de pagamento',
+                'Cumprimento de requisitos normativos',
+                'Atendimento ao cliente e suporte pós-venda'
+            ];
+            
+            let breakdownHTML = '';
+            scores.forEach((score, index) => {
+                breakdownHTML += `${criteria[index]}: ${score}/5<br>`;
+            });
+            breakdownHTML += `<hr style="margin: 5px 0;"><strong>Total: ${totalScore}/30 (${percentage}%)</strong>`;
+            breakdown.innerHTML = breakdownHTML;
+            document.getElementById('score-details').style.display = 'block';
+            
+            // Actualizar aprobación automáticamente
+            actualizarAprobacionAutomatica(percentage);
+        }
+        
+        // Obtener color según puntuación
+        function obtenerColorPuntuacion(percentage) {
+            if (percentage >= 90) return '#38a169'; // Verde - Excelente
+            if (percentage >= 80) return '#3182ce'; // Azul - Aceptable
+            if (percentage >= 70) return '#d69e2e'; // Amarillo - Necesita mejoras
+            return '#e53e3e'; // Rojo - No aceptable
+        }
+        
+        // Actualizar aprobación automática basada en puntuación
+        function actualizarAprobacionAutomatica(percentage) {
+            const aprobacionSi = document.getElementById('aprobacion-si');
+            const aprobacionNo = document.getElementById('aprobacion-no');
+            const aprobacionCondicional = document.getElementById('aprobacion-condicional');
+            
+            if (percentage >= 80) {
+                aprobacionSi.checked = true;
+            } else if (percentage >= 70) {
+                aprobacionCondicional.checked = true;
+            } else {
+                aprobacionNo.checked = true;
+            }
+        }
+        
+        // Función para guardar la evaluación (simulación)
+        function guardarEvaluacion() {
+            // Validar campos obligatorios
+            const proveedor = document.getElementById('proveedor').value;
+            const evaluador = document.getElementById('evaluador').value;
+            
+            if (!proveedor || !evaluador) {
+                alert('Por favor, preencha os campos obrigatórios: Fornecedor e Avaliador.');
+                return;
+            }
+            
+            // Recopilar datos del formulario
+            const datosEvaluacion = {
+                proveedor: proveedor,
+                producto: document.getElementById('producto').value,
+                fechaEvaluacion: document.getElementById('fecha-evaluacion').value,
+                evaluador: evaluador,
+                codigoProveedor: document.getElementById('codigo-proveedor').value,
+                puntuaciones: {
+                    calidad: parseInt(document.getElementById('score-calidad').value) || 0,
+                    plazos: parseInt(document.getElementById('score-plazos').value) || 0,
+                    precio: parseInt(document.getElementById('score-precio').value) || 0,
+                    pago: parseInt(document.getElementById('score-pago').value) || 0,
+                    normativos: parseInt(document.getElementById('score-normativos').value) || 0,
+                    soporte: parseInt(document.getElementById('score-soporte').value) || 0
+                },
+                comentarios: {
+                    calidad: document.getElementById('comments-calidad').value,
+                    plazos: document.getElementById('comments-plazos').value,
+                    precio: document.getElementById('comments-precio').value,
+                    pago: document.getElementById('comments-pago').value,
+                    normativos: document.getElementById('comments-normativos').value,
+                    soporte: document.getElementById('comments-soporte').value
+                },
+                aprobacion: document.querySelector('input[name="aprobacion"]:checked')?.value || '',
+                accionesCorrectivas: document.getElementById('acciones-correctivas').value,
+                recomendaciones: document.getElementById('recomendaciones').value,
+                firmaEvaluador: document.getElementById('nombre-evaluador').value,
+                fechaFirma: document.getElementById('fecha-firma').value
+            };
+            
+            console.log('Dados da avaliação de fornecedor:', datosEvaluacion);
+            alert('✅ Avaliação de fornecedor guardada corretamente. Os dados foram registados na consola.');
+        }
+        
+        // Función para descargar el formulario completo como archivo HTML
+        function descargarFormulário() {
+            // Obtenemos el HTML actual del documento
+            const htmlContent = document.documentElement.outerHTML;
+            
+            // Creamos un blob con el contenido
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            
+            // Creamos un enlace de descarga
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'FORM-017_Evaluacion_Proveedores.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('📁 Formulário descarregado como ficheiro HTML. Pode abri-lo no seu navegador para continuar a editar.');
+        }
+    </script>
+</body>
+</html>

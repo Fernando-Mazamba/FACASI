@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DOC-003 Política Empresarial - FACASI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #1a5276;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1a5276;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #1a5276;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+            position: relative;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #1a5276;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #1a5276;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .toc-item:before {
+            content: "•";
+            color: #1a5276;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .toc-link {
+            color: #1a5276;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #1a5276;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .subsection-title {
+            color: #1a5276;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px 0;
+        }
+        
+        .section-description {
+            margin-bottom: 20px;
+            color: #4a5568;
+            line-height: 1.7;
+        }
+        
+        .bullet-list {
+            list-style-type: disc;
+            margin-left: 20px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 8px;
+        }
+        
+        .mission-box, .vision-box {
+            background-color: #f0f7ff;
+            border-radius: 8px;
+            padding: 25px;
+            border-left: 5px solid #2980b9;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin: 20px 0;
+        }
+        
+        .vision-box {
+            background-color: #ebf5fb;
+            border-left: 5px solid #1a5276;
+        }
+        
+        .mission-title, .vision-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #1a5276;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .vision-title {
+            color: #1a5276;
+        }
+        
+        .mission-title:before {
+            content: "🎯";
+            margin-right: 10px;
+        }
+        
+        .vision-title:before {
+            content: "🔭";
+            margin-right: 10px;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .value-card {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            border-top: 4px solid #1a5276;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .value-title {
+            color: #1a5276;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .value-title:before {
+            content: "⭐";
+            margin-right: 10px;
+        }
+        
+        .commitment-section {
+            background-color: #fef9e7;
+            border: 1px solid #f9e79f;
+            border-radius: 5px;
+            padding: 25px;
+            margin-top: 40px;
+            border-left: 4px solid #f1c40f;
+        }
+        
+        .commitment-title {
+            color: #7d6608;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f9e79f;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #1a5276;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #1a5276;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .controls-panel {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .edit-btn {
+            background-color: #1a5276;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .edit-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .action-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        
+        .action-btn:hover {
+            background-color: #1e8449;
+        }
+        
+        .action-btn.secondary {
+            background-color: #718096;
+        }
+        
+        .action-btn.secondary:hover {
+            background-color: #4a5568;
+        }
+        
+        .editable {
+            min-height: 20px;
+            outline: none;
+        }
+        
+        .editing {
+            background-color: #fff9e6;
+            border-left: 3px solid #f1c40f;
+            padding-left: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .edit-indicator {
+            display: inline-block;
+            background-color: #f1c40f;
+            color: #333;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .controls-panel {
+                display: none;
+            }
+            
+            .edit-indicator {
+                display: none;
+            }
+            
+            .value-card:hover {
+                transform: none;
+                box-shadow: none;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .toc-list {
+                padding-left: 0;
+            }
+            
+            .toc-item {
+                padding-left: 15px;
+            }
+            
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .controls-panel {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .edit-btn, .action-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabecera con logo e información de la organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo FACASI" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        21.08.2026
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        DGC
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        direção General
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        001
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título del documento -->
+<div class="doc-title">Política Empresarial - FACASI</div>
+<div class="doc-code">Código: DOC-0012</div>
+<!-- Panel de controles de edición -->
+<div class="controls-panel" id="controlsPanel">
+<button class="edit-btn" id="editContentBtn">EDITAR CONTEÚDO</button>
+<button class="action-btn secondary" id="saveBtn">GUARDAR no NAVEGADOR</button>
+<button class="action-btn" id="exportBtn">EXPORTAR como HTML</button>
+<button class="action-btn secondary" id="loadBtn">CARREGAR EDIÇÕES GUARDADAS</button>
+<span id="editStatus" style="margin-left: auto; font-size: 14px; color: #666;">Modo de leitura ativo</span>
+</div>
+<!-- Contenido principal -->
+<div class="content" id="mainContent">
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#introduccion">Introdução</a></li>
+<li class="toc-item"><a class="toc-link" href="#mision">Missão</a></li>
+<li class="toc-item"><a class="toc-link" href="#vision">Visão</a></li>
+<li class="toc-item"><a class="toc-link" href="#valores">Valores e Principios</a></li>
+<li class="toc-item"><a class="toc-link" href="#compromisos">Compromisos Estratégicos</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Sección 1: Introducción -->
+<div class="section" id="introduccion">
+<div class="section-title">1. Introdução <span class="edit-indicator" id="editIndicator1" style="display: none;">A EDITAR</span></div>
+<div class="section-description editable" id="introduccion-description">
+<strong>FACASI - Comércio Geral e Prestação de Serviços (SU), Lda</strong> (marca comercial "FACASI Oil &amp; Gas Inspection") é uma empresa angolana especializada na prestação de serviços de inspeção industrial, inspeção e certificação de equipamentos, manutenção, reparação, logística e apoio a operações para o setor de óleo e gás, operando sob rigorosos padrões de qualidade e segurança.
+                    <br/><br/>
+                    esta Política Empresarial estabelece os fundamentos estratégicos, valores e compromissos que orientam as nossas operações, decisões e relações com todas as partes interessadas, em coerência com o nosso propósito de oferecer soluções técnicas confiáveis e de excelência que contribuam para a segurança e a integridade operacional dos nossos clientes.
+                </div>
+<div class="subsection-title">Propósito da Política</div>
+<div class="section-description editable" id="proposito-politica">
+                    esta política tem como objetivo definir formalmente os princípios orientadores da FACASI, estabelecendo um quadro claro para a tomada de decisões, a gestão operacional e o desenvolvimento estratégico, assegurando o alinhamento de todas as atividades com a nossa missão, visão e valores corporativos.
+                </div>
+</div>
+<!-- Secção 2: Missão -->
+<div class="section" id="mision">
+<div class="section-title">2. Missão <span class="edit-indicator" id="editIndicator2" style="display: none;">A EDITAR</span></div>
+<div class="mission-box">
+<div class="mission-title editable" id="mision-title">Missão da FACASI</div>
+<div class="section-description editable" id="mision-contenido">
+                        Prestar serviços de inspeção industrial, inspeção e certificação de equipamentos, manutenção, reparação e apoio a operações, garantindo qualidade, segurança e integridade técnica, através de processos eficientes, pessoal qualificado e tecnologia adequada (incluindo END/NDT e UTM), contribuindo para a segurança operacional dos nossos clientes no setor de óleo e gás em Angola.
+                    </div>
+</div>
+<div class="subsection-title" style="margin-top: 25px;">Elementos-Chave da Nossa Missão</div>
+<ul class="bullet-list editable" id="elementos-mision">
+<li><strong>Qualidade e Confiabilidade:</strong> Garantir serviços de inspeção que cumprem os mais elevados padrões técnicos e normativos.</li>
+<li><strong>Segurança:</strong> Assegurar processos de inspeção e manutenção que protegem a integridade dos equipamentos e a segurança dos trabalhadores.</li>
+<li><strong>Satisfação do cliente:</strong> Superar as expectativas dos nossos clientes através de serviços confiáveis e tecnicamente rigorosos.</li>
+<li><strong>Eficiência Operacional:</strong> Otimizar processos para maximizar valor e minimizar riscos.</li>
+<li><strong>Responsabilidade Social:</strong> Contribuir para o bem-estar das comunidades onde operamos.</li>
+</ul>
+</div>
+<!-- Secção 3: Visão -->
+<div class="section" id="vision">
+<div class="section-title">3. Visão <span class="edit-indicator" id="editIndicator3" style="display: none;">A EDITAR</span></div>
+<div class="vision-box">
+<div class="vision-title editable" id="vision-title">Visão da FACASI</div>
+<div class="section-description editable" id="vision-contenido">
+                        Ser reconhecida como o parceiro estratégico de referência em serviços de inspeção industrial e de óleo e gás em Angola, líder em qualidade, segurança e rigor técnico.
+                    </div>
+</div>
+<div class="subsection-title" style="margin-top: 25px;">Aspirações Estratégicas</div>
+<ul class="bullet-list editable" id="aspiraciones-vision">
+<li><strong>Liderança em Qualidade:</strong> Ser o padrão de referência em serviços de inspeção e certificação de equipamentos em Angola.</li>
+<li><strong>Inovação Contínua:</strong> Incorporar tecnologias e metodologias de ponta (END/NDT, UTM) em todos os nossos serviços.</li>
+<li><strong>Expansão:</strong> Ampliar a nossa cobertura e presença no setor de óleo e gás em Angola.</li>
+<li><strong>Segurança e Sustentabilidade:</strong> Integrar práticas de segurança e responsabilidade ambiental em todas as nossas operações.</li>
+<li><strong>Recursos Humanos:</strong> Desenvolver equipas de trabalho altamente qualificadas e comprometidas.</li>
+</ul>
+</div>
+<!-- Sección 4: Valores y Principios -->
+<div class="section" id="valores">
+<div class="section-title">4. Valores e Principios Corporativos <span class="edit-indicator" id="editIndicator4" style="display: none;">A EDITAR</span></div>
+<div class="section-description editable" id="valores-introduccion">
+                    A FACASI fundamenta-se num conjunto de valores e princípios que orientam o nosso comportamento, decisões e relações, constituindo o ADN da nossa cultura organizacional:
+                </div>
+<div class="values-grid">
+<div class="value-card">
+<div class="value-title editable" id="valor-calidad-title">Qualidade e Excelência Técnica</div>
+<div class="editable" id="valor-calidad-contenido">
+                            Esforçamo-nos por superar os padrões de qualidade em todos os nossos serviços de inspeção, garantindo resultados confiáveis e tecnicamente rigorosos que geram confiança nos nossos clientes.
+                        </div>
+</div>
+<div class="value-card">
+<div class="value-title editable" id="valor-compromiso-title">Compromisso com o cliente</div>
+<div class="editable" id="valor-compromiso-contenido">
+                            Orientamo-nos para superar as expectativas dos nossos clientes, oferecendo serviços personalizados, atendimento proativo e soluções adaptadas às suas necessidades específicas.
+                        </div>
+</div>
+<div class="value-card">
+<div class="value-title editable" id="valor-integridad-title">Integridade e Transparência</div>
+<div class="editable" id="valor-integridad-contenido">
+                            Atuamos com honestidade, ética e transparência em todas as nossas relações comerciais, laborais e comunitárias, construindo confiança através de ações coerentes.
+                        </div>
+</div>
+<div class="value-card">
+<div class="value-title editable" id="valor-mejora-title">Melhoria Contínua</div>
+<div class="editable" id="valor-mejora-contenido">
+                            Impulsionamos a melhoria contínua em todos os nossos processos, incorporando inovação e boas práticas para otimizar a nossa eficiência e qualidade.
+                        </div>
+</div>
+<div class="value-card">
+<div class="value-title editable" id="valor-personas-title">Respeito pelas Pessoas</div>
+<div class="editable" id="valor-personas-contenido">
+                            Valorizamos os nossos colaboradores, promovendo um ambiente laboral seguro, inclusivo e de desenvolvimento profissional, reconhecendo o seu contributo fundamental para o sucesso da empresa.
+                        </div>
+</div>
+<div class="value-card">
+<div class="value-title editable" id="valor-sostenibilidad-title">Segurança e Responsabilidade ambiental</div>
+<div class="editable" id="valor-sostenibilidad-contenido">
+                            Gerimos as nossas operações com responsabilidade ambiental e foco na segurança, utilizando métodos e equipamentos que minimizam o impacto ecológico e os riscos operacionais.
+                        </div>
+</div>
+</div>
+</div>
+<!-- Sección 5: Compromisos Estratégicos -->
+<div class="section" id="compromisos">
+<div class="section-title">5. Compromisos Estratégicos <span class="edit-indicator" id="editIndicator5" style="display: none;">A EDITAR</span></div>
+<div class="commitment-section">
+<div class="commitment-title editable" id="compromisos-title">nossos Compromisos Fundamentales</div>
+<div class="subsection-title" style="color: #7d6608;">Compromisso com a Qualidade do Serviço</div>
+<ul class="bullet-list editable" id="compromiso-calidad">
+<li>implementar e manter um Sistema de Gestão da Qualidade em conformidade com a ISO 9001:2015.</li>
+<li>Garantir a eficácia dos nossos serviços de inspeção de equipamentos, END/NDT e UTM.</li>
+<li>implementar protocolos técnicos rigorosos que assegurem a fiabilidade das inspeções realizadas.</li>
+<li>realizar controlos de qualidade periódicos para verificar a conformidade dos nossos serviços.</li>
+</ul>
+<div class="subsection-title" style="color: #7d6608; margin-top: 20px;">Compromisso com os Nossos colaboradores</div>
+<ul class="bullet-list editable" id="compromiso-colaboradores">
+<li>proporcionar um ambiente laboral seguro, saudável e de respeito mútuo, em conformidade com a ISO 45001:2018.</li>
+<li>Fomentar a formação contínua e o desenvolvimento profissional da nossa equipa.</li>
+<li>Promover a comunicação aberta e a participação na melhoria de processos.</li>
+<li>Reconhecer e valorizar o empenho e desempenho de cada colaborador.</li>
+</ul>
+<div class="subsection-title" style="color: #7d6608; margin-top: 20px;">Compromisso com clientes e Parceiros</div>
+<ul class="bullet-list editable" id="compromiso-clientes">
+<li>Oferecer soluções técnicas que respondem às necessidades específicas de cada cliente.</li>
+<li>Garantir a confiabilidade e pontualidade na prestação de todos os nossos serviços.</li>
+<li>Prestar atendimento personalizado e acompanhamento contínuo para assegurar a satisfação.</li>
+<li>Manter comunicação transparente sobre os nossos processos e serviços.</li>
+</ul>
+<div class="subsection-title" style="color: #7d6608; margin-top: 20px;">Compromisso com a Sociedade e o Meio Ambiente</div>
+<ul class="bullet-list editable" id="compromiso-sociedad">
+<li>Operar com responsabilidade ambiental, minimizando o impacto da nossa atividade.</li>
+<li>utilizar métodos e equipamentos seguros que reduzam os riscos operacionais e ambientais.</li>
+<li>Contribuir para o desenvolvimento das comunidades onde operamos.</li>
+<li>Promover práticas sustentáveis em toda a nossa cadeia de valor.</li>
+</ul>
+</div>
+</div>
+<!-- Historial de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>001</td>
+<td>21.08.2026</td>
+<td>Formalização da Política Empresarial</td>
+<td>direção General</td>
+</tr>
+<tr>
+<td>000</td>
+<td>21.08.2026</td>
+<td>Original</td>
+<td>direção General</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Pie de página -->
+<div class="footer">
+<p>Código: DOC-0012 | Revisão: 001 | Página 1 de 1</p>
+<p style="margin-top: 10px; font-style: italic;">FACASI - Soluções Integrais de Qualidade</p>
+</div>
+</div>
+<script>
+        class DocumentEditor {
+            constructor() {
+                this.editMode = false;
+                this.storageKey = 'DOC-0012-edited-content';
+                this.originalContent = {};
+                this.init();
+            }
+            
+            init() {
+                // Guardar contenido original
+                this.saveOriginalContent();
+                
+                // Configurar eventos de los botones
+                document.getElementById('editContentBtn').addEventListener('click', () => this.toggleEditMode());
+                document.getElementById('saveBtn').addEventListener('click', () => this.saveToBrowser());
+                document.getElementById('exportBtn').addEventListener('click', () => this.exportToHTML());
+                document.getElementById('loadBtn').addEventListener('click', () => this.loadFromStorage());
+                
+                // Verificar si hay contenido guardado
+                if (localStorage.getItem(this.storageKey)) {
+                    console.log('Foram detetadas edições guardadas. Utilize "CARREGAR EDIÇÕES GUARDADAS" para as carregar.');
+                }
+                
+                // Verificar si el logo existe
+                const logoImg = document.querySelector('.logo');
+                if (logoImg) {
+                    logoImg.onerror = function() {
+                        this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="14" text-anchor="middle" fill="%231a5276" dy="5">FACASI</text><text x="90" y="58" font-family="Arial" font-size="9" text-anchor="middle" fill="%23666" dy="5">Servicios Integrales</text></svg>';
+                        console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+                    };
+                }
+                
+                // Configurar scroll suave para los enlaces del TOC
+                document.querySelectorAll('.toc-link').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href').substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 20,
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                });
+            }
+            
+            saveOriginalContent() {
+                // Guardar contenido original de todos los elementos editables
+                const editableElements = document.querySelectorAll('.editable');
+                this.originalContent = {};
+                
+                editableElements.forEach((element, index) => {
+                    const id = element.id || `editable-${index}`;
+                    this.originalContent[id] = element.innerHTML;
+                });
+            }
+            
+            toggleEditMode() {
+                this.editMode = !this.editMode;
+                const editBtn = document.getElementById('editContentBtn');
+                const editStatus = document.getElementById('editStatus');
+                const editableElements = document.querySelectorAll('.editable');
+                const editIndicators = document.querySelectorAll('.edit-indicator');
+                
+                if (this.editMode) {
+                    // Activar modo edición
+                    editBtn.textContent = 'DESATIVAR EDIÇÃO';
+                    editBtn.style.backgroundColor = '#d69e2e';
+                    editStatus.textContent = 'Modo de edição ativo';
+                    editStatus.style.color = '#d69e2e';
+                    
+                    // Hacer elementos editables
+                    editableElements.forEach(element => {
+                        element.setAttribute('contenteditable', 'true');
+                        element.classList.add('editing');
+                    });
+                    
+                    // Mostrar indicadores de edición
+                    editIndicators.forEach(indicator => {
+                        indicator.style.display = 'inline-block';
+                    });
+                    
+                } else {
+                    // Desactivar modo edición
+                    editBtn.textContent = 'EDITAR CONTEÚDO';
+                    editBtn.style.backgroundColor = '#1a5276';
+                    editStatus.textContent = 'Modo de leitura ativo';
+                    editStatus.style.color = '#666';
+                    
+                    // Deshacer elementos editables
+                    editableElements.forEach(element => {
+                        element.setAttribute('contenteditable', 'false');
+                        element.classList.remove('editing');
+                    });
+                    
+                    // Ocultar indicadores de edición
+                    editIndicators.forEach(indicator => {
+                        indicator.style.display = 'none';
+                    });
+                }
+            }
+            
+            saveToBrowser() {
+                if (!this.editMode) {
+                    alert('Ative primeiro o modo de edição para poder guardar alterações.');
+                    return;
+                }
+                
+                const editableElements = document.querySelectorAll('.editable');
+                const savedContent = {};
+                
+                editableElements.forEach((element, index) => {
+                    const id = element.id || `editable-${index}`;
+                    savedContent[id] = element.innerHTML;
+                });
+                
+                try {
+                    localStorage.setItem(this.storageKey, JSON.stringify(savedContent));
+                    alert('As edições foram guardadas no navegador corretamente.');
+                } catch (error) {
+                    alert('Erro ao guardar as edições: ' + error.message);
+                }
+            }
+            
+            loadFromStorage() {
+                const savedData = localStorage.getItem(this.storageKey);
+                
+                if (!savedData) {
+                    alert('Não foram encontradas edições guardadas no navegador.');
+                    return;
+                }
+                
+                if (confirm('Carregar as edições guardadas? Isto substituirá o conteúdo atual.')) {
+                    try {
+                        const savedContent = JSON.parse(savedData);
+                        const editableElements = document.querySelectorAll('.editable');
+                        
+                        editableElements.forEach((element, index) => {
+                            const id = element.id || `editable-${index}`;
+                            if (savedContent[id]) {
+                                element.innerHTML = savedContent[id];
+                            }
+                        });
+                        
+                        alert('Edições carregadas corretamente a partir do navegador.');
+                    } catch (error) {
+                        alert('Erro ao carregar as edições: ' + error.message);
+                    }
+                }
+            }
+            
+            exportToHTML() {
+                // Crear una copia del documento para exportar
+                const docClone = document.documentElement.cloneNode(true);
+                
+                // Remover atributos de edición
+                const editables = docClone.querySelectorAll('.editable');
+                editables.forEach(element => {
+                    element.removeAttribute('contenteditable');
+                    element.classList.remove('editing');
+                });
+                
+                // Remover panel de controles
+                const controlsPanel = docClone.querySelector('#controlsPanel');
+                if (controlsPanel) {
+                    controlsPanel.remove();
+                }
+                
+                // Remover indicadores de edición
+                const editIndicators = docClone.querySelectorAll('.edit-indicator');
+                editIndicators.forEach(indicator => {
+                    indicator.remove();
+                });
+                
+                // Remover scripts (excepto el necesario para el logo)
+                const scripts = docClone.querySelectorAll('script');
+                scripts.forEach(script => {
+                    if (!script.textContent.includes('logo.onerror')) {
+                        script.remove();
+                    }
+                });
+                
+                // Crear blob y descargar
+                const htmlContent = `<!DOCTYPE html>\n${docClone.outerHTML}`;
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'DOC-0012-Politica-Empresarial-FACASI.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                alert('Documento exportado como HTML. A descarregar...');
+            }
+            
+            resetToOriginal() {
+                if (confirm('Restaurar o conteúdo original? Isto eliminará todas as edições atuais.')) {
+                    const editableElements = document.querySelectorAll('.editable');
+                    
+                    editableElements.forEach((element, index) => {
+                        const id = element.id || `editable-${index}`;
+                        if (this.originalContent[id]) {
+                            element.innerHTML = this.originalContent[id];
+                        }
+                    });
+                    
+                    alert('Conteúdo original restaurado.');
+                }
+            }
+        }
+        
+        // Inicializar el editor cuando el DOM esté cargado
+        document.addEventListener('DOMContentLoaded', () => {
+            window.documentEditor = new DocumentEditor();
+        });
+    </script>
+</body>
+</html>

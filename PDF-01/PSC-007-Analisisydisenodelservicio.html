@@ -1,0 +1,1130 @@
+<html lang="pt-AO"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PSC-007 - Análise e Desenho do serviço - SGI (Genérico + Editável)</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #805ad5;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            cursor: pointer;
+            border: 2px dashed transparent;
+            transition: border 0.2s;
+        }
+        
+        .logo-container:hover {
+            border-color: #fbbf24;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            pointer-events: none;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #805ad5;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #805ad5;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #805ad5;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #805ad5;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #805ad5;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #9f7aea;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #805ad5;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-subtitle {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #805ad5;
+        }
+        
+        .intro-text {
+            background-color: #faf5ff;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #805ad5;
+            font-size: 16px;
+        }
+        
+        .process-matrix {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            border: 1px solid #ddd;
+        }
+        
+        .process-matrix th {
+            background-color: #805ad5;
+            color: white;
+            font-weight: bold;
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #6b46c1;
+            width: 33.33%;
+        }
+        
+        .process-matrix td {
+            padding: 15px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+        
+        .process-matrix tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .resources-list {
+            list-style-type: none;
+            margin: 15px 0;
+        }
+        
+        .resources-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .resources-list li:before {
+            content: "•";
+            color: #805ad5;
+            font-weight: bold;
+            font-size: 18px;
+            position: absolute;
+            left: 0;
+        }
+        
+        .responsibility-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .responsibility-card {
+            background-color: #faf5ff;
+            border: 1px solid #e9d8fd;
+            border-radius: 5px;
+            padding: 20px;
+            border-left: 4px solid #805ad5;
+        }
+        
+        .responsibility-title {
+            color: #805ad5;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .indicator-box {
+            background-color: #faf5ff;
+            border: 1px solid #d6bcfa;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        
+        .indicator-title {
+            color: #805ad5;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .indicator-formula {
+            background-color: white;
+            padding: 15px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            border-left: 4px solid #9f7aea;
+            text-align: center;
+            font-size: 16px;
+        }
+        
+        .threshold-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        .threshold-table th, .threshold-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .threshold-table th {
+            background-color: #805ad5;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .threshold-acceptable {
+            background-color: #c6f6d5;
+        }
+        
+        .threshold-marginal {
+            background-color: #fed7d7;
+        }
+        
+        .threshold-unacceptable {
+            background-color: #fed7d7;
+            border-left: 4px solid #e53e3e;
+        }
+        
+        .risks-opportunities-section {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .ro-item {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .ro-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .ro-title {
+            color: #805ad5;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .ro-description {
+            margin-bottom: 15px;
+        }
+        
+        .ro-actions {
+            background-color: #e9d8fd;
+            padding: 15px;
+            border-radius: 3px;
+            margin-top: 10px;
+            border-left: 4px solid #805ad5;
+        }
+        
+        .ref-docs {
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        
+        .ref-list {
+            list-style-type: none;
+        }
+        
+        .ref-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .ref-list li:before {
+            content: "▸";
+            color: #805ad5;
+            position: absolute;
+            left: 0;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #805ad5;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #805ad5;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .print-btn, .save-btn, .edit-btn, .download-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .print-btn {
+            background-color: #805ad5;
+            color: white;
+        }
+        
+        .print-btn:hover {
+            background-color: #9f7aea;
+        }
+        
+        .save-btn {
+            background-color: #3182ce;
+            color: white;
+        }
+        
+        .save-btn:hover {
+            background-color: #2c5282;
+        }
+        
+        .edit-btn {
+            background-color: #38a169;
+            color: white;
+        }
+        
+        .edit-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .download-btn {
+            background-color: #d69e2e;
+            color: white;
+        }
+        
+        .download-btn:hover {
+            background-color: #b7791f;
+        }
+
+        /* Estilo para modo edición */
+        body.editable-mode .detail-input:enabled,
+        body.editable-mode input:not([type=button]):not([type=submit]):not([type=reset]) {
+            background-color: #ffffe0;
+            border: 1px solid #fbbf24;
+        }
+
+        body.editable-mode td[contenteditable="true"],
+        body.editable-mode div[contenteditable="true"],
+        body.editable-mode p[contenteditable="true"],
+        body.editable-mode li[contenteditable="true"],
+        body.editable-mode span[contenteditable="true"],
+        body.editable-mode .responsibility-title[contenteditable="true"],
+        body.editable-mode .ro-title[contenteditable="true"] {
+            background-color: #ffffe0;
+            outline: 1px dashed #fbbf24;
+            cursor: text;
+        }
+
+        .detail-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #a0aec0;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+            color: #2d3748;
+        }
+
+        .note-box {
+            background-color: #fefcbf;
+            border: 1px solid #f6e05e;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            font-size: 14px;
+            font-style: italic;
+        }
+        
+        .service-type {
+            background-color: #e6fffa;
+            border: 1px solid #81e6d9;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        
+        .service-type-title {
+            color: #2d3748;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .procedure-step {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .procedure-step:before {
+            content: counter(step-counter) ".";
+            counter-increment: step-counter;
+            position: absolute;
+            left: 0;
+            color: #805ad5;
+            font-weight: bold;
+        }
+        
+        .procedure-container {
+            counter-reset: step-counter;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .action-buttons {
+                display: none;
+            }
+            
+            .process-matrix {
+                page-break-inside: avoid;
+            }
+
+            .detail-input {
+                border: none;
+                background: transparent;
+                padding: 0;
+                color: black;
+                font-weight: normal;
+            }
+
+            .logo-container {
+                border: none;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+            
+            .responsibility-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .process-matrix {
+                display: block;
+                overflow-x: auto;
+            }
+
+            .action-buttons {
+                justify-content: center;
+            }
+        }
+    </style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+</head>
+<body class="">
+<div class="document-container">
+<!-- Cabecera con logo y organización (campos editables) -->
+<div class="header">
+<div class="logo-container" id="logoContainer" title="Clique para alterar o URL do logótipo (simulado)">
+<img alt="Logótipo da Organização" class="logo" id="logoImg" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name"><input class="detail-input" disabled="" id="orgNameInput" style="background:transparent; color:white; border-color:#a0aec0;" type="text" value="Sistema de Gestão Integrado (SGI)"/></div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+<input class="detail-input" disabled="" id="fechaEmision" style="width:100px; background:transparent; color:white;" type="text" value="Pendente de validação"/>
+</div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+<input class="detail-input" disabled="" id="elabora" style="width:70px; background:transparent; color:white;" type="text" value="ESGI"/>
+</div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+<input class="detail-input" disabled="" id="aprueba" style="width:60px; background:transparent; color:white;" type="text" value="CEO"/>
+</div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+<input class="detail-input" disabled="" id="versionDoc" style="width:50px; background:transparent; color:white;" type="text" value="002"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Título del documento (editables) -->
+<div class="doc-title" contenteditable="false" id="docTitle">Análise e Desenho do serviço - Sistema de Gestão Integrado</div>
+<div class="doc-code" contenteditable="false" id="docCode">Código: PSC-007</div>
+<!-- Contenido principal -->
+<div class="content">
+<!-- Tabla de Contenidos (enlaces funcionales) -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#objetivo">Objetivo do processo</a></li>
+<li class="toc-item"><a class="toc-link" href="#alcance">Alcance do processo</a></li>
+<li class="toc-item"><a class="toc-link" href="#matriz">Matriz do processo</a></li>
+<li class="toc-item"><a class="toc-link" href="#recursos">Recursos do processo</a></li>
+<li class="toc-item"><a class="toc-link" href="#seguimiento">acompanhamento e indicadores</a></li>
+<li class="toc-item"><a class="toc-link" href="#riesgos">Análise e avaliação de riscos</a></li>
+<li class="toc-item"><a class="toc-link" href="#oportunidades">Análise e avaliação de oportunidades</a></li>
+<li class="toc-item"><a class="toc-link" href="#referencia">Documentação de Referencia</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Sección 1: Objetivo (editable) -->
+<div class="section" id="objetivo">
+<div class="section-title" contenteditable="false">1. Objetivo do Processo</div>
+<div class="intro-text">
+<p contenteditable="false">O objetivo do processo de Análise e Desenho do Serviço é definir e desenvolver os serviços da FACASI de modo a cumprirem os requisitos de qualidade técnica, de segurança e de conformidade normativa. Este processo garante que os serviços respondem às necessidades específicas de cada cliente, que os métodos de ensaio selecionados são adequados ao objeto a inspecionar e que os riscos de SST associados à sua execução são avaliados antes da prestação.</p>
+</div>
+<div class="service-type">
+<div class="service-type-title" contenteditable="false">Serviços abrangidos por este processo:</div>
+<ul class="resources-list" contenteditable="false">
+<li contenteditable="false">Inspeção industrial e inspeção e certificação de equipamentos</li>
+<li contenteditable="false">Ensaios não destrutivos (END/NDT) e medição de espessura por ultrassom (UTM)</li>
+<li contenteditable="false">Manutenção, reparação e apoio a operações</li>
+<li contenteditable="false">Limpeza de tanques e logística</li>
+<li contenteditable="false">Serviços especializados conforme as necessidades do cliente</li>
+</ul>
+</div>
+</div>
+<!-- Sección 2: Alcance (editable) -->
+<div class="section" id="alcance">
+<div class="section-title" contenteditable="false">2. Alcance do Processo</div>
+<p contenteditable="false">Este processo abrange as atividades de análise, definição e desenvolvimento de novos serviços, bem como a melhoria dos serviços existentes, assegurando o cumprimento das normas ISO 9001:2015 e ISO 45001:2018. Inclui desde a identificação dos requisitos do cliente até à validação técnica e documentação final do método a aplicar.</p>
+</div>
+<!-- Sección 3: Matriz del Proceso (editable) -->
+<div class="section" id="matriz">
+<div class="section-title" contenteditable="false">3. Matriz do Processo</div>
+<table class="process-matrix">
+<thead>
+<tr>
+<th>ENTRADAS</th>
+<th>ATIVIDADES</th>
+<th>SAÍDAS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td contenteditable="false">
+<ul class="matrix-list" contenteditable="false">
+<li contenteditable="false">Requisitos do cliente e especificações do serviço.</li>
+<li contenteditable="false">Normas técnicas de ensaio aplicáveis e critérios de aceitação.</li>
+<li contenteditable="false">Requisitos legais e de SST aplicáveis.</li>
+<li contenteditable="false">Políticas da Qualidade e de SST.</li>
+<li contenteditable="false">Resultados de validações e trabalhos anteriores.</li>
+<li contenteditable="false">Retorno de serviços anteriores e reclamações.</li>
+<li contenteditable="false">Evolução técnica dos métodos e equipamentos de ensaio.</li>
+<li contenteditable="false">Avaliações de riscos previamente identificados.</li>
+</ul>
+</td>
+<td contenteditable="false">
+<div class="procedure-container" contenteditable="false">
+<div class="procedure-step" contenteditable="false">
+<strong>Análise de Requisitos:</strong> identificação e análise das necessidades do cliente, das especificações técnicas do equipamento a inspecionar e dos requisitos normativos aplicáveis.
+                                    </div>
+<div class="procedure-step" contenteditable="false">
+<strong>Seleção e Validação do Método:</strong> escolha do método de ensaio adequado ao objeto e aos critérios de aceitação acordados, confirmando que a FACASI dispõe do equipamento e da qualificação de pessoal necessários para o aplicar.
+                                    </div>
+<div class="procedure-step" contenteditable="false">
+<strong>Avaliação de Riscos de SST:</strong> avaliação dos riscos associados à execução do serviço nas condições da instalação do cliente — espaços confinados, altura, radiação, atmosferas perigosas — e definição dos controlos necessários (PRO-019).
+                                    </div>
+<div class="procedure-step" contenteditable="false">
+<strong>Definição do Protocolo de Execução:</strong> elaboração do protocolo que especifica a sequência de trabalho, os equipamentos a utilizar, os critérios de aceitação e as medidas de segurança aplicáveis.
+                                    </div>
+<div class="procedure-step" contenteditable="false">
+<strong>Validação:</strong> verificação de que o serviço definido cumpre os requisitos de qualidade e segurança estabelecidos, antes da sua prestação ao cliente.
+                                    </div>
+<div class="procedure-step" contenteditable="false">
+<strong>Melhoria Contínua:</strong> incorporação de melhorias com base nos resultados obtidos e no retorno do cliente e da equipa operacional.
+                                    </div>
+<div class="procedure-step" contenteditable="false">
+<strong>Documentação e Comunicação:</strong> elaboração da documentação do serviço e comunicação às partes interessadas, incluindo a equipa que o vai executar.
+                                    </div>
+</div>
+</td>
+<td contenteditable="false">
+<ul class="matrix-list" contenteditable="false">
+<li contenteditable="false"><strong>Registo dos requisitos do cliente:</strong> documento com as especificações e critérios de aceitação acordados.</li>
+<li contenteditable="false"><strong>Avaliação de riscos de SST do serviço:</strong> documento com a identificação dos perigos e controlos definidos.</li>
+<li contenteditable="false"><strong>Protocolo de execução do serviço:</strong> documento com os métodos, equipamentos e medidas de segurança.</li>
+<li contenteditable="false"><strong>Registo de validação:</strong> evidência da conformidade do método com os requisitos.</li>
+<li contenteditable="false"><strong>Registo de melhorias implementadas.</strong></li>
+<li contenteditable="false">Instruções de trabalho aplicáveis ao serviço.</li>
+<li contenteditable="false">Especificações técnicas do serviço.</li>
+<li contenteditable="false">Requisitos de qualificação do pessoal para o executar.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Sección 4: Recursos (editable) -->
+<div class="section" id="recursos">
+<div class="section-title" contenteditable="false">4. Recursos do processo</div>
+<div class="section-subtitle" contenteditable="false">4.1 Recursos necessários</div>
+<p contenteditable="false">Para a execução do processo de Análise e Desenho do serviço requer-se:</p>
+<ul class="resources-list" contenteditable="false">
+<li contenteditable="false"><strong>Recursos Humanos:</strong> Equipa de desenho e desenvolvimento com conhecimentos em normas de qualidade, gestão ambiental e segurança ocupacional.</li>
+<li contenteditable="false"><strong>Recursos Tecnológicos:</strong> Software para simulação de serviços, ferramentas de análise de riscos e equipamentos para testes de validação.</li>
+<li contenteditable="false"><strong>Recursos Materiales:</strong> Documentação técnica, normas de ensaio de referência, equipamentos de medição calibrados e consumíveis de ensaio.</li>
+<li contenteditable="false"><strong>Recursos Financeiros:</strong> Orçamento para investigação, desenvolvimento e validação de novos serviços.</li>
+<li contenteditable="false"><strong>Recursos de Informação:</strong> Base de datos de productos, normativas atualizadas e mejores prácticas do sector.</li>
+</ul>
+<div class="section-subtitle" contenteditable="false">4.2 responsáveis</div>
+<div class="responsibility-grid">
+<div class="responsibility-card">
+<div class="responsibility-title" contenteditable="false">Responsável de Desenho de serviços</div>
+<p contenteditable="false">Coordenar o desenvolvimento do desenho do serviço, avaliações de riscos e garantia da conformidade com normativas.</p>
+</div>
+<div class="responsibility-card">
+<div class="responsibility-title" contenteditable="false">Equipa de qualidade e Sustentabilidade</div>
+<p contenteditable="false">Realiza avaliações de riscos ambientais e de segurança para garantir o cumprimento de padrões.</p>
+</div>
+<div class="responsibility-card">
+<div class="responsibility-title" contenteditable="false">Alta Gerência</div>
+<p contenteditable="false">Aprova o desenho final e assegura a atribuição de recursos para a implementação do serviço.</p>
+</div>
+<div class="responsibility-card">
+<div class="responsibility-title" contenteditable="false">Especialistas Técnicos</div>
+<p contenteditable="false">proporcionan conocimientos específicos em productos, técnicas e normativas aplicáveis a os serviços.</p>
+</div>
+</div>
+</div>
+<!-- Sección 5: Seguimiento e Indicadores (editable) -->
+<div class="section" id="seguimiento">
+<div class="section-title" contenteditable="false">5. acompanhamento e indicadores</div>
+<div class="section-subtitle" contenteditable="false">5.1 Metodologia de acompanhamento</div>
+<p contenteditable="false">O acompanhamento do processo de Análise e Desenho do serviço realiza-se através de:</p>
+<ul class="resources-list" contenteditable="false">
+<li contenteditable="false"><strong>Índice de cumprimento de requisitos do Desenho (ICRD):</strong> Mede o grau de conformidade do desenho do serviço com os requisitos do cliente e normativas.</li>
+<li contenteditable="false"><strong>Índice de Satisfação Pós-Implementação (ISPI):</strong> Avalia o nível de satisfação do cliente e da equipa operacional com o serviço uma vez implementado.</li>
+<li contenteditable="false"><strong>Auditorias de Validação do serviço:</strong> Revisões periódicas da eficácia do desenho e conformidade com os padrões de qualidade, segurança e sustentabilidade.</li>
+<li contenteditable="false"><strong>Tempo de Desenvolvimento:</strong> Mede a eficiência do processo de desenho desde a análise de requisitos até à validação final.</li>
+</ul>
+<div class="section-subtitle" contenteditable="false">5.2 indicadores</div>
+<div class="indicator-box">
+<div class="indicator-title" contenteditable="false">Índice de cumprimento de requisitos do Desenho (ICRD)</div>
+<p contenteditable="false"><em>Mede o desempenho do processo PSC-007</em></p>
+<div class="indicator-formula" contenteditable="false">
+                        ICRD = (requisitos cumpridos / Total de requisitos) × 100
+                    </div>
+<div class="note-box" contenteditable="false">
+<strong>Nota:</strong> Este indicador avalia a eficácia do processo de desenho em cumprir todos os requisitos estabelecidos pelo cliente e pelas normativas aplicáveis.
+                    </div>
+<p contenteditable="false"><strong>Valores de Referencia:</strong></p>
+<table class="threshold-table">
+<thead>
+<tr>
+<th>nível</th>
+<th>Intervalo</th>
+<th>Interpretação</th>
+</tr>
+</thead>
+<tbody>
+<tr class="threshold-acceptable">
+<td contenteditable="false"><strong>Aceitável</strong></td>
+<td contenteditable="false">≥ 90%</td>
+<td contenteditable="false">Indica que o desenho do serviço responde adequadamente às necessidades do cliente e cumpre os requisitos de qualidade, sustentabilidade e segurança.</td>
+</tr>
+<tr class="threshold-marginal">
+<td contenteditable="false"><strong>Marginal</strong></td>
+<td contenteditable="false">75% - 89%</td>
+<td contenteditable="false">Sugere que, embora o desenho seja adequado, existem oportunidades de ajuste para melhorar o cumprimento.</td>
+</tr>
+<tr class="threshold-unacceptable">
+<td contenteditable="false"><strong>Não Aceitável</strong></td>
+<td contenteditable="false">&lt; 75%</td>
+<td contenteditable="false">Implica a necessidade de rever e ajustar o processo de desenho para assegurar o cumprimento dos requisitos.</td>
+</tr>
+</tbody>
+</table>
+<p contenteditable="false"><strong>Fonte de Dados:</strong></p>
+<ul class="resources-list" contenteditable="false">
+<li contenteditable="false"><strong>Relatório de requisitos do cliente:</strong> Especifica os requisitos e expectativas do cliente.</li>
+<li contenteditable="false"><strong>Resultados de Testes de Validação:</strong> Documentação de testes de validação iniciais.</li>
+<li contenteditable="false"><strong>Checklists de cumprimento:</strong> Listas de verificação utilizadas durante o processo de desenho.</li>
+<li contenteditable="false"><strong>Relatórios de Auditoria de Desenho:</strong> Resultados de auditorias internas do processo de desenho.</li>
+</ul>
+<p contenteditable="false"><strong>Frequência de avaliação:</strong> Depois de cada etapa de desenho e validação do serviço, e de forma trimestral para serviços em desenvolvimento contínuo.</p>
+<p contenteditable="false"><strong>Plano de Ação para Mejoras (si ICRD &lt; 75%):</strong></p>
+<ul class="resources-list" contenteditable="false">
+<li contenteditable="false"><strong>Revisão de requisitos:</strong> Rever e clarificar os requisitos com o cliente e ajustar o desenho para assegurar o cumprimento das especificações.</li>
+<li contenteditable="false"><strong>processo de revisão Integral:</strong> Implementar um processo de revisão com os responsáveis de qualidade e sustentabilidade para melhorar o desenho.</li>
+<li contenteditable="false"><strong>Repetição de Validações:</strong> Repetir os testes de validação até alcançar um nível de cumprimento aceitável.</li>
+<li contenteditable="false"><strong>Formação da Equipa:</strong> Fortalecer as capacidades da equipa de desenho em normativas e melhores práticas.</li>
+<li contenteditable="false"><strong>Melhoria de Ferramentas:</strong> Implementar ferramentas de desenho mais avançadas que facilitem o cumprimento de requisitos.</li>
+</ul>
+</div>
+</div>
+<!-- Sección 6: Análisis de Riesgos (editable) -->
+<div class="section" id="riesgos">
+<div class="section-title" contenteditable="false">6. Análise e avaliação de riscos do processo</div>
+<div class="risks-opportunities-section">
+<div class="ro-item">
+<div class="ro-title" contenteditable="false">risco de No cumprimento Normativo</div>
+<div class="ro-description" contenteditable="false">A falta de adesão a normativas de qualidade, segurança e sustentabilidade pode levar a sanções ou retrabalho no desenho.</div>
+<div class="ro-actions" contenteditable="false">
+<strong>Medidas de Control:</strong> Manutenção atualizada de base de dados normativa, revisões periódicas de cumprimento, formação contínua em normativas e validação externa de desenhos críticos.
+                        </div>
+</div>
+<div class="ro-item">
+<div class="ro-title" contenteditable="false">Risco de Ineficiência no Desenho</div>
+<div class="ro-description" contenteditable="false">Um desenho inadequado pode gerar sobrecustos, retrabalho ou insatisfação do cliente.</div>
+<div class="ro-actions" contenteditable="false">
+<strong>Medidas de Control:</strong> Metodologias de desenho estruturado, revisões em etapas iniciais, prototipagem rápida e validação com clientes antes da implementação completa.
+                        </div>
+</div>
+<div class="ro-item">
+<div class="ro-title" contenteditable="false">risco de Impacto ambiental No Controlado</div>
+<div class="ro-description" contenteditable="false">Uso de produtos ou métodos com alto impacto ambiental no desenho do serviço.</div>
+<div class="ro-actions" contenteditable="false">
+<strong>Medidas de Control:</strong> Avaliação ambiental sistemática de todos os produtos e métodos, preferência por opções sustentáveis e monitorização do impacto ambiental durante os testes de validação.
+                        </div>
+</div>
+<div class="ro-item">
+<div class="ro-title" contenteditable="false">risco de Obsolescencia Tecnológica</div>
+<div class="ro-description" contenteditable="false">Desenho de serviços baseados em tecnologias ou métodos que em breve ficarão obsoletos.</div>
+<div class="ro-actions" contenteditable="false">
+<strong>Medidas de Control:</strong> Vigilância tecnológica contínua, participação em fóruns do setor, colaboração com fornecedores inovadores e desenho modular que permita atualizações.
+                        </div>
+</div>
+</div>
+</div>
+<!-- Sección 7: Análisis de Oportunidades (editable) -->
+<div class="section" id="oportunidades">
+<div class="section-title" contenteditable="false">7. Análise e avaliação de oportunidades do processo</div>
+<div class="risks-opportunities-section">
+<div class="ro-item">
+<div class="ro-title" contenteditable="false">Inovação em Métodos e Produtos</div>
+<div class="ro-description" contenteditable="false">Investigação e adoção de métodos e produtos que reduzam o impacto ambiental e melhorem a eficácia do serviço.</div>
+<div class="ro-actions" contenteditable="false">
+<strong>Ações Potenciales:</strong> Programa de I&amp;D para novos métodos, colaboração com universidades e centros de investigação, e teste de produtos ecológicos.
+                        </div>
+</div>
+<div class="ro-item">
+<div class="ro-title" contenteditable="false">Otimização do processo de Validação</div>
+<div class="ro-description" contenteditable="false">Implementar ferramentas tecnológicas que permitam realizar simulações e testes de validação mais eficientes.</div>
+<div class="ro-actions" contenteditable="false">
+<strong>Ações Potenciales:</strong> Implementação de software de simulação, laboratório de testes virtuais e automatização de testes de validação.
+                        </div>
+</div>
+<div class="ro-item">
+<div class="ro-title" contenteditable="false">Melhoria na Documentação e Formação</div>
+<div class="ro-description" contenteditable="false">Padronizar e otimizar a documentação do desenho para facilitar a formação e o desdobramento operacional do serviço.</div>
+<div class="ro-actions" contenteditable="false">
+<strong>Ações Potenciales:</strong> Sistema de gestão documental digital, modelos padronizados de desenho e plataformas de formação virtual para novos serviços.
+                        </div>
+</div>
+<div class="ro-item">
+<div class="ro-title" contenteditable="false">Desenho de serviços Personalizados</div>
+<div class="ro-description" contenteditable="false">Desenvolvimento de capacidades para desenhar serviços altamente personalizados conforme necessidades específicas de clientes.</div>
+<div class="ro-actions" contenteditable="false">
+<strong>Ações Potenciales:</strong> Metodologia de desenho modular, banco de componentes de serviço reutilizáveis e sistema de configuração rápida de serviços.
+                        </div>
+</div>
+<div class="ro-item">
+<div class="ro-title" contenteditable="false">Integração de Tecnologias Digitais</div>
+<div class="ro-description" contenteditable="false">Incorporação de IoT, monitorização remota e análise de dados no desenho de serviços.</div>
+<div class="ro-actions" contenteditable="false">
+<strong>Ações Potenciales:</strong> Desenho de serviços com componentes digitais, desenvolvimento de aplicações de monitorização e sistemas de alerta precoce integrados.
+                        </div>
+</div>
+</div>
+</div>
+<!-- Sección 8: Documentação de Referencia (editable, genérico ISO) -->
+<div class="section" id="referencia">
+<div class="section-title" contenteditable="false">8. Documentação de Referencia</div>
+<div class="ref-docs">
+<ul class="ref-list" contenteditable="false">
+<li contenteditable="false"><strong>Norma ISO 9001:</strong> Sistemas de gestão da qualidade.</li>
+<li contenteditable="false"><strong>Norma:</strong> Sistemas de gestão ambiental.</li>
+<li contenteditable="false"><br/></li>
+<li contenteditable="false">Políticas e Procedimentos de Desenho de serviços de <span class="editable" contenteditable="false">la organização</span>.</li>
+<li contenteditable="false">Manual de Validação e avaliação de riscos do SGI.</li>
+<li contenteditable="false">Regulamentação específica de controlo de pragas e desinfeção.</li>
+<li contenteditable="false">Guías de buenas prácticas do sector.</li>
+<li contenteditable="false">Base de dados de produtos químicos e das suas especificações.</li>
+<li contenteditable="false">Protocolos de segurança no manejo de productos químicos.</li>
+</ul>
+</div>
+</div>
+<!-- Botones de acción: editar, guardar, descargar HTML, descargar PDF, imprimir -->
+<div class="action-buttons">
+<button class="edit-btn" id="editBtn"><i class="fas fa-pen"></i> MODO DE EDIÇÃO</button>
+<button class="save-btn" id="saveBtn">
+<i class="fas fa-save"></i>
+                    GUARDAR ALTERAÇÕES
+                </button>
+<button class="download-btn" id="downloadHtmlBtn">
+<i class="fas fa-code"></i>
+                    DESCARREGAR HTML
+                </button>
+<button class="download-btn" id="downloadPdfBtn" style="background-color: #c0392b;">
+<i class="fas fa-file-pdf"></i>
+                    DESCARREGAR PDF
+                </button>
+<button class="print-btn" onclick="window.print()">
+<i class="fas fa-print"></i>
+                    IMPRIMIR
+                </button>
+</div>
+<!-- Histórico de versiones (editable) -->
+<div class="version-history" id="historial">
+<div class="section-title" contenteditable="false">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th contenteditable="false">Versão</th>
+<th contenteditable="false">Data</th>
+<th contenteditable="false">Descrição</th>
+<th contenteditable="false">Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td contenteditable="false">001</td>
+<td contenteditable="false">01.02.2024</td>
+<td contenteditable="false">Original</td>
+<td contenteditable="false">CEO</td>
+</tr>
+<tr>
+<td contenteditable="false">002</td>
+<td contenteditable="false">Pendente de validação</td>
+<td contenteditable="false">Atualização do processo e inclusão de novas metodologias de desenho</td>
+<td contenteditable="false">CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Pie de página -->
+<div class="footer">
+<p contenteditable="false" id="footerText">Código: PSC-007 | Revisão: 002 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        (function() {
+            // Elementos editables: inputs y contenteditable
+            const inputs = document.querySelectorAll('input.detail-input');
+            const contentEditables = document.querySelectorAll('[contenteditable="false"]');
+            const tableCells = document.querySelectorAll('.process-matrix td, .version-table td, .version-table th, .responsibility-title, .ro-title');
+            const listItems = document.querySelectorAll('.resources-list li, .matrix-list li, .ref-list li, .service-type li');
+
+            const editBtn = document.getElementById('editBtn');
+            const saveBtn = document.getElementById('saveBtn');
+            const downloadHtmlBtn = document.getElementById('downloadHtmlBtn');
+            const downloadPdfBtn = document.getElementById('downloadPdfBtn');
+
+            let editMode = false;
+
+            function toggleEditMode(enable) {
+                editMode = enable;
+                inputs.forEach(inp => inp.disabled = !enable);
+                contentEditables.forEach(el => {
+                    el.setAttribute('contenteditable', enable ? 'true' : 'false');
+                });
+                tableCells.forEach(td => {
+                    td.setAttribute('contenteditable', enable ? 'true' : 'false');
+                });
+                listItems.forEach(li => {
+                    li.setAttribute('contenteditable', enable ? 'true' : 'false');
+                });
+                // párrafos sueltos
+                document.querySelectorAll('.section p, .intro-text p, .responsibility-card p, .indicator-box p, .ro-description, .ro-actions, .procedure-step').forEach(p => {
+                    p.setAttribute('contenteditable', enable ? 'true' : 'false');
+                });
+                // elementos con clase editable
+                document.querySelectorAll('.editable').forEach(el => {
+                    el.setAttribute('contenteditable', enable ? 'true' : 'false');
+                });
+
+                if (enable) {
+                    document.body.classList.add('editable-mode');
+                    editBtn.innerHTML = '<i class="fas fa-eye"></i> MODO VISUAL';
+                } else {
+                    document.body.classList.remove('editable-mode');
+                    editBtn.innerHTML = '<i class="fas fa-pen"></i> MODO DE EDIÇÃO';
+                }
+            }
+
+            editBtn.addEventListener('click', () => {
+                toggleEditMode(!editMode);
+            });
+
+            // Guardar en localStorage algunos campos clave
+            saveBtn.addEventListener('click', () => {
+                const data = {
+                    orgName: document.getElementById('orgNameInput').value,
+                    fechaEmision: document.getElementById('fechaEmision').value,
+                    elabora: document.getElementById('elabora').value,
+                    aprueba: document.getElementById('aprueba').value,
+                    versionDoc: document.getElementById('versionDoc').value,
+                    docTitle: document.getElementById('docTitle').innerText,
+                    docCode: document.getElementById('docCode').innerText,
+                    footer: document.getElementById('footerText').innerText,
+                };
+                localStorage.setItem('PSC-007-data', JSON.stringify(data));
+                alert('Dados básicos guardados no localStorage. Os textos editáveis mantêm-se enquanto a página não for recarregada.');
+                if (editMode) toggleEditMode(false);
+            });
+
+            // Cargar datos guardados
+            function loadSaved() {
+                const saved = localStorage.getItem('PSC-007-data');
+                if (saved) {
+                    try {
+                        const data = JSON.parse(saved);
+                        if (data.orgName) document.getElementById('orgNameInput').value = data.orgName;
+                        if (data.fechaEmision) document.getElementById('fechaEmision').value = data.fechaEmision;
+                        if (data.elabora) document.getElementById('elabora').value = data.elabora;
+                        if (data.aprueba) document.getElementById('aprueba').value = data.aprueba;
+                        if (data.versionDoc) document.getElementById('versionDoc').value = data.versionDoc;
+                        if (data.docTitle) document.getElementById('docTitle').innerText = data.docTitle;
+                        if (data.docCode) document.getElementById('docCode').innerText = data.docCode;
+                        if (data.footer) document.getElementById('footerText').innerText = data.footer;
+                    } catch (e) {}
+                }
+            }
+            loadSaved();
+
+            // Descargar HTML
+            function downloadAsHtml() {
+                const htmlContent = document.documentElement.outerHTML;
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'PSC-007-Analisis-Diseno-Servicio.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+            downloadHtmlBtn.addEventListener('click', downloadAsHtml);
+
+            // Descargar PDF (impresión)
+            downloadPdfBtn.addEventListener('click', () => {
+                window.print();
+            });
+
+            // Logo interactivo
+            document.getElementById('logoContainer').addEventListener('click', () => {
+                const newUrl = prompt('Introduza o URL da nova imagem do logótipo (pode ser um URL da internet ou data:image):', document.getElementById('logoImg').src);
+                if (newUrl) {
+                    document.getElementById('logoImg').src = newUrl;
+                }
+            });
+
+            // Scroll suave en TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Inicialmente modo no-edición
+            toggleEditMode(false);
+        })();
+    </script>
+</body></html>

@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PRO-022 Procedimentos de cumprimento Normativo - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4c1d95;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        /* Barra de herramientas */
+        .toolbar {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            padding: 15px 40px;
+            background-color: #e2e8f0;
+            border-bottom: 2px solid #4c1d95;
+        }
+        
+        .toolbar-btn {
+            background-color: #4c1d95;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.3s, transform 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .toolbar-btn:hover {
+            background-color: #7c3aed;
+        }
+        
+        .toolbar-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4c1d95;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4c1d95;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4c1d95;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4c1d95;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4c1d95;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #7c3aed;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4c1d95;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .subsection-title {
+            color: #4c1d95;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+        }
+        
+        .objective-box {
+            background-color: #f5f3ff;
+            border: 1px solid #c4b5fd;
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 4px solid #8b5cf6;
+        }
+        
+        .objective-title {
+            color: #5b21b6;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .content-text {
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .bullet-list {
+            list-style-type: none;
+            margin: 15px 0 20px 20px;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .bullet-list li:before {
+            content: "•";
+            color: #4c1d95;
+            font-weight: bold;
+            font-size: 18px;
+            position: absolute;
+            left: 0;
+        }
+        
+        .responsibility-container {
+            margin: 25px 0;
+        }
+        
+        .responsibility-item {
+            background-color: #f5f3ff;
+            border: 1px solid #ddd6fe;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #7c3aed;
+        }
+        
+        .responsibility-title {
+            color: #4c1d95;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .regulation-box {
+            background-color: #f0f9ff;
+            border: 1px solid #7dd3fc;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .regulation-title {
+            color: #0369a1;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .regulation-category {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #0ea5e9;
+        }
+        
+        .regulation-category-title {
+            color: #1e40af;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .procedure-container {
+            margin: 25px 0;
+        }
+        
+        .procedure-item {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .procedure-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .procedure-title {
+            color: #4c1d95;
+            font-size: 18px;
+            font-weight: bold;
+            flex: 1;
+        }
+        
+        .procedure-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .procedure-detail {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+        }
+        
+        .procedure-detail-title {
+            color: #5b21b6;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .reporting-box {
+            background-color: #fef3c7;
+            border: 1px solid #fbbf24;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 4px solid #f59e0b;
+        }
+        
+        .reporting-title {
+            color: #92400e;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .reporting-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .reporting-detail {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 15px;
+        }
+        
+        .consequences-box {
+            background-color: #fee2e2;
+            border: 1px solid #fca5a5;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .consequences-title {
+            color: #991b1b;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .records-box {
+            background-color: #f8f9fa;
+            border: 1px solid #d1d5db;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .records-title {
+            color: #374151;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4c1d95;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4c1d95;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #4c1d95;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #7c3aed;
+        }
+        
+        /* Estilo para elementos editables (cuando el modo edición está activo) */
+        .editable-active [contenteditable="true"] {
+            outline: 2px dashed #4c1d95;
+            outline-offset: 4px;
+            background-color: #fffff0;
+            transition: outline 0.2s, background-color 0.2s;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .toolbar, .print-btn {
+                display: none;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+            
+            .procedure-details,
+            .reporting-details {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .procedure-header {
+                flex-direction: column;
+            }
+            
+            .toolbar {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabecera con logo e información de la organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        Pendente de validação
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Barra de herramientas -->
+<div class="toolbar">
+<button class="toolbar-btn" onclick="window.print()"><i class="fas fa-print"></i> Imprimir</button>
+<button class="toolbar-btn" id="downloadBtn"><i class="fas fa-download"></i> Descarregar HTML</button>
+<button class="toolbar-btn" id="editBtn"><i class="fas fa-edit"></i> Editar conteúdo</button>
+</div>
+<!-- Título del documento -->
+<div class="doc-title">Procedimentos de cumprimento Normativo</div>
+<div class="doc-code">Código: PRO-022</div>
+<!-- Contenido principal -->
+<div class="content">
+<!-- Objetivo del Procedimento -->
+<div class="objective-box">
+<div class="objective-title">Objetivo do Procedimento</div>
+<div class="content-text">
+                    O objetivo deste procedimento é garantir que a organização cumpra todas as leis, regulamentações, normativas e padrões aplicáveis na sua indústria, minimizando o risco de sanções, ações legais e danos à reputação da organização.
+                </div>
+</div>
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#alcance">1. Alcance</a></li>
+<li class="toc-item"><a class="toc-link" href="#responsabilidades">2. Responsabilidades</a></li>
+<li class="toc-item"><a class="toc-link" href="#identificacion">3. Identificação de Normativas aplicáveis</a></li>
+<li class="toc-item"><a class="toc-link" href="#procedimiento">4. Procedimento para o cumprimento</a></li>
+<li class="toc-item"><a class="toc-link" href="#reporte">5. Procedimento de Reporte de Incumplimientos</a></li>
+<li class="toc-item"><a class="toc-link" href="#documentacion">6. Documentação e Registo</a></li>
+<li class="toc-item"><a class="toc-link" href="#revision">7. revisão e Melhoria Contínua</a></li>
+<li class="toc-item"><a class="toc-link" href="#consecuencias">8. Consequências do Incumprimento</a></li>
+<li class="toc-item"><a class="toc-link" href="#aprobacion">9. Aprovação e Vigência</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Sección 1: Alcance -->
+<div class="section" id="alcance">
+<div class="section-title">1. Alcance</div>
+<div class="content-text">
+                    Este procedimento aplica-se a todas as áreas da organização, incluindo departamentos operacionais, financeiros, de recursos humanos, comerciais e de segurança. Abrange todas as normativas locais, nacionais e internacionais que afetam a operação da organização.
+                </div>
+</div>
+<!-- Sección 2: Responsabilidades -->
+<div class="section" id="responsabilidades">
+<div class="section-title">2. Responsabilidades</div>
+<div class="responsibility-container">
+<div class="responsibility-item">
+<div class="responsibility-title">responsável de cumprimento Normativo</div>
+<p>Pessoa encarregada de liderar e supervisionar o cumprimento das regulamentações e coordenar todas as atividades relacionadas com o cumprimento normativo dentro da organização.</p>
+</div>
+<div class="responsibility-item">
+<div class="responsibility-title">Departamento Legal</div>
+<p>Responsável por interpretar as leis e normativas e proporcionar assessoria jurídica à organização.</p>
+</div>
+<div class="responsibility-item">
+<div class="responsibility-title">Gerentes e Supervisores</div>
+<p>Devem assegurar que as suas equipas compreendam e cumpram as regulamentações aplicáveis.</p>
+</div>
+<div class="responsibility-item">
+<div class="responsibility-title">Todos os colaboradores</div>
+<p>Têm a responsabilidade de seguir as normativas aplicáveis e de reportar qualquer incumprimento.</p>
+</div>
+</div>
+</div>
+<!-- Sección 3: Identificación de Normativas -->
+<div class="section" id="identificacion">
+<div class="section-title">3. Identificação dos Requisitos Legais Aplicáveis</div>
+<div class="content-text">
+                    Deve ser realizado um levantamento sistemático dos requisitos legais e outros requisitos aplicáveis à FACASI. As categorias a considerar são:
+                </div>
+<div class="regulation-box">
+<div class="regulation-title">Categorias de Requisitos Aplicáveis</div>
+<div class="regulation-category">
+<div class="regulation-category-title">Legislação laboral angolana</div>
+<p>Condições de trabalho, contratos, tempo de trabalho e direitos dos trabalhadores.</p>
+</div>
+<div class="regulation-category">
+<div class="regulation-category-title">Segurança e saúde no trabalho</div>
+<p>Regras de proteção dos trabalhadores, comunicação de acidentes de trabalho, medicina do trabalho e requisitos aplicáveis a trabalhos de risco especial (espaços confinados, trabalho em altura, radiação ionizante).</p>
+</div>
+<div class="regulation-category">
+<div class="regulation-category-title">Regulamentação do setor de óleo e gás</div>
+<p>Requisitos aplicáveis à prestação de serviços em instalações petrolíferas e eventuais licenciamentos ou registos exigidos para atividades de inspeção.</p>
+</div>
+<div class="regulation-category">
+<div class="regulation-category-title">Requisitos contratuais dos clientes</div>
+<p>Exigências de SST, qualificação de pessoal e reporte impostas pelos clientes para acesso e trabalho nas suas instalações.</p>
+</div>
+<div class="regulation-category">
+<div class="regulation-category-title">Normas técnicas de inspeção</div>
+<p>Normas aplicáveis aos métodos de ensaio utilizados (END/NDT, UTM) e aos critérios de aceitação dos equipamentos inspecionados.</p>
+</div>
+<div class="regulation-category">
+<div class="regulation-category-title">Normativas fiscais e financeiras</div>
+<p>Requisitos de declaração de impostos e controlo financeiro.</p>
+</div>
+</div>
+<div class="content-text" style="margin-top:14px;">
+<strong>Estado atual:</strong> <em>o levantamento dos diplomas legais concretos aplicáveis em Angola está pendente de realização pela organização, com apoio de assessoria jurídica. Uma vez concluído, deve ser registado numa matriz de requisitos legais e mantido atualizado, servindo de base à avaliação de conformidade prevista na cláusula 9.1.2 da ISO 45001:2018.</em>
+</div>
+</div>
+<!-- Sección 4: Procedimento para el Cumplimiento -->
+<div class="section" id="procedimiento">
+<div class="section-title">4. Procedimento para o cumprimento</div>
+<div class="content-text">
+                    os procedimentos específicos para assegurar o cumprimento das normativas incluin:
+                </div>
+<div class="procedure-container">
+<div class="procedure-item">
+<div class="procedure-header">
+<div class="procedure-title">4.1 monitorização e Atualização das Normativas</div>
+</div>
+<div class="procedure-details">
+<div class="procedure-detail">
+<div class="procedure-detail-title">Ação</div>
+<p>Manter um sistema atualizado de todas as normativas e regulamentações que afetam a organização.</p>
+</div>
+<div class="procedure-detail">
+<div class="procedure-detail-title">Responsável</div>
+<p>Coordenador do SGI, com apoio de assessoria jurídica externa.</p>
+</div>
+<div class="procedure-detail">
+<div class="procedure-detail-title">Prazo</div>
+<p>Continuo, revisão periódica das atualizações normativas.</p>
+</div>
+</div>
+</div>
+<div class="procedure-item">
+<div class="procedure-header">
+<div class="procedure-title">4.2 Formação e Sensibilização</div>
+</div>
+<div class="procedure-details">
+<div class="procedure-detail">
+<div class="procedure-detail-title">Ação</div>
+<p>Desenvolver e implementar programas de formação periódica para todos os colaboradores sobre as normativas aplicáveis.</p>
+</div>
+<div class="procedure-detail">
+<div class="procedure-detail-title">Responsável</div>
+<p>Gerente de RH e Coordenador do SGI.</p>
+</div>
+<div class="procedure-detail">
+<div class="procedure-detail-title">Prazo</div>
+<p>Anual o conforme se requiera por nuevas normativas.</p>
+</div>
+</div>
+</div>
+<div class="procedure-item">
+<div class="procedure-header">
+<div class="procedure-title">4.3 Auditoria Interna</div>
+</div>
+<div class="procedure-details">
+<div class="procedure-detail">
+<div class="procedure-detail-title">Ação</div>
+<p>Realizar auditorias internas para avaliar o cumprimento normativo nas diferentes áreas da organização.</p>
+</div>
+<div class="procedure-detail">
+<div class="procedure-detail-title">Responsável</div>
+<p>Departamento de Auditoria e responsável de cumprimento Normativo.</p>
+</div>
+<div class="procedure-detail">
+<div class="procedure-detail-title">Prazo</div>
+<p>Trimestral o semestral.</p>
+</div>
+</div>
+</div>
+<div class="procedure-item">
+<div class="procedure-header">
+<div class="procedure-title">4.4 avaliação de cumprimento</div>
+</div>
+<div class="procedure-details">
+<div class="procedure-detail">
+<div class="procedure-detail-title">Ação</div>
+<p>Avaliar periodicamente o cumprimento das normativas através de relatórios e análises de riscos.</p>
+</div>
+<div class="procedure-detail">
+<div class="procedure-detail-title">Responsável</div>
+<p>responsável de cumprimento Normativo.</p>
+</div>
+<div class="procedure-detail">
+<div class="procedure-detail-title">Prazo</div>
+<p>Mensal ou conforme seja necessário.</p>
+</div>
+</div>
+</div>
+<div class="procedure-item">
+<div class="procedure-header">
+<div class="procedure-title">4.5 Implementação de Medidas Correctivas</div>
+</div>
+<div class="procedure-details">
+<div class="procedure-detail">
+<div class="procedure-detail-title">Ação</div>
+<p>Se se detetar um incumprimento, devem tomar-se medidas corretivas de imediato.</p>
+</div>
+<div class="procedure-detail">
+<div class="procedure-detail-title">Responsável</div>
+<p>Gerentes das áreas afetadas e responsável de cumprimento Normativo.</p>
+</div>
+<div class="procedure-detail">
+<div class="procedure-detail-title">Prazo</div>
+<p>Imediato ou conforme a gravidade do incumprimento.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sección 5: Procedimento de Reporte -->
+<div class="section" id="reporte">
+<div class="section-title">5. Procedimento de Reporte de Incumplimientos</div>
+<div class="content-text">
+                    Os colaboradores devem poder reportar qualquer incumprimento das normativas sem receio de represálias. O procedimento inclui:
+                </div>
+<div class="reporting-box">
+<div class="reporting-title">Mecanismos de Reporte de Incumplimientos</div>
+<div class="reporting-details">
+<div class="reporting-detail">
+<div class="procedure-detail-title">Canales de Reporte</div>
+<p>Linha telefónica confidencial, correio eletrónico específico ou plataforma online.</p>
+</div>
+<div class="reporting-detail">
+<div class="procedure-detail-title">Responsável</div>
+<p>Departamento de Gerente de RH e Coordenador do SGI.</p>
+</div>
+<div class="reporting-detail">
+<div class="procedure-detail-title">Prazo</div>
+<p>O relatório deve ser recebido e registado imediatamente, e deve iniciar-se uma investigação num prazo de 48 horas.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Sección 6: Documentação y Registo -->
+<div class="section" id="documentacion">
+<div class="section-title">6. Documentação e Registo</div>
+<div class="records-box">
+<div class="records-title">Gestão de Documentação de cumprimento</div>
+<div class="content-text">
+                        É fundamental manter registos detalhados sobre todas as atividades de cumprimento, incluindo auditorias, formações, relatórios de cumprimento e ações corretivas. Estes registos devem ser armazenados de forma segura e acessível para futuras revisões.
+                    </div>
+</div>
+</div>
+<!-- Sección 7: Revisión y Melhoria Contínua -->
+<div class="section" id="revision">
+<div class="section-title">7. revisão e Melhoria Contínua</div>
+<div class="content-text">
+                    O procedimento de cumprimento normativo deve ser revisto de forma periódica para garantir que continue a ser eficaz. As revisões devem ser realizadas pelo menos uma vez por ano, ou com maior frequência se se produzirem alterações significativas nas normativas ou no ambiente legal.
+                </div>
+</div>
+<!-- Sección 8: Consecuencias del Incumplimiento -->
+<div class="section" id="consecuencias">
+<div class="section-title">8. Consequências do Incumprimento</div>
+<div class="consequences-box">
+<div class="consequences-title">Impacto do Incumprimento Normativo</div>
+<div class="content-text">
+                        O incumprimento das normativas pode levar a sanções legais, danos à reputação da organização, multas económicas e outras repercussões graves. É importante que todos os colaboradores compreendam as consequências de não cumprir as normativas estabelecidas.
+                    </div>
+</div>
+</div>
+<!-- Sección 9: Aprobación y Vigencia -->
+<div class="section" id="aprobacion">
+<div class="section-title">9. Aprovação e Vigência</div>
+<div class="content-text">
+                    Este procedimento entra em vigor a partir da sua aprovação pela direção da organização e deve ser implementado em todas as áreas da organização.
+                </div>
+</div>
+<!-- Botón de impresión -->
+<button class="print-btn" onclick="window.print()"><i class="fas fa-print"></i> Imprimir documento</button>
+<!-- Historial de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>Pendente de validação</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Pie de página -->
+<div class="footer">
+<p>Código: PRO-022 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        // Configurar scroll suave para los enlaces del TOC
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Verifica si el logo existe, caso contrario muestra un placeholder
+        const logoImg = document.querySelector('.logo');
+        if (logoImg) {
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234c1d95" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+            };
+        }
+
+        // Función para descargar el HTML actual
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'PRO-022-Procedimentos-de_Cumplimiento_Normativo.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('📁 Documento descarregado como ficheiro HTML.');
+        });
+
+        // Modo edición
+        const editBtn = document.getElementById('editBtn');
+        let editModeActive = false;
+
+        // Elementos que serán editables (todo el texto del documento, excepto botones y logo)
+        const editableElements = [
+            document.querySelector('.org-info'),
+            document.querySelector('.doc-title'),
+            document.querySelector('.doc-code'),
+            document.querySelector('.content'),
+            document.querySelector('.footer')
+        ].filter(el => el !== null);
+
+        editBtn.addEventListener('click', function() {
+            editModeActive = !editModeActive;
+            
+            editableElements.forEach(el => {
+                if (editModeActive) {
+                    el.setAttribute('contenteditable', 'true');
+                } else {
+                    el.removeAttribute('contenteditable');
+                }
+            });
+            
+            // Añadir o quitar clase al body para feedback visual
+            if (editModeActive) {
+                document.body.classList.add('editable-active');
+                editBtn.innerHTML = '<i class="fas fa-lock"></i> Terminar edição';
+                editBtn.style.backgroundColor = '#c53030'; // rojo para indicar modo activo
+            } else {
+                document.body.classList.remove('editable-active');
+                editBtn.innerHTML = '<i class="fas fa-edit"></i> Editar conteúdo';
+                editBtn.style.backgroundColor = '#4c1d95'; // color original
+            }
+        });
+    </script>
+</body>
+</html>

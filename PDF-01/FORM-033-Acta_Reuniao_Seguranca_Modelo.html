@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DOC-033 Ata de Reunião de Segurança do SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .meeting-info {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .form-field {
+            margin-bottom: 15px;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: white;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #4a5568;
+            box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+        }
+        
+        .time-inputs {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .attendees-section {
+            margin: 25px 0;
+        }
+        
+        .attendees-list {
+            list-style-type: none;
+            margin-top: 15px;
+        }
+        
+        .attendee-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+        }
+        
+        .attendee-number {
+            background-color: #4a5568;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .attendee-inputs {
+            flex-grow: 1;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .add-attendee-btn {
+            background-color: #38a169;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .add-attendee-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .safety-badge {
+            display: inline-block;
+            background-color: #fed7d7;
+            color: #c53030;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .topics-section {
+            margin: 30px 0;
+        }
+        
+        .topic-item {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .topic-title {
+            font-weight: bold;
+            color: #2c5282;
+            margin-bottom: 15px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .topic-content {
+            padding-left: 10px;
+        }
+        
+        .topic-textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .topic-textarea:focus {
+            outline: none;
+            border-color: #4a5568;
+            box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+        }
+        
+        .actions-section {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .actions-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+        
+        .actions-table th {
+            background-color: #2d3748;
+            color: white;
+            font-weight: bold;
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #4a5568;
+        }
+        
+        .actions-table td {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        
+        .actions-table tr:nth-child(even) {
+            background-color: white;
+        }
+        
+        .add-action-btn {
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .add-action-btn:hover {
+            background-color: #2c5282;
+        }
+        
+        .next-meeting {
+            background-color: #fefcbf;
+            border: 1px solid #f6e05e;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #d69e2e;
+        }
+        
+        .signatures-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .signature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .signature-block {
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+        
+        .signature-title {
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .signature-line {
+            height: 1px;
+            background-color: #cbd5e0;
+            margin: 20px 0;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .print-btn, .save-btn, .download-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+            flex: 1 1 auto;
+        }
+        
+        .save-btn {
+            background-color: #38a169;
+        }
+        
+        .download-btn {
+            background-color: #9f7aea;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        .save-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .download-btn:hover {
+            background-color: #805ad5;
+        }
+        
+        .remove-btn {
+            background-color: #e53e3e;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+        
+        .remove-btn:hover {
+            background-color: #c53030;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn, .save-btn, .add-attendee-btn, .add-action-btn, .remove-btn, .download-btn {
+                display: none;
+            }
+            
+            .form-input, .topic-textarea {
+                border: 1px solid #999;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .time-inputs {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .attendee-inputs {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .actions-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .signature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .print-btn, .save-btn, .download-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabeçalho com logo e informações da organização -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título do documento -->
+<div class="doc-title">Ata de Reunião de Segurança e Saúde Ocupacional</div>
+<div class="doc-code">Código: FORM-033</div>
+<!-- Conteúdo principal -->
+<div class="content">
+<!-- Información de la reunión -->
+<div class="section">
+<div class="section-title">Informação da Reunião</div>
+<div class="meeting-info">
+<div class="info-grid">
+<div>
+<div class="form-field">
+<label class="form-label">Data da reunião:</label>
+<input class="form-input" id="fecha-reunion" type="date"/>
+</div>
+<div class="form-field">
+<label class="form-label">Horário:</label>
+<div class="time-inputs">
+<div style="flex: 1;">
+<label style="font-size: 12px; color: #666;">Hora de início:</label>
+<input class="form-input" id="hora-inicio" type="time"/>
+</div>
+<div style="flex: 1;">
+<label style="font-size: 12px; color: #666;">Hora de encerramento:</label>
+<input class="form-input" id="hora-cierre" type="time"/>
+</div>
+</div>
+</div>
+</div>
+<div>
+<div class="form-field">
+<label class="form-label">Local:</label>
+<input class="form-input" id="lugar-reunion" placeholder="Local da reunião" type="text"/>
+</div>
+<div class="form-field">
+<label class="form-label">Presidida por:</label>
+<input class="form-input" id="presidente-reunion" placeholder="Nome da pessoa que preside à reunião" type="text"/>
+</div>
+</div>
+</div>
+<div class="form-field" style="margin-top: 15px;">
+<label class="form-label">Objetivo da reunião:</label>
+<textarea class="topic-textarea" id="objetivo-reunion" placeholder="Revisão de temas relacionados com a segurança e saúde ocupacional, medidas preventivas e corretivas, acompanhamento de incidentes e cumprimento da ISO 45001."></textarea>
+</div>
+</div>
+</div>
+<!-- Asistentes -->
+<div class="section">
+<div class="section-title">Participantes</div>
+<div class="attendees-section">
+<ol class="attendees-list" id="attendees-list">
+<li class="attendee-item">
+<div class="attendee-number">1</div>
+<div class="attendee-inputs">
+<input class="form-input" placeholder="Nome completo" style="flex: 2;" type="text"/>
+<input class="form-input" placeholder="Cargo" style="flex: 1;" type="text"/>
+</div>
+<button class="remove-btn" onclick="removerAsistente(this)" type="button">X</button>
+</li>
+<li class="attendee-item">
+<div class="attendee-number">2</div>
+<div class="attendee-inputs">
+<input class="form-input" placeholder="Nome completo" style="flex: 2;" type="text"/>
+<input class="form-input" placeholder="Cargo" style="flex: 1;" type="text"/>
+</div>
+<button class="remove-btn" onclick="removerAsistente(this)" type="button">X</button>
+</li>
+<li class="attendee-item">
+<div class="attendee-number">3</div>
+<div class="attendee-inputs">
+<input class="form-input" placeholder="Nome completo" style="flex: 2;" type="text"/>
+<input class="form-input" placeholder="Cargo" style="flex: 1;" type="text"/>
+</div>
+<button class="remove-btn" onclick="removerAsistente(this)" type="button">X</button>
+</li>
+</ol>
+<button class="add-attendee-btn" onclick="agregarAsistente()" type="button">
+                        👥 Adicionar Participante
+                    </button>
+</div>
+</div>
+<!-- Temas tratados -->
+<div class="section">
+<div class="section-title">Temas Tratados 
+                    <span class="safety-badge">ISO 45001</span>
+</div>
+<div class="topics-section">
+<div class="topic-item">
+<div class="topic-title">
+<span>⚠️</span>
+<span>1. Revisão de incidentes e acidentes recentes:</span>
+</div>
+<div class="topic-content">
+<textarea class="topic-textarea" id="tema-incidentes" placeholder="Descrição dos incidentes ocorridos, ações tomadas, responsáveis, prazos e plano de ação para evitar recorrências"></textarea>
+</div>
+</div>
+<div class="topic-item">
+<div class="topic-title">
+<span>🔍</span>
+<span>2. Avaliação de riscos e condições de trabalho:</span>
+</div>
+<div class="topic-content">
+<textarea class="topic-textarea" id="tema-riesgos" placeholder="Identificação de novos riscos no ambiente laboral, revisão da avaliação de riscos atual, medidas de controlo necessárias"></textarea>
+</div>
+</div>
+<div class="topic-item">
+<div class="topic-title">
+<span>⚖️</span>
+<span>3. Cumprimento da legislação vigente em matéria de segurança e saúde:</span>
+</div>
+<div class="topic-content">
+<textarea class="topic-textarea" id="tema-legislacion" placeholder="Atualizações sobre normas aplicáveis, ações corretivas se houver incumprimento"></textarea>
+</div>
+</div>
+<div class="topic-item">
+<div class="topic-title">
+<span>🎓</span>
+<span>4. Formação e capacitação em segurança:</span>
+</div>
+<div class="topic-content">
+<textarea class="topic-textarea" id="tema-capacitação" placeholder="Programas de formação realizados e pendentes, datas para próximas formações"></textarea>
+</div>
+</div>
+<div class="topic-item">
+<div class="topic-title">
+<span>✅</span>
+<span>5. Revisão de medidas corretivas e preventivas anteriores:</span>
+</div>
+<div class="topic-content">
+<textarea class="topic-textarea" id="tema-medidas" placeholder="Avaliação da eficácia das ações anteriores, novas ações propostas"></textarea>
+</div>
+</div>
+<div class="topic-item">
+<div class="topic-title">
+<span>💬</span>
+<span>6. Outros temas gerais relacionados com a segurança e saúde ocupacional:</span>
+</div>
+<div class="topic-content">
+<textarea class="topic-textarea" id="tema-generales" placeholder="Outros temas discutidos durante a reunião"></textarea>
+</div>
+</div>
+</div>
+</div>
+<!-- Acciones acordadas -->
+<div class="section">
+<div class="section-title">Ações Acordadas</div>
+<div class="actions-section">
+<table class="actions-table" id="actions-table">
+<thead>
+<tr>
+<th style="width: 5%;">#</th>
+<th style="width: 40%;">Descrição da ação</th>
+<th style="width: 20%;">Responsável</th>
+<th style="width: 15%;">Data-limite</th>
+<th style="width: 15%;">Estado</th>
+<th style="width: 5%;">Ações</th>
+</tr>
+</thead>
+<tbody id="actions-body">
+<tr>
+<td>1</td>
+<td>
+<input class="form-input" placeholder="Descrição detalhada da ação" type="text"/>
+</td>
+<td>
+<input class="form-input" placeholder="Responsável" type="text"/>
+</td>
+<td>
+<input class="form-input" type="date"/>
+</td>
+<td>
+<select class="form-input">
+<option value="pendiente">Pendente</option>
+<option value="en-progreso">Em progresso</option>
+<option value="completado">Concluído</option>
+</select>
+</td>
+<td>
+<button class="remove-btn" onclick="removerAccion(this)" type="button">X</button>
+</td>
+</tr>
+<tr>
+<td>2</td>
+<td>
+<input class="form-input" placeholder="Descrição detalhada da ação" type="text"/>
+</td>
+<td>
+<input class="form-input" placeholder="Responsável" type="text"/>
+</td>
+<td>
+<input class="form-input" type="date"/>
+</td>
+<td>
+<select class="form-input">
+<option value="pendiente">Pendente</option>
+<option value="en-progreso">Em progresso</option>
+<option value="completado">Concluído</option>
+</select>
+</td>
+<td>
+<button class="remove-btn" onclick="removerAccion(this)" type="button">X</button>
+</td>
+</tr>
+</tbody>
+</table>
+<button class="add-action-btn" onclick="agregarAccion()" type="button">
+                        ➕ Adicionar Ação
+                    </button>
+</div>
+</div>
+<!-- Próxima reunión -->
+<div class="section">
+<div class="section-title">Próxima Reunião</div>
+<div class="next-meeting">
+<div class="info-grid">
+<div>
+<div class="form-field">
+<label class="form-label">Data da próxima reunião:</label>
+<input class="form-input" id="proxima-fecha" type="date"/>
+</div>
+<div class="form-field">
+<label class="form-label">Hora estimada:</label>
+<input class="form-input" id="proxima-hora" type="time"/>
+</div>
+</div>
+<div>
+<div class="form-field">
+<label class="form-label">Local proposto:</label>
+<input class="form-input" id="proxima-lugar" placeholder="Local para a próxima reunião" type="text"/>
+</div>
+</div>
+</div>
+<div class="form-field" style="margin-top: 15px;">
+<label class="form-label">Objetivos para a próxima reunião:</label>
+<textarea class="topic-textarea" id="proxima-objetivos" placeholder="Objetivos específicos para a próxima reunião"></textarea>
+</div>
+</div>
+</div>
+<!-- Firmas -->
+<div class="section">
+<div class="section-title">Assinatura dos Participantes</div>
+<div class="signatures-section">
+<div class="signature-grid" id="signatures-grid">
+<div class="signature-block">
+<div class="signature-title">Participante 1</div>
+<div class="form-field">
+<label class="form-label">Nome:</label>
+<input class="form-input" placeholder="Nome completo" type="text"/>
+</div>
+<div class="form-field">
+<label class="form-label">Cargo:</label>
+<input class="form-input" placeholder="Cargo na organização" type="text"/>
+</div>
+<div class="form-field">
+<label class="form-label">Assinatura:</label>
+<div class="signature-line"></div>
+</div>
+</div>
+<div class="signature-block">
+<div class="signature-title">Participante 2</div>
+<div class="form-field">
+<label class="form-label">Nome:</label>
+<input class="form-input" placeholder="Nome completo" type="text"/>
+</div>
+<div class="form-field">
+<label class="form-label">Cargo:</label>
+<input class="form-input" placeholder="Cargo na organização" type="text"/>
+</div>
+<div class="form-field">
+<label class="form-label">Assinatura:</label>
+<div class="signature-line"></div>
+</div>
+</div>
+</div>
+<div style="text-align: center; margin-top: 20px;">
+<button class="add-attendee-btn" onclick="agregarFirma()" type="button">
+                            ✍️ Adicionar Assinatura
+                        </button>
+</div>
+</div>
+</div>
+<!-- Botones de acción -->
+<div class="action-buttons">
+<button class="save-btn" onclick="guardarActa()">💾 Guardar Ata</button>
+<button class="download-btn" onclick="descargarFormulário()">📥 Descarregar HTML</button>
+<button class="print-btn" onclick="window.print()">📄 Imprimir documento</button>
+</div>
+<!-- Histórico de versiones -->
+<div class="version-history">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Rodapé -->
+<div class="footer">
+<p>Código: FORM-033 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        // Configurar fechas y horas por defecto solo si están vacías
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0];
+            
+            const fechaReunion = document.getElementById('fecha-reunion');
+            if (!fechaReunion.value) fechaReunion.value = formattedDate;
+            
+            // Configurar hora por defecto (actual + 1 hora para inicio, +2 horas para fin)
+            const now = new Date();
+            const startTime = new Date(now.getTime() + 60*60*1000); // +1 hora
+            const endTime = new Date(now.getTime() + 2*60*60*1000); // +2 horas
+            
+            const horaInício = document.getElementById('hora-inicio');
+            if (!horaInício.value) horaInício.value = startTime.toTimeString().slice(0,5);
+            
+            const horaCierre = document.getElementById('hora-cierre');
+            if (!horaCierre.value) horaCierre.value = endTime.toTimeString().slice(0,5);
+            
+            // Configurar próxima reunión (7 días después)
+            const proximaFecha = document.getElementById('proxima-fecha');
+            if (!proximaFecha.value) {
+                const nextWeek = new Date(today);
+                nextWeek.setDate(nextWeek.getDate() + 7);
+                proximaFecha.value = nextWeek.toISOString().split('T')[0];
+            }
+            
+            const proximaHora = document.getElementById('proxima-hora');
+            if (!proximaHora.value) proximaHora.value = startTime.toTimeString().slice(0,5);
+            
+            // Verifica se o logo existe, caso contrário mostra um placeholder
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+            };
+        });
+        
+        // Variables para control
+        let attendeeCounter = 3;
+        let actionCounter = 2;
+        let signatureCounter = 2;
+        
+        // Agregar asistente
+        function agregarAsistente() {
+            attendeeCounter++;
+            const attendeesList = document.getElementById('attendees-list');
+            
+            const newItem = document.createElement('li');
+            newItem.className = 'attendee-item';
+            newItem.innerHTML = `
+                <div class="attendee-number">${attendeeCounter}</div>
+                <div class="attendee-inputs">
+                    <input type="text" class="form-input" placeholder="Nome completo" style="flex: 2;">
+                    <input type="text" class="form-input" placeholder="Cargo" style="flex: 1;">
+                </div>
+                <button type="button" class="remove-btn" onclick="removerAsistente(this)">X</button>
+            `;
+            
+            attendeesList.appendChild(newItem);
+            
+            // Agregar también bloque de firma
+            agregarBloqueFirma(attendeeCounter);
+        }
+        
+        // Remover asistente
+        function removerAsistente(button) {
+            const item = button.closest('li');
+            if (document.querySelectorAll('.attendee-item').length > 1) {
+                item.remove();
+                reenumerarAsistentes();
+            } else {
+                alert('Deve haver pelo menos um participante na reunião.');
+            }
+        }
+        
+        // Reenumerar asistentes
+        function reenumerarAsistentes() {
+            const items = document.querySelectorAll('.attendee-item');
+            items.forEach((item, index) => {
+                item.querySelector('.attendee-number').textContent = index + 1;
+            });
+            attendeeCounter = items.length;
+        }
+        
+        // Agregar acción
+        function agregarAccion() {
+            actionCounter++;
+            const actionsBody = document.getElementById('actions-body');
+            
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>${actionCounter}</td>
+                <td>
+                    <input type="text" class="form-input" placeholder="Descrição detalhada da ação">
+                </td>
+                <td>
+                    <input type="text" class="form-input" placeholder="Responsável">
+                </td>
+                <td>
+                    <input type="date" class="form-input">
+                </td>
+                <td>
+                    <select class="form-input">
+                        <option value="pendiente">Pendiente</option>
+                        <option value="en-progreso">Em progresso</option>
+                        <option value="completado">Concluído</option>
+                    </select>
+                </td>
+                <td>
+                    <button type="button" class="remove-btn" onclick="removerAccion(this)">X</button>
+                </td>
+            `;
+            
+            actionsBody.appendChild(newRow);
+        }
+        
+        // Remover acción
+        function removerAccion(button) {
+            const row = button.closest('tr');
+            if (document.querySelectorAll('#actions-body tr').length > 1) {
+                row.remove();
+                reenumerarAcciones();
+            } else {
+                alert('Deve haver pelo menos uma ação acordada.');
+            }
+        }
+        
+        // Reenumerar acciones
+        function reenumerarAcciones() {
+            const rows = document.querySelectorAll('#actions-body tr');
+            rows.forEach((row, index) => {
+                row.cells[0].textContent = index + 1;
+            });
+            actionCounter = rows.length;
+        }
+        
+        // Agregar firma
+        function agregarFirma() {
+            signatureCounter++;
+            agregarBloqueFirma(signatureCounter);
+        }
+        
+        // Agregar bloque de firma
+        function agregarBloqueFirma(numero) {
+            const signaturesGrid = document.getElementById('signatures-grid');
+            
+            const newBlock = document.createElement('div');
+            newBlock.className = 'signature-block';
+            newBlock.innerHTML = `
+                <div class="signature-title">Participante ${numero}</div>
+                <div class="form-field">
+                    <label class="form-label">Nome:</label>
+                    <input type="text" class="form-input" placeholder="Nome completo">
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Cargo:</label>
+                    <input type="text" class="form-input" placeholder="Cargo na organização">
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Assinatura:</label>
+                    <div class="signature-line"></div>
+                </div>
+            `;
+            
+            signaturesGrid.appendChild(newBlock);
+        }
+        
+        // Función para guardar el acta
+        function guardarActa() {
+            // Validar campos obligatorios
+            const presidente = document.getElementById('presidente-reunion').value;
+            const lugar = document.getElementById('lugar-reunion').value;
+            
+            if (!presidente || !lugar) {
+                alert('Por favor, preencha os campos obrigatórios: Presidida por e Local da reunião.');
+                return;
+            }
+            
+            // Recopilar datos del formulario
+            const datosActa = {
+                informacionReunion: {
+                    fecha: document.getElementById('fecha-reunion').value,
+                    horaInício: document.getElementById('hora-inicio').value,
+                    horaCierre: document.getElementById('hora-cierre').value,
+                    lugar: lugar,
+                    presidente: presidente,
+                    objetivo: document.getElementById('objetivo-reunion').value
+                },
+                asistentes: [],
+                temasTratados: {
+                    incidentes: document.getElementById('tema-incidentes').value,
+                    riesgos: document.getElementById('tema-riesgos').value,
+                    legislacion: document.getElementById('tema-legislacion').value,
+                    capacitação: document.getElementById('tema-capacitação').value,
+                    medidas: document.getElementById('tema-medidas').value,
+                    generales: document.getElementById('tema-generales').value
+                },
+                accionesAcordadas: [],
+                proximaReunion: {
+                    fecha: document.getElementById('proxima-fecha').value,
+                    hora: document.getElementById('proxima-hora').value,
+                    lugar: document.getElementById('proxima-lugar').value,
+                    objetivos: document.getElementById('proxima-objetivos').value
+                },
+                firmas: []
+            };
+            
+            // Recopilar asistentes
+            document.querySelectorAll('.attendee-item').forEach(item => {
+                const inputs = item.querySelectorAll('.form-input');
+                if (inputs[0].value || inputs[1].value) {
+                    datosActa.asistentes.push({
+                        nombre: inputs[0].value,
+                        cargo: inputs[1].value
+                    });
+                }
+            });
+            
+            // Recopilar acciones
+            document.querySelectorAll('#actions-body tr').forEach(row => {
+                const inputs = row.querySelectorAll('input, select');
+                if (inputs[0].value || inputs[1].value) {
+                    datosActa.accionesAcordadas.push({
+                        descripcion: inputs[0].value,
+                        responsable: inputs[1].value,
+                        fechaLimite: inputs[2].value,
+                        estado: inputs[3].value
+                    });
+                }
+            });
+            
+            console.log('Dados da ata de reunião:', datosActa);
+            alert('✅ Ata de reunião guardada corretamente. Os dados foram registados na consola.');
+        }
+        
+        // Función para descargar el formulario como archivo HTML
+        function descargarFormulário() {
+            // Obtenemos el HTML completo de la página (con los valores actuales)
+            const htmlContent = document.documentElement.outerHTML;
+            
+            // Creamos un blob con tipo text/html
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            
+            // Generamos un enlace de descarga
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'FORM-033_Acta_Reunion_Seguridad.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('📁 Formulário descarregado como ficheiro HTML. Pode abri-lo no seu navegador para continuar a editar.');
+        }
+    </script>
+</body>
+</html>

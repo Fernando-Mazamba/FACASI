@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MAN004 - Manual de Emergências - SGI (Editable)</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .logo-container:hover {
+            box-shadow: 0 0 0 2px #90cdf4;
+        }
+        .logo-container:hover::after {
+            content: "🔍 Cambiar";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(74, 85, 104, 0.9);
+            color: white;
+            font-size: 12px;
+            text-align: center;
+            padding: 4px;
+            pointer-events: none;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background-color: rgba(255,255,255,0.1);
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: text;
+        }
+        .org-name[contenteditable="true"]:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+            background-color: rgba(255,255,255,0.1);
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: text;
+        }
+        .doc-info-item[contenteditable="true"]:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        .doc-info-item strong {
+            display: block;
+            margin-bottom: 4px;
+            color: #e2e8f0;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+            cursor: text;
+        }
+        .doc-title[contenteditable="true"]:hover {
+            background-color: #f7fafc;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+            cursor: text;
+        }
+        .doc-code[contenteditable="true"]:hover {
+            background-color: #f7fafc;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+            cursor: text;
+        }
+        .toc-title[contenteditable="true"]:hover {
+            background-color: #edf2f7;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+            cursor: text;
+        }
+        .toc-item[contenteditable="true"]:hover {
+            background-color: #edf2f7;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+            cursor: text;
+        }
+        .section-title[contenteditable="true"]:hover {
+            background-color: #f7fafc;
+        }
+        
+        .section-subtitle {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+            cursor: text;
+        }
+        .section-subtitle[contenteditable="true"]:hover {
+            background-color: #edf2f7;
+        }
+        
+        .chapter {
+            margin-bottom: 30px;
+            page-break-inside: avoid;
+        }
+        
+        .chapter-title {
+            color: #2d3748;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #cbd5e0;
+            cursor: text;
+        }
+        .chapter-title[contenteditable="true"]:hover {
+            background-color: #edf2f7;
+        }
+        
+        .procedure-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .procedure-table th, .procedure-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        .procedure-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+            width: 150px;
+        }
+        
+        .procedure-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .procedure-table tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .procedure-table td[contenteditable="true"] {
+            background-color: #fff;
+            cursor: text;
+        }
+        .procedure-table td[contenteditable="true"]:hover {
+            background-color: #f0f4f8;
+        }
+        
+        .note-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #fdcb6e;
+        }
+        
+        .note-title {
+            color: #856404;
+            font-weight: bold;
+            margin-bottom: 5px;
+            cursor: text;
+        }
+        .note-title[contenteditable="true"]:hover {
+            background-color: #ffe8b5;
+        }
+        
+        .warning-box {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .warning-title {
+            color: #721c24;
+            font-weight: bold;
+            margin-bottom: 5px;
+            cursor: text;
+        }
+        .warning-title[contenteditable="true"]:hover {
+            background-color: #fcc3c7;
+        }
+        
+        .definition-list {
+            list-style-type: none;
+            margin: 15px 0;
+        }
+        
+        .definition-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .definition-term {
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 5px;
+            cursor: text;
+        }
+        .definition-term[contenteditable="true"]:hover {
+            background-color: #edf2f7;
+        }
+        
+        .highlight {
+            background-color: #e6fffa;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        .version-table td[contenteditable="true"] {
+            background-color: #fff;
+            cursor: text;
+        }
+        .version-table td[contenteditable="true"]:hover {
+            background-color: #f0f4f8;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+            cursor: text;
+        }
+        .footer[contenteditable="true"]:hover {
+            background-color: #edf2f7;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .print-btn, .save-btn, .download-btn {
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+        
+        .save-btn {
+            background-color: #38a169;
+        }
+        .save-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .download-btn {
+            background-color: #805ad5;
+        }
+        .download-btn:hover {
+            background-color: #6b46c1;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+        }
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        /* Estilo para elementos editables */
+        [contenteditable="true"] {
+            outline: none;
+            transition: background-color 0.2s;
+        }
+        [contenteditable="true"]:focus {
+            background-color: #ebf8ff;
+            box-shadow: 0 0 0 2px #90cdf4;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .action-buttons {
+                display: none;
+            }
+            
+            .procedure-table {
+                page-break-inside: avoid;
+            }
+
+            [contenteditable="true"] {
+                background-color: transparent !important;
+                box-shadow: none !important;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+            
+            .procedure-table th {
+                width: 120px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .procedure-table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .save-btn, .download-btn, .print-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container" id="documentoPrincipal">
+<!-- Cabeçalho com logo e informações da organização - Tudo editável -->
+<div class="header">
+<div class="logo-container" id="logoContainer" title="Clique para alterar o logótipo (caminho atual: logo/logo.png)">
+<img alt="Logótipo da Organização" class="logo" id="logoImg" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name" contenteditable="true">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item" contenteditable="true">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item" contenteditable="true">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item" contenteditable="true">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item" contenteditable="true">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título do documento - editável -->
+<div class="doc-title" contenteditable="true">Manual de Emergências</div>
+<div class="doc-code" contenteditable="true">Código: MAN004</div>
+<!-- Conteúdo principal -->
+<div class="content">
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title" contenteditable="true">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item" contenteditable="true"><a class="toc-link" href="#objetivo">I. Objetivo</a></li>
+<li class="toc-item" contenteditable="true"><a class="toc-link" href="#alcance">II. ALCANCE</a></li>
+<li class="toc-item" contenteditable="true"><a class="toc-link" href="#definiciones">III. DEFINIÇÕES</a></li>
+<li class="toc-item" contenteditable="true"><a class="toc-link" href="#organigrama">IV. ORGANIGRAMA DE EMERGENCIA</a></li>
+<li class="toc-item" contenteditable="true"><a class="toc-link" href="#brigadas">V. BRIGADAS DE EMERGENCIAS</a></li>
+<li class="toc-item" contenteditable="true"><a class="toc-link" href="#capitulo1">CAPÍTULO 1 - RESPUESTA perante EMERGENCIA</a></li>
+<li class="toc-item" contenteditable="true"><a class="toc-link" href="#capitulo2">CAPÍTULO 2 - EVACUAÇÃO</a></li>
+<li class="toc-item" contenteditable="true"><a class="toc-link" href="#capitulo3">CAPÍTULO 3 - EXTINÇÃO DE INCÊNDIOS</a></li>
+<li class="toc-item" contenteditable="true"><a class="toc-link" href="#capitulo4">CAPÍTULO 4 - DERRAMES</a></li>
+<li class="toc-item" contenteditable="true"><a class="toc-link" href="#capitulo5">CAPÍTULO 5 - EXPLOSIÓN</a></li>
+<li class="toc-item" contenteditable="true"><a class="toc-link" href="#capitulo6">CAPÍTULO 6 - ELETROCUSSÃO</a></li>
+<li class="toc-item" contenteditable="true"><a class="toc-link" href="#capitulo7">CAPÍTULO 7 - ACCIDENTE VEHICULAR</a></li>
+<li class="toc-item" contenteditable="true"><a class="toc-link" href="#capitulo8">CAPÍTULO 8 - DERRUMBE</a></li>
+<li class="toc-item" contenteditable="true"><a class="toc-link" href="#capitulo9">CAPÍTULO 9 - PRIMEROS AUXILIOS</a></li>
+<li class="toc-item" contenteditable="true"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Sección I. OBJETIVO -->
+<div class="section" id="objetivo">
+<div class="section-title" contenteditable="true">I. Objetivo</div>
+<p contenteditable="true">Definir o sistema a utilizar pela organização para identificar o potencial e a resposta perante incidentes, acidentes e situações de emergência; prevenir e diminuir a possibilidade de doença, dano físico ou os impactos ambientais que pudessem estar associados com aqueles.</p>
+</div>
+<!-- Sección II. ALCANCE -->
+<div class="section" id="alcance">
+<div class="section-title" contenteditable="true">II. ALCANCE</div>
+<p contenteditable="true">Este procedimento aplica-se a situações de emergência que se deem na organização.</p>
+</div>
+<!-- Sección III. DEFINICIONES -->
+<div class="section" id="definiciones">
+<div class="section-title" contenteditable="true">III. DEFINIÇÕES</div>
+<ul class="definition-list">
+<li class="definition-item">
+<div class="definition-term" contenteditable="true">Emergência:</div>
+<p contenteditable="true">Considera-se emergência toda a situação que implique ESTADO DE PERTURBAÇÃO parcial ou total a um sistema, geralmente ocasionado pela possibilidade de ocorrência ou pela ocorrência real de um evento indesejado.</p>
+</li>
+<li class="definition-item">
+<div class="definition-term" contenteditable="true">Plano de Emergência:</div>
+<p contenteditable="true">É o conjunto de atividades e procedimentos para controlar uma situação de emergência no menor tempo possível e recuperar a capacidade operativa da organização e/ou prestar o melhor atendimento às pessoas.</p>
+</li>
+<li class="definition-item">
+<div class="definition-term" contenteditable="true">Alarme de Alerta ou Emergência:</div>
+<p contenteditable="true">É um alarme que indica a existência de uma emergência na Planta.</p>
+</li>
+<li class="definition-item">
+<div class="definition-term" contenteditable="true">Alarme de Evacuação:</div>
+<p contenteditable="true">É um alarme que indica a necessidade de evacuar as instalações da Planta.</p>
+</li>
+<li class="definition-item">
+<div class="definition-term" contenteditable="true">Evacuação:</div>
+<p contenteditable="true">Ação ou efeito de retirar pessoas de um local determinado até à zona de segurança.</p>
+</li>
+<li class="definition-item">
+<div class="definition-term" contenteditable="true">Pontos de Encontro perante Evacuação (Zona de segurança):</div>
+<p contenteditable="true">Locais preestabelecidos que contam com todas as medidas de segurança pertinentes onde se reunirão as pessoas em caso de Evacuação.</p>
+</li>
+<li class="definition-item">
+<div class="definition-term" contenteditable="true">Emergência de risco:</div>
+<p contenteditable="true">São aquelas que ameaçando o sistema representam um maior grau de riscos para pessoas e instalações, requerendo uma pronta resposta que envolva grupos especializados de emergências. Envolvem incêndios, explosões, ou possibilidade deles, perdas de produtos inflamáveis ou tóxicos, sobrepressões ou sobreaquecimentos, inundações, acidentes do pessoal, quedas, atentados, aprisionamentos, ameaça de bomba e todas aquelas situações que ponham em risco o estado normal das operações.</p>
+</li>
+</ul>
+</div>
+<!-- Sección IV. ORGANIGRAMA DE EMERGENCIA -->
+<div class="section" id="organigrama">
+<div class="section-title" contenteditable="true">IV. ORGANIGRAMA DE EMERGENCIA</div>
+<p contenteditable="true">A organização conta com uma estrutura organizativa claramente definida para a gestão de emergências:</p>
+<div class="note-box">
+<div class="note-title" contenteditable="true">Chefe de Emergência:</div>
+<p contenteditable="true">Pessoa de maior comando hierárquico presente na organização.</p>
+</div>
+<div class="note-box">
+<div class="note-title" contenteditable="true">Chefe de Brigada:</div>
+<p contenteditable="true">Corresponde ao responsável atribuído e, na sua ausência, à pessoa de maior hierarquia no setor afetado pela emergência.</p>
+</div>
+<div class="section-subtitle" contenteditable="true">1. RESPONSABILIDADES</div>
+<div class="note-box">
+<div class="note-title" contenteditable="true">Chefe de Emergências:</div>
+<ul contenteditable="true">
+<li>Avaliar a necessidade de contar com apoio de unidades externas.</li>
+<li>Avaliar a necessidade de comunicar a emergência às casas vizinhas.</li>
+<li>Comunicar ao Chefe de Brigada as instruções particulares para essa situação de emergência.</li>
+<li>Avaliar se se deve emitir um relatório às Autoridades Competentes para que, através dos meios de comunicação, se informe a população sobre os aspetos da emergência.</li>
+<li>Avaliar se o pessoal já pode regressar ao seu posto de trabalho, uma vez controlada a situação de emergência.</li>
+<li>Autorizar o restabelecimento das atividades laborais no setor.</li>
+<li>Tomar decisões na pós-emergência.</li>
+</ul>
+</div>
+<div class="note-box">
+<div class="note-title" contenteditable="true">Chefe de Brigada:</div>
+<ul contenteditable="true">
+<li>Avaliar a magnitude e a gravidade do evento.</li>
+<li>Determinar o grau da emergência.</li>
+<li>Ordenar a ativação do sistema de Alarmes.</li>
+<li>Determinar a realização da evacuação.</li>
+<li>Transmitir instruções e coordenar a execução do Plano de Emergência correspondente.</li>
+<li>Organizar as manobras e os recursos disponíveis para o manuseamento da emergência.</li>
+<li>Comunicar a finalização da situação de emergência ao Chefe de Emergências.</li>
+<li>Planear a realização de simulacros de emergência e documentar no formulário Plano de Simulacros.</li>
+<li>Coordenar a execução de simulacros.</li>
+<li>Elaborar informe de simulacros.</li>
+<li>Gerir as não conformidades caso tenham sido detetadas durante a realização do simulacro.</li>
+</ul>
+</div>
+<div class="note-box">
+<div class="note-title" contenteditable="true">Brigada de Evacuação:</div>
+<ul contenteditable="true">
+<li>Vigiar que as rotas de evacuação estejam livres de obstáculos em todo o momento.</li>
+<li>Verificar o bom estado da sinalização.</li>
+<li>Evacuar a as personas de acordo com os planes.</li>
+<li>Assegurar uma evacuação total e ordenada.</li>
+<li>Fazer a chamada no ponto de encontro.</li>
+<li>Coordenar o regresso do pessoal às instalações em caso de simulacro ou quando já não exista perigo.</li>
+</ul>
+</div>
+<div class="note-box">
+<div class="note-title" contenteditable="true">Brigada de Primeros Auxilios:</div>
+<ul contenteditable="true">
+<li>Reunir a Brigada num ponto predeterminado em caso de emergência, e instalar o posto de socorro necessário.</li>
+<li>Proporcionar os cuidados imediatos e temporários às vítimas, a fim de as manter com vida e evitar-lhes um dano maior, enquanto se recebe a ajuda médica especializada.</li>
+<li>Entregar ao lesionado a os cuerpos de auxilio.</li>
+<li>Manter atualizados e em bom estado os estojos de primeiros socorros e medicamentos.</li>
+</ul>
+</div>
+<div class="note-box">
+<div class="note-title" contenteditable="true">Brigada de prevenção e Combate de Incendios:</div>
+<ul contenteditable="true">
+<li>Vigiar que o equipamento contra incêndio esteja em condições de operação e de fácil localização.</li>
+<li>Detetar e comunicar possíveis focos de incêndio.</li>
+<li>Vigiar que não exista acumulação de material inflamável.</li>
+<li>Conhecer o uso dos equipamentos de extinção de fogo, de acordo com cada tipo de fogo.</li>
+<li>Vigiar que o equipamento contra incêndio seja de fácil localização, não se encontre obstruído nem vencido.</li>
+<li>Controlar focos de incêndio.</li>
+<li>As funções desta Brigada cessarão quando chegarem os bombeiros ou termine o incêndio.</li>
+</ul>
+</div>
+<div class="note-box">
+<div class="note-title" contenteditable="true">pessoal de sectores involucrados:</div>
+<ul contenteditable="true">
+<li>Informar situação de emergencias.</li>
+<li>Extinguir incêndios de pequenas proporções caso a mesma não arrisque a sua integridade física ou cause desastres maiores.</li>
+</ul>
+</div>
+</div>
+<!-- Sección V. BRIGADAS DE EMERGENCIAS -->
+<div class="section" id="brigadas">
+<div class="section-title" contenteditable="true">V. BRIGADAS DE EMERGENCIAS</div>
+<p contenteditable="true">A organização conta com um sistema estruturado para a formação e manutenção de brigadas de emergência:</p>
+<ul contenteditable="true">
+<li>Os candidatos a Brigadistas deverão inscrever-se preenchendo o formulário <strong>Inscrição na Brigada de Emergência</strong>.</li>
+<li>Os candidatos receberão a formação correspondente conforme o estabelecido na <strong>Matriz de Formação General - meio ambiente e SST</strong>.</li>
+<li>Aqueles que concluam os cursos com aproveitamento mínimo de 70% na avaliação teórica e prática receberão o Certificado de Brigadista.</li>
+<li>O período de treino será anual, salvo se houver alteração de 50% dos membros da brigada. Nesse caso o treino deverá ser ministrado de imediato ao pessoal novo.</li>
+<li>Uma vez habilitado o Brigadista, a área de SST atualizará a <strong>Lista de Brigadistas por Sectores</strong>, a qual será publicada nos diferentes setores para conhecimento do pessoal; retirando-se a Lista anterior.</li>
+</ul>
+</div>
+<!-- CAPÍTULO 1 - RESPUESTA ANTE EMERGENCIA -->
+<div class="chapter" id="capitulo1">
+<div class="chapter-title" contenteditable="true">CAPÍTULO 1 - RESPUESTA perante EMERGENCIA</div>
+<div class="section-subtitle" contenteditable="true">1.1 RESPUESTA perante EMERGENCIA</div>
+<div class="note-box">
+<div class="note-title" contenteditable="true">Nota:</div>
+<p contenteditable="true">Avaliar-se-á a necessidade de atualizar os planos de resposta perante emergências, ou outros documentos que sejam necessários, particularmente depois de ocorrer um incidente ou acidente, ou de um simulacro; de acordo com o estabelecido no Procedimento de Reporte de Acidentes e Incidentes.</p>
+</div>
+<table class="procedure-table">
+<tr>
+<th>Passo</th>
+<th>Atividade</th>
+</tr>
+<tr>
+<td contenteditable="true">1. Deteção de um evento</td>
+<td contenteditable="true">
+<strong>pessoal de sector involucrado:</strong><br/>
+                            - Deteta uma situação de emergência, tal como:<br/>
+                            • Incêndio.<br/>
+                            • Explosão.<br/>
+                            • Derrame de productos químicos.<br/>
+                            • Eletrocussão.<br/>
+                            • Acidente de viação.<br/>
+                            • Outros.
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">2. Conduta PAS</td>
+<td contenteditable="true">
+                            - Quando o evento envolva pessoas, aplicar imediatamente a conduta PAS:<br/>
+                            • <strong>P</strong>Proteger o local do acidente.<br/>
+                            • <strong>A</strong>Avisar os serviços de emergência.<br/>
+                            • <strong>S</strong>ocorrer a as víctimas.
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">3. Comunicação do evento</td>
+<td contenteditable="true">
+<strong>pessoal de sector involucrado:</strong><br/>
+                            - Comunica a emergência imediatamente ao <strong>Chefe de Brigada</strong>, e na sua ausência, ao Brigadista do setor.<br/>
+                            - Informa a maior quantidade de dados possível, tais como:<br/>
+                            • Tipo de evento.<br/>
+                            • Nome e Apelido da pessoa que reporta o evento.<br/>
+                            • Localização ou local preciso onde se produziu o evento.<br/>
+                            • Gravidade e localização da lesão (se aplicável).<br/>
+                            • Empresa a que pertence o acidentado.<br/>
+                            • Nome e Apelido do acidentado (se for possível).<br/>
+                            • Em caso de derrames: classe de substância derramada.<br/>
+                            • Possibilidade de contaminação de cursos de água ou solos.<br/>
+                            • Danos materiais: magnitude dos danos.
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">4. avaliação do evento</td>
+<td contenteditable="true">
+<strong>Chefe de Brigada:</strong><br/>
+                            - Solicita informação correspondente ao local onde se iniciou a emergência.<br/>
+                            - Acude ao lugar do evento.
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">5. Manuseamento da Emergência</td>
+<td contenteditable="true">
+<strong>Chefe de Brigada:</strong><br/>
+                            - Transmite instruções e coordena a execução de ações para o manuseamento do incidente.<br/>
+                            - Solicita a presença da Brigada (conforme seja o caso).<br/>
+                            - Comunica a situação ao Gerente Geral.
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">6. Resposta à situação de emergência</td>
+<td contenteditable="true">
+<strong>Brigada:</strong><br/>
+                            - Ejecuta as ações para o manejo do incidente.<br/>
+                            - Avalia se é necessário preparar um setor para o atendimento de pessoas (vítimas).
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">7. Avaliação da emergência</td>
+<td contenteditable="true">
+<strong>Gerente Geral:</strong><br/>
+                            - Avalia a gravidade da emergência junto com o Chefe de Brigada.
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">8. avaliação da situação</td>
+<td contenteditable="true">
+<strong>Gerente Geral e Chefe de Brigada:</strong><br/>
+                            - Avaliam a necessidade de contar com apoio de unidades externas.<br/>
+                            - Autorizam a solicitação de apoio de unidades externas.<br/>
+                            - Avaliam a necessidade de comunicar a emergência aos vizinhos e habitações contíguas, para que tomem as precauções necessárias.
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">9. Comunicação a vizinhos e habitações contíguas</td>
+<td contenteditable="true">
+<strong>Brigadista designado:</strong><br/>
+                            - Solicita assistência às unidades de apoio externo.<br/>
+                            - Comunica a situação de emergência às plantas vizinhas e habitações contíguas, se corresponder.
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">10. Avaliação da necessidade ou não de realizar uma evacuação</td>
+<td contenteditable="true">
+<strong>Chefe de Brigada:</strong><br/>
+                            - Avalia a necessidade de realizar uma evacuação.<br/>
+                            - Se a situação requer evacuação, seja de forma parcial ou total, procede conforme o CAPÍTULO 2 EVACUAÇÃO.<br/>
+                            - Se a situação não requer uma evacuação, continua com o passo seguinte.
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">11. Ativação do Plano de Emergência</td>
+<td contenteditable="true">
+<strong>Chefe de Brigada:</strong><br/>
+                            - Transmite instruções e coordena a execução do Plano de Emergências correspondente.<br/>
+                            - Organiza as manobras e os recursos disponíveis para o manuseamento da emergência.
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">12. Finalização da situação de emergência</td>
+<td contenteditable="true">
+<strong>Chefe de Brigada:</strong><br/>
+                            - Verifica que se tenha controlado a situação de emergência.<br/>
+                            - Comunica a finalização da situação de emergência ao Gerente Geral.
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">13. Restabelecimento das atividades laborais</td>
+<td contenteditable="true">
+<strong>Gerente Geral:</strong><br/>
+                            - Uma vez controlada a situação de emergência, avalia se o pessoal já pode regressar ao seu posto de trabalho.<br/>
+                            - Em caso positivo, autoriza o restabelecimento das atividades laborais no setor.
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">14. Informação a Partes Interessadas (Autoridades/Comunidade)</td>
+<td contenteditable="true">
+<strong>Gerente Geral:</strong><br/>
+                            - Evalúa si se deve emitir um informe a as Autoridades Competentes.<br/>
+                            - Canaliza informação para os meios de difusão, a comunidade e outros, se a situação o justificar.<br/>
+                            - Toma decisões na pós-emergência.<br/><br/>
+<div class="warning-box">
+<div class="warning-title" contenteditable="true">Nota:</div>
+<p contenteditable="true">O Gerente Geral é a única via autorizada para emitir informação para o exterior.</p>
+</div>
+</td>
+</tr>
+</table>
+<div class="section-subtitle" contenteditable="true">1.2 PLAN DE SIMULACROS</div>
+<table class="procedure-table">
+<tr>
+<th>Passo</th>
+<th>Atividade</th>
+</tr>
+<tr>
+<td contenteditable="true">1. Planeamento</td>
+<td contenteditable="true">
+<strong>Coordenador de qualidade, MA e SST:</strong><br/>
+                            - Planeia a realização do simulacro de emergência e documenta-o no Plano de Simulacros.<br/><br/>
+<div class="note-box">
+<div class="note-title" contenteditable="true">Nota 1:</div>
+<p contenteditable="true">A frequência mínima de realização de simulacros é de 2 por ano civil.</p>
+</div>
+<div class="note-box">
+<div class="note-title" contenteditable="true">Nota 2:</div>
+<p contenteditable="true">Somente terão conhecimento do simulacro as pessoas envolvidas no seu desenvolvimento.</p>
+</div>
+<div class="note-box">
+<div class="note-title" contenteditable="true">Nota 3:</div>
+<p contenteditable="true">Dever-se-á avisar as partes interessadas sobre a realização do simulacro (Ex.: Polícia Nacional, Bombeiros, Vizinhos, outros). Esta comunicação deve ser por escrito.</p>
+</div>
+</td>
+</tr>
+<tr>
+<td contenteditable="true">2. Execução e relatório</td>
+<td contenteditable="true">
+<strong>Chefe de Brigada:</strong><br/>
+                            - Coordena a execução do simulacro.<br/>
+                            - Elabora um Relatório de Simulacro e remete-o ao Gerente Geral e ao Coordenador de qualidade, MA e SST.
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">3. Ações correctivas</td>
+<td contenteditable="true">
+<strong>Coordenador de qualidade, MA e SST:</strong><br/>
+                            - Abre SAC/SAM, tudo isto conforme corresponda relativamente às debilidades ou oportunidades de melhoria detetadas.
+                        </td>
+</tr>
+</table>
+</div>
+<!-- CAPÍTULO 2 - EVACUACIÓN (resumido por espaço) -->
+<div class="chapter" id="capitulo2">
+<div class="chapter-title" contenteditable="true">CAPÍTULO 2 - EVACUAÇÃO</div>
+<div class="section-subtitle" contenteditable="true">2.1 EVACUAÇÃO</div>
+<table class="procedure-table">
+<tr>
+<th>Passo</th>
+<th>Atividade</th>
+</tr>
+<tr>
+<td contenteditable="true">1. Comunicação de evacuação</td>
+<td contenteditable="true">
+<strong>Chefe de Brigada:</strong><br/>
+                            - Indica aos Brigadistas a ordem de evacuação.
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">2. Evacuação</td>
+<td contenteditable="true">
+<strong>Pessoal que se encontra na zona afetada:</strong><br/>
+                            - Evacua de forma tranquila e serena para o Ponto de Encontro (Ver Tabela Plano de Evacuação e Tabela Guia de Evacuação de Incêndio).
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">3. Controlo da evacuação</td>
+<td contenteditable="true">
+<strong>Brigadista (encarregado de evacuação do setor):</strong><br/>
+                            - Controla que o total do pessoal do setor saia do mesmo.<br/><br/>
+<div class="note-box">
+<div class="note-title" contenteditable="true">Nota:</div>
+<p contenteditable="true">A cada Brigadista foi atribuído um setor durante os simulacros de emergência.</p>
+</div>
+<br/>
+                            - Dirige-se à zona de segurança, corroborando com a Folha de Presenças que todos se encontram nesta zona.<br/><br/>
+<div class="note-box">
+<div class="note-title" contenteditable="true">Nota:</div>
+<p contenteditable="true">A Folha de Presenças deve ter no mínimo: o nome e apelido, e o departamento a que pertence.</p>
+</div>
+<br/>
+                            - Controla a lista do pessoal fixo, subcontratado e visitante que se encontrava nesse setor.<br/>
+                            - Verifica que se encontrem todos presentes.<br/>
+                            - Se verifica que existem pessoas ausentes, informa o Chefe de Brigada pelo meio mais conveniente.<br/><br/>
+<div class="warning-box">
+<div class="warning-title" contenteditable="true">Nota:</div>
+<p contenteditable="true">Não inicie a busca de pessoas ausentes sem ter a garantia de não pôr em risco a sua vida.</p>
+</div>
+</td>
+</tr>
+<tr>
+<td contenteditable="true">4. Permanência na zona de segurança</td>
+<td contenteditable="true">
+<strong>Pessoal que se encontra no Ponto de Encontro:</strong><br/>
+                            - Permanece no local e espera a indicação para se retirar do local ou voltar ao posto de trabalho.<br/><br/>
+<div class="note-box">
+<div class="note-title" contenteditable="true">Nota:</div>
+<p contenteditable="true">A autorização de voltar aos postos de trabalho será dada pelo Gerente Geral.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<!-- CAPÍTULO 3 - EXTINCIÓN DE INCENDIOS (resumido por espaço) -->
+<div class="chapter" id="capitulo3">
+<div class="chapter-title" contenteditable="true">CAPÍTULO 3 - EXTINÇÃO DE INCÊNDIOS</div>
+<div class="section-subtitle" contenteditable="true">3.1 RESPOSTA A UM INCÊNDIO PEQUENO</div>
+<table class="procedure-table">
+<tr>
+<th>Passo</th>
+<th>Atividade</th>
+</tr>
+<tr>
+<td contenteditable="true">1. Aplicável apenas a incêndio de pequenas proporções</td>
+<td contenteditable="true">
+<strong>pessoal de sector involucrado:</strong><br/>
+                            - Utiliza os extintores mais próximos, observando que seja apto para extinguir a classe de fogo (sempre e quando esteja formado para o fazer e a tarefa não implique riscos para a saúde).<br/>
+                            - Uma vez sufocado o incêndio, dá aviso ao Chefe de Brigada, para que se registe o evento e se realizem as investigações pertinentes.
+                        </td>
+</tr>
+</table>
+<div class="section-subtitle" contenteditable="true">3.2 RESPOSTA A UM INCÊNDIO DE MÉDIAS A GRANDES PROPORÇÕES</div>
+<table class="procedure-table">
+<tr>
+<th>Passo</th>
+<th>Atividade</th>
+</tr>
+<tr>
+<td contenteditable="true">1. Extinção de incêndio</td>
+<td contenteditable="true">
+<strong>Brigadista de prevenção e Combate de Incêndio:</strong><br/>
+                            - Corta a energia elétrica do setor sinistrado.<br/>
+                            - Ataca o fogo com os meios disponíveis (extintores e/ou bocas de incêndio).<br/>
+                            - Realiza o combate exterior do incêndio até à chegada dos Bombeiros.<br/>
+                            - Prepara accesos para o auxilio exterior (bomberos profesionales).<br/>
+                            - Entrega o mando a os Bomberos.
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">2. Colocação em operatividade dos equipamentos de extinção de incêndios</td>
+<td contenteditable="true">
+<strong>Responsável da área:</strong><br/>
+                            - Terminado o evento e corrigidas todas as situações que deram origem ao incêndio, procede à limpeza dos equipamentos utilizados: mangueira contra incêndios, EPI para extinção de incêndios, ferramentas e materiais, normalização dos sistemas de deteção, aviso e extinção automáticos, paragem das bombas contra incêndios, solicitação de reposição de extintores, etc.<br/><br/>
+<div class="note-box">
+<div class="note-title" contenteditable="true">NOTA:</div>
+<p contenteditable="true">Caso algum equipamento ou material destinado à extinção de incêndios tenha sido danificado pelos trabalhos realizados, solicitar-se-á a sua reposição, reparação ou substituição conforme corresponda.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<!-- CAPÍTULO 4 - DERRAMES (resumido) -->
+<div class="chapter" id="capitulo4">
+<div class="chapter-title" contenteditable="true">CAPÍTULO 4 - DERRAMES</div>
+<div class="section-subtitle" contenteditable="true">4.1 DERRAME DE PRODUCTOS QUÍMICOS</div>
+<table class="procedure-table">
+<tr>
+<th>Passo</th>
+<th>Atividade</th>
+</tr>
+<tr>
+<td contenteditable="true">1. Derrame</td>
+<td contenteditable="true">
+<strong>Os derrames que se podem gerar na organização são, entre outros:</strong><br/>
+                            - Derrames de productos químicos de Depósitos.<br/>
+                            - Derrames de productos químicos durante um serviço.
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">2. Kit Antiderrame</td>
+<td contenteditable="true">
+<strong>O Depósito deve contar com um kit antiderrame composto pelos seguintes materiais:</strong><br/>
+                            - Material absorvente.<br/>
+                            - Palita.<br/>
+                            - Contentor ou saco para recolher resíduos de derrames.<br/>
+                            - Guantes.<br/>
+                            - Lentes de segurança.
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">3. Avaliação da área</td>
+<td contenteditable="true">
+<strong>O primeiro passo a cumprir perante a presença de um derrame é realizar uma avaliação do mesmo. Para isto, ter em conta o seguinte:</strong><br/>
+                            - Identificar o produto derramado.<br/>
+                            - Avaliar os possíveis riscos para a saúde, incêndio, explosão, impacto no meio ambiente.<br/>
+                            - Direção ou curso que toma ou poderia tomar a substância, e possíveis consequências.<br/>
+                            - O tamanho ou volume do derrame.<br/>
+                            - Possibilidade de contenção fechando válvulas de forma segura.<br/>
+                            - Possibilidade de contenção com materiais absorventes.
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">4. Contenção e absorção do derrame</td>
+<td contenteditable="true">
+<strong>Antes de começar a controlar o derrame toda a pessoa atuante deve:</strong><br/>
+                            - Identificar a substância ou produto derramado por meio das etiquetas das embalagens contentoras, ou qualquer outro meio disponível.<br/>
+                            - Ter à mão as Fichas de segurança do produto.<br/>
+                            - Selecionar o equipamento de proteção pessoal que corresponda consultando a Ficha de segurança do produto derramado. <strong>Si no está seguro, asuma as peores condições.</strong><br/>
+                            - Aplicar as medidas de segurança detalhadas nas Fichas de segurança para minimizar os riscos de incêndio, explosão, para a saúde das pessoas ou o meio ambiente.<br/>
+                            - Aproximar-se do local do incidente, ou posicionar-se, a favor do vento procurando que os vapores do produto se afastem de si.<br/>
+                            - Estar alerta caso alguma pessoa exposta apresente sintomas de sobre-exposição.<br/>
+                            - Avaliar a conveniência de delimitar a área para evitar o trânsito de veículos ou pessoas na zona. Se for necessário, utilizar fitas de precaução, cones, ou pessoal devidamente identificado.<br/>
+                            - Desalojar ou evacuar o setor ou área se as circunstâncias o justificarem, de acordo com o risco de toxicidade, incêndio ou explosão que possua a substância, e a zona onde se produziu o derrame ou fuga.<br/>
+                            - Se a substância apresenta risco de incêndio, aproximar extintores adequados à sua natureza e em quantidade suficiente para uso imediato.<br/>
+                            - Evitar que o derrame entre em contacto com outros contenedores o materiales inflamables.<br/>
+                            - Conter o derrame numa área o mais pequena possível.<br/>
+                            - Evitar que o derrame chegue a algum esgoto ou canal pluvial.<br/>
+                            - Coloque material absorvente como mantas, panos e/ou pó sobre o derrame e deixe-o atuar.<br/>
+                            - Uma vez absorvido, proceda a levantar o material e dispor em saco localizado no KIT. Posteriormente dispor em Contentores de Resíduos Perigosos localizados no terreno.
+                        </td>
+</tr>
+</table>
+</div>
+<!-- CAPÍTULOS 5-9 (resumidos) -->
+<div class="chapter" id="capitulo5">
+<div class="chapter-title" contenteditable="true">CAPÍTULO 5 - EXPLOSIÓN</div>
+<div class="section-subtitle" contenteditable="true">5.1 procedimento em CASOS DE EXPLOSIÓN</div>
+<table class="procedure-table">
+<tr><th>Passo</th><th>Atividade</th></tr>
+<tr>
+<td contenteditable="true">1. Deteção e comunicação</td>
+<td contenteditable="true">
+<strong>Pessoal da área:</strong><br/>
+                            - Toma conhecimento do princípio do evento.<br/>
+                            - Avisa o responsável da área, informando área, feridos, materiais envolvidos.
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">2. Coordenação de medidas</td>
+<td contenteditable="true">
+<strong>Responsável da área:</strong><br/>
+                            - Coordina ações para controlar o evento.
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">3. Comunicação ao Chefe de Brigada</td>
+<td contenteditable="true">
+<strong>Responsável da área:</strong><br/>
+                            - Comunica ao Chefe de Brigada o evento.
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">4. Intervenção</td>
+<td contenteditable="true">
+<strong>Responsável da área / Chefe de Brigada:</strong><br/>
+                            - Dirige ações: atendimento a feridos, avaliação de riscos, etc.
+                        </td>
+</tr>
+</table>
+</div>
+<!-- CAPÍTULO 6 - ELECTROCUCIÓN -->
+<div class="chapter" id="capitulo6">
+<div class="chapter-title" contenteditable="true">CAPÍTULO 6 - ELETROCUSSÃO</div>
+<div class="section-subtitle" contenteditable="true">6.1 PROCEDIMENTO DE ATENDIMENTO EM CASOS DE ELETROCUSSÃO</div>
+<table class="procedure-table">
+<tr><th>Passo</th><th>Atividade</th></tr>
+<tr>
+<td contenteditable="true">1. Acudir e solicitar corte de corrente</td>
+<td contenteditable="true">
+<strong>Brigadista:</strong><br/>
+                            - Acode ao local, sem manobras até assegurar corte de fluxo elétrico.
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">2. Corte de energia</td>
+<td contenteditable="true">
+<strong>Brigadista:</strong><br/>
+                            - Assegura corte de energia ou elimina fatores do choque.
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">3. Acesso à vítima</td>
+<td contenteditable="true">
+<strong>Brigadista de Primeros Auxilios / Paramédico:</strong><br/>
+                            - Avalia cena segura.<br/>
+                            - Comprova sinais vitais.<br/>
+                            - Solicita DAE e apoio médico.<br/>
+                            - Inicia RCP si é necessário.
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">4. Estabilização e transferência</td>
+<td contenteditable="true">
+                            - Controlo de hemorragias, imobilização de fraturas, vigilância de sinais vitais, transferência.
+                        </td>
+</tr>
+</table>
+</div>
+<!-- CAPÍTULO 7 - ACCIDENTE VEHICULAR -->
+<div class="chapter" id="capitulo7">
+<div class="chapter-title" contenteditable="true">CAPÍTULO 7 - ACCIDENTE VEHICULAR</div>
+<div class="section-subtitle" contenteditable="true">7.1 PROCEDIMENTO DE ATENDIMENTO EM CASOS DE ACIDENTE DE VIAÇÃO</div>
+<table class="procedure-table">
+<tr><th>Passo</th><th>Atividade</th></tr>
+<tr>
+<td contenteditable="true">1. Assegurar a cena</td>
+<td contenteditable="true">
+<strong>Condutor envolvido:</strong><br/>
+                            - Estaciona em local seguro, liga luzes de emergência.
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">2. Comunicação a Emergencias</td>
+<td contenteditable="true">
+                            - Comunicar aos serviços de Emergência: veículos, feridos, localização, riscos.
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">3. Atendimento a feridos</td>
+<td contenteditable="true">
+                            - Evitar mobilização brusca, tranquilizar, solicitar apoio, estar atento a riscos.
+                        </td>
+</tr>
+<tr>
+<td contenteditable="true">4. Colaboração com respondentes</td>
+<td contenteditable="true">
+                            - Manter-se na área, prestar ajuda se solicitarem, comunicar sintomas, mover veículos se for seguro.
+                        </td>
+</tr>
+</table>
+</div>
+<!-- CAPÍTULO 8 - DERRUMBE -->
+<div class="chapter" id="capitulo8">
+<div class="chapter-title" contenteditable="true">CAPÍTULO 8 - DERRUMBE</div>
+<div class="section-subtitle" contenteditable="true">8.1 DERRUMBE</div>
+<table class="procedure-table">
+<tr><td contenteditable="true">
+                        - Evacuar a zona (ativar alarme).<br/>
+                        - Brigada intervém para organizar evacuação.<br/>
+                        - Avisar a Bomberos.<br/>
+                        - Delimitar e sinalizar zona de risco.
+                    </td></tr>
+</table>
+</div>
+<!-- CAPÍTULO 9 - PRIMEROS AUXILIOS -->
+<div class="chapter" id="capitulo9">
+<div class="chapter-title" contenteditable="true">CAPÍTULO 9 - PRIMEROS AUXILIOS</div>
+<div class="section-subtitle" contenteditable="true">9.1 PRIMEROS AUXILIOS</div>
+<p contenteditable="true">Os <strong>primeros auxilios</strong> colaboram a gerir em primeira instância uma emergência, o que permite conter ou diminuir o dano que se gerou no acidente.</p>
+<ol contenteditable="true">
+<li>Se não se sabe o que fazer, procurar ajuda.</li>
+<li>Avaliar segurança da cena.</li>
+<li>Ajudar apenas se tem conhecimentos.</li>
+<li>Atuar com rapidez e calma.</li>
+<li>Evitar aglomerações.</li>
+<li>Não mover a pessoa ferida, salvo imprescindível.</li>
+<li>Proporcionar tranquilidade.</li>
+<li>No dar nada por boca.</li>
+<li>Aliviar a dor.</li>
+<li>Colocar em mãos de serviços médicos.</li>
+</ol>
+</div>
+<!-- Botões de ação -->
+<div class="action-buttons">
+<button class="save-btn" onclick="guardarDocumento()">💾 Guardar (Simular)</button>
+<button class="download-btn" onclick="descargarHTML()">📥 Descarregar HTML</button>
+<button class="print-btn" onclick="window.print()">📄 Imprimir</button>
+</div>
+<!-- Histórico de versiones - editável -->
+<div class="version-history" id="historial">
+<div class="section-title" contenteditable="true">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td contenteditable="true">000</td>
+<td contenteditable="true">01.12.2024</td>
+<td contenteditable="true">Original</td>
+<td contenteditable="true">CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Rodapé - editável -->
+<div class="footer" contenteditable="true">
+<p>Código: MAN004 | Revisão: 000 | - ISO 45001</p>
+</div>
+</div>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar tratamento de erro para o logo
+            const logoImg = document.getElementById('logoImg');
+            
+            // Se a imagem não for encontrada, mostrar placeholder com instrução
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="30" font-family="Arial" font-size="10" text-anchor="middle" fill="%234a5568">LOGÓTIPO NÃO ENCONTRADO</text><text x="90" y="50" font-family="Arial" font-size="8" text-anchor="middle" fill="%23e53e3e">(clique para selecionar)</text></svg>';
+                console.warn('Logótipo não encontrado em: logo/logo.png. Clique para definir um novo URL.');
+            };
+            
+            // Logo click para trocar imagem
+            document.getElementById('logoContainer').addEventListener('click', function() {
+                const nuevaURL = prompt(
+                    'Introduza o URL da nova imagem do logótipo:',
+                    document.getElementById('logoImg').src
+                );
+                if (nuevaURL && nuevaURL.trim() !== '') {
+                    document.getElementById('logoImg').src = nuevaURL;
+                }
+            });
+            
+            // Configurar scroll suave para los enlaces del TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+        
+        // Função para guardar (simulação)
+        function guardarDocumento() {
+            alert('✅ Documento guardado (simulação).');
+        }
+        
+        // Função para descargar el HTML actual
+        function descargarHTML() {
+            const doctype = '<!DOCTYPE html>\n';
+            const html = document.documentElement.outerHTML;
+            
+            const blob = new Blob([doctype + html], { type: 'text/html' });
+            
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'MAN004-Manual-Emergencias-editado.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('✅ Ficheiro HTML descarregado com sucesso. Contém todas as suas modificações.');
+        }
+    </script>
+</body>
+</html>

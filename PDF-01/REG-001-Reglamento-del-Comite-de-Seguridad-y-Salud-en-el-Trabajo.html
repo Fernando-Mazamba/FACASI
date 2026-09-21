@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>REG-001 Regulamento do Comité de Segurança e Saúde no Trabalho - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-title:before {
+            content: counter(section-counter) ". ";
+        }
+        
+        .section-subtitle {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+        }
+        
+        .intro-text {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4a5568;
+            font-size: 16px;
+        }
+        
+        .content-text {
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .content-list {
+            margin: 15px 0 20px 40px;
+        }
+        
+        .content-list li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .highlight-box {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+
+        /* --- NUEVOS ESTILOS UNIFICADOS (basados en PRO-026) --- */
+        .action-bar {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background-color: #718096;
+        }
+
+        .btn-success {
+            background-color: #2f855a;
+        }
+
+        .btn-success:hover {
+            background-color: #38a169;
+        }
+
+        .btn-warning {
+            background-color: #c05621;
+        }
+
+        .btn-warning:hover {
+            background-color: #dd6b20;
+        }
+
+        .editable-highlight {
+            outline: 2px dashed #3182ce;
+            background-color: #f0f7ff;
+            transition: all 0.2s;
+            cursor: text;
+        }
+
+        /* Indicador visual de modo edición */
+        .edit-mode-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #c05621;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .edit-mode-indicator.active {
+            display: flex;
+        }
+
+        .committee-role {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .role-title {
+            color: #276749;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        /* Ajustes para impresión */
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .action-bar, .print-btn, .edit-mode-indicator {
+                display: none !important;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+
+            .action-bar {
+                justify-content: center;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+
+            .action-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .btn, .print-btn {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabecera con logo e informaciones de la organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título del documento -->
+<div class="doc-title">Regulamento do Comité de Segurança e Saúde no Trabalho</div>
+<div class="doc-code">Código: REG-001</div>
+<!-- Barra de acciones unificada (descargar y editar) -->
+<div class="content" style="padding-top: 0;">
+<div class="action-bar">
+<button class="btn btn-success" id="downloadBtn">
+<span style="font-size: 1.2em;">⬇️</span> Descarregar HTML
+                </button>
+<button class="btn btn-warning" id="editToggleBtn">
+<span style="font-size: 1.2em;">✎</span> Ativar edição completa
+                </button>
+<button class="print-btn" onclick="window.print()">
+<span style="font-size: 1.2em;">🖨️</span> Imprimir
+                </button>
+</div>
+</div>
+<!-- Indicador de modo edición (flotante) -->
+<div class="edit-mode-indicator" id="editModeIndicator">
+<span style="font-size: 1.2em;">✎</span> Modo de edição ativado
+        </div>
+<!-- Contenido principal -->
+<div class="content">
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#objetivo">1. Objetivo</a></li>
+<li class="toc-item"><a class="toc-link" href="#composicion">2. Composição do Comité</a></li>
+<li class="toc-item"><a class="toc-link" href="#funciones">3. Funções do Comité</a></li>
+<li class="toc-item"><a class="toc-link" href="#reuniones">4. Reuniones</a></li>
+<li class="toc-item"><a class="toc-link" href="#obligaciones">5. Obrigações dos Membros do Comité</a></li>
+<li class="toc-item"><a class="toc-link" href="#responsabilidades">6. Responsabilidades do Comité</a></li>
+<li class="toc-item"><a class="toc-link" href="#comunicacion">7. Comunicação e Reportes</a></li>
+<li class="toc-item"><a class="toc-link" href="#modificacion">8. Modificação do Regulamento</a></li>
+<li class="toc-item"><a class="toc-link" href="#vigencia">9. Vigência</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">10. Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Sección 1: Objetivo -->
+<div class="section" id="objetivo">
+<div class="section-title">Objetivo</div>
+<div class="content-text">
+                    O Comité de Segurança e Saúde no Trabalho tem como objetivo promover, coordenar e supervisionar todas as atividades relacionadas com a segurança e saúde no trabalho, assegurando o cumprimento das normativas e a melhoria contínua das condições laborais.
+                </div>
+</div>
+<!-- Sección 2: Composición del Comité -->
+<div class="section" id="composicion">
+<div class="section-title">Composição do Comité</div>
+<div class="content-text">
+                    O Comité de Segurança e Saúde no Trabalho será composto por:
+                </div>
+<ul class="content-list">
+<li><strong>Presidente:</strong> Representante da alta direção da organização.</li>
+<li><strong>Vice-presidente:</strong> Representante da área de Recursos Humanos ou similar.</li>
+<li><strong>Miembros:</strong> Representantes de diferentes áreas operacionais e um representante dos trabalhadores.</li>
+<li><strong>Secretario:</strong> Designado pelo Comité para manter o registo de atas e documentação.</li>
+</ul>
+</div>
+<!-- Sección 3: Funciones del Comité -->
+<div class="section" id="funciones">
+<div class="section-title">Funções do Comité</div>
+<div class="content-text">
+                    As funções do Comité de Segurança e Saúde no Trabalho são:
+                </div>
+<ul class="content-list">
+<li>identificar e avaliar os riscos laborales no entorno de trabalho.</li>
+<li>Propor medidas preventivas e corretivas para minimizar os riscos.</li>
+<li>Fomentar a formação contínua em matéria de segurança e saúde ocupacional.</li>
+<li>Coordenar e supervisionar as auditorias de segurança e saúde.</li>
+<li>Zelar pelo cumprimento das normativas legais e da organização em matéria de segurança.</li>
+<li>Informar e sensibilizar todos os trabalhadores sobre a importância da segurança e saúde no trabalho.</li>
+<li>Realizar um acompanhamento e avaliação contínuos das ações de segurança e saúde implementadas.</li>
+<li>Propor medidas corretivas perante incidentes ou acidentes laborais.</li>
+<li>rever e atualizar os procedimentos de segurança conforme a as mejores prácticas.</li>
+</ul>
+</div>
+<!-- Sección 4: Reuniones -->
+<div class="section" id="reuniones">
+<div class="section-title">Reuniones</div>
+<div class="content-text">
+                    As reuniões do Comité de Segurança e Saúde no Trabalho realizam-se de forma regular e estruturada para garantir a eficácia na gestão da segurança e saúde laboral.
+                </div>
+<ul class="content-list">
+<li>As reuniões ordinárias realizar-se-ão <strong>mensalmente</strong> em data fixa estabelecida pelo Comité.</li>
+<li>As reuniões extraordinárias podem ser convocadas pelo Presidente, pelo Vice-presidente ou por pelo menos 50% dos membros do Comité.</li>
+<li>As decisões são tomadas por maioria de votos dos membros presentes.</li>
+<li>A ata de cada reunião é redigida e assinada pelo Secretário do Comité e distribuída a todos os membros.</li>
+<li>Estabelece-se um quórum mínimo de 60% dos membros para a validade das reuniões.</li>
+</ul>
+</div>
+<!-- Sección 5: Obligaciones de los Miembros -->
+<div class="section" id="obligaciones">
+<div class="section-title">Obrigações dos Membros do Comité</div>
+<div class="content-text">
+                    Todos os membros do Comité têm as seguintes obrigações:
+                </div>
+<ul class="content-list">
+<li><strong>Assistir às reuniões do Comité</strong> de forma pontual e participativa.</li>
+<li><strong>Participar ativamente</strong> na identificação de riscos e no desenvolvimento de soluções.</li>
+<li><strong>Promover a segurança e saúde</strong> nas suas áreas de trabalho e entre os seus colaboradores.</li>
+<li><strong>Informar oportunamente</strong> sobre os riscos que percebam no ambiente laboral.</li>
+<li><strong>Colaborar na execução</strong> de planos de emergência, evacuação e resposta a incidentes.</li>
+<li><strong>manter a confidencialidad</strong> da informação sensível tratada no Comité.</li>
+<li><strong>Formarse continuamente</strong> em temas de segurança e saúde ocupacional.</li>
+</ul>
+</div>
+<!-- Sección 6: Responsabilidades del Comité -->
+<div class="section" id="responsabilidades">
+<div class="section-title">Responsabilidades do Comité</div>
+<div class="committee-role">
+<div class="role-title">Presidente:</div>
+<div class="content-text">
+                        Coordena as atividades do Comité, preside às reuniões e garante que se tomem as decisões adequadas para a melhoria da segurança e saúde no trabalho. Representa o Comité perante a alta direção.
+                    </div>
+</div>
+<div class="committee-role">
+<div class="role-title">Vice-presidente:</div>
+<div class="content-text">
+                        Assiste o Presidente nas suas funções e substitui-o na sua ausência. Coordena a preparação dos temas a tratar nas reuniões.
+                    </div>
+</div>
+<div class="committee-role">
+<div class="role-title">Secretario:</div>
+<div class="content-text">
+                        Elabora as convocatórias, redige as atas das reuniões, mantém o arquivo documental do Comité e gere a comunicação oficial.
+                    </div>
+</div>
+<div class="committee-role">
+<div class="role-title">Miembros:</div>
+<div class="content-text">
+                        Participam ativamente em todas as atividades do Comité, representam os interesses das suas áreas e asseguram que as ações acordadas se implementam corretamente.
+                    </div>
+</div>
+</div>
+<!-- Sección 7: Comunicación y Reportes -->
+<div class="section" id="comunicacion">
+<div class="section-title">Comunicação e Reportes</div>
+<div class="content-text">
+                    O Comité estabelece e mantém um sistema de comunicação eficaz para garantir a transparência e a participação em matéria de segurança e saúde laboral.
+                </div>
+<ul class="content-list">
+<li>El Comité estabelece um <strong>sistema de comunicação bidireccional</strong> com todos os trabalhadores para transmitir as decisões e ações tomadas.</li>
+<li>Se elaboran <strong>informes periódicos</strong> (trimestrais e anuais) sobre o estado da segurança e saúde no trabalho, os quais se apresentam à direção da organização.</li>
+<li>En caso de incidentes o accidentes graves, o Comité realiza um <strong>relatório detalhado</strong> com análise de causas raiz e toma as medidas necessárias para evitar a sua recorrência.</li>
+<li>Os resultados das inspeções, auditorias e avaliações são comunicados às áreas correspondentes para a sua implementação.</li>
+<li>Se mantiene um <strong>quadro de indicadores</strong> visível para todos os trabalhadores com as métricas-chave de segurança e saúde.</li>
+</ul>
+</div>
+<!-- Sección 8: Modificación del Reglamento -->
+<div class="section" id="modificacion">
+<div class="section-title">Modificação do Regulamento</div>
+<div class="content-text">
+                    Este regulamento pode ser modificado para se adaptar às alterações organizacionais, legais ou técnicas que se apresentem.
+                </div>
+<ul class="content-list">
+<li>Este regulamento pode ser modificado por <strong>acordo unânime</strong> dos miembros do Comité.</li>
+<li>Toda a modificação proposta deve ser submetida a <strong>aprovação da direção</strong> da organização.</li>
+<li>As modificações aprovadas são incorporadas no regulamento e comunicadas a todos os níveis da organização.</li>
+<li>Mantém-se um registo histórico de todas as modificações realizadas ao regulamento.</li>
+</ul>
+</div>
+<!-- Sección 9: Vigencia -->
+<div class="section" id="vigencia">
+<div class="section-title">Vigência</div>
+<div class="content-text">
+                    Este regulamento entra em vigor a partir da sua aprovação e mantém-se vigente até à sua modificação ou substituição.
+                </div>
+<ul class="content-list">
+<li>Este regulamento entra em vigor a partir da sua <strong>aprovação formal</strong> por a direção da organização.</li>
+<li>deve ser <strong>revisado anualmente</strong> para assegurar a sua adequação às necessidades da organização e às alterações normativas.</li>
+<li>A versão vigente do regulamento está disponível para todos os trabalhadores no portal documental do SGI.</li>
+<li>Em caso de atualizações normativas relevantes, o Comité pode antecipar a revisão do regulamento.</li>
+</ul>
+</div>
+<!-- Botón de impresión (ya no es necesario porque está en la barra) -->
+<!-- <button class="print-btn" onclick="window.print()">📄 Imprimir Documento</button> -->
+<!-- Historial de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>01.12.2024</td>
+<td>Original - Adaptado ao formato SGI</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Rodapé -->
+<div class="footer">
+<p>Código: REG-001 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        // Configurar scroll suave para los enlaces del TOC
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Configurar contador de secciones
+            document.body.style.counterReset = 'section-counter';
+            
+            // Verifica si el logo existe
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                    console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+                };
+            }
+        });
+
+        // ---- NUEVA FUNCIONALIDAD DE EDICIÓN COMPLETA Y DESCARGA ----
+        let editMode = false;
+        const editBtn = document.getElementById('editToggleBtn');
+        const editIndicator = document.getElementById('editModeIndicator');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        // Selectores para todos los elementos que queremos hacer editables en modo "edição completa"
+        const editableSelectors = [
+            '.content p', '.content-text', '.content-list li', 
+            '.committee-role .content-text', '.role-title',
+            '.version-table td', '.version-table th',
+            '.doc-info-item', '.org-name', '.doc-title', '.doc-code',
+            '.section-title', '.section-subtitle', '.footer p',
+            '.intro-text p'
+        ].join(',');
+
+        function enableEditing() {
+            document.querySelectorAll(editableSelectors).forEach(element => {
+                // Aseguramos que sea editable
+                if (!element.hasAttribute('contenteditable') || element.getAttribute('contenteditable') !== 'true') {
+                    element.setAttribute('contenteditable', 'true');
+                }
+                element.classList.add('editable-highlight');
+                
+                // Eventos para mejorar UX
+                element.removeEventListener('focus', focusHandler);
+                element.removeEventListener('blur', blurHandler);
+                element.addEventListener('focus', focusHandler);
+                element.addEventListener('blur', blurHandler);
+            });
+            editBtn.innerHTML = '<span style="font-size: 1.2em;">✎</span> Desativar edição';
+            editIndicator.classList.add('active');
+            editMode = true;
+        }
+
+        function disableEditing() {
+            document.querySelectorAll(editableSelectors).forEach(element => {
+                element.removeAttribute('contenteditable');
+                element.classList.remove('editable-highlight');
+                // Resetear estilos inline que puedan haber quedado
+                element.style.backgroundColor = '';
+                element.style.outline = '';
+                element.style.padding = '';
+                element.style.borderRadius = '';
+            });
+            editBtn.innerHTML = '<span style="font-size: 1.2em;">✎</span> Ativar edição completa';
+            editIndicator.classList.remove('active');
+            editMode = false;
+        }
+
+        function focusHandler(e) {
+            e.target.style.backgroundColor = '#f0f7ff';
+            e.target.style.outline = '2px solid #3182ce';
+            // Ajustes para algunos elementos
+            if (e.target.tagName === 'LI') {
+                e.target.style.padding = '8px';
+                e.target.style.borderRadius = '3px';
+                e.target.style.marginLeft = '-5px';
+            } else if (e.target.tagName === 'TD' || e.target.tagName === 'TH') {
+                // Para celdas de tabla ya tienen padding
+            } else {
+                e.target.style.padding = '5px';
+                e.target.style.borderRadius = '3px';
+            }
+        }
+
+        function blurHandler(e) {
+            e.target.style.backgroundColor = '';
+            e.target.style.outline = '';
+            e.target.style.padding = '';
+            e.target.style.borderRadius = '';
+            e.target.style.marginLeft = '';
+        }
+
+        // Evento para el botón de edición
+        editBtn.addEventListener('click', function() {
+            if (editMode) {
+                disableEditing();
+            } else {
+                enableEditing();
+            }
+        });
+
+        // Evento para el botón de descarga
+        downloadBtn.addEventListener('click', function() {
+            // Obtener el HTML completo del documento (incluyendo estilos y scripts)
+            const doctype = '<!DOCTYPE html>\n';
+            const html = document.documentElement.outerHTML;
+            
+            // Crear blob y descargar
+            const blob = new Blob([doctype + html], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'REG-001_Reglamento_Comite_SST.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        // Inicialmente el modo edición está desactivado
+        window.addEventListener('load', function() {
+            disableEditing();
+        });
+    </script>
+</body>
+</html>

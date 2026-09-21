@@ -1,0 +1,992 @@
+<html lang="pt-AO"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PRO-004 - Auditorías Internas - SGI (Genérico + Editable)</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            cursor: pointer;
+            border: 2px dashed transparent;
+            transition: border 0.2s;
+        }
+        
+        .logo-container:hover {
+            border-color: #fbbf24;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            pointer-events: none; /* para que el clic vaya al contenedor */
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-subtitle {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+        }
+        
+        .objective-box {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .objective-title {
+            color: #276749;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .procedure-container {
+            margin: 25px 0;
+        }
+        
+        .procedure-step {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            counter-increment: step-counter;
+        }
+        
+        .procedure-step::before {
+            content: counter(step-counter) ".";
+            color: #4a5568;
+            font-weight: bold;
+            font-size: 20px;
+            margin-right: 10px;
+        }
+        
+        .procedure-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #cbd5e0;
+        }
+        
+        .procedure-content {
+            line-height: 1.7;
+        }
+        
+        .procedure-list {
+            list-style-type: none;
+            margin-top: 15px;
+        }
+        
+        .procedure-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .procedure-list li:before {
+            content: "•";
+            color: #4a5568;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .audit-box {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .audit-title {
+            color: #2b6cb0;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .planning-box {
+            background-color: #fefcbf;
+            border: 1px solid #f6e05e;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #d69e2e;
+        }
+        
+        .planning-title {
+            color: #b7791f;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .responsibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .responsibility-table th, .responsibility-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .responsibility-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .highlight-box {
+            background-color: #fed7d7;
+            border: 1px solid #fc8181;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #e53e3e;
+        }
+        
+        .reference-box {
+            background-color: #fffaf0;
+            border: 1px solid #fbd38d;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #d69e2e;
+        }
+        
+        .reference-title {
+            color: #b7791f;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .form-box {
+            background-color: #f7fafc;
+            border: 2px dashed #cbd5e0;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .form-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .form-field {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #4a5568;
+        }
+        
+        .form-value {
+            color: #2d3748;
+            padding-left: 10px;
+        }
+        
+        .calendar-box {
+            background-color: #e6fffa;
+            border: 1px solid #81e6d9;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #38b2ac;
+        }
+        
+        .calendar-title {
+            color: #234e52;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .print-btn, .save-btn, .edit-btn, .download-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        .save-btn {
+            background-color: #3182ce;
+            color: white;
+        }
+        
+        .save-btn:hover {
+            background-color: #2c5282;
+        }
+        
+        .edit-btn {
+            background-color: #38a169;
+            color: white;
+        }
+        
+        .edit-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .download-btn {
+            background-color: #d69e2e;
+            color: white;
+        }
+        
+        .download-btn:hover {
+            background-color: #b7791f;
+        }
+
+        /* Estilo para modo edición */
+        body.editable-mode .detail-input:enabled,
+        body.editable-mode input:not([type=button]):not([type=submit]):not([type=reset]) {
+            background-color: #ffffe0;
+            border: 1px solid #fbbf24;
+        }
+
+        body.editable-mode td[contenteditable="true"],
+        body.editable-mode div[contenteditable="true"],
+        body.editable-mode p[contenteditable="true"],
+        body.editable-mode li[contenteditable="true"],
+        body.editable-mode span[contenteditable="true"],
+        body.editable-mode .form-value[contenteditable="true"] {
+            background-color: #ffffe0;
+            outline: 1px dashed #fbbf24;
+            cursor: text;
+        }
+
+        .edit-indicator {
+            display: inline-block;
+            background-color: #fbbf24;
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 20px;
+            vertical-align: middle;
+        }
+
+        /* inputs dentro del procedimiento */
+        .detail-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #a0aec0;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+            color: #2d3748;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .action-buttons {
+                display: none;
+            }
+            
+            .procedure-step {
+                page-break-inside: avoid;
+            }
+
+            .detail-input {
+                border: none;
+                background: transparent;
+                padding: 0;
+                color: black;
+                font-weight: normal;
+            }
+
+            .logo-container {
+                border: none;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+
+            .action-buttons {
+                justify-content: center;
+            }
+        }
+    </style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+</head>
+<body class="">
+<div class="document-container">
+<!-- Cabecera con logo y organización (campos editables) -->
+<div class="header">
+<div class="logo-container" id="logoContainer" title="Clique para alterar o URL do logótipo (simulado)">
+<!-- Imagen del logo con un placeholder SVG que siempre funciona -->
+<img alt="Logótipo da Organização" class="logo" id="logoImg" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name"><input class="detail-input" disabled="" id="orgNameInput" style="background:transparent; color:white; border-color:#a0aec0;" type="text" value="Sistema de Gestão Integrado (SGI)"/></div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+<input class="detail-input" disabled="" id="fechaEmision" style="width:100px; background:transparent; color:white;" type="text" value="01.12.2024"/>
+</div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+<input class="detail-input" disabled="" id="elabora" style="width:70px; background:transparent; color:white;" type="text" value="ESGI"/>
+</div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+<input class="detail-input" disabled="" id="aprueba" style="width:60px; background:transparent; color:white;" type="text" value="CEO"/>
+</div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+<input class="detail-input" disabled="" id="versionDoc" style="width:50px; background:transparent; color:white;" type="text" value="000"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Título del documento (editables) -->
+<div class="doc-title" contenteditable="false" id="docTitle">Auditorías Internas</div>
+<div class="doc-code" contenteditable="false" id="docCode">Código: PRO-004</div>
+<!-- Contenido principal -->
+<div class="content">
+<!-- Tabla de Contenidos (enlaces funcionales) -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#objetivo">Objetivo</a></li>
+<li class="toc-item"><a class="toc-link" href="#alcance">Alcance</a></li>
+<li class="toc-item"><a class="toc-link" href="#responsabilidades">Responsabilidades</a></li>
+<li class="toc-item"><a class="toc-link" href="#procedimiento">Procedimento</a></li>
+<li class="toc-item"><a class="toc-link" href="#documentacion">Documentação Relacionada</a></li>
+<li class="toc-item"><a class="toc-link" href="#referencias">Referências Normativas</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Sección 1: Objetivo (editable) -->
+<div class="section" id="objetivo">
+<div class="section-title" contenteditable="false">1. Objetivo</div>
+<div class="objective-box">
+<div class="objective-title" contenteditable="false">Propósito do Procedimento</div>
+<p contenteditable="false"><strong>O objetivo deste procedimento é estabelecer as diretrizes para planear, executar e acompanhar as auditorias internas do Sistema de Gestão Integrado (SGI) da FACASI</strong>, de acordo com os requisitos das normas ISO 9001:2015 (cláusula 9.2) e ISO 45001:2018 (cláusula 9.2). As auditorias internas realizam-se para assegurar que o sistema de gestão está a funcionar corretamente, cumprindo os requisitos legais, regulamentares e da organização, e para identificar oportunidades de melhoria contínua.</p>
+</div>
+</div>
+<!-- Sección 2: Alcance (editable) -->
+<div class="section" id="alcance">
+<div class="section-title" contenteditable="false">2. Alcance</div>
+<p contenteditable="false">Este procedimento aplica-se a todas as auditorias internas realizadas no Sistema de Gestão Integrado da FACASI, incluindo as auditorias dos processos, procedimentos e atividades que afetam o SGI, tanto em escritório como nas operações de campo.</p>
+<div class="highlight-box">
+<p contenteditable="false"><strong>Áreas abrangidas:</strong> todas as áreas relevantes da organização estão sujeitas a auditoria interna. Isto inclui os processos de qualidade e de segurança e saúde no trabalho, os processos operacionais de inspeção (END/NDT, UTM), manutenção e limpeza de tanques, bem como os processos de apoio e de direção.</p>
+</div>
+<div class="audit-box">
+<div class="audit-title" contenteditable="false">Tipos de Auditorias Incluídas</div>
+<ul class="procedure-list" contenteditable="false">
+<li contenteditable="false">Auditorias de processos do Sistema de Gestão Integrado</li>
+<li contenteditable="false">Auditorias de cumprimento de procedimentos</li>
+<li contenteditable="false">Auditorias de acompanhamento de ações corretivas</li>
+<li contenteditable="false">Auditorias específicas por norma (ISO 9001:2015 e ISO 45001:2018)</li>
+<li contenteditable="false">Auditorias integradas do SGI</li>
+</ul>
+</div>
+</div>
+<!-- Sección 3: Responsabilidades (tabla editable) -->
+<div class="section" id="responsabilidades">
+<div class="section-title" contenteditable="false">3. Responsabilidades</div>
+<table class="responsibility-table">
+<thead>
+<tr>
+<th>Função</th>
+<th>Responsabilidade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td contenteditable="false"><strong>Coordenador do SGI</strong></td>
+<td contenteditable="false">Planeia e coordena o programa de auditorias internas do SGI, assegura que os auditores são competentes, faz o acompanhamento dos resultados e garante que são implementadas as ações corretivas e preventivas.</td>
+</tr>
+<tr>
+<td contenteditable="false"><strong>Auditores Internos</strong></td>
+<td contenteditable="false">Executam as auditorias internas conforme o programa estabelecido, identificam não conformidades, recolhem evidência objetiva, elaboram os relatórios correspondentes e asseguram a imparcialidade durante a auditoria.</td>
+</tr>
+<tr>
+<td contenteditable="false"><strong>Gerentes de Área</strong></td>
+<td contenteditable="false">Colaboram durante o processo de auditoria facultando o acesso à documentação e facilitando a avaliação das suas atividades. São também responsáveis por implementar as ações corretivas e preventivas recomendadas nas suas áreas.</td>
+</tr>
+<tr>
+<td contenteditable="false"><strong>Alta Direção (CEO)</strong></td>
+<td contenteditable="false">Revê os relatórios de auditoria interna do SGI e assegura que as ações corretivas e preventivas são implementadas adequadamente, disponibilizando os recursos necessários para a melhoria contínua.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Sección 4: Procedimento (pasos editables) -->
+<div class="section" id="procedimiento">
+<div class="section-title" contenteditable="false">4. Procedimento</div>
+<p contenteditable="false">A organização implementa o seguinte processo sistemático para as auditorias internas do Sistema de Gestão Integrado:</p>
+<div class="procedure-container">
+<div class="procedure-step" contenteditable="false">
+<div class="procedure-title" contenteditable="false">Planeamento da Auditoria Interna</div>
+<div class="procedure-content" contenteditable="false">
+<p contenteditable="false">O Coordenador do SGI elabora e mantém um <strong>Programa Anual de Auditorias Internas do SGI</strong> que abrange todos os aspetos do Sistema de Gestão Integrado. O programa inclui:</p>
+<div class="planning-box">
+<div class="planning-title" contenteditable="false">Conteúdo do Programa de Auditoria</div>
+<ul class="procedure-list" contenteditable="false">
+<li contenteditable="false">Os processos e áreas a auditar dentro do Sistema de Gestão Integrado</li>
+<li contenteditable="false">A frequência das auditorias (anual, no mínimo)</li>
+<li contenteditable="false">Os auditores responsáveis e as suas competências</li>
+<li contenteditable="false">As datas programadas para a execução das auditorias</li>
+<li contenteditable="false">Os critérios de auditoria (normas ISO, procedimentos internos, requisitos legais)</li>
+</ul>
+</div>
+<div class="calendar-box">
+<div class="calendar-title" contenteditable="false">Revisão do Programa</div>
+<p contenteditable="false">O programa de auditoria é revisto anualmente ou sempre que ocorram alterações significativas nos processos ou no Sistema de Gestão Integrado, assegurando a sua adequação contínua.</p>
+</div>
+</div>
+</div>
+<div class="procedure-step" contenteditable="false">
+<div class="procedure-title" contenteditable="false">Seleção de Auditores Internos</div>
+<div class="procedure-content" contenteditable="false">
+<p contenteditable="false">Os auditores são selecionados em função da sua competência, imparcialidade e independência relativamente às atividades a auditar dentro do Sistema de Gestão Integrado.</p>
+<div class="audit-box">
+<div class="audit-title" contenteditable="false">Princípios de Imparcialidade</div>
+<p contenteditable="false">Os auditores não auditam as suas próprias atividades, de forma a garantir a objetividade e a imparcialidade da auditoria. Estabelece-se um sistema de rotação de auditores sempre que necessário. Dada a dimensão da organização (cerca de 20 colaboradores), pode recorrer-se a auditores externos qualificados para assegurar a independência.</p>
+</div>
+</div>
+</div>
+<div class="procedure-step" contenteditable="false">
+<div class="procedure-title" contenteditable="false">Execução da Auditoria</div>
+<div class="procedure-content" contenteditable="false">
+<p contenteditable="false">As auditorias internas seguem uma metodologia estruturada que inclui as seguintes etapas:</p>
+<div class="form-box">
+<div class="form-title" contenteditable="false">METODOLOGIA DE AUDITORIA</div>
+<div class="form-field">
+<div class="form-label" contenteditable="false">Planeamento da auditoria:</div>
+<div class="form-value" contenteditable="false">Definição do âmbito, objetivos, critérios e abordagem da auditoria específica</div>
+</div>
+<div class="form-field">
+<div class="form-label" contenteditable="false">Revisão da documentação:</div>
+<div class="form-value" contenteditable="false">Avaliação dos documentos e registos do SGI relacionados com a área auditada</div>
+</div>
+<div class="form-field">
+<div class="form-label" contenteditable="false">Entrevistas e observação:</div>
+<div class="form-value" contenteditable="false">Realização de entrevistas com o pessoal e observação direta dos processos em ação, incluindo acompanhamento de trabalhos de inspeção em campo</div>
+</div>
+<div class="form-field">
+<div class="form-label" contenteditable="false">Recolha de evidência objetiva:</div>
+<div class="form-value" contenteditable="false">Recolha de provas documentais e físicas que sustentem as conclusões da auditoria</div>
+</div>
+<div class="form-field">
+<div class="form-label" contenteditable="false">Reunião de encerramento:</div>
+<div class="form-value" contenteditable="false">Apresentação das constatações preliminares à área auditada antes da emissão do relatório final</div>
+</div>
+</div>
+</div>
+</div>
+<div class="procedure-step" contenteditable="false">
+<div class="procedure-title" contenteditable="false">Relatório de Auditoria</div>
+<div class="procedure-content" contenteditable="false">
+<p contenteditable="false">Após cada auditoria, os auditores elaboram um <strong>Relatório de Auditoria Interna do SGI</strong> que inclui:</p>
+<div class="planning-box">
+<div class="planning-title" contenteditable="false">Conteúdo do Relatório de Auditoria</div>
+<ul class="procedure-list" contenteditable="false">
+<li contenteditable="false">Identificação da auditoria (código, data, auditores)</li>
+<li contenteditable="false">Áreas e processos auditados dentro do Sistema de Gestão Integrado</li>
+<li contenteditable="false">Resumo das atividades realizadas durante a auditoria</li>
+<li contenteditable="false">Não conformidades identificadas (com classificação por gravidade)</li>
+<li contenteditable="false">Observações e oportunidades de melhoria encontradas</li>
+<li contenteditable="false">Recomendações para ações corretivas e preventivas</li>
+<li contenteditable="false">Conclusões e avaliação geral da área auditada</li>
+</ul>
+</div>
+<p contenteditable="false">O relatório é entregue ao Coordenador do SGI e à Alta Direção para revisão, dentro dos 5 dias úteis seguintes à conclusão da auditoria.</p>
+</div>
+</div>
+<div class="procedure-step" contenteditable="false">
+<div class="procedure-title" contenteditable="false">Ações Corretivas e Preventivas</div>
+<div class="procedure-content" contenteditable="false">
+<p contenteditable="false">O Coordenador do SGI assegura que são implementadas as ações corretivas e preventivas necessárias para tratar as não conformidades detetadas durante a auditoria.</p>
+<div class="audit-box">
+<div class="audit-title" contenteditable="false">Processo de Ações Corretivas</div>
+<ul class="procedure-list" contenteditable="false">
+<li contenteditable="false">As não conformidades são classificadas conforme a sua gravidade (crítica, maior, menor)</li>
+<li contenteditable="false">São estabelecidos prazos para a implementação das ações corretivas</li>
+<li contenteditable="false">As ações são registadas conforme o procedimento PRO-005</li>
+<li contenteditable="false">Realiza-se acompanhamento até verificar a eficácia na eliminação das causas-raiz</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="procedure-step" contenteditable="false">
+<div class="procedure-title" contenteditable="false">Acompanhamento da Auditoria</div>
+<div class="procedure-content" contenteditable="false">
+<p contenteditable="false">As não conformidades e as oportunidades de melhoria identificadas durante a auditoria são revistas periodicamente para garantir que as ações corretivas e preventivas são implementadas adequadamente.</p>
+<div class="calendar-box">
+<div class="calendar-title" contenteditable="false">Acompanhamento e Verificação</div>
+<ul class="procedure-list" contenteditable="false">
+<li contenteditable="false">São programadas auditorias de acompanhamento para verificar a implementação das ações</li>
+<li contenteditable="false">O acompanhamento é registado e atualizado no sistema de gestão</li>
+<li contenteditable="false">É avaliada a eficácia das medidas adotadas</li>
+<li contenteditable="false">Os resultados são reportados na Revisão pela Direção do SGI</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sección 5: Documentação Relacionada (editable) -->
+<div class="section" id="documentacion">
+<div class="section-title" contenteditable="false">5. Documentação Relacionada</div>
+<ul class="procedure-list" contenteditable="false">
+<li contenteditable="false">Programa Anual de Auditorias Internas do SGI</li>
+<li contenteditable="false">Formulário de Relatório de Auditoria Interna</li>
+<li contenteditable="false">Registo de Não Conformidades e Ações Corretivas</li>
+<li contenteditable="false">PRO-005 — Procedimento de Ações Corretivas</li>
+<li contenteditable="false">PRO-001 — Procedimento de Controlo de Informação Documentada</li>
+<li contenteditable="false">Plano de Competência e Formação de Auditores Internos</li>
+</ul>
+</div>
+<!-- Sección 6: Referencias Normativas -->
+<div class="section" id="referencias">
+<div class="section-title" contenteditable="false">6. Referências Normativas</div>
+<div class="reference-box">
+<div class="reference-title" contenteditable="false">Normas de Referência</div>
+<ul class="procedure-list" contenteditable="false">
+<li contenteditable="false"><strong>ISO 9001:2015</strong> — Sistema de Gestão da Qualidade (cláusula 9.2 — Auditoria interna)</li>
+<li contenteditable="false"><strong>ISO 45001:2018</strong> — Sistema de Gestão de Segurança e Saúde no Trabalho (cláusula 9.2 — Auditoria interna)</li>
+<li contenteditable="false"><strong>ISO 19011</strong> — Diretrizes para a auditoria de sistemas de gestão</li>
+<li contenteditable="false">Requisitos legais e regulamentares angolanos aplicáveis aos sistemas de gestão</li>
+</ul>
+</div>
+</div>
+<!-- Botones de acción: editar, guardar, descargar HTML, descargar PDF, imprimir -->
+<div class="action-buttons">
+<button class="edit-btn" id="editBtn"><i class="fas fa-pen"></i> MODO DE EDIÇÃO</button>
+<button class="save-btn" id="saveBtn">
+<i class="fas fa-save"></i>
+                    GUARDAR ALTERAÇÕES
+                </button>
+<button class="download-btn" id="downloadHtmlBtn">
+<i class="fas fa-code"></i>
+                    DESCARREGAR HTML
+                </button>
+<button class="download-btn" id="downloadPdfBtn" style="background-color: #c0392b;">
+<i class="fas fa-file-pdf"></i>
+                    DESCARREGAR PDF
+                </button>
+<button class="print-btn" onclick="window.print()">
+<i class="fas fa-print"></i>
+                    IMPRIMIR
+                </button>
+</div>
+<!-- Histórico de versiones (editable) -->
+<div class="version-history" id="historial">
+<div class="section-title" contenteditable="false">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th contenteditable="false">Versão</th>
+<th contenteditable="false">Data</th>
+<th contenteditable="false">Descrição</th>
+<th contenteditable="false">Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td contenteditable="false">000</td>
+<td contenteditable="false">01.12.2024</td>
+<td contenteditable="false">Original</td>
+<td contenteditable="false">CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Pie de página -->
+<div class="footer">
+<p contenteditable="false" id="footerText">Código: PRO-004 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        (function() {
+            // Elementos editables: inputs y contenteditable
+            const inputs = document.querySelectorAll('input.detail-input');
+            const contentEditables = document.querySelectorAll('[contenteditable="false"]');
+            const tableCells = document.querySelectorAll('.responsibility-table td, .version-table td, .version-table th, .form-value');
+
+            const editBtn = document.getElementById('editBtn');
+            const saveBtn = document.getElementById('saveBtn');
+            const downloadHtmlBtn = document.getElementById('downloadHtmlBtn');
+            const downloadPdfBtn = document.getElementById('downloadPdfBtn');
+
+            let editMode = false;
+
+            function toggleEditMode(enable) {
+                editMode = enable;
+                inputs.forEach(inp => inp.disabled = !enable);
+                contentEditables.forEach(el => {
+                    el.setAttribute('contenteditable', enable ? 'true' : 'false');
+                });
+                tableCells.forEach(td => {
+                    td.setAttribute('contenteditable', enable ? 'true' : 'false');
+                });
+                // párrafos dentro de cajas específicas
+                document.querySelectorAll('.objective-box p, .highlight-box p, .reference-box p, .procedure-content p, .calendar-box p, .audit-box p').forEach(p => {
+                    p.setAttribute('contenteditable', enable ? 'true' : 'false');
+                });
+                // listas
+                document.querySelectorAll('.procedure-list li').forEach(li => {
+                    li.setAttribute('contenteditable', enable ? 'true' : 'false');
+                });
+
+                if (enable) {
+                    document.body.classList.add('editable-mode');
+                    editBtn.innerHTML = '<i class="fas fa-eye"></i> MODO VISUAL';
+                } else {
+                    document.body.classList.remove('editable-mode');
+                    editBtn.innerHTML = '<i class="fas fa-pen"></i> MODO DE EDIÇÃO';
+                }
+            }
+
+            editBtn.addEventListener('click', () => {
+                toggleEditMode(!editMode);
+            });
+
+            // Guardar en localStorage algunos campos clave
+            saveBtn.addEventListener('click', () => {
+                const data = {
+                    orgName: document.getElementById('orgNameInput').value,
+                    fechaEmision: document.getElementById('fechaEmision').value,
+                    elabora: document.getElementById('elabora').value,
+                    aprueba: document.getElementById('aprueba').value,
+                    versionDoc: document.getElementById('versionDoc').value,
+                    docTitle: document.getElementById('docTitle').innerText,
+                    docCode: document.getElementById('docCode').innerText,
+                    footer: document.getElementById('footerText').innerText,
+                };
+                localStorage.setItem('PRO-004-data', JSON.stringify(data));
+                alert('Dados básicos guardados no localStorage. Os textos editáveis mantêm-se enquanto a página não for recarregada.');
+                if (editMode) toggleEditMode(false);
+            });
+
+            // Cargar datos guardados
+            function loadSaved() {
+                const saved = localStorage.getItem('PRO-004-data');
+                if (saved) {
+                    try {
+                        const data = JSON.parse(saved);
+                        if (data.orgName) document.getElementById('orgNameInput').value = data.orgName;
+                        if (data.fechaEmision) document.getElementById('fechaEmision').value = data.fechaEmision;
+                        if (data.elabora) document.getElementById('elabora').value = data.elabora;
+                        if (data.aprueba) document.getElementById('aprueba').value = data.aprueba;
+                        if (data.versionDoc) document.getElementById('versionDoc').value = data.versionDoc;
+                        if (data.docTitle) document.getElementById('docTitle').innerText = data.docTitle;
+                        if (data.docCode) document.getElementById('docCode').innerText = data.docCode;
+                        if (data.footer) document.getElementById('footerText').innerText = data.footer;
+                    } catch (e) {}
+                }
+            }
+            loadSaved();
+
+            // Descargar HTML
+            function downloadAsHtml() {
+                const htmlContent = document.documentElement.outerHTML;
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'PRO-004-Auditorias-Internas.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+            downloadHtmlBtn.addEventListener('click', downloadAsHtml);
+
+            // Descargar PDF (impresión)
+            downloadPdfBtn.addEventListener('click', () => {
+                window.print();
+            });
+
+            // Logo interactivo
+            document.getElementById('logoContainer').addEventListener('click', () => {
+                const newUrl = prompt('Introduza o URL da nova imagem do logótipo (pode ser um URL da internet ou data:image):', document.getElementById('logoImg').src);
+                if (newUrl) {
+                    document.getElementById('logoImg').src = newUrl;
+                }
+            });
+
+            // Scroll suave en TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Inicialmente modo no-edición
+            toggleEditMode(false);
+        })();
+    </script>
+</body></html>

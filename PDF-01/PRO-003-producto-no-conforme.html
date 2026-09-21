@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PRO-003 - Controlo de Saídas Não Conformes - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        /* Barra de herramientas superior */
+        .toolbar {
+            max-width: 1400px;
+            margin: 0 auto 15px auto;
+            background-color: #2d3748;
+            border-radius: 40px;
+            padding: 12px 25px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: flex-end;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .toolbar button {
+            background-color: #edf2f7;
+            border: none;
+            color: #2d3748;
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        
+        .toolbar button:hover {
+            background-color: #cbd5e0;
+            transform: scale(1.02);
+        }
+        
+        .toolbar button.editar-activo {
+            background-color: #38a169;
+            color: white;
+        }
+        
+        .toolbar button i { font-style: normal; font-size: 1.2em; }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        /* Resaltado cuando la edición está activa */
+        .content.editable-active {
+            outline: 3px dashed #38a169;
+            outline-offset: 8px;
+            background-color: #fffff0;
+            border-radius: 12px;
+            transition: outline 0.2s;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-subtitle {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+        }
+        
+        .objective-box {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .objective-title {
+            color: #276749;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .procedure-container {
+            margin: 25px 0;
+        }
+        
+        .procedure-step {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            counter-increment: step-counter;
+        }
+        
+        .procedure-step::before {
+            content: counter(step-counter) ".";
+            color: #4a5568;
+            font-weight: bold;
+            font-size: 20px;
+            margin-right: 10px;
+        }
+        
+        .procedure-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #cbd5e0;
+        }
+        
+        .procedure-content {
+            line-height: 1.7;
+        }
+        
+        .procedure-list {
+            list-style-type: none;
+            margin-top: 15px;
+        }
+        
+        .procedure-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .procedure-list li:before {
+            content: "•";
+            color: #4a5568;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .nonconformity-box {
+            background-color: #fed7d7;
+            border: 1px solid #fc8181;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #e53e3e;
+        }
+        
+        .nonconformity-title {
+            color: #c53030;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .action-box {
+            background-color: #c6f6d5;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .action-title {
+            color: #276749;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .responsibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .responsibility-table th, .responsibility-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .responsibility-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .highlight-box {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .reference-box {
+            background-color: #fffaf0;
+            border: 1px solid #fbd38d;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #d69e2e;
+        }
+        
+        .reference-title {
+            color: #b7791f;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .form-box {
+            background-color: #f7fafc;
+            border: 2px dashed #cbd5e0;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .form-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .form-field {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #4a5568;
+        }
+        
+        .form-value {
+            color: #2d3748;
+            padding-left: 10px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .toolbar, .print-btn {
+                display: none !important;
+            }
+            
+            .procedure-step {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .toolbar {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Barra de herramientas (botones) -->
+<div class="toolbar">
+<button id="btnEditar" title="Ativar/desativar edição do conteúdo">
+<i>✎</i> Editar
+        </button>
+<button id="btnHtml" title="Descarregar o documento como ficheiro HTML">
+<i>⬇️</i> Descarregar HTML
+        </button>
+<button id="btnPdf" title="Guardar como PDF (usar impressora → guardar como PDF)">
+<i>📄</i> Descarregar PDF
+        </button>
+</div>
+<div class="document-container">
+<!-- Cabeçalho com logo e informações da organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        Pendente de validação
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título do documento -->
+<div class="doc-title">Controlo de Saídas Não Conformes</div>
+<div class="doc-code">Código: PRO-003</div>
+<!-- Conteúdo principal (editable) -->
+<div class="content" id="mainContent">
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#objetivo">Objetivo</a></li>
+<li class="toc-item"><a class="toc-link" href="#alcance">Alcance</a></li>
+<li class="toc-item"><a class="toc-link" href="#responsabilidades">Responsabilidades</a></li>
+<li class="toc-item"><a class="toc-link" href="#procedimiento">Procedimento</a></li>
+<li class="toc-item"><a class="toc-link" href="#documentacion">Documentação Relacionada</a></li>
+<li class="toc-item"><a class="toc-link" href="#referencias">Referências Normativas</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Sección 1: Objetivo -->
+<div class="section" id="objetivo">
+<div class="section-title">1. Objetivo</div>
+<div class="objective-box">
+<div class="objective-title">Propósito do Procedimento</div>
+<p><strong>O objetivo deste procedimento é definir o processo para a identificação, controlo e tratamento de saídas não conformes (serviços e respetivos resultados) no Sistema de Gestão Integrado (SGI) da FACASI</strong>, de acordo com os requisitos da norma <strong>ISO 9001:2015</strong> (cláusula 8.7 — Controlo de saídas não conformes). Este procedimento assegura que os serviços não conformes são geridos adequadamente para evitar a sua entrega ou utilização indevida e para promover a melhoria contínua.</p>
+</div>
+</div>
+<!-- Sección 2: Alcance -->
+<div class="section" id="alcance">
+<div class="section-title">2. Alcance</div>
+<p>Este procedimento é aplicável a todos os serviços prestados pela FACASI que não cumpram os requisitos especificados — inspeção industrial, END/NDT, UTM, manutenção, reparação, logística, apoio a operações e limpeza de tanques — bem como aos relatórios técnicos e certificados de inspeção deles resultantes.</p>
+<div class="highlight-box">
+<p><strong>Fases abrangidas:</strong> planeamento do trabalho, execução em campo, elaboração e revisão do relatório de inspeção, entrega ao cliente e acompanhamento pós-serviço, ou qualquer outra fase em que se detete uma não conformidade.</p>
+</div>
+<div class="nonconformity-box">
+<div class="nonconformity-title">Definição de Saída Não Conforme</div>
+<p>Considera-se saída não conforme aquela que não cumpre os requisitos especificados nas ordens de trabalho, especificações técnicas, normas de inspeção aplicáveis, requisitos contratuais do cliente ou regulamentação de segurança e saúde no trabalho estabelecidos no SGI. Inclui, por exemplo: inspeção realizada com equipamento fora de calibração, ensaio executado por técnico sem a qualificação exigida, relatório com erros ou dados em falta, ou trabalho executado fora do método especificado.</p>
+</div>
+</div>
+<!-- Sección 3: Responsabilidades -->
+<div class="section" id="responsabilidades">
+<div class="section-title">3. Responsabilidades</div>
+<table class="responsibility-table">
+<thead>
+<tr>
+<th>Função</th>
+<th>Responsabilidade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Coordenador do SGI</strong></td>
+<td>Assegurar que este procedimento é corretamente implementado em todos os processos do SGI, supervisionando a identificação e o tratamento das saídas não conformes, e autorizando as disposições finais.</td>
+</tr>
+<tr>
+<td><strong>Gerente de Operações</strong></td>
+<td>Avaliar tecnicamente a não conformidade detetada, decidir sobre a repetição do trabalho e assegurar os recursos necessários à sua correção.</td>
+</tr>
+<tr>
+<td><strong>Coordenador/Fiscalizador</strong></td>
+<td>Identificar e reportar as saídas não conformes detetadas em campo, suspendendo a continuação do trabalho quando necessário e assegurando que o resultado não conforme não é entregue ao cliente.</td>
+</tr>
+<tr>
+<td><strong>Operários</strong></td>
+<td>Interromper a execução do trabalho quando detetam uma não conformidade e colaborar na sua documentação conforme este procedimento.</td>
+</tr>
+<tr>
+<td><strong>Gerente Comercial</strong></td>
+<td>Comunicar ao cliente, quando aplicável, a não conformidade detetada e as medidas adotadas, incluindo pedidos de concessão.</td>
+</tr>
+<tr>
+<td><strong>Auditores Internos</strong></td>
+<td>Verificar a implementação deste procedimento durante as auditorias internas, assegurando o acompanhamento e a eficácia das ações corretivas.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Sección 4: Procedimento -->
+<div class="section" id="procedimiento">
+<div class="section-title">4. Procedimento</div>
+<p>A organização implementa o seguinte processo sistemático para o controlo de saídas não conformes dentro do Sistema de Gestão Integrado:</p>
+<div class="procedure-container">
+<div class="procedure-step">
+<div class="procedure-title">Identificação da Saída Não Conforme</div>
+<div class="procedure-content">
+<p>Uma saída é considerada não conforme quando não cumpre os requisitos especificados na ordem de trabalho, nas normas de inspeção aplicáveis, nos requisitos contratuais do cliente ou na regulamentação de segurança do SGI.</p>
+<div class="action-box">
+<div class="action-title">Ação Imediata</div>
+<p>O trabalho ou o relatório afetado é imediatamente identificado como "NÃO CONFORME" e retido, de forma a impedir a sua entrega ao cliente ou a continuação da atividade. Quando a não conformidade envolva risco para a segurança, o trabalho é suspenso de imediato.</p>
+</div>
+</div>
+</div>
+<div class="procedure-step">
+<div class="procedure-title">Retenção e Controlo</div>
+<div class="procedure-content">
+<p>Os relatórios, certificados ou resultados de inspeção não conformes são retidos e claramente assinalados no sistema de gestão documental, ficando impedida a sua emissão ou distribuição até à resolução da não conformidade. Quando existam materiais ou equipamentos do cliente envolvidos, estes são segregados e identificados em local próprio.</p>
+</div>
+</div>
+<div class="procedure-step">
+<div class="procedure-title">Registo da Saída Não Conforme</div>
+<div class="procedure-content">
+<p>As saídas não conformes são registadas no formulário correspondente, que inclui a seguinte informação:</p>
+<div class="form-box">
+<div class="form-title">FORMULÁRIO DE REGISTO DE SAÍDA NÃO CONFORME</div>
+<div class="form-field">
+<div class="form-label">Descrição do serviço/resultado:</div>
+<div class="form-value">________________________________</div>
+</div>
+<div class="form-field">
+<div class="form-label">Ordem de trabalho / código do relatório:</div>
+<div class="form-value">________________________________</div>
+</div>
+<div class="form-field">
+<div class="form-label">Cliente e local de execução:</div>
+<div class="form-value">________________________________</div>
+</div>
+<div class="form-field">
+<div class="form-label">Descrição da não conformidade:</div>
+<div class="form-value">________________________________</div>
+</div>
+<div class="form-field">
+<div class="form-label">Causa identificada:</div>
+<div class="form-value">________________________________</div>
+</div>
+<div class="form-field">
+<div class="form-label">Responsável pela identificação:</div>
+<div class="form-value">________________________________</div>
+</div>
+<div class="form-field">
+<div class="form-label">Data de identificação:</div>
+<div class="form-value">________________________________</div>
+</div>
+</div>
+</div>
+</div>
+<div class="procedure-step">
+<div class="procedure-title">Avaliação da Não Conformidade</div>
+<div class="procedure-content">
+<p>O Coordenador do SGI, em conjunto com o Gerente de Operações e o pessoal técnico, avalia a causa da não conformidade e determina se se trata de uma ocorrência isolada ou de um problema sistemático no processo.</p>
+<div class="nonconformity-box">
+<div class="nonconformity-title">Disposições Possíveis</div>
+<ul class="procedure-list">
+<li><strong>Correção:</strong> correção do relatório ou do resultado para cumprir os requisitos</li>
+<li><strong>Repetição do trabalho:</strong> nova execução da inspeção ou intervenção, quando a anterior não seja validável</li>
+<li><strong>Concessão:</strong> aceitação excecional mediante autorização expressa e documentada do cliente</li>
+<li><strong>Anulação:</strong> anulação do relatório ou certificado emitido, com comunicação formal ao cliente</li>
+</ul>
+<p style="margin-top:10px;"><em>Quando um relatório ou certificado de inspeção já entregue ao cliente seja considerado não conforme, a FACASI comunica formalmente o facto ao cliente e procede à sua substituição ou anulação.</em></p>
+</div>
+</div>
+</div>
+<div class="procedure-step">
+<div class="procedure-title">Ações Corretivas</div>
+<div class="procedure-content">
+<p>Quando se deteta uma tendência ou causa recorrente de saídas não conformes, é iniciada uma ação corretiva conforme o Procedimento de Ações Corretivas (PRO-005). Isto implica analisar o processo, identificar a causa-raiz e aplicar medidas para a eliminar.</p>
+<div class="action-box">
+<div class="action-title">Acompanhamento das Ações</div>
+<p>As ações corretivas são registadas e acompanhadas até ao seu encerramento, assegurando que a solução implementada é eficaz e previne a recorrência.</p>
+</div>
+</div>
+</div>
+<div class="procedure-step">
+<div class="procedure-title">Tratamento de Resíduos e Materiais</div>
+<div class="procedure-content">
+<p>Quando a não conformidade envolva materiais ou consumíveis que devam ser descartados, a sua eliminação é feita de acordo com os procedimentos estabelecidos e a legislação angolana aplicável.</p>
+<div class="nonconformity-box">
+<div class="nonconformity-title">Considerações Especiais</div>
+<p>Caso existam resíduos com potencial impacto ambiental ou risco para a segurança e saúde — por exemplo, resíduos resultantes de limpeza de tanques ou produtos químicos — assegura-se que a sua eliminação cumpre a regulamentação vigente e não representa risco para as pessoas.</p>
+</div>
+</div>
+</div>
+<div class="procedure-step">
+<div class="procedure-title">Acompanhamento e Encerramento</div>
+<div class="procedure-content">
+<p>As saídas não conformes são revistas periodicamente e o processo é auditado para garantir o seu cumprimento correto dentro do SGI.</p>
+<div class="action-box">
+<div class="action-title">Encerramento do Registo</div>
+<p>Uma vez tomada a ação corretiva ou concluída a disposição final, regista-se o encerramento da ocorrência, atualizando o estado no Formulário de Registo de Saída Não Conforme.</p>
+</div>
+</div>
+</div>
+<div class="procedure-step">
+<div class="procedure-title">Relatório de Saídas Não Conformes</div>
+<div class="procedure-content">
+<p>É gerado um relatório periódico que inclui um resumo das saídas não conformes identificadas, as ações tomadas e os resultados obtidos.</p>
+<div class="highlight-box">
+<p><strong>Revisão pela Direção:</strong> este relatório é revisto pela alta direção durante as revisões do SGI, para avaliar tendências, a eficácia do processo de gestão de não conformidades e as oportunidades de melhoria.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sección 5: Documentação Relacionada -->
+<div class="section" id="documentacion">
+<div class="section-title">5. Documentação Relacionada</div>
+<ul class="procedure-list">
+<li>Formulário de Registo de Saída Não Conforme</li>
+<li>Registo de Ações Corretivas</li>
+<li>PRO-005 — Procedimento de Ações Corretivas</li>
+<li>PRO-004 — Procedimento de Auditorias Internas</li>
+<li>PRO-001 — Procedimento de Controlo de Informação Documentada</li>
+<li>Manual do Sistema de Gestão Integrado</li>
+</ul>
+</div>
+<!-- Sección 6: Referencias Normativas -->
+<div class="section" id="referencias">
+<div class="section-title">6. Referências Normativas</div>
+<div class="reference-box">
+<div class="reference-title">Normas de Referência</div>
+<ul class="procedure-list">
+<li><strong>ISO 9001:2015</strong> — Sistemas de Gestão da Qualidade (cláusula 8.7 — Controlo de saídas não conformes; cláusula 10.2 — Não conformidade e ação corretiva)</li>
+<li><strong>ISO 45001:2018</strong> — Sistemas de Gestão de Segurança e Saúde no Trabalho (cláusula 10.2), quando a não conformidade tenha implicações de SST</li>
+<li>Requisitos legais e regulamentares angolanos aplicáveis</li>
+<li>Especificações técnicas e contratuais dos serviços prestados e normas de inspeção aplicáveis</li>
+</ul>
+</div>
+</div>
+<!-- Botón de impresión original (lo mantenemos) -->
+<button class="print-btn" onclick="window.print()">📄 Imprimir documento</button>
+<!-- Histórico de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>Pendente de validação</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div> <!-- fin .content -->
+<!-- Rodapé -->
+<div class="footer">
+<p>Código: PRO-003 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div> <!-- fin .document-container -->
+<script>
+        (function() {
+            // Elementos de la barra de herramientas
+            const contentEl = document.getElementById('mainContent');
+            const btnEditar = document.getElementById('btnEditar');
+            const btnHtml = document.getElementById('btnHtml');
+            const btnPdf = document.getElementById('btnPdf');
+
+            // Estado de edición
+            let editable = false;
+
+            function toggleEdicion() {
+                editable = !editable;
+                if (editable) {
+                    contentEl.setAttribute('contenteditable', 'true');
+                    contentEl.classList.add('editable-active');
+                    btnEditar.classList.add('editar-activo');
+                    btnEditar.innerHTML = '<i>🔒</i> Desativar edição';
+                } else {
+                    contentEl.removeAttribute('contenteditable');
+                    contentEl.classList.remove('editable-active');
+                    btnEditar.classList.remove('editar-activo');
+                    btnEditar.innerHTML = '<i>✎</i> Editar';
+                }
+            }
+
+            btnEditar.addEventListener('click', toggleEdicion);
+
+            // Descargar HTML
+            function descargarHTML() {
+                const styles = document.querySelector('style').innerHTML;
+                const containerHTML = document.querySelector('.document-container').outerHTML;
+                const htmlCompleto = `<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRO-003 Controlo de Saídas Não Conformes - SGI</title>
+    <style>${styles}</style>
+</head>
+<body>
+    ${containerHTML}
+</body>
+</html>`;
+
+                const blob = new Blob([htmlCompleto], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'PRO-003_control_producto_no_conforme.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+
+            btnHtml.addEventListener('click', descargarHTML);
+
+            // PDF (impresión)
+            btnPdf.addEventListener('click', function() {
+                window.print();
+            });
+
+            // Scroll suave para enlaces del TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Logo fallback
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGÓTIPO DA ORGANIZAÇÃO</text></svg>';
+                    console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+                };
+            }
+
+            // Reiniciar contadores de CSS (por si acaso)
+            document.body.style.counterReset = 'section-counter step-counter';
+        })();
+    </script>
+</body>
+</html>

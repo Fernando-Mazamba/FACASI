@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DOC-010 Propriedade do cliente - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        /* Barra de herramientas */
+        .toolbar {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            padding: 15px 40px;
+            background-color: #e2e8f0;
+            border-bottom: 2px solid #4a5568;
+        }
+        
+        .toolbar-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.3s, transform 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .toolbar-btn:hover {
+            background-color: #718096;
+        }
+        
+        .toolbar-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-subtitle {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+        }
+        
+        .intro-text {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4a5568;
+            font-size: 16px;
+        }
+        
+        .protocol-item {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .protocol-number {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background-color: #4a5568;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .protocol-title {
+            color: #2d3748;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-top: 5px;
+        }
+        
+        .protocol-content {
+            line-height: 1.7;
+        }
+        
+        .protocol-list {
+            list-style-type: none;
+            margin-top: 15px;
+            margin-left: 15px;
+        }
+        
+        .protocol-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .protocol-list li:before {
+            content: "•";
+            color: #4a5568;
+            font-weight: bold;
+            font-size: 18px;
+            position: absolute;
+            left: 0;
+        }
+        
+        .checklist-container {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .checklist-title {
+            color: #276749;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #c6f6d5;
+        }
+        
+        .checklist-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .checklist-number {
+            background-color: #38a169;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .checklist-text {
+            flex-grow: 1;
+            line-height: 1.6;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Indicador visual de modo edición */
+        .editable-active [contenteditable="true"] {
+            outline: 2px dashed #4a5568;
+            outline-offset: 4px;
+            background-color: #fffff0;
+            transition: outline 0.2s, background-color 0.2s;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .toolbar {
+                display: none;
+            }
+            
+            .protocol-item {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .checklist-item {
+                flex-direction: column;
+            }
+            
+            .checklist-number {
+                margin-bottom: 10px;
+            }
+            
+            .toolbar {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabecera con logo e información de la organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Barra de herramientas con nuevas opciones -->
+<div class="toolbar">
+<button class="toolbar-btn" id="printBtn" onclick="window.print()">
+                🖨️ Imprimir
+            </button>
+<button class="toolbar-btn" id="downloadBtn">
+                ⬇️ Descarregar HTML
+            </button>
+<button class="toolbar-btn" id="editBtn">
+                ✏️ Editar conteúdo
+            </button>
+</div>
+<!-- Título del documento (parte del área editable) -->
+<div class="doc-title">Protocolo de Proteção da Propriedade do cliente</div>
+<div class="doc-code">Código: DOC-010</div>
+<!-- Contenido principal (área editable) -->
+<div class="content">
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#introduccion">Introdução</a></li>
+<li class="toc-item"><a class="toc-link" href="#protocolo">Protocolo de Proteção da Propriedade do cliente</a></li>
+<li class="toc-item"><a class="toc-link" href="#checklist">Check List para a Proteção da Propriedade do cliente</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Sección Introducción -->
+<div class="section" id="introduccion">
+<div class="section-title">Introdução</div>
+<div class="intro-text">
+<p>Este documento estabelece o protocolo de proteção da propriedade do cliente, de acordo com os requisitos da norma ISO 9001. A propriedade do cliente inclui bens tangíveis, documentos, informação e outros ativos fornecidos pelos clientes que se encontrem sob custódia durante a prestação de serviços. Este protocolo garante que esses ativos são protegidos contra dano, perda ou mau uso, promovendo a confiança e a satisfação do cliente.</p>
+</div>
+</div>
+<!-- Sección Protocolo -->
+<div class="section" id="protocolo">
+<div class="section-title">Protocolo de Proteção da Propriedade do cliente</div>
+<!-- Punto 1 -->
+<div class="protocol-item">
+<div class="protocol-number">1</div>
+<div class="protocol-title">Identificação da Propriedade do cliente</div>
+<div class="protocol-content">
+<ul class="protocol-list">
+<li>Toda a propriedade recebida será registada com detalhes claros que incluam descrição, estado inicial e responsável designado pela sua custódia.</li>
+<li>A propriedade será etiquetada ou registada através de códigos ou sistemas de rastreabilidade para facilitar o seu controlo dentro das instalações.</li>
+</ul>
+</div>
+</div>
+<!-- Punto 2 -->
+<div class="protocol-item">
+<div class="protocol-number">2</div>
+<div class="protocol-title">Armazenamento Seguro</div>
+<div class="protocol-content">
+<ul class="protocol-list">
+<li>Os bens físicos serão armazenados em áreas designadas, seguras e protegidas contra riscos como danos físicos, acesso não autorizado ou condições ambientais adversas.</li>
+<li>Os documentos e a informação confidencial serão resguardados conforme as políticas internas de tratamento de dados, em locais seguros e acessíveis apenas ao pessoal autorizado.</li>
+</ul>
+</div>
+</div>
+<!-- Punto 3 -->
+<div class="protocol-item">
+<div class="protocol-number">3</div>
+<div class="protocol-title">Controlo e Manutenção</div>
+<div class="protocol-content">
+<ul class="protocol-list">
+<li>Realizar-se-ão inspeções periódicas da propriedade para verificar o seu estado durante a sua custódia.</li>
+<li>Caso se identifique a necessidade de manutenção, o cliente será informado para autorização antes de qualquer intervenção.</li>
+</ul>
+</div>
+</div>
+<!-- Punto 4 -->
+<div class="protocol-item">
+<div class="protocol-number">4</div>
+<div class="protocol-title">Control de Documentação e Informação</div>
+<div class="protocol-content">
+<ul class="protocol-list">
+<li>A informação e a documentação do cliente serão tratadas com estrita confidencialidade, em conformidade com as políticas de proteção de dados.</li>
+<li>Implementar-se-á um sistema de classificação para garantir a segurança e o fácil acesso aos dados, minimizando riscos de perda ou acesso indevido.</li>
+</ul>
+</div>
+</div>
+<!-- Punto 5 -->
+<div class="protocol-item">
+<div class="protocol-number">5</div>
+<div class="protocol-title">Notificação de Danos ou Perdas</div>
+<div class="protocol-content">
+<ul class="protocol-list">
+<li>Se ocorrer um dano, perda ou qualquer incidente relacionado com a propriedade do cliente, o cliente afetado será notificado de imediato.</li>
+<li>Se registrará o incidente no sistema de qualidade, se analizarán as causas e se aplicarán ações corretivas para evitar recurrencias.</li>
+</ul>
+</div>
+</div>
+<!-- Punto 6 -->
+<div class="protocol-item">
+<div class="protocol-number">6</div>
+<div class="protocol-title">Devolução da Propriedade</div>
+<div class="protocol-content">
+<ul class="protocol-list">
+<li>Ao finalizar os serviços, a propriedade será devolvida ao cliente nas condições originais em que foi recebida.</li>
+<li>Registar-se-á formalmente o processo de devolução, verificando a conformidade com os registos iniciais e documentando qualquer anomalia.</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Sección Checklist -->
+<div class="section" id="checklist">
+<div class="section-title">Anexo: Check List para a Proteção da Propriedade do cliente</div>
+<div class="checklist-container">
+<div class="checklist-title">Verificação do cumprimento do protocolo</div>
+<p>Esta lista de verificação ajudará a verificar o cumprimento dos passos do protocolo ao receber e custodiar a propriedade do cliente.</p>
+<div class="checklist-item">
+<div class="checklist-number">1</div>
+<div class="checklist-text">A propriedade do cliente foi registada, incluindo a sua descrição e estado inicial?</div>
+</div>
+<div class="checklist-item">
+<div class="checklist-number">2</div>
+<div class="checklist-text">A propriedade está claramente identificada com etiquetas ou registos de rastreabilidade?</div>
+</div>
+<div class="checklist-item">
+<div class="checklist-number">3</div>
+<div class="checklist-text">A propriedade está armazenada numa área segura e protegida, acessível apenas ao pessoal autorizado?</div>
+</div>
+<div class="checklist-item">
+<div class="checklist-number">4</div>
+<div class="checklist-text">Realizam-se inspeções periódicas para verificar o estado da propriedade?</div>
+</div>
+<div class="checklist-item">
+<div class="checklist-number">5</div>
+<div class="checklist-text">Foram implementadas medidas de controlo e armazenamento adequadas para documentos e informação confidencial?</div>
+</div>
+<div class="checklist-item">
+<div class="checklist-number">6</div>
+<div class="checklist-text">Existe um processo documentado para notificar o cliente em caso de danos ou perda da propriedade?</div>
+</div>
+<div class="checklist-item">
+<div class="checklist-number">7</div>
+<div class="checklist-text">Verificou-se o estado da propriedade antes da devolução ao cliente?</div>
+</div>
+<div class="checklist-item">
+<div class="checklist-number">8</div>
+<div class="checklist-text">A propriedade foi devolvida no mesmo estado em que foi recebida e registou-se a entrega final?</div>
+</div>
+</div>
+</div>
+<!-- Historial de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Pie de página (también editable) -->
+<div class="footer">
+<p>Código: DOC-010 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        // Configurar scroll suave para los enlaces del TOC
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Verifica si el logo existe, caso contrario muestra un placeholder
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                    console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+                };
+            }
+            
+            // Configurar contador de secciones
+            document.body.style.counterReset = 'section-counter';
+        });
+
+        // Función para descargar el HTML actual
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            // Obtener el HTML completo de la página (estado actual, con ediciones)
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'DOC-010-Propiedad-del-cliente.html'; // Nombre del archivo
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        // Función para activar/desactivar modo edición
+        const editBtn = document.getElementById('editBtn');
+        let editModeActive = false;
+
+        // Elementos que serán editables (todo el texto del documento, excepto botones y logo)
+        const editableElements = [
+            document.querySelector('.org-info'),
+            document.querySelector('.doc-title'),
+            document.querySelector('.doc-code'),
+            document.querySelector('.content'),
+            document.querySelector('.footer')
+        ].filter(el => el !== null); // Filtrar elementos que existan
+
+        // También hacemos editable el .org-name y .doc-info por separado si es necesario,
+        // pero ya están dentro de .org-info. Incluimos también la cabecera de la tabla de versiones
+        // y cualquier otro texto. .content ya contiene casi todo.
+
+        editBtn.addEventListener('click', function() {
+            editModeActive = !editModeActive;
+            
+            editableElements.forEach(el => {
+                if (editModeActive) {
+                    el.setAttribute('contenteditable', 'true');
+                } else {
+                    el.removeAttribute('contenteditable');
+                }
+            });
+            
+            // Añadir o quitar una clase al body para dar feedback visual
+            if (editModeActive) {
+                document.body.classList.add('editable-active');
+                editBtn.innerHTML = '🔒 Terminar edição';
+                editBtn.style.backgroundColor = '#c53030'; // rojo para indicar modo activo
+            } else {
+                document.body.classList.remove('editable-active');
+                editBtn.innerHTML = '✏️ Editar conteúdo';
+                editBtn.style.backgroundColor = '#4a5568'; // color original
+            }
+        });
+    </script>
+</body>
+</html>

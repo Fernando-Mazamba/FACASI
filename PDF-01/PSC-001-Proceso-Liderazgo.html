@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PSC-001 processo de Liderazgo - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c3e50;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c3e50;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #2c3e50;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #2c3e50;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #3498db;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-subtitle {
+            color: #34495e;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #2c3e50;
+        }
+        
+        .intro-text {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #2c3e50;
+            font-size: 16px;
+        }
+        
+        .process-matrix {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            border: 1px solid #ddd;
+        }
+        
+        .process-matrix th {
+            background-color: #2c3e50;
+            color: white;
+            font-weight: bold;
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #1a252f;
+        }
+        
+        .process-matrix td {
+            padding: 15px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+        
+        .process-matrix tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .resources-list {
+            list-style-type: none;
+            margin: 15px 0;
+        }
+        
+        .resources-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .resources-list li:before {
+            content: "•";
+            color: #2c3e50;
+            font-weight: bold;
+            font-size: 18px;
+            position: absolute;
+            left: 0;
+        }
+        
+        .indicator-box {
+            background-color: #ecf0f1;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        
+        .indicator-title {
+            color: #2c3e50;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .indicator-formula {
+            background-color: white;
+            padding: 15px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            border-left: 4px solid #3498db;
+        }
+        
+        .threshold-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        .threshold-table th, .threshold-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .threshold-table th {
+            background-color: #2c3e50;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .threshold-acceptable {
+            background-color: #d5f4e6;
+        }
+        
+        .threshold-marginal {
+            background-color: #fffacd;
+        }
+        
+        .threshold-unacceptable {
+            background-color: #ffcccb;
+        }
+        
+        .risks-opportunities-section {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .ro-item {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .ro-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .ro-title {
+            color: #2c3e50;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .ro-description {
+            margin-bottom: 15px;
+        }
+        
+        .ro-actions {
+            background-color: #e8f4fc;
+            padding: 15px;
+            border-radius: 3px;
+            margin-top: 10px;
+        }
+        
+        .ref-docs {
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        
+        .ref-list {
+            list-style-type: none;
+        }
+        
+        .ref-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .ref-list li:before {
+            content: "▸";
+            color: #2c3e50;
+            position: absolute;
+            left: 0;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2c3e50;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c3e50;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #34495e;
+        }
+
+        /* --- NUEVOS ESTILOS PARA BOTONES DE ACCIÓN Y EDICIÓN --- */
+        .action-bar {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background-color: #34495e;
+        }
+
+        .btn-success {
+            background-color: #27ae60;
+        }
+
+        .btn-success:hover {
+            background-color: #2ecc71;
+        }
+
+        .btn-warning {
+            background-color: #e67e22;
+        }
+
+        .btn-warning:hover {
+            background-color: #f39c12;
+        }
+
+        .editable-highlight {
+            outline: 2px dashed #3498db;
+            background-color: #f0f8ff;
+            transition: all 0.2s;
+            cursor: text;
+        }
+
+        /* Indicador visual de modo edición */
+        .edit-mode-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #e67e22;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .edit-mode-indicator.active {
+            display: flex;
+        }
+
+        /* Ajustes para impresión */
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .action-bar, .print-btn, .edit-mode-indicator {
+                display: none !important;
+            }
+            
+            .process-matrix {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+
+            .action-bar {
+                justify-content: center;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .process-matrix {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+        
+        .editable {
+            border-bottom: 1px dashed #3498db;
+            padding: 2px 4px;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+        
+        .editable:hover {
+            background-color: #f0f8ff;
+        }
+        
+        .editable:focus {
+            outline: 2px solid #3498db;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabeçalho com logo e informações da organização -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        Pendente de validação
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        002
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título do documento -->
+<div class="doc-title">processo de Liderazgo - Sistema de Gestão Integrado</div>
+<div class="doc-code">Código: PSC-001</div>
+<!-- Barra de acciones (descargar y editar) - NUEVA -->
+<div class="content" style="padding-top: 0;">
+<div class="action-bar">
+<button class="btn btn-success" id="downloadBtn">
+<span style="font-size: 1.2em;">⬇️</span> Descarregar HTML
+                </button>
+<button class="btn btn-warning" id="editToggleBtn">
+<span style="font-size: 1.2em;">✎</span> Ativar edição completa
+                </button>
+<button class="print-btn" onclick="window.print()">
+<span style="font-size: 1.2em;">🖨️</span> Imprimir
+                </button>
+</div>
+</div>
+<!-- Indicador de modo edición (flotante) -->
+<div class="edit-mode-indicator" id="editModeIndicator">
+<span style="font-size: 1.2em;">✎</span> Modo de edição ativado
+        </div>
+<!-- Conteúdo principal -->
+<div class="content">
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#objetivo">Objetivo do processo</a></li>
+<li class="toc-item"><a class="toc-link" href="#alcance">Alcance do processo</a></li>
+<li class="toc-item"><a class="toc-link" href="#matriz">Matriz do processo</a></li>
+<li class="toc-item"><a class="toc-link" href="#recursos">Recursos do processo</a></li>
+<li class="toc-item"><a class="toc-link" href="#seguimiento">acompanhamento e indicadores</a></li>
+<li class="toc-item"><a class="toc-link" href="#riesgos">Análise e avaliação de riscos</a></li>
+<li class="toc-item"><a class="toc-link" href="#oportunidades">Análise e avaliação de oportunidades</a></li>
+<li class="toc-item"><a class="toc-link" href="#referencia">Documentação de Referencia</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Sección 1: Objetivo -->
+<div class="section" id="objetivo">
+<div class="section-title">1. Objetivo do Processo</div>
+<div class="intro-text">
+<p>O objetivo do processo de Liderança é garantir o compromisso e a direção estratégica da Alta Direção na implementação, acompanhamento e melhoria contínua do Sistema de Gestão Integrado (SGI) da FACASI. Este processo assegura que todos os níveis da organização trabalham alinhados com os objetivos de qualidade e de segurança e saúde no trabalho, cumprindo os requisitos das normas <strong>ISO 9001:2015</strong> e <strong>ISO 45001:2018</strong> (cláusula 5 — Liderança) e promovendo uma cultura de melhoria contínua.</p>
+</div>
+</div>
+<!-- Sección 2: Alcance -->
+<div class="section" id="alcance">
+<div class="section-title">2. Alcance do Processo</div>
+<p>O processo de Liderança abrange todas as atividades da Alta Direção relacionadas com o planeamento, apoio e direção do SGI. Inclui a definição das políticas da organização, o estabelecimento de objetivos estratégicos, a afetação de recursos, a revisão do desempenho do SGI e a comunicação eficaz dos valores e metas a toda a organização. Inclui ainda a responsabilização direta pela SST, que a ISO 45001 atribui à Alta Direção e que não pode ser delegada.</p>
+</div>
+<!-- Sección 3: Matriz del Proceso -->
+<div class="section" id="matriz">
+<div class="section-title">3. Matriz do Processo</div>
+<table class="process-matrix">
+<thead>
+<tr>
+<th>ENTRADAS</th>
+<th>ATIVIDADES</th>
+<th>SAÍDAS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<ul>
+<li>Política da Qualidade (DOC-005) e Política de SST (DOC-007).</li>
+<li>Requisitos legais e normativos aplicáveis.</li>
+<li>Expectativas das partes interessadas, incluindo clientes e trabalhadores.</li>
+<li>Resultados de auditorias internas e externas.</li>
+<li>Indicadores de desempenho dos processos, incluindo indicadores de SST.</li>
+<li>Informação sobre riscos e oportunidades identificados.</li>
+<li>Resultados da consulta aos trabalhadores em matéria de SST.</li>
+</ul>
+</td>
+<td>
+<p><strong>1. Definição de Políticas e Objetivos:</strong> a Alta Direção estabelece e revê as políticas e os objetivos estratégicos do SGI em função das necessidades da organização e do contexto externo.</p>
+<p><strong>2. Afetação de Recursos:</strong> identificação e afetação dos recursos necessários — humanos, financeiros, técnicos e de equipamento — para cumprir os objetivos e manter a eficácia do SGI, incluindo os recursos para a calibração dos equipamentos de medição e para a qualificação técnica do pessoal.</p>
+<p><strong>3. Responsabilização pela SST:</strong> a Alta Direção assume a responsabilidade global pela prevenção de lesões e problemas de saúde relacionados com o trabalho, assegura a proteção dos trabalhadores contra represálias ao reportarem perigos e garante o estabelecimento dos mecanismos de consulta e participação (PRO-023).</p>
+<p><strong>4. Avaliação e Revisão do Desempenho:</strong> são programadas revisões periódicas do SGI para avaliar o cumprimento dos objetivos, analisar os resultados de auditorias e ajustar políticas e recursos conforme necessário.</p>
+<p><strong>5. Comunicação e Promoção da Cultura de Qualidade e Segurança:</strong> a Alta Direção comunica a importância da qualidade técnica e da segurança a toda a organização, promovendo o compromisso dos colaboradores com os objetivos do SGI.</p>
+</td>
+<td>
+<ul>
+<li>Políticas e objetivos documentados para o SGI.</li>
+<li>Atas de Revisão pela Direção.</li>
+<li>Comunicações da Alta Direção à organização.</li>
+<li>Plano de ação e de melhoria contínua para o SGI.</li>
+<li>Registos de afetação de recursos.</li>
+<li>Definição de papéis, responsabilidades e autoridades (DOC-011 e descrições de cargo).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Sección 4: Recursos -->
+<div class="section" id="recursos">
+<div class="section-title">4. Recursos do processo</div>
+<div class="section-subtitle">4.1 Recursos</div>
+<p>para este processo de Liderazgo se requieren:</p>
+<ul class="resources-list">
+<li><strong>Recursos humanos:</strong> Alta Gerência e responsáveis de cada área.</li>
+<li><strong>Recursos económicos:</strong> Orçamento para a implementação e melhoria do SGI.</li>
+<li><strong>Recursos tecnológicos:</strong> Herramientas de gestão de datos e acompanhamento.</li>
+<li><strong>Informação:</strong> Informação sobre o desempenho do SGI, normativa e contexto organizacional.</li>
+</ul>
+<div class="section-subtitle">4.2 responsáveis</div>
+<ul class="resources-list">
+<li>Alta Gerência</li>
+<li>Encarregado da qualidade</li>
+</ul>
+</div>
+<!-- Sección 5: Seguimiento e Indicadores -->
+<div class="section" id="seguimiento">
+<div class="section-title">5. acompanhamento e indicadores</div>
+<div class="section-subtitle">5.1 Metodologia de acompanhamento</div>
+<p>El acompanhamento do processo de Liderazgo se realiza através de:</p>
+<ul class="resources-list">
+<li><strong>indicadores de eficácia do Liderazgo:</strong> Nível de cumprimento dos objetivos estratégicos e qualidade das decisões tomadas.</li>
+<li><strong>Revisão de Desempenho do SGI:</strong> Avaliação periódica dos resultados em cada área do SGI, com revisão de indicadores-chave de desempenho.</li>
+<li><strong>Inquéritos de Satisfação Interna:</strong> Avaliação da perceção e do alinhamento do pessoal com as políticas e objetivos do SGI.</li>
+</ul>
+<div class="section-subtitle">5.2 indicadores</div>
+<div class="indicator-box">
+<div class="indicator-title">Cumprimento de objetivos Estratégicos do SGI</div>
+<p><em>Mede o desempenho do processo PSC-001</em></p>
+<div class="indicator-formula">
+                        ICOE = (Número de objetivos cumpridos / Total de objetivos estabelecidos) * 100
+                    </div>
+<p><strong>Valores de Referencia:</strong></p>
+<table class="threshold-table">
+<thead>
+<tr>
+<th>nível</th>
+<th>Intervalo</th>
+<th>Interpretação</th>
+</tr>
+</thead>
+<tbody>
+<tr class="threshold-acceptable">
+<td><strong>Aceitável</strong></td>
+<td>≥ 90%</td>
+<td>Indica que a Alta Gerência está a cumprir eficazmente os seus objetivos estratégicos, demonstrando um compromisso sólido com o SGI.</td>
+</tr>
+<tr class="threshold-marginal">
+<td><strong>Marginal</strong></td>
+<td>75% - 89%</td>
+<td>Sugere que, embora a maioria dos objetivos esteja a ser alcançada, existem áreas de melhoria.</td>
+</tr>
+<tr class="threshold-unacceptable">
+<td><strong>Não Aceitável</strong></td>
+<td>&lt; 75%</td>
+<td>Implica a necessidade de rever as estratégias e a atribuição de recursos para garantir que os objetivos estratégicos do SGI sejam alcançados e sustentáveis.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fonte de Dados:</strong></p>
+<ul class="resources-list">
+<li>Relatórios de revisão pela direção, onde se detalha o estado de cumprimento de cada objetivo estratégico.</li>
+<li>Relatórios de auditorias internas e externas, que validam o nível de cumprimento em cada área do SGI.</li>
+</ul>
+<p><strong>Frequência de avaliação:</strong> Trimestral, coincidindo com as reuniões de revisão pela direção para avaliar o desempenho do SGI.</p>
+<p><strong>Plano de Ação (se o indicador é Não Aceitável &lt;75%):</strong></p>
+<ul class="resources-list">
+<li>Realizar uma revisão exaustiva dos recursos atribuídos e ajustar conforme seja necessário.</li>
+<li>Reforçar o alinhamento de estratégias e objetivos em todas as áreas do SGI.</li>
+<li>Implementar ações corretivas imediatas para melhorar o desempenho nas áreas deficientes e assegurar o alcance dos objetivos estratégicos.</li>
+</ul>
+</div>
+</div>
+<!-- Sección 6: Análisis de Riesgos -->
+<div class="section" id="riesgos">
+<div class="section-title">6. Análise e avaliação de riscos do processo</div>
+<div class="risks-opportunities-section">
+<div class="ro-item">
+<div class="ro-title">Risco de Desalinhamento Estratégico</div>
+<div class="ro-description">Avaliação da falta de coerência entre as políticas da organização e as ações operacionais.</div>
+</div>
+<div class="ro-item">
+<div class="ro-title">risco de Recursos Insuficientes</div>
+<div class="ro-description">Análise da disponibilidade e atribuição de recursos financeiros, humanos e tecnológicos para o cumprimento do SGI.</div>
+</div>
+<div class="ro-item">
+<div class="ro-title">Risco de Falta de Compromisso Organizacional</div>
+<div class="ro-description">Avaliação da perceção e aceitação do pessoal em relação aos objetivos e políticas do SGI.</div>
+</div>
+</div>
+</div>
+<!-- Sección 7: Análisis de Oportunidades -->
+<div class="section" id="oportunidades">
+<div class="section-title">7. Análise e avaliação de oportunidades do processo</div>
+<div class="risks-opportunities-section">
+<div class="ro-item">
+<div class="ro-title">1. Fortalecimento da Cultura de qualidade, ambiente e saúde Ocupacional</div>
+<div class="ro-description">Fomentar uma cultura organizacional que valorize a qualidade, a proteção do ambiente e a saúde ocupacional a todos os níveis pode aumentar o compromisso do pessoal com os objetivos do SGI.</div>
+<div class="ro-actions">
+<strong>Ações Potenciales:</strong> Realizar workshops de sensibilização e treinos contínuos que reforcem estes valores.<br/>
+<strong>Impacto Esperado:</strong> Melhoria no cumprimento de objetivos estratégicos e redução de não conformidades.
+                        </div>
+</div>
+<div class="ro-item">
+<div class="ro-title">2. Otimização da Comunicação Interna</div>
+<div class="ro-description">Melhorar os canais de comunicação entre a Alta Gerência e o pessoal operacional pode facilitar o alinhamento de atividades com os objetivos estratégicos do SGI.</div>
+<div class="ro-actions">
+<strong>Ações Potenciales:</strong> Implementar reuniões periódicas de feedback e plataformas digitais de comunicação interna para partilhar avanços e diretrizes.<br/>
+<strong>Impacto Esperado:</strong> Maior transparência e clareza na execução de objetivos, com uma redução de erros e mal-entendidos.
+                        </div>
+</div>
+<div class="ro-item">
+<div class="ro-title">3. Automatização de indicadores de Desempenho</div>
+<div class="ro-description">Utilizar ferramentas tecnológicas para automatizar o acompanhamento de indicadores-chave de desempenho (KPIs) pode tornar o processo de revisão mais eficiente.</div>
+<div class="ro-actions">
+<strong>Ações Potenciales:</strong> Implementar um sistema de gestão que recolha, analise e apresente automaticamente os dados de desempenho do SGI.<br/>
+<strong>Impacto Esperado:</strong> Redução do tempo na recolha e análise de dados, e melhoria na tomada de decisões baseada em dados em tempo real.
+                        </div>
+</div>
+<div class="ro-item">
+<div class="ro-title">4. Desenvolvimento de Programas de Reconhecimento pelo cumprimento de objetivos</div>
+<div class="ro-description">Estabelecer programas de reconhecimento para as equipas que cumpram ou superem os objetivos estratégicos pode aumentar a motivação e o compromisso do pessoal.</div>
+<div class="ro-actions">
+<strong>Ações Potenciales:</strong> Criar prémios, incentivos ou menções especiais para as equipas destacadas no cumprimento dos objetivos do SGI.<br/>
+<strong>Impacto Esperado:</strong> Aumento na produtividade e satisfação do pessoal, com uma influência positiva no cumprimento dos objetivos estratégicos.
+                        </div>
+</div>
+<div class="ro-item">
+<div class="ro-title">5. Melhoria Contínua na avaliação de Riscos e oportunidades</div>
+<div class="ro-description">Rever e atualizar periodicamente a metodologia de análise de riscos e oportunidades do processo para se adaptar a alterações no contexto organizacional e normativo.</div>
+<div class="ro-actions">
+<strong>Ações Potenciales:</strong> Incorporar nuevas herramientas e técnicas de avaliação de riscos e oportunidades no processo de revisão.<br/>
+<strong>Impacto Esperado:</strong> Maior capacidade de adaptação perante alterações e melhor antecipação de possíveis problemas que possam afetar o SGI.
+                        </div>
+</div>
+</div>
+</div>
+<!-- Sección 8: Documentação de Referencia -->
+<div class="section" id="referencia">
+<div class="section-title">8. Documentação de Referencia</div>
+<div class="ref-docs">
+<ul class="ref-list">
+<li>PRO-001 controlo da Informação documentada</li>
+<li>PRO-004 Auditorias Internas e Programa de Auditoria</li>
+<li>PRO-007 Gestão do risco</li>
+<li>PRO-013 Gestão do Liderazgo e Revisão pela Direção</li>
+</ul>
+</div>
+</div>
+<!-- Histórico de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>001</td>
+<td>01.02.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+<tr>
+<td>002</td>
+<td>Pendente de validação</td>
+<td>Atualização do processo</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Rodapé -->
+<div class="footer">
+<p>Código: PSC-001 | Revisão: 002 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        // Configurar scroll suave para los enlaces del TOC
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Verifica se o logo existe, caso contrário mostra um placeholder
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c3e50" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                    console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+                };
+            }
+            
+            // Hacer elementos editables enfocables (los que tienen clase .editable)
+            document.querySelectorAll('.editable').forEach(element => {
+                element.addEventListener('focus', function() {
+                    this.style.backgroundColor = '#fffacd';
+                });
+                
+                element.addEventListener('blur', function() {
+                    this.style.backgroundColor = '';
+                });
+            });
+        });
+
+        // ---- NUEVA FUNCIONALIDAD DE EDICIÓN COMPLETA Y DESCARGA ----
+        let editMode = false;
+        const editBtn = document.getElementById('editToggleBtn');
+        const editIndicator = document.getElementById('editModeIndicator');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        // Selectores para todos los elementos que queremos hacer editables en modo "edição completa"
+        const editableSelectors = [
+            '.content p', '.intro-text p', '.process-matrix td', '.process-matrix th',
+            '.resources-list li', '.ro-description', '.ro-actions',
+            '.ref-list li', '.version-table td', '.version-table th',
+            '.doc-info-item', '.org-name', '.doc-title', '.doc-code',
+            '.section-title', '.section-subtitle', '.footer p',
+            '.indicator-box p', '.indicator-title', '.indicator-formula',
+            '.threshold-table td', '.threshold-table th', '.ro-title'
+        ].join(',');
+
+        function enableEditing() {
+            document.querySelectorAll(editableSelectors).forEach(element => {
+                // Aseguramos que sea editable
+                if (!element.hasAttribute('contenteditable') || element.getAttribute('contenteditable') !== 'true') {
+                    element.setAttribute('contenteditable', 'true');
+                }
+                element.classList.add('editable-highlight');
+                
+                // Eventos para mejorar UX
+                element.removeEventListener('focus', focusHandler);
+                element.removeEventListener('blur', blurHandler);
+                element.addEventListener('focus', focusHandler);
+                element.addEventListener('blur', blurHandler);
+            });
+            editBtn.innerHTML = '<span style="font-size: 1.2em;">✎</span> Desativar edição';
+            editIndicator.classList.add('active');
+            editMode = true;
+        }
+
+        function disableEditing() {
+            document.querySelectorAll(editableSelectors).forEach(element => {
+                element.removeAttribute('contenteditable');
+                element.classList.remove('editable-highlight');
+                // Resetear estilos inline que puedan haber quedado
+                element.style.backgroundColor = '';
+                element.style.outline = '';
+                element.style.padding = '';
+                element.style.borderRadius = '';
+            });
+            editBtn.innerHTML = '<span style="font-size: 1.2em;">✎</span> Ativar edição completa';
+            editIndicator.classList.remove('active');
+            editMode = false;
+        }
+
+        function focusHandler(e) {
+            e.target.style.backgroundColor = '#f0f8ff';
+            e.target.style.outline = '2px solid #3498db';
+            // Ajustes para algunos elementos
+            if (e.target.tagName === 'LI' || e.target.classList.contains('ro-item')) {
+                e.target.style.padding = '8px';
+                e.target.style.borderRadius = '3px';
+                e.target.style.marginLeft = '-5px';
+            } else if (e.target.tagName === 'TD' || e.target.tagName === 'TH') {
+                // Para celdas de tabla ya tienen padding
+            } else {
+                e.target.style.padding = '5px';
+                e.target.style.borderRadius = '3px';
+            }
+        }
+
+        function blurHandler(e) {
+            e.target.style.backgroundColor = '';
+            e.target.style.outline = '';
+            e.target.style.padding = '';
+            e.target.style.borderRadius = '';
+            e.target.style.marginLeft = '';
+        }
+
+        // Evento para el botón de edición
+        editBtn.addEventListener('click', function() {
+            if (editMode) {
+                disableEditing();
+            } else {
+                enableEditing();
+            }
+        });
+
+        // Evento para el botón de descarga
+        downloadBtn.addEventListener('click', function() {
+            // Obtener el HTML completo del documento (incluyendo estilos y scripts)
+            const doctype = '<!DOCTYPE html>\n';
+            const html = document.documentElement.outerHTML;
+            
+            // Crear blob y descargar
+            const blob = new Blob([doctype + html], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'PSC-001_Proceso_Liderazgo.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        // Inicialmente el modo edición está desactivado
+        window.addEventListener('load', function() {
+            disableEditing(); // Asegura que no queden residuos de contenteditable en elementos no .editable
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DOC-016 Plano de Adaptação às Alterações Climáticas - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c7a5c;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        /* Barra de herramientas */
+        .toolbar {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            padding: 15px 40px;
+            background-color: #e2e8f0;
+            border-bottom: 2px solid #2c7a5c;
+        }
+        
+        .toolbar-btn {
+            background-color: #2c7a5c;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.3s, transform 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .toolbar-btn:hover {
+            background-color: #38a169;
+        }
+        
+        .toolbar-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c7a5c;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c7a5c;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #2c7a5c;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #2c7a5c;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            padding-left: 15px;
+            position: relative;
+        }
+        
+        .toc-item:before {
+            content: "•";
+            color: #2c7a5c;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .toc-link {
+            color: #2c7a5c;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #38a169;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #2c7a5c;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #c6f6d5;
+        }
+        
+        .objective-section {
+            background-color: #f0fff4;
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 4px solid #38a169;
+        }
+        
+        .objective-title {
+            color: #276749;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .objective-text {
+            font-size: 16px;
+            line-height: 1.7;
+        }
+        
+        .action-section {
+            margin-bottom: 30px;
+        }
+        
+        .action-title {
+            color: #2c7a5c;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-left: 10px;
+            border-left: 4px solid #2c7a5c;
+        }
+        
+        .action-list {
+            list-style-type: none;
+        }
+        
+        .action-item {
+            margin-bottom: 20px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .action-item:before {
+            content: "○";
+            color: #2c7a5c;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            font-size: 18px;
+        }
+        
+        .action-subitem {
+            margin-top: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .action-subitem:before {
+            content: "▪";
+            color: #38a169;
+            position: absolute;
+            left: 0;
+        }
+        
+        .highlight-box {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2c7a5c;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c7a5c;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Mantenemos el botón de impresión original por compatibilidad */
+        .print-btn {
+            background-color: #2c7a5c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #38a169;
+        }
+        
+        /* Indicador visual de modo edición */
+        .editable-active [contenteditable="true"] {
+            outline: 2px dashed #2c7a5c;
+            outline-offset: 4px;
+            background-color: #fffff0;
+            transition: outline 0.2s, background-color 0.2s;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .toolbar {
+                display: none;
+            }
+            
+            .print-btn {
+                display: none;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .toolbar {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabecera con logo e información de la organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Barra de herramientas con nuevas opciones -->
+<div class="toolbar">
+<button class="toolbar-btn" id="printToolbarBtn" onclick="window.print()">
+                🖨️ Imprimir
+            </button>
+<button class="toolbar-btn" id="downloadBtn">
+                ⬇️ Descarregar HTML
+            </button>
+<button class="toolbar-btn" id="editBtn">
+                ✏️ Editar conteúdo
+            </button>
+</div>
+<!-- Título del documento -->
+<div class="doc-title">Plano de Adaptação às Alterações Climáticas</div>
+<div class="doc-code">Código: DOC-016</div>
+<!-- Contenido principal -->
+<div class="content">
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#objetivo">Objetivo</a></li>
+<li class="toc-item"><a class="toc-link" href="#acciones">Ações específicas</a></li>
+<li class="toc-item"><a class="toc-link" href="#infraestructuras">Infraestructuras Resilientes</a></li>
+<li class="toc-item"><a class="toc-link" href="#gestion-recursos">Gestão Eficiente de Recursos Naturales</a></li>
+<li class="toc-item"><a class="toc-link" href="#emergencia">Planos de Emergência Climática</a></li>
+<li class="toc-item"><a class="toc-link" href="#cadena-suministro">Resiliência da Cadeia de Abastecimento</a></li>
+<li class="toc-item"><a class="toc-link" href="#monitoreo">Monitorização e Avaliação da Adaptação</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Sección Objetivo -->
+<div class="section" id="objetivo">
+<div class="section-title">Objetivo</div>
+<div class="objective-section">
+<div class="objective-text">
+<p>Desenvolver e implementar estratégias de adaptação às alterações climáticas, assegurando a <strong>resiliencia das operações e a proteção dos recursos naturales, os empleados e a infraestructura</strong> da organização perante os efectos do mudanças climáticas.</p>
+</div>
+</div>
+</div>
+<!-- Sección Acciones Específicas -->
+<div class="section" id="acciones">
+<div class="section-title">Ações específicas</div>
+<div class="action-section">
+<div class="action-title">avaliação de Vulnerabilidades</div>
+<ul class="action-list">
+<li class="action-item">
+                            Realizar uma análise de vulnerabilidade climática em todas as operações da organização, identificando os riscos climáticos (inundações, secas, eventos extremos) e os impactos potenciais sobre a infraestrutura, a produção e a cadeia de abastecimento.
+                        </li>
+</ul>
+</div>
+</div>
+<!-- Sección Infraestructuras Resilientes -->
+<div class="section" id="infraestructuras">
+<div class="section-title">Infraestructuras Resilientes</div>
+<div class="action-section">
+<ul class="action-list">
+<li class="action-item">
+<strong>Redesenhar e reforçar as infraestruturas críticas</strong> para as tornar mais resistentes a eventos climáticos extremos, como a instalação de sistemas de drenagem eficientes, <strong>proteção contra tempestades e adaptação de edifícios a condições climáticas extremas</strong>.
+                        </li>
+<li class="action-item">
+                            Implementar soluções de infraestrutura verde, como telhados e jardins verdes, para mitigar o calor urbano e melhorar a gestão da água.
+                        </li>
+</ul>
+</div>
+</div>
+<!-- Sección Gestão de Recursos Naturales -->
+<div class="section" id="gestion-recursos">
+<div class="section-title">Gestão Eficiente de Recursos Naturales</div>
+<div class="action-section">
+<ul class="action-list">
+<li class="action-item">
+                            Implementar medidas para otimizar o uso de água nas instalações, especialmente em zonas vulneráveis a secas, através de sistemas de captação de <strong>água da chuva e tecnologias de reciclagem de água</strong>.
+                        </li>
+<li class="action-item">
+                            Promover a eficiência no uso de energia em todos os processos operacionais e adotar tecnologias limpas para reduzir a dependência de recursos fósseis.
+                        </li>
+</ul>
+</div>
+</div>
+<!-- Sección Planes de Emergencia -->
+<div class="section" id="emergencia">
+<div class="section-title">Planos de Emergência Climática</div>
+<div class="action-section">
+<ul class="action-list">
+<li class="action-item">
+                            Desenvolver planos de emergência perante fenómenos climáticos extremos que incluam medidas de evacuação, proteção de bens e continuidade das operações.
+                        </li>
+<li class="action-item">
+                            Formar os colaboradores em protocolos de segurança perante desastres naturais e proporcionar os recursos necessários para assegurar o seu bem-estar durante estes eventos.
+                        </li>
+</ul>
+</div>
+</div>
+<!-- Sección Cadena de Suministro -->
+<div class="section" id="cadena-suministro">
+<div class="section-title">Resiliência da Cadeia de Abastecimento</div>
+<div class="action-section">
+<ul class="action-list">
+<li class="action-item">
+                            Avaliar e fortalecer a resiliência da cadeia de abastecimento, colaborando com os fornecedores para se adaptarem às alterações climáticas e implementar práticas sustentáveis que reduzam o risco de interrupções.
+                        </li>
+</ul>
+</div>
+</div>
+<!-- Sección Monitoreo -->
+<div class="section" id="monitoreo">
+<div class="section-title">Monitorização e Avaliação da Adaptação</div>
+<div class="action-section">
+<ul class="action-list">
+<li class="action-item">
+                            Implementar um sistema de acompanhamento dos impactos das alterações climáticas e avaliar a eficácia das medidas de adaptação, com indicadores claros de desempenho.
+                        </li>
+</ul>
+</div>
+<div class="highlight-box">
+<p><strong>Nota:</strong> Este plano faz parte integrante do Sistema de Gestão Integrado e está alinhado com os requisitos das normas , bem como com as emendas climáticas ISO 2024.</p>
+</div>
+</div>
+<!-- Botón de impresión (original) -->
+<button class="print-btn" onclick="window.print()">📄 Imprimir documento</button>
+<!-- Historial de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Pie de página -->
+<div class="footer">
+<p>Código: DOC-016 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        // Configurar scroll suave para los enlaces del TOC
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Verifica si el logo existe, caso contrario muestra un placeholder
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c7a5c" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                    console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+                };
+            }
+            
+            // Función para descargar el HTML actual
+            document.getElementById('downloadBtn').addEventListener('click', function() {
+                const htmlContent = document.documentElement.outerHTML;
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'DOC-016-Plan-de-Adaptacion-al-Cambio-Climatico.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            });
+
+            // Función para activar/desactivar modo edición
+            const editBtn = document.getElementById('editBtn');
+            let editModeActive = false;
+
+            // Elementos que serán editables (todo el texto del documento, excepto botones y logo)
+            const editableElements = [
+                document.querySelector('.org-info'),
+                document.querySelector('.doc-title'),
+                document.querySelector('.doc-code'),
+                document.querySelector('.content'),
+                document.querySelector('.footer')
+            ].filter(el => el !== null);
+
+            editBtn.addEventListener('click', function() {
+                editModeActive = !editModeActive;
+                
+                editableElements.forEach(el => {
+                    if (editModeActive) {
+                        el.setAttribute('contenteditable', 'true');
+                    } else {
+                        el.removeAttribute('contenteditable');
+                    }
+                });
+                
+                // Añadir o quitar una clase al body para dar feedback visual
+                if (editModeActive) {
+                    document.body.classList.add('editable-active');
+                    editBtn.innerHTML = '🔒 Terminar edição';
+                    editBtn.style.backgroundColor = '#c53030'; // rojo para indicar modo activo
+                } else {
+                    document.body.classList.remove('editable-active');
+                    editBtn.innerHTML = '✏️ Editar conteúdo';
+                    editBtn.style.backgroundColor = '#2c7a5c'; // color original
+                }
+            });
+        });
+    </script>
+</body>
+</html>

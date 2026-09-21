@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PRO-017 Gestão do Mudanças Climáticas no SGI (editable)</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        /* Barra de herramientas superior */
+        .toolbar {
+            max-width: 1400px;
+            margin: 0 auto 15px auto;
+            background-color: #2d3748;
+            border-radius: 40px;
+            padding: 12px 25px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: flex-end;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .toolbar button {
+            background-color: #edf2f7;
+            border: none;
+            color: #2d3748;
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        
+        .toolbar button:hover {
+            background-color: #cbd5e0;
+            transform: scale(1.02);
+        }
+        
+        .toolbar button.editar-activo {
+            background-color: #38a169;
+            color: white;
+        }
+        
+        .toolbar button i { font-style: normal; font-size: 1.2em; }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c5c3e;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5c3e;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c5c3e;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        /* Resaltado cuando la edición está activa */
+        .content.editable-active {
+            outline: 3px dashed #38a169;
+            outline-offset: 8px;
+            background-color: #fffff0;
+            border-radius: 12px;
+            transition: outline 0.2s;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #2c5c3e;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #2c5c3e;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #2c5c3e;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #4a8c6d;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #2c5c3e;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-subtitle {
+            color: #1e3c2a;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 30px 0 20px;
+            padding-left: 10px;
+            border-left: 4px solid #2c5c3e;
+        }
+        
+        .subsection-title {
+            color: #2c5c3e;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+        }
+        
+        .intro-text {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #2c5c3e;
+            font-size: 16px;
+        }
+        
+        .content-text {
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .bullet-list {
+            list-style-type: none;
+            margin: 15px 0 20px 20px;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .bullet-list li:before {
+            content: "•";
+            color: #2c5c3e;
+            font-weight: bold;
+            font-size: 18px;
+            position: absolute;
+            left: 0;
+        }
+        
+        .nested-list {
+            list-style-type: none;
+            margin: 10px 0 15px 30px;
+        }
+        
+        .nested-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .nested-list li:before {
+            content: "○";
+            color: #4a8c6d;
+            position: absolute;
+            left: 0;
+        }
+        
+        .responsibility-box {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .responsibility-title {
+            color: #276749;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .guidelines-container {
+            margin: 25px 0;
+        }
+        
+        .guideline-item {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .guideline-title {
+            color: #2c5c3e;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #cbd5e0;
+        }
+        
+        .goal-box {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .goal-title {
+            color: #2c5c3e;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .kpi-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0 30px;
+        }
+        
+        .kpi-table th, .kpi-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .kpi-table th {
+            background-color: #2c5c3e;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2c5c3e;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c5c3e;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #2c5c3e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #4a8c6d;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .toolbar, .print-btn {
+                display: none !important;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .toolbar {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Barra de herramientas (botones) -->
+<div class="toolbar">
+<button id="btnEditar" title="Ativar/desativar edição do conteúdo">
+<i>✎</i> Editar
+        </button>
+<button id="btnHtml" title="Descarregar o documento como ficheiro HTML">
+<i>⬇️</i> Descarregar HTML
+        </button>
+<button id="btnPdf" title="Guardar como PDF (usar impressora → guardar como PDF)">
+<i>📄</i> Descarregar PDF
+        </button>
+</div>
+<div class="document-container">
+<!-- Cabeçalho com logo e informações da organização -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título do documento -->
+<div class="doc-title">Gestão do Mudanças Climáticas no Sistema de Gestão Integrado</div>
+<div class="doc-code">Código: PRO-017</div>
+<!-- Conteúdo principal (editable) -->
+<div class="content" id="mainContent">
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#objetivo">1. Objetivo</a></li>
+<li class="toc-item"><a class="toc-link" href="#alcance">2. Alcance</a></li>
+<li class="toc-item"><a class="toc-link" href="#definiciones">3. Definições</a></li>
+<li class="toc-item"><a class="toc-link" href="#responsabilidades">4. Responsabilidades</a></li>
+<li class="toc-item"><a class="toc-link" href="#directrices">5. Directrices para a Gestão do Mudanças Climáticas</a></li>
+<li class="toc-item"><a class="toc-link" href="#metas">6. Metas e indicadores</a></li>
+<li class="toc-item"><a class="toc-link" href="#monitoreo">7. monitorização e revisão</a></li>
+<li class="toc-item"><a class="toc-link" href="#documentacion">8. Documentação Relacionada</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Sección 1: Objetivo -->
+<div class="section" id="objetivo">
+<div class="section-title">1. Objetivo</div>
+<div class="content-text">
+                    Este documento tem como objetivo estabelecer diretrizes claras e consistentes para a gestão dos impactos das alterações climáticas dentro do Sistema de Gestão Integrado (SGI), assegurando que a organização:
+                </div>
+<ul class="bullet-list">
+<li>Compreenda e mitigue os impactos das alterações climáticas sobre as suas operações e desempenho.</li>
+<li>Adote práticas sustentáveis conforme os requisitos das <strong>normas ISO</strong> aplicáveis.</li>
+<li>Contribua proativamente para reduzir os efeitos das alterações climáticas no meio ambiente e na saúde e segurança dos trabalhadores.</li>
+<li>Promova a melhoria contínua na adaptação e mitigação dos efeitos das alterações climáticas ao longo das suas operações.</li>
+</ul>
+</div>
+<!-- Sección 2: Alcance -->
+<div class="section" id="alcance">
+<div class="section-title">2. Alcance</div>
+<div class="content-text">
+                    Este documento aplica-se a todos os processos, atividades e operações da organização que possam ser afetadas pelas alterações climáticas. A gestão será integrada no SGI, abrangendo as áreas de qualidade, ambiente e segurança e saúde no trabalho.
+                </div>
+</div>
+<!-- Sección 3: Definiciones -->
+<div class="section" id="definiciones">
+<div class="section-title">3. Definições</div>
+<div class="guidelines-container">
+<div class="guideline-item">
+<div class="guideline-title">Mudanças Climáticas</div>
+<p>Alterações no clima global ou regional causadas principalmente pela atividade humana, resultando em mudanças nos padrões de temperatura, precipitação e eventos climáticos extremos.</p>
+</div>
+<div class="guideline-item">
+<div class="guideline-title">Mitigação</div>
+<p>Conjunto de ações e estratégias para reduzir ou prevenir as emissões de gases com efeito de estufa (GEE) e limitar o aquecimento global.</p>
+</div>
+<div class="guideline-item">
+<div class="guideline-title">Adaptação</div>
+<p>processos e ações para ajustar os sistemas e processos para manejar os impactos negativos do mudanças climáticas.</p>
+</div>
+<div class="guideline-item">
+<div class="guideline-title">Mudanças Climáticas no SGI</div>
+<p>A integração das ações de mitigação e adaptação nas normas de qualidade, ambiente e segurança no trabalho, com o objetivo de alcançar a sustentabilidade e a resiliência da organização.</p>
+</div>
+</div>
+</div>
+<!-- Sección 4: Responsabilidades -->
+<div class="section" id="responsabilidades">
+<div class="section-title">4. Responsabilidades</div>
+<div class="responsibility-box">
+<div class="responsibility-title">Alta direção:</div>
+<ul class="bullet-list">
+<li>Aprovar a Política de Gestão das Alterações Climáticas.</li>
+<li>Estabelecer os objetivos e metas de redução de emissões de GEE e adaptação às alterações climáticas.</li>
+<li>Garantir os recursos necessários para a implementação e manutenção das ações relacionadas com as alterações climáticas.</li>
+</ul>
+</div>
+<div class="responsibility-box">
+<div class="responsibility-title">responsável do SGI:</div>
+<ul class="bullet-list">
+<li>Coordenar a implementação da Política de Gestão das Alterações Climáticas dentro do SGI.</li>
+<li>Integrar as ações climáticas em as prácticas de gestão de qualidade, meio ambiente e segurança no trabalho.</li>
+<li>Realizar auditorias e revisões periódicas das ações climáticas dentro do SGI.</li>
+</ul>
+</div>
+<div class="responsibility-box">
+<div class="responsibility-title">responsáveis de processos:</div>
+<ul class="bullet-list">
+<li>identificar os riscos e oportunidades relacionadas com o mudanças climáticas dentro de seus processos e operações.</li>
+<li>Implementar práticas de mitigação e adaptação nas suas atividades diárias.</li>
+</ul>
+</div>
+<div class="responsibility-box">
+<div class="responsibility-title">Todos os Colaboradores:</div>
+<ul class="bullet-list">
+<li>cumprir com as políticas e directrices establecidas para a gestão do mudanças climáticas.</li>
+<li>Participar ativamente em treinos e ações relacionadas com a sustentabilidade.</li>
+</ul>
+</div>
+</div>
+<!-- Sección 5: Directrices -->
+<div class="section" id="directrices">
+<div class="section-title">5. Directrices para a Gestão do Mudanças Climáticas</div>
+<div class="subsection-title">5.1 avaliação de Impactos Climáticos</div>
+<div class="content-text">
+                    Identificação de riscos e oportunidades relacionadas com os impactos do mudanças climáticas em as operações da organização.
+                </div>
+<ul class="nested-list">
+<li><strong>riscos de impactos negativos:</strong> Exemplo: falhas em processos devido a condições climáticas extremas, como inundações ou secas.</li>
+<li><strong>Oportunidades de adaptação:</strong> Exemplo: adoção de tecnologias mais eficientes e sustentáveis para reduzir a pegada de carbono.</li>
+</ul>
+<div class="subsection-title">5.2 Mitigação das Emissões de Gases com Efeito de Estufa (GEE)</div>
+<div class="content-text">
+                    Estabelecimento de metas de redução de emissões de GEE alinhadas com os objetivos globais (ex.: metas do Acordo de Paris).
+                </div>
+<div class="content-text">
+                    Implementação de ações de mitigação:
+                </div>
+<ul class="nested-list">
+<li><strong>eficiência energética:</strong> Adotar tecnologias e práticas que aumentem a eficiência no consumo de energia.</li>
+<li><strong>Uso de energías renovables:</strong> Implementar fontes de energia limpas e renováveis, como solar e eólica.</li>
+<li><strong>Gestão de residuos:</strong> Melhorar o processo de gestão de resíduos, reduzindo a geração e aumentando a reciclagem.</li>
+</ul>
+<div class="subsection-title">5.3 Adaptação às Alterações Climáticas</div>
+<ul class="bullet-list">
+<li><strong>Avaliação de vulnerabilidade</strong> das operações, identificando pontos críticos que podem ser afetados por condições climáticas extremas.</li>
+<li><strong>Plano de ação de adaptação:</strong>
+<ul class="nested-list">
+<li>Desenvolvimento de infraestruturas resilientes (ex.: proteção contra inundações ou tempestades).</li>
+<li>Adoção de medidas para proteger a saúde e a segurança dos trabalhadores contra eventos climáticos adversos.</li>
+</ul>
+</li>
+</ul>
+<div class="subsection-title">5.4 Integração com o SGI</div>
+<ul class="bullet-list">
+<li><strong>Integração com o Sistema de Gestão ambiental (normas ISO):</strong> A gestão das alterações climáticas será tratada como parte da política ambiental, com foco na sustentabilidade e na redução de impactos ambientais.</li>
+<li><strong>Integração com o Sistema de Gestão de Segurança e Saúde no Trabalho (normas ISO):</strong> O impacto das alterações climáticas sobre a saúde e segurança laboral será monitorizado e tratado através de medidas preventivas, assegurando a proteção dos colaboradores.</li>
+</ul>
+<div class="subsection-title">5.5 Educação e Consciencialização</div>
+<ul class="bullet-list">
+<li><strong>Formação continua</strong> para todos os níveis da organização sobre as implicações das alterações climáticas e as ações de mitigação e adaptação.</li>
+<li><strong>Consciencialização e compromisso</strong> dos colaboradores para reduzir o impacto ambiental e melhorar as práticas de segurança relacionadas com as alterações climáticas.</li>
+</ul>
+</div>
+<!-- Sección 6: Metas e Indicadores -->
+<div class="section" id="metas">
+<div class="section-title">6. Metas e indicadores</div>
+<div class="content-text">
+                    As metas devem ser SMART (específicas, Mensuráveis, Alcançáveis, Relevantes e com Tempo determinado). Exemplos de metas:
+                </div>
+<div class="goal-box">
+<div class="goal-title">Ejemplos de Metas</div>
+<ul class="bullet-list">
+<li><strong>Meta de redução de emissões:</strong> Reduzir as emissões de CO2 em 20% até 2025.</li>
+<li><strong>Meta de eficiência energética:</strong> Aumentar a eficiência energética em um 15% até 2025.</li>
+<li><strong>Meta de adaptação:</strong> implementar medidas de proteção contra eventos climáticos extremos no 100% das unidades da organização até 2026.</li>
+</ul>
+</div>
+<div class="subsection-title">Indicadores de Desempenho:</div>
+<table class="kpi-table">
+<thead>
+<tr>
+<th>Indicador</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Redução das emissões de GEE por unidade de produção</td>
+<td>Medição do impacto ambiental por unidade produzida</td>
+</tr>
+<tr>
+<td>Percentagem de áreas de risco climático mitigadas</td>
+<td>Avaliação do progresso na mitigação de riscos climáticos</td>
+</tr>
+<tr>
+<td>Satisfação dos empleados com as condições laborales</td>
+<td>Especialmente relacionadas com eventos climáticos</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Sección 7: Monitoreo y Revisión -->
+<div class="section" id="monitoreo">
+<div class="section-title">7. monitorização e revisão</div>
+<div class="subsection-title">7.1 monitorização</div>
+<ul class="bullet-list">
+<li>Auditorias internas para garantir que as práticas e políticas de gestão climática se implementam corretamente.</li>
+<li>Revisões periódicas das metas climáticas e adaptação à mudança, com a participação da alta direção.</li>
+</ul>
+<div class="subsection-title">7.2 avaliação</div>
+<div class="content-text">
+                    Avaliação dos impactos das ações de mitigação e adaptação implementadas, ajustando as estratégias conforme seja necessário para alcançar os objetivos estabelecidos.
+                </div>
+</div>
+<!-- Sección 8: Documentação Relacionada -->
+<div class="section" id="documentacion">
+<div class="section-title">8. Documentação Relacionada</div>
+<ul class="bullet-list">
+<li>Política ambiental.</li>
+<li>Plano de Ação de Mitigação de GEE.</li>
+<li>Plano de Adaptação às Alterações Climáticas.</li>
+<li>Relatórios de Desempenho Climático.</li>
+<li>Registos de Formação e Consciencialização Climática.</li>
+</ul>
+</div>
+<!-- Botón de impresión original (lo mantenemos) -->
+<button class="print-btn" onclick="window.print()">📄 Imprimir documento</button>
+<!-- Histórico de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div> <!-- fin .content -->
+<!-- Rodapé -->
+<div class="footer">
+<p>Código: PRO-017 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div> <!-- fin .document-container -->
+<script>
+        (function() {
+            // Elementos de la barra de herramientas
+            const contentEl = document.getElementById('mainContent');
+            const btnEditar = document.getElementById('btnEditar');
+            const btnHtml = document.getElementById('btnHtml');
+            const btnPdf = document.getElementById('btnPdf');
+
+            // Estado de edición
+            let editable = false;
+
+            function toggleEdicion() {
+                editable = !editable;
+                if (editable) {
+                    contentEl.setAttribute('contenteditable', 'true');
+                    contentEl.classList.add('editable-active');
+                    btnEditar.classList.add('editar-activo');
+                    btnEditar.innerHTML = '<i>🔒</i> Desativar edição';
+                } else {
+                    contentEl.removeAttribute('contenteditable');
+                    contentEl.classList.remove('editable-active');
+                    btnEditar.classList.remove('editar-activo');
+                    btnEditar.innerHTML = '<i>✎</i> Editar';
+                }
+            }
+
+            btnEditar.addEventListener('click', toggleEdicion);
+
+            // Descargar HTML
+            function descargarHTML() {
+                const styles = document.querySelector('style').innerHTML;
+                const containerHTML = document.querySelector('.document-container').outerHTML;
+                const htmlCompleto = `<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRO-017 Gestão das Alterações Climáticas no SGI</title>
+    <style>${styles}</style>
+</head>
+<body>
+    ${containerHTML}
+</body>
+</html>`;
+
+                const blob = new Blob([htmlCompleto], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'PRO-017_gestion_cambio_climatico.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+
+            btnHtml.addEventListener('click', descargarHTML);
+
+            // PDF (impresión)
+            btnPdf.addEventListener('click', function() {
+                window.print();
+            });
+
+            // Scroll suave para enlaces del TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Logo fallback
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c5c3e" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                    console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+                };
+            }
+
+            // Reiniciar contadores de CSS (por si acaso)
+            document.body.style.counterReset = 'section-counter';
+        })();
+    </script>
+</body>
+</html>

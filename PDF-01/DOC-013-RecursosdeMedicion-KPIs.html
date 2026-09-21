@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DOC-013 Recursos de Medição-KPIs - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        /* Barra de herramientas */
+        .toolbar {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            padding: 15px 40px;
+            background-color: #e2e8f0;
+            border-bottom: 2px solid #4a5568;
+        }
+        
+        .toolbar-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.3s, transform 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .toolbar-btn:hover {
+            background-color: #718096;
+        }
+        
+        .toolbar-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .kpi-section {
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .kpi-title {
+            color: #2d3748;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            background-color: #f8f9fa;
+            padding: 12px 15px;
+            border-left: 4px solid #4a5568;
+            border-radius: 3px;
+        }
+        
+        .kpi-content {
+            padding-left: 20px;
+        }
+        
+        .kpi-formula {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: center;
+            font-family: monospace;
+            font-size: 18px;
+            overflow-x: auto;
+        }
+        
+        .kpi-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .kpi-detail-box {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 15px;
+        }
+        
+        .kpi-detail-title {
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #cbd5e0;
+            padding-bottom: 5px;
+        }
+        
+        .threshold-list {
+            list-style-type: none;
+            margin-top: 10px;
+        }
+        
+        .threshold-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .threshold-list li:before {
+            content: "•";
+            color: #4a5568;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .tolerable {
+            color: #38a169;
+        }
+        
+        .marginal {
+            color: #d69e2e;
+        }
+        
+        .not-acceptable {
+            color: #e53e3e;
+        }
+        
+        .highlight-box {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Mantenemos el botón de impresión original por compatibilidad, 
+           aunque ahora también está en la barra */
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        /* Indicador visual de modo edición */
+        .editable-active [contenteditable="true"] {
+            outline: 2px dashed #4a5568;
+            outline-offset: 4px;
+            background-color: #fffff0;
+            transition: outline 0.2s, background-color 0.2s;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .toolbar {
+                display: none;
+            }
+            
+            .kpi-section {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .kpi-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .toc-list {
+                columns: 1;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .kpi-formula {
+                font-size: 16px;
+                padding: 15px;
+            }
+            
+            .toolbar {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabecera con logo e información de la organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Barra de herramientas con opciones de impresión, descarga y edición -->
+<div class="toolbar">
+<button class="toolbar-btn" id="printToolbarBtn" onclick="window.print()">
+                🖨️ Imprimir
+            </button>
+<button class="toolbar-btn" id="downloadBtn">
+                ⬇️ Descarregar HTML
+            </button>
+<button class="toolbar-btn" id="editBtn">
+                ✏️ Editar conteúdo
+            </button>
+</div>
+<!-- Título del documento -->
+<div class="doc-title">Recursos de Medição - Indicadores-Chave de Desempenho (KPIs)</div>
+<div class="doc-code">Código: DOC-013</div>
+<!-- Contenido principal -->
+<div class="content">
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#objetivos-estrategicos">Índice de Cumprimento de Objetivos Estratégicos</a></li>
+<li class="toc-item"><a class="toc-link" href="#recursos">Índice de cumprimento de Recursos</a></li>
+<li class="toc-item"><a class="toc-link" href="#acciones-correctivas">Ações Corretivas Implementadas</a></li>
+<li class="toc-item"><a class="toc-link" href="#contratos-satisfaccion">Contratos e Satisfação do cliente</a></li>
+<li class="toc-item"><a class="toc-link" href="#seguridad-incidentes">Segurança e Resposta a Incidentes</a></li>
+<li class="toc-item"><a class="toc-link" href="#actividades-programadas">atividades Programadas e Satisfação</a></li>
+<li class="toc-item"><a class="toc-link" href="#tiempos-respuesta">Tempos de Resposta e Documentação</a></li>
+<li class="toc-item"><a class="toc-link" href="#reclamos-postventa">Reclamos e Satisfação Postventa</a></li>
+<li class="toc-item"><a class="toc-link" href="#presupuesto-fiscal">Orçamento e Obrigações Fiscais</a></li>
+<li class="toc-item"><a class="toc-link" href="#entregas-especificaciones">Entregas e Especificações Técnicas</a></li>
+<li class="toc-item"><a class="toc-link" href="#capacitação-rotacion">Formação e Rotação de Pessoal</a></li>
+<li class="toc-item"><a class="toc-link" href="#mantenimiento-disponibilidad">Manutenção e Disponibilidade</a></li>
+<li class="toc-item"><a class="toc-link" href="#sistemas-incidentes">Sistemas e Incidentes</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Introducción -->
+<div class="highlight-box">
+<p><strong>Este documento apresenta os Indicadores-Chave de Desempenho (KPIs)</strong> estabelecidos para o Sistema de Gestão Integrado (SGI), abrangendo as normas ISO 9001 e ISO 45001. Os KPIs permitem medir, avaliar e melhorar o desempenho em todas as áreas da organização, assegurando a eficiência operacional e o cumprimento dos objetivos estratégicos.</p>
+</div>
+<!-- Sección 1: Índice de Cumplimiento de Objetivos Estratégicos -->
+<div class="section" id="objetivos-estrategicos">
+<div class="section-title">Índice de Cumprimento de Objetivos Estratégicos do SGC</div>
+<div class="kpi-section">
+<div class="kpi-title">Índice de Cumprimento de Objetivos Estratégicos (ICOE)</div>
+<div class="kpi-content">
+<div class="kpi-formula">
+                            ICOE = (Número de objetivos cumpridos / Total de objetivos estabelecidos) × 100
+                        </div>
+<div class="kpi-details">
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Umbrales de avaliação</div>
+<ul class="threshold-list">
+<li><span class="tolerable">Tolerável (Aceitável): ≥ 90%</span></li>
+<li><span class="marginal">Marginal: 75% - 89%</span></li>
+<li><span class="not-acceptable">Não Aceitável: &lt; 75%</span></li>
+</ul>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Justificação</div>
+<p>Um nível de cumprimento superior a 90% indica um compromisso efetivo com o SGC. Um cumprimento entre 75% e 89% sugere áreas de melhoria. Um cumprimento inferior a 75% requer revisão de estratégias e recursos.</p>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Fonte de Dados</div>
+<p>Relatórios de revisão pela direção e auditorias internas.</p>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Frequência de avaliação</div>
+<p>Trimestral, em reuniones de revisão do SGC.</p>
+</div>
+</div>
+<div class="highlight-box">
+<div class="kpi-detail-title">Plano de Ação</div>
+<p>Se o indicador estiver em intervalo não aceitável (&lt;75%), a Alta direção deve rever recursos e tomar ações corretivas.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Sección 2: Índice de Cumplimiento de Recursos -->
+<div class="section" id="recursos">
+<div class="section-title">Índice de cumprimento de Recursos (ICR)</div>
+<div class="kpi-section">
+<div class="kpi-title">Índice de cumprimento de Recursos (ICR)</div>
+<div class="kpi-content">
+<div class="kpi-formula">
+                            ICR = (Recursos asignados e efectivos / Recursos necessários totales) × 100
+                        </div>
+<div class="kpi-details">
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Umbrales de avaliação</div>
+<ul class="threshold-list">
+<li><span class="tolerable">Tolerável (Aceitável): ≥ 90%</span></li>
+<li><span class="marginal">Marginal: 75% - 89%</span></li>
+<li><span class="not-acceptable">Não Aceitável: &lt; 75%</span></li>
+</ul>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Justificação</div>
+<p>Este indicador avalia a proporção de recursos disponíveis e utilizados em comparação com os recursos planeados. Um ICR ≥ 90% assegura que os recursos atribuídos são suficientes para alcançar os objetivos do SGC, enquanto valores inferiores indicam a necessidade de ajustes no planeamento e na atribuição de recursos.</p>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Frequência de avaliação</div>
+<p>Trimestral, em as reuniones de acompanhamento do SGC.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sección 3: Ações Corretivas Implementadas -->
+<div class="section" id="acciones-correctivas">
+<div class="section-title">% de Ações Corretivas Implementadas dentro do Prazo</div>
+<div class="kpi-section">
+<div class="kpi-title">% de Ações Corretivas Implementadas dentro do Prazo (ACIP)</div>
+<div class="kpi-content">
+<div class="kpi-formula">
+                            ACIP = (N° de ações corretivas implementadas / Total de ações corretivas) × 100
+                        </div>
+<div class="kpi-details">
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Umbrales de avaliação</div>
+<ul class="threshold-list">
+<li><span class="tolerable">Tolerável (Aceitável): ≥ 90%</span></li>
+<li><span class="marginal">Marginal: 75% - 89%</span></li>
+<li><span class="not-acceptable">Não Aceitável: &lt; 75%</span></li>
+</ul>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Justificação</div>
+<p>Um nível de cumprimento superior a 90% indica um compromisso efetivo com a melhoria contínua. Um cumprimento entre 75% e 89% sugere áreas de melhoria. Um cumprimento inferior a 75% requer revisão de estratégias e recursos.</p>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Fonte de Dados</div>
+<p>Relatórios de auditoria, atas de revisão, registos de ações corretivas.</p>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Frequência de avaliação</div>
+<p>Trimestral, em reuniones de acompanhamento do SGC.</p>
+</div>
+</div>
+<div class="highlight-box">
+<div class="kpi-detail-title">Plano de Ação</div>
+<p>Se o indicador estiver em intervalo não aceitável (&lt;75%), a Alta direção deve rever recursos e tomar ações corretivas.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Sección 4: Contratos y Satisfação do Cliente -->
+<div class="section" id="contratos-satisfaccion">
+<div class="section-title">Contratos e Satisfação do cliente</div>
+<div class="kpi-section">
+<div class="kpi-title">% de Contratos Cumpridos em Tempo e Forma (CCT)</div>
+<div class="kpi-content">
+<div class="kpi-formula">
+                            CCT = (N° de contratos cumplidos / Total de contratos) × 100
+                        </div>
+</div>
+</div>
+<div class="kpi-section">
+<div class="kpi-title">% de Satisfação do cliente (SC)</div>
+<div class="kpi-content">
+<div class="kpi-formula">
+                            SC = (clientes satisfechos / Total de clientes encuestados) × 100
+                        </div>
+<div class="kpi-details">
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Justificação</div>
+<p>Um cumprimento alto em ambos os indicadores reflete um desempenho eficiente na gestão de contratos e a satisfação do cliente. Resultados inferiores às metas requerem análise e ações corretivas imediatas.</p>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Fonte de Dados</div>
+<p>Inquéritos de satisfação, auditorias internas, registos de contratos.</p>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Frequência de avaliação</div>
+<p>Trimestral, com revisão por a Alta direção.</p>
+</div>
+</div>
+<div class="highlight-box">
+<div class="kpi-detail-title">Plano de Ação</div>
+<p>Se os indicadores estiverem fora do intervalo, rever-se-ão os recursos atribuídos e desenvolver-se-ão planos de melhoria.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Sección 5: Seguridad y Respuesta a Incidentes -->
+<div class="section" id="seguridad-incidentes">
+<div class="section-title">Segurança e Resposta a Incidentes</div>
+<div class="kpi-section">
+<div class="kpi-title">% de cumprimento de Planes de segurança (CPS)</div>
+<div class="kpi-content">
+<div class="kpi-formula">
+                            CPS = (N.º de planos implementados corretamente / Total de planos) × 100
+                        </div>
+</div>
+</div>
+<div class="kpi-section">
+<div class="kpi-title">Tempo Médio de Resposta perante Incidentes (TPR)</div>
+<div class="kpi-content">
+<div class="kpi-formula">
+                            TPR = (Soma dos tempos de resposta / Total de incidentes) × 100
+                        </div>
+<div class="kpi-details">
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Justificação</div>
+<p>Um cumprimento superior a 95% nos planos de segurança indica eficiência na execução. Um tempo médio de resposta inferior a 5 minutos reflete uma atenção oportuna a incidentes.</p>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Fonte de Dados</div>
+<p>Relatórios de operações, registos de incidentes, auditorias internas.</p>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Frequência de avaliação</div>
+<p>Mensal, com revisão trimestral pela Alta direção.</p>
+</div>
+</div>
+<div class="highlight-box">
+<div class="kpi-detail-title">Plano de Ação</div>
+<p>Se os indicadores estiverem fora do intervalo, avaliar-se-ão recursos e processos, implementando melhorias conforme corresponda.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Sección 6: Actividades Programadas y Satisfacción -->
+<div class="section" id="actividades-programadas">
+<div class="section-title">atividades Programadas e Satisfação do cliente</div>
+<div class="kpi-section">
+<div class="kpi-title">% de cumprimento de atividades Programadas (CAP)</div>
+<div class="kpi-content">
+<div class="kpi-formula">
+                            CAP = (N° de atividades completadas / Total de atividades programadas) × 100
+                        </div>
+</div>
+</div>
+<div class="kpi-section">
+<div class="kpi-title">Índice de Satisfação do cliente (ISC)</div>
+<div class="kpi-content">
+<div class="kpi-formula">
+                            ISC = (clientes satisfechos / Total de clientes encuestados) × 100
+                        </div>
+<div class="kpi-details">
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Justificação</div>
+<p>Uma alta percentagem de cumprimento reflete uma adequada execução dos serviços. Um índice de satisfação do cliente superior a 90% assegura que os serviços cumprem as expectativas e os requisitos estabelecidos.</p>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Fonte de Dados</div>
+<p>Relatórios de supervisão, inquéritos de satisfação, auditorias internas.</p>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Frequência de avaliação</div>
+<p>Mensal, com revisão trimestral pela Alta direção.</p>
+</div>
+</div>
+<div class="highlight-box">
+<div class="kpi-detail-title">Plano de Ação</div>
+<p>Se os indicadores estiverem fora do intervalo, rever-se-ão recursos e procedimentos, implementando melhorias conforme corresponda.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Sección 7: Tiempos de Respuesta y Documentação -->
+<div class="section" id="tiempos-respuesta">
+<div class="section-title">Tempos de Resposta e Documentação</div>
+<div class="kpi-section">
+<div class="kpi-title">% de cumprimento de Tempos de Resposta (CTR)</div>
+<div class="kpi-content">
+<div class="kpi-formula">
+                            CTR = (Pedidos atendidos a tempo / Total de pedidos) × 100
+                        </div>
+</div>
+</div>
+<div class="kpi-section">
+<div class="kpi-title">% de documentos atualizados (DA)</div>
+<div class="kpi-content">
+<div class="kpi-formula">
+                            DA = (documentos atualizados / Total de documentos) × 100
+                        </div>
+<div class="kpi-details">
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Justificação</div>
+<p>Um cumprimento superior a 95% em tempos de resposta assegura a eficiência na gestão. Uma alta percentagem de documentos atualizados reflete o controlo e a organização do processo.</p>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Fonte de Dados</div>
+<p>Relatórios de gestão, auditorias internas, registos de acompanhamento.</p>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Frequência de avaliação</div>
+<p>Trimestral, com revisão semestral por a Alta direção.</p>
+</div>
+</div>
+<div class="highlight-box">
+<div class="kpi-detail-title">Plano de Ação</div>
+<p>Se os indicadores estiverem fora do intervalo, rever-se-ão recursos, procedimentos e estratégias para implementar melhorias.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Sección 8: Reclamos y Satisfacción Postventa -->
+<div class="section" id="reclamos-postventa">
+<div class="section-title">Reclamos e Satisfação Postventa</div>
+<div class="kpi-section">
+<div class="kpi-title">% de Reclamações Resolvidas a Tempo (RRT)</div>
+<div class="kpi-content">
+<div class="kpi-formula">
+                            RRT = (Reclamações resolvidas dentro do prazo / Total de reclamações recebidas) × 100
+                        </div>
+</div>
+</div>
+<div class="kpi-section">
+<div class="kpi-title">Índice de Satisfação do cliente Postventa (ISC)</div>
+<div class="kpi-content">
+<div class="kpi-formula">
+                            ISC = (clientes satisfechos em postventa / Total de clientes encuestados) × 100
+                        </div>
+<div class="kpi-details">
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Justificação</div>
+<p>Um cumprimento de 95% na resolução de reclamações assegura um serviço pós-venda eficiente. Um índice de satisfação superior a 90% reflete a fidelização do cliente e a eficácia do processo.</p>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Fonte de Dados</div>
+<p>Registos de reclamações, inquéritos pós-venda, auditorias internas.</p>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Frequência de avaliação</div>
+<p>Trimestral, com revisão semestral por a Alta direção.</p>
+</div>
+</div>
+<div class="highlight-box">
+<div class="kpi-detail-title">Plano de Ação</div>
+<p>Se os indicadores estiverem fora do intervalo, rever-se-ão procedimentos e implementar-se-ão estratégias de melhoria.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Sección 9: Presupuesto y Obligaciones Fiscales -->
+<div class="section" id="presupuesto-fiscal">
+<div class="section-title">Orçamento e Obrigações Fiscais</div>
+<div class="kpi-section">
+<div class="kpi-title">% de Execução Orçamental (EO)</div>
+<div class="kpi-content">
+<div class="kpi-formula">
+                            EO = (Orçamento executado / Orçamento aprovado) × 100
+                        </div>
+</div>
+</div>
+<div class="kpi-section">
+<div class="kpi-title">Cumprimento de Obrigações Fiscais (COF)</div>
+<div class="kpi-content">
+<div class="kpi-formula">
+                            COF = (Obrigações cumpridas a tempo / Total de obrigações) × 100
+                        </div>
+<div class="kpi-details">
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Justificação</div>
+<p>Um nível de execução orçamental superior a 90% assegura uma gestão financeira eficiente. O cumprimento de 100% das obrigações fiscais garante a conformidade legal e evita sanções.</p>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Fonte de Dados</div>
+<p>Registos contabilísticos, relatórios de cumprimento fiscal, auditorias internas.</p>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Frequência de avaliação</div>
+<p>Trimestral, com revisão anual por a Alta direção.</p>
+</div>
+</div>
+<div class="highlight-box">
+<div class="kpi-detail-title">Plano de Ação</div>
+<p>Se os indicadores estiverem fora do intervalo, rever-se-ão os procedimentos financeiros e implementar-se-ão ações corretivas.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Sección 10: Entregas y Especificaciones Técnicas -->
+<div class="section" id="entregas-especificaciones">
+<div class="section-title">Entregas e Especificações Técnicas</div>
+<div class="kpi-section">
+<div class="kpi-title">% de Entregas a Tempo (ETA)</div>
+<div class="kpi-content">
+<div class="kpi-formula">
+                            ETA = (Entregas dentro do prazo / Total de entregas) × 100
+                        </div>
+</div>
+</div>
+<div class="kpi-section">
+<div class="kpi-title">% de Cumprimento de Especificações Técnicas (CET)</div>
+<div class="kpi-content">
+<div class="kpi-formula">
+                            CET = (Insumos conformes / Total de insumos entregados) × 100
+                        </div>
+<div class="kpi-details">
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Justificação</div>
+<p>Um nível de 95% em entregas a tempo e 98% em cumprimento de especificações assegura um fornecimento fiável e de qualidade.</p>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Fonte de Dados</div>
+<p>Relatórios de receção de bens, registos de inspeção, contratos.</p>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Frequência de avaliação</div>
+<p>Trimestral, com revisão anual por a Alta direção.</p>
+</div>
+</div>
+<div class="highlight-box">
+<div class="kpi-detail-title">Plano de Ação</div>
+<p>Se os indicadores estiverem fora do intervalo, desenvolver-se-ão estratégias de melhoria ou substituição de fornecedores.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Sección 11: Capacitação y Rotación de Personal -->
+<div class="section" id="capacitação-rotacion">
+<div class="section-title">Formação e Rotação de Pessoal</div>
+<div class="kpi-section">
+<div class="kpi-title">% de cumprimento do Plano de Formação (CPC)</div>
+<div class="kpi-content">
+<div class="kpi-formula">
+                            CPC = (Formaçãoes realizadas / Formaçãoes planificadas) × 100
+                        </div>
+</div>
+</div>
+<div class="kpi-section">
+<div class="kpi-title">Taxa de Rotação de Pessoal (TRP)</div>
+<div class="kpi-content">
+<div class="kpi-formula">
+                            TRP = (Número de bajas / Total de empleados) × 100
+                        </div>
+<div class="kpi-details">
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Justificação</div>
+<p>Um cumprimento de 90% no plano de formação garante o desenvolvimento do talento humano. Uma taxa de rotação inferior a 10% indica estabilidade laboral.</p>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Fonte de Dados</div>
+<p>Registos de formação, relatórios de vencimentos e base de dados de colaboradores.</p>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Frequência de avaliação</div>
+<p>Semestral, com reportes anuales para a Alta direção.</p>
+</div>
+</div>
+<div class="highlight-box">
+<div class="kpi-detail-title">Plano de Ação</div>
+<p>Se os indicadores estiverem fora do intervalo, implementar-se-ão estratégias de melhoria em recrutamento, formação e clima laboral.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Sección 12: Mantenimiento y Disponibilidad -->
+<div class="section" id="mantenimiento-disponibilidad">
+<div class="section-title">Manutenção e Disponibilidade</div>
+<div class="kpi-section">
+<div class="kpi-title">% de cumprimento do Plano de Manutenção (CPM)</div>
+<div class="kpi-content">
+<div class="kpi-formula">
+                            CPM = (Mantenimientos realizados / Mantenimientos planificados) × 100
+                        </div>
+</div>
+</div>
+<div class="kpi-section">
+<div class="kpi-title">% de Disponibilidade de Equipamentos Operacionais (DEO)</div>
+<div class="kpi-content">
+<div class="kpi-formula">
+                            DEO = (Equipamentos operacionais / Total de equipamentos) × 100
+                        </div>
+<div class="kpi-details">
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Justificação</div>
+<p>Um cumprimento de 95% em manutenção garante a operacionalidade dos equipamentos. Uma disponibilidade de 98% assegura que as operações não são afetadas.</p>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Fonte de Dados</div>
+<p>Relatórios de manutenção, registos de inventários.</p>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Frequência de avaliação</div>
+<p>Trimestral, com revisão anual.</p>
+</div>
+</div>
+<div class="highlight-box">
+<div class="kpi-detail-title">Plano de Ação</div>
+<p>Se os indicadores estiverem fora do intervalo, implementar-se-ão medidas corretivas como ajustes em cronogramas ou aquisições adicionais.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Sección 13: Sistemas e Incidentes -->
+<div class="section" id="sistemas-incidentes">
+<div class="section-title">Sistemas e Incidentes</div>
+<div class="kpi-section">
+<div class="kpi-title">Taxa de Disponibilidade de Sistemas (TDS)</div>
+<div class="kpi-content">
+<div class="kpi-formula">
+                            TDS = (Horas de disponibilidad / Horas totales do período) × 100
+                        </div>
+</div>
+</div>
+<div class="kpi-section">
+<div class="kpi-title">Taxa de Resolução de Incidentes em Tempo (TRIT)</div>
+<div class="kpi-content">
+<div class="kpi-formula">
+                            TRIT = (Incidentes resolvidos a tempo / Incidentes reportados) × 100
+                        </div>
+<div class="kpi-details">
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Justificação</div>
+<p>Uma disponibilidade de 99% assegura operações contínuas. Uma taxa de resolução de 95% garante a eficiência do suporte técnico.</p>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Fonte de Dados</div>
+<p>Registos de sistemas, reportes de incidentes, logs de atividade.</p>
+</div>
+<div class="kpi-detail-box">
+<div class="kpi-detail-title">Frequência de avaliação</div>
+<p>Trimestral, com reportes semestrales.</p>
+</div>
+</div>
+<div class="highlight-box">
+<div class="kpi-detail-title">Plano de Ação</div>
+<p>Se os indicadores estiverem fora do intervalo, implementar-se-ão planos de melhoria em infraestrutura ou processos de suporte.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Botón de impresión (se mantiene el original) -->
+<button class="print-btn" onclick="window.print()">📄 Imprimir documento</button>
+<!-- Histórico de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Pie de página -->
+<div class="footer">
+<p>Código: DOC-013 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        // Configurar scroll suave para los enlaces del TOC
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Verifica si el logo existe, caso contrario muestra un placeholder
+        const logoImg = document.querySelector('.logo');
+        if (logoImg) {
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+            };
+        }
+
+        // Función para descargar el HTML actual
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'DOC-013-RecursosdeMedicion-KPIs.html'; // Nombre del archivo
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        // Función para activar/desactivar modo edición
+        const editBtn = document.getElementById('editBtn');
+        let editModeActive = false;
+
+        // Elementos que serán editables (todo el texto del documento, excepto botones y logo)
+        const editableElements = [
+            document.querySelector('.org-info'),
+            document.querySelector('.doc-title'),
+            document.querySelector('.doc-code'),
+            document.querySelector('.content'),
+            document.querySelector('.footer')
+        ].filter(el => el !== null); // Filtrar elementos que existan
+
+        editBtn.addEventListener('click', function() {
+            editModeActive = !editModeActive;
+            
+            editableElements.forEach(el => {
+                if (editModeActive) {
+                    el.setAttribute('contenteditable', 'true');
+                } else {
+                    el.removeAttribute('contenteditable');
+                }
+            });
+            
+            // Añadir o quitar una clase al body para dar feedback visual
+            if (editModeActive) {
+                document.body.classList.add('editable-active');
+                editBtn.innerHTML = '🔒 Terminar edição';
+                editBtn.style.backgroundColor = '#c53030'; // rojo para indicar modo activo
+            } else {
+                document.body.classList.remove('editable-active');
+                editBtn.innerHTML = '✏️ Editar conteúdo';
+                editBtn.style.backgroundColor = '#4a5568'; // color original
+            }
+        });
+    </script>
+</body>
+</html>

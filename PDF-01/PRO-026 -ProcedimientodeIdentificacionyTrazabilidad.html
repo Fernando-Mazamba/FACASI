@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PRO-026 Procedimento de Identificação e Rastreabilidade - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-title:before {
+            content: counter(section-counter) ". ";
+        }
+        
+        .subsection {
+            margin-bottom: 30px;
+            padding-left: 20px;
+        }
+        
+        .subsection-title {
+            color: #2d3748;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+            counter-increment: subsection-counter;
+        }
+        
+        .subsection-title:before {
+            content: counter(section-counter) "." counter(subsection-counter) ". ";
+        }
+        
+        .content-text {
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        
+        .definition-list {
+            list-style-type: none;
+            margin: 15px 0 25px 20px;
+        }
+        
+        .definition-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        
+        .definition-title {
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+        
+        .definition-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .responsibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0 25px 0;
+        }
+        
+        .responsibility-table th, .responsibility-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        .responsibility-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+            width: 30%;
+        }
+        
+        .responsibility-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .procedure-list {
+            list-style-type: none;
+            margin: 15px 0 25px 30px;
+        }
+        
+        .procedure-item {
+            margin-bottom: 20px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .procedure-item:before {
+            content: "•";
+            color: #4a5568;
+            font-weight: bold;
+            font-size: 20px;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+        
+        .sub-item {
+            margin: 10px 0 10px 20px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .sub-item:before {
+            content: "○";
+            color: #718096;
+            position: absolute;
+            left: 0;
+        }
+        
+        .indicator-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0 25px 0;
+        }
+        
+        .indicator-table th, .indicator-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        .indicator-table th {
+            background-color: #2d3748;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .indicator-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .documentation-list {
+            list-style-type: none;
+            margin: 15px 0 25px 20px;
+        }
+        
+        .documentation-item {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .documentation-item:before {
+            content: "—";
+            color: #4a5568;
+            position: absolute;
+            left: 0;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-bar {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            background-color: #718096;
+        }
+        
+        .btn-success {
+            background-color: #2f855a;
+        }
+        
+        .btn-success:hover {
+            background-color: #38a169;
+        }
+        
+        .btn-warning {
+            background-color: #c05621;
+        }
+        
+        .btn-warning:hover {
+            background-color: #dd6b20;
+        }
+        
+        .editable-highlight {
+            outline: 2px dashed #3182ce;
+            background-color: #f0f7ff;
+            transition: all 0.2s;
+        }
+        
+        /* Indicador visual de modo edición */
+        .edit-mode-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #c05621;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .edit-mode-indicator.active {
+            display: flex;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .action-bar, .print-btn, .edit-mode-indicator {
+                display: none !important;
+            }
+            
+            .responsibility-table, .indicator-table {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+            
+            .responsibility-table th, .responsibility-table td {
+                padding: 10px;
+                font-size: 14px;
+            }
+            
+            .indicator-table th, .indicator-table td {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .responsibility-table, .indicator-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            
+            .action-bar {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabeçalho com logo e informações da organização -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título do documento -->
+<div class="doc-title">Procedimento de Identificação e Rastreabilidade</div>
+<div class="doc-code">Código: PRO-026</div>
+<!-- Barra de acciones (descargar y editar) -->
+<div class="content" style="padding-top: 0;">
+<div class="action-bar">
+<button class="btn btn-success" id="downloadBtn">
+<span style="font-size: 1.2em;">⬇️</span> Descarregar HTML
+                </button>
+<button class="btn btn-warning" id="editToggleBtn">
+<span style="font-size: 1.2em;">✎</span> Ativar edição completa
+                </button>
+<button class="print-btn" onclick="window.print()">
+<span style="font-size: 1.2em;">🖨️</span> Imprimir
+                </button>
+</div>
+</div>
+<!-- Indicador de modo edición -->
+<div class="edit-mode-indicator" id="editModeIndicator">
+<span style="font-size: 1.2em;">✎</span> Modo de edição ativado
+        </div>
+<!-- Conteúdo principal -->
+<div class="content">
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#objetivo">Objetivo</a></li>
+<li class="toc-item"><a class="toc-link" href="#alcance">Alcance</a></li>
+<li class="toc-item"><a class="toc-link" href="#definiciones">Definições</a></li>
+<li class="toc-item"><a class="toc-link" href="#responsabilidades">Responsabilidades</a></li>
+<li class="toc-item"><a class="toc-link" href="#procedimientos">Procedimentos</a>
+<ol style="margin-left: 20px; margin-top: 5px;">
+<li><a class="toc-link" href="#identificacion">Identificação de Productos e serviços</a></li>
+<li><a class="toc-link" href="#trazabilidad-produccion">Rastreabilidade no processo de Produção</a></li>
+<li><a class="toc-link" href="#control-informacion">Control de Informação e Registos</a></li>
+<li><a class="toc-link" href="#auditorias">Auditorías e Verificação de Rastreabilidade</a></li>
+<li><a class="toc-link" href="#acciones">Ações Corretivas e Preventivas</a></li>
+<li><a class="toc-link" href="#proveedores">Gestão de Fornecedores</a></li>
+</ol>
+</li>
+<li class="toc-item"><a class="toc-link" href="#indicadores">Indicadores de Desempenho</a></li>
+<li class="toc-item"><a class="toc-link" href="#documentacion">Documentação Relacionada</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Seção 1: Objetivo -->
+<div class="section" id="objetivo">
+<div class="section-title">Objetivo</div>
+<p class="content-text">O objetivo deste procedimento é estabelecer as diretrizes e ações necessárias para assegurar que todos os produtos e serviços sejam identificados e rastreados corretamente ao longo do seu ciclo de vida. Isto inclui garantir a conformidade com os requisitos de qualidade, segurança e ambiente, bem como facilitar o acompanhamento de cada produto ou serviço para assegurar que cumpra as normativas e padrões estabelecidos.</p>
+<p class="content-text">A organização implementa este procedimento para manter um controlo preciso sobre todos os produtos e serviços, permitindo a sua rastreabilidade completa desde a origem até ao destino final, em cumprimento dos requisitos do Sistema de Gestão Integrado e das normativas aplicáveis.</p>
+</div>
+<!-- Seção 2: Alcance -->
+<div class="section" id="alcance">
+<div class="section-title">Alcance</div>
+<p class="content-text">Este procedimento aplica-se a todos os produtos e serviços produzidos ou prestados pela organização, desde a origem das matérias-primas até à entrega ao cliente, incluindo:</p>
+<ul class="procedure-list">
+<li class="procedure-item">A identificação de cada produto em todas as etapas de produção, armazenamento, distribuição e venda.</li>
+<li class="procedure-item">A rastreabilidade de cada produto ou serviço, assegurando que se possa seguir o caminho completo desde o seu fabrico até ao seu destino final.</li>
+<li class="procedure-item">El controlo da informação relacionada com a identificação e trazabilidad dos productos.</li>
+</ul>
+<p class="content-text">A organização garante que este procedimento cobre todos os aspetos do ciclo de vida de produtos e serviços, incluindo matérias-primas, produtos intermédios, produtos terminados e serviços prestados.</p>
+</div>
+<!-- Seção 3: Definiciones -->
+<div class="section" id="definiciones">
+<div class="section-title">Definições</div>
+<ul class="definition-list">
+<li class="definition-item">
+<div class="definition-title">Identificação</div>
+<p class="content-text">Ação de atribuir um código único, número de série, lote ou referência a um produto ou serviço para o poder diferenciar de outros. A organização implementa sistemas de identificação únicos para cada produto ou lote.</p>
+</li>
+<li class="definition-item">
+<div class="definition-title">Rastreabilidade</div>
+<p class="content-text">Capacidade de seguir o percurso de um produto ou serviço ao longo de todo o seu ciclo de vida, desde a matéria-prima até ao consumo final. A organização mantém registos completos que permitem esta rastreabilidade.</p>
+</li>
+<li class="definition-item">
+<div class="definition-title">Lote</div>
+<p class="content-text">Conjunto de produtos fabricados sob condições semelhantes, o que permite identificá-los e rastreá-los como um único conjunto. A organização define e controla os lotes conforme critérios estabelecidos.</p>
+</li>
+<li class="definition-item">
+<div class="definition-title">Rastreabilidad</div>
+<p class="content-text">Processo que permite verificar a história, localização e trajetória de um produto ao longo do seu ciclo de vida. A organização implementa sistemas que garantem a rastreabilidade completa.</p>
+</li>
+</ul>
+</div>
+<!-- Seção 4: Responsabilidades -->
+<div class="section" id="responsabilidades">
+<div class="section-title">Responsabilidades</div>
+<table class="responsibility-table">
+<thead>
+<tr>
+<th>Responsável</th>
+<th>Responsabilidade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Alta direção</td>
+<td>Aprovar o procedimento de identificação e rastreabilidade e garantir os recursos necessários para a sua implementação. Demonstrar liderança e compromisso com o sistema de rastreabilidade.</td>
+</tr>
+<tr>
+<td>responsável do SGI</td>
+<td>Coordenar e supervisionar a implementação do procedimento, assegurando que se cumpram os padrões de rastreabilidade. Manter atualizado o sistema e realizar revisões periódicas.</td>
+</tr>
+<tr>
+<td>responsáveis de Produção</td>
+<td>Assegurar que os produtos sejam identificados adequadamente em todas as etapas do processo de produção. Implementar e manter os sistemas de identificação nas linhas de produção.</td>
+</tr>
+<tr>
+<td>responsáveis de qualidade</td>
+<td>Verificar que os produtos cumprem os requisitos de rastreabilidade e realizar auditorias periódicas. Validar a exatidão dos registos de rastreabilidade.</td>
+</tr>
+<tr>
+<td>responsáveis de Logística</td>
+<td>Controlar o armazenamento, distribuição e transporte de produtos, assegurando a sua identificação e rastreabilidade contínua. Gerir a documentação de envios e receções.</td>
+</tr>
+<tr>
+<td>responsáveis de Armazenamento</td>
+<td>Garantir que os produtos armazenados estejam devidamente identificados e etiquetados para facilitar a sua rastreabilidade. Manter a organização e o controlo do inventário.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Seção 5: Procedimentos -->
+<div class="section" id="procedimientos">
+<div class="section-title">Procedimentos</div>
+<p class="content-text">A organização implementa os seguintes procedimentos para garantir a identificação e rastreabilidade efetiva de todos os seus produtos e serviços:</p>
+<!-- Subseção 5.1 -->
+<div class="subsection" id="identificacion">
+<div class="subsection-title">Identificação de Productos e serviços</div>
+<ul class="procedure-list">
+<li class="procedure-item">Cada produto ou serviço deve ser identificado de maneira única através de um número de série, código de barras, etiqueta ou número de lote, conforme corresponda.</li>
+<li class="procedure-item">La identificação deve incluir:
+                            <div class="sub-item">O nome do produto ou serviço.</div>
+<div class="sub-item">O número de lote ou data de fabrico.</div>
+<div class="sub-item">El número de serie o código de referencia.</div>
+<div class="sub-item">A informação sobre o fornecedor ou a origem dos materiais.</div>
+</li>
+<li class="procedure-item">Atualiza-se a identificação em caso de alterações ou atualizações no produto ou serviço, mantendo o histórico de modificações.</li>
+<li class="procedure-item">A organização utiliza sistemas automatizados de identificação quando seja possível para aumentar a precisão e a eficiência.</li>
+</ul>
+</div>
+<!-- Subseção 5.2 -->
+<div class="subsection" id="trazabilidad-produccion">
+<div class="subsection-title">Rastreabilidade no processo de Produção</div>
+<ul class="procedure-list">
+<li class="procedure-item">Os produtos devem ser seguros e rastreáveis em cada uma das etapas de produção, incluindo:
+                            <div class="sub-item"><strong>Fabrico:</strong> Identificação de materiales e productos intermedios com códigos únicos.</div>
+<div class="sub-item"><strong>Armazenamento:</strong> Registo de localização dos produtos e materiais no armazém com sistemas de localização.</div>
+<div class="sub-item"><strong>Distribuição e Transporte:</strong> Acompanhamento de produtos desde o armazém até ao ponto de venda ou cliente final com documentos de rastreabilidade.</div>
+</li>
+<li class="procedure-item">Cada etapa do processo de produção e distribuição regista-se no sistema de rastreabilidade, mantendo a continuidade da informação.</li>
+<li class="procedure-item">A organização implementa controlos em cada ponto de transferência para verificar e registar a rastreabilidade.</li>
+</ul>
+</div>
+<!-- Subseção 5.3 -->
+<div class="subsection" id="control-informacion">
+<div class="subsection-title">Control de Informação e Registos</div>
+<ul class="procedure-list">
+<li class="procedure-item">Mantêm-se registos completos da identificação e rastreabilidade de todos os produtos, incluindo:
+                            <div class="sub-item"><strong>Data de fabrico</strong> exata e hora quando corresponda.</div>
+<div class="sub-item"><strong>Número de lote o serie</strong> único atribuído.</div>
+<div class="sub-item"><strong>Historial de produção</strong> (incluindo cambios de processos, materiales, operadores, etc.).</div>
+<div class="sub-item"><strong>Registos de armazenamento e distribuição</strong> com fechas e responsáveis.</div>
+</li>
+<li class="procedure-item">Os registos são acessíveis, atualizados de forma regular e guardados durante um período de tempo determinado pela normativa ou requisitos da organização.</li>
+<li class="procedure-item">A organização implementa sistemas de gestão documental que garantem a integridade e a segurança dos registos de rastreabilidade.</li>
+</ul>
+</div>
+<!-- Subseção 5.4 -->
+<div class="subsection" id="auditorias">
+<div class="subsection-title">Auditorías e Verificação de Rastreabilidade</div>
+<ul class="procedure-list">
+<li class="procedure-item">Realizam-se auditorias periódicas para verificar que os produtos estão a ser corretamente identificados e rastreados em todas as etapas do seu ciclo de vida.</li>
+<li class="procedure-item">As auditorias incluem:
+                            <div class="sub-item">Revisão da documentação de identificação e rastreabilidade para verificar a sua completude e exatidão.</div>
+<div class="sub-item">acompanhamento de productos específicos para assegurar que a trazabilidad se mantenga a lo largo de seu ciclo de vida (pruebas de trazabilidad).</div>
+<div class="sub-item">Avaliação da eficácia dos procedimentos de rastreabilidade implementados e do seu cumprimento com os requisitos.</div>
+</li>
+<li class="procedure-item">Os resultados das auditorias documentam-se e utilizam-se para a melhoria contínua do sistema de rastreabilidade.</li>
+</ul>
+</div>
+<!-- Subseção 5.5 -->
+<div class="subsection" id="acciones">
+<div class="subsection-title">Ações Corretivas e Preventivas</div>
+<ul class="procedure-list">
+<li class="procedure-item">Se durante a auditoria ou monitorização se identificarem falhas na rastreabilidade, implementam-se ações corretivas e preventivas para corrigir as deficiências e evitar futuras incidências.</li>
+<li class="procedure-item">As ações incluem:
+                            <div class="sub-item">Investigação da causa raiz da falha na rastreabilidade utilizando metodologias estruturadas.</div>
+<div class="sub-item">Ajustes em os processos de identificação e registo de productos para eliminar as causas identificadas.</div>
+<div class="sub-item">Formação do pessoal nos procedimentos de rastreabilidade e consciencialização sobre a sua importância.</div>
+</li>
+<li class="procedure-item">A organização realiza acompanhamento às ações implementadas para verificar a sua eficácia.</li>
+</ul>
+</div>
+<!-- Subseção 5.6 -->
+<div class="subsection" id="proveedores">
+<div class="subsection-title">Gestão de Fornecedores</div>
+<ul class="procedure-list">
+<li class="procedure-item">Os fornecedores devem proporcionar produtos com sistemas de identificação e rastreabilidade adequados que cumpram os requisitos da organização.</li>
+<li class="procedure-item">A rastreabilidade dos materiais confirma-se através da documentação proporcionada pelo fornecedor, que deve incluir informação como a origem dos materiais e o número de lote ou certificados de qualidade.</li>
+<li class="procedure-item">A organização avalia periodicamente os fornecedores quanto à sua capacidade para manter a rastreabilidade dos materiais fornecidos.</li>
+<li class="procedure-item">Estabelecem-se acordos contratuais que incluem requisitos específicos de rastreabilidade com os fornecedores críticos.</li>
+</ul>
+</div>
+</div>
+<!-- Seção 6: Indicadores de Desempeño -->
+<div class="section" id="indicadores">
+<div class="section-title">Indicadores de Desempenho</div>
+<table class="indicator-table">
+<thead>
+<tr>
+<th>Indicador</th>
+<th>Descrição</th>
+<th>Meta</th>
+<th>Frequência de Medição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>% de produtos identificados corretamente</td>
+<td>Percentagem de produtos identificados corretamente em cada etapa do processo (matérias-primas, produção, armazenamento, distribuição).</td>
+<td>≥ 99%</td>
+<td>Mensal</td>
+</tr>
+<tr>
+<td>% de trazabilidad completa</td>
+<td>Percentagem de produtos com rastreabilidade completa desde a origem de matérias-primas até ao cliente final.</td>
+<td>100%</td>
+<td>Trimestral</td>
+</tr>
+<tr>
+<td>Número de fallos em trazabilidad</td>
+<td>Número de incidentes relacionados com fallos na trazabilidad identificados em auditorías o quejas.</td>
+<td>≤ 2 por trimestre</td>
+<td>Trimestral</td>
+</tr>
+<tr>
+<td>Tempo de resposta a incidências de rastreabilidade</td>
+<td>Tempo médio para resolver problemas de rastreabilidade identificados (desde a deteção até à solução).</td>
+<td>≤ 48 horas</td>
+<td>Trimestral</td>
+</tr>
+<tr>
+<td>Taxa de cumprimento de fornecedores</td>
+<td>Percentagem de fornecedores que cumprem os requisitos de rastreabilidade estabelecidos.</td>
+<td>≥ 95%</td>
+<td>Semestral</td>
+</tr>
+</tbody>
+</table>
+<p class="content-text">A organização revê estes indicadores regularmente e toma ações de melhoria quando não se alcançam as metas estabelecidas.</p>
+</div>
+<!-- Seção 7: Documentação Relacionada -->
+<div class="section" id="documentacion">
+<div class="section-title">Documentação Relacionada</div>
+<ul class="documentation-list">
+<li class="documentation-item">Registos de Identificação de Produtos - Formulários e bases de dados que contêm a informação de identificação de cada produto.</li>
+<li class="documentation-item">Registos de Produção e Distribuição - Documentação que detalha o processo de fabrico, armazenamento e distribuição de produtos.</li>
+<li class="documentation-item">Relatório de Auditoria de Rastreabilidade - Resultados das auditorias realizadas ao sistema de rastreabilidade.</li>
+<li class="documentation-item">Documentação de fornecedores - Certificados, facturas e documentos que respaldan a trazabilidad de materiales suministrados.</li>
+<li class="documentation-item">Registos de Ações Corretivas e Preventivas - Documentação das ações tomadas para corrigir falhas na rastreabilidade.</li>
+<li class="documentation-item">PRO-001 - Procedimento de controlo da Documentação do SGI.</li>
+<li class="documentation-item">PRO-005 - Procedimento de controlo de Produto Não Conforme.</li>
+<li class="documentation-item">PRO-008 - Procedimento de Auditorías Internas.</li>
+</ul>
+</div>
+<!-- Histórico de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Rodapé -->
+<div class="footer">
+<p>Código: PRO-026 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        // Configurar scroll suave para los enlaces del TOC
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Configurar contador de secciones
+        document.body.style.counterReset = 'section-counter subsection-counter';
+        
+        // Verifica se o logo existe, caso contrário mostra um placeholder
+        const logoImg = document.querySelector('.logo');
+        if (logoImg) {
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+            };
+        }
+        
+        // ---- FUNCIONALIDAD DE EDICIÓN COMPLETA (TOGGLE) ----
+        let editMode = false;
+        const editBtn = document.getElementById('editToggleBtn');
+        const editIndicator = document.getElementById('editModeIndicator');
+        
+        // Elementos editables (todos los que tienen contenido de texto relevante)
+        const editableSelectors = [
+            '.content-text', 
+            '.definition-title', 
+            '.subsection-title',
+            '.responsibility-table td',
+            '.indicator-table td',
+            '.procedure-item',
+            '.documentation-item',
+            '.sub-item',
+            '.doc-info-item',
+            '.org-name',
+            '.doc-title',
+            '.doc-code',
+            '.version-table td',
+            '.definition-item .content-text'  // descripciones dentro de definiciones
+        ].join(',');
+        
+        function enableEditing() {
+            document.querySelectorAll(editableSelectors).forEach(element => {
+                // Evitar duplicar el atributo si ya es editable nativamente
+                if (!element.hasAttribute('contenteditable') || element.getAttribute('contenteditable') !== 'true') {
+                    element.setAttribute('contenteditable', 'true');
+                }
+                // Agregar clase para destacar visualmente (opcional)
+                element.classList.add('editable-highlight');
+                
+                // Eventos para mejorar UX
+                element.removeEventListener('focus', focusHandler);
+                element.removeEventListener('blur', blurHandler);
+                element.addEventListener('focus', focusHandler);
+                element.addEventListener('blur', blurHandler);
+            });
+            editBtn.innerHTML = '<span style="font-size: 1.2em;">✎</span> Desativar edição';
+            editIndicator.classList.add('active');
+            editMode = true;
+        }
+        
+        function disableEditing() {
+            document.querySelectorAll(editableSelectors).forEach(element => {
+                element.removeAttribute('contenteditable');
+                element.classList.remove('editable-highlight');
+                // Resetear estilos inline que puedan haber quedado
+                element.style.backgroundColor = '';
+                element.style.outline = '';
+                element.style.padding = '';
+                element.style.borderRadius = '';
+            });
+            editBtn.innerHTML = '<span style="font-size: 1.2em;">✎</span> Ativar edição completa';
+            editIndicator.classList.remove('active');
+            editMode = false;
+        }
+        
+        function focusHandler(e) {
+            e.target.style.backgroundColor = '#f0f7ff';
+            e.target.style.outline = '2px solid #3182ce';
+            // Ajustes para elementos de lista
+            if (e.target.classList.contains('procedure-item') || 
+                e.target.classList.contains('sub-item') ||
+                e.target.classList.contains('documentation-item')) {
+                e.target.style.padding = '8px';
+                e.target.style.borderRadius = '3px';
+                e.target.style.marginLeft = '-5px';
+            } else if (e.target.tagName === 'TD' || e.target.tagName === 'TH') {
+                // Para celdas de tabla ya hay padding, solo outline
+            } else {
+                e.target.style.padding = '5px';
+                e.target.style.borderRadius = '3px';
+            }
+        }
+        
+        function blurHandler(e) {
+            e.target.style.backgroundColor = '';
+            e.target.style.outline = '';
+            e.target.style.padding = '';
+            e.target.style.borderRadius = '';
+            e.target.style.marginLeft = '';
+        }
+        
+        editBtn.addEventListener('click', function() {
+            if (editMode) {
+                disableEditing();
+            } else {
+                enableEditing();
+            }
+        });
+        
+        // ---- FUNCIONALIDAD DE DESCARGA (DOWNLOAD) ----
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            // Obtener el HTML completo del documento (incluyendo estilos y scripts)
+            const doctype = '<!DOCTYPE html>\n';
+            const html = document.documentElement.outerHTML;
+            
+            // Crear blob y descargar
+            const blob = new Blob([doctype + html], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'PRO-026_Procedimento_Rastreabilidade.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+        
+        // Inicialmente el modo edición está desactivado (por defecto el HTML ya tiene contenteditable en algunos elementos, 
+        // pero lo sobreescribimos para que empiece sin edición)
+        window.addEventListener('load', function() {
+            // Desactivar cualquier contenteditable residual del HTML original
+            disableEditing();
+            
+            // Asegurar que el logo por defecto no cause error
+            if (logoImg && !logoImg.complete) {
+                // ya manejado por onerror
+            }
+        });
+    </script>
+</body>
+</html>

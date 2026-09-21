@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DOC-009 Política de Gestão de Riscos Integrada - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c5282;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5282;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c5282;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+            position: relative;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #2c5282;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #2c5282;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .toc-item:before {
+            content: "•";
+            color: #2c5282;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .toc-link {
+            color: #2c5282;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #4299e1;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #2c5282;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .subsection-title {
+            color: #2c5282;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px 0;
+        }
+        
+        .section-description {
+            margin-bottom: 20px;
+            color: #4a5568;
+            line-height: 1.7;
+        }
+        
+        .bullet-list {
+            list-style-type: disc;
+            margin-left: 20px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 8px;
+        }
+        
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .principle-card {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            border-left: 4px solid #2c5282;
+        }
+        
+        .principle-number {
+            display: inline-block;
+            background-color: #2c5282;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .principle-title {
+            color: #2c5282;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .commitment-section {
+            background-color: #fffaf0;
+            border: 1px solid #fed7d7;
+            border-radius: 5px;
+            padding: 25px;
+            margin-top: 40px;
+            border-left: 4px solid #d69e2e;
+        }
+        
+        .commitment-title {
+            color: #744210;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #fed7d7;
+        }
+        
+        .signature-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #2c5282;
+        }
+        
+        .signature-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .signature-box {
+            text-align: center;
+            flex: 1;
+            margin: 0 20px;
+        }
+        
+        .signature-line {
+            width: 80%;
+            height: 2px;
+            background-color: #333;
+            margin: 40px auto 10px;
+        }
+        
+        .signature-name {
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+        
+        .signature-title {
+            font-size: 14px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2c5282;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c5282;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .controls-panel {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .edit-btn {
+            background-color: #2c5282;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .edit-btn:hover {
+            background-color: #4299e1;
+        }
+        
+        .action-btn {
+            background-color: #38a169;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        
+        .action-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .action-btn.secondary {
+            background-color: #718096;
+        }
+        
+        .action-btn.secondary:hover {
+            background-color: #4a5568;
+        }
+        
+        .editable {
+            min-height: 20px;
+            outline: none;
+        }
+        
+        .editing {
+            background-color: #fff9e6;
+            border-left: 3px solid #d69e2e;
+            padding-left: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .edit-indicator {
+            display: inline-block;
+            background-color: #d69e2e;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .controls-panel {
+                display: none;
+            }
+            
+            .edit-indicator {
+                display: none;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .toc-list {
+                padding-left: 0;
+            }
+            
+            .toc-item {
+                padding-left: 15px;
+            }
+            
+            .principles-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .signature-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .signature-box {
+                margin: 0;
+            }
+            
+            .controls-panel {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .edit-btn, .action-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabecera con logo e información de la organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título del documento -->
+<div class="doc-title">Política de Gestão de Riscos Integrada - SGI</div>
+<div class="doc-code">Código: DOC-009</div>
+<!-- Panel de controles de edición -->
+<div class="controls-panel" id="controlsPanel">
+<button class="edit-btn" id="editContentBtn">EDITAR CONTEÚDO</button>
+<button class="action-btn secondary" id="saveBtn">GUARDAR no NAVEGADOR</button>
+<button class="action-btn" id="exportBtn">EXPORTAR como HTML</button>
+<button class="action-btn secondary" id="loadBtn">CARREGAR EDIÇÕES GUARDADAS</button>
+<span id="editStatus" style="margin-left: auto; font-size: 14px; color: #666;">Modo de leitura ativo</span>
+</div>
+<!-- Contenido principal -->
+<div class="content" id="mainContent">
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#introduccion">Introdução</a></li>
+<li class="toc-item"><a class="toc-link" href="#compromiso">Compromisso da organização</a></li>
+<li class="toc-item"><a class="toc-link" href="#principios">Principios Rectores</a></li>
+<li class="toc-item"><a class="toc-link" href="#alcance">Alcance e Aplicação</a></li>
+<li class="toc-item"><a class="toc-link" href="#responsabilidades">Responsabilidades</a></li>
+<li class="toc-item"><a class="toc-link" href="#firma">Aprovação e Assinatura</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Sección 1: Introducción -->
+<div class="section" id="introduccion">
+<div class="section-title">1. Introdução <span class="edit-indicator" id="editIndicator1" style="display: none;">A EDITAR</span></div>
+<div class="section-description editable" id="introduccion-description">
+                    Esta Política de Gestão de Riscos Integrada estabelece o quadro estratégico e as diretrizes gerais para a identificação, avaliação, tratamento, monitorização e comunicação de riscos no Sistema de Gestão Integrado (SGI) da organização. A gestão integral de riscos é fundamental para a consecução dos objetivos estratégicos e operacionais, garantindo a sustentabilidade e a melhoria contínua dos processos relacionados com qualidade, ambiente e segurança ocupacional.
+                </div>
+<div class="subsection-title">objetivo da Política</div>
+<div class="section-description editable" id="objetivo-politica">
+                    O objetivo desta política é estabelecer uma abordagem sistemática e proativa para a gestão de riscos em todos os níveis da organização, assegurando a identificação precoce de ameaças e oportunidades, a implementação de controlos adequados e a melhoria contínua do desempenho organizacional.
+                </div>
+</div>
+<!-- Sección 2: Compromiso de la Organización -->
+<div class="section" id="compromiso">
+<div class="section-title">2. Compromisso da organização <span class="edit-indicator" id="editIndicator2" style="display: none;">A EDITAR</span></div>
+<div class="commitment-section">
+<div class="commitment-title editable" id="compromiso-title">Declaração de Compromisso</div>
+<div class="section-description editable" id="compromiso-contenido">
+                        A organização compromete-se a gerir os riscos de forma eficaz em todos os níveis do Sistema de Gestão Integrado (SGI), com o objetivo de maximizar as oportunidades, minimizar as ameaças e garantir a eficácia contínua de todos os nossos processos. A organização identificará e avaliará os riscos e oportunidades relacionados com a qualidade, o ambiente e a segurança, tomando as medidas adequadas para os gerir.
+                    </div>
+</div>
+<div class="subsection-title" style="margin-top: 25px;">Áreas de Foco Estratégico</div>
+<ul class="bullet-list editable" id="areas-enfoque">
+<li><strong>Gestão de Riscos de qualidade:</strong> Identificar e mitigar riscos que possam afetar a conformidade de produtos e serviços com os requisitos estabelecidos.</li>
+<li><strong>Gestão de Riscos ambientales:</strong> avaliar e controlar riscos asociados a aspectos e impactos ambientales significativos.</li>
+<li><strong>Gestão de Riscos de segurança e saúde:</strong> Prevenir e controlar riscos que possam afetar a segurança e a saúde dos trabalhadores e outras partes interessadas.</li>
+<li><strong>Gestão de Riscos Operativos:</strong> Identificar e gerir riscos em processos-chave que possam afetar a continuidade do negócio.</li>
+<li><strong>Gestão de Riscos Estratégicos:</strong> Avaliar riscos que possam impactar o alcance dos objetivos estratégicos da organização.</li>
+</ul>
+</div>
+<!-- Sección 3: Principios Rectores -->
+<div class="section" id="principios">
+<div class="section-title">3. Principios Rectores <span class="edit-indicator" id="editIndicator3" style="display: none;">A EDITAR</span></div>
+<div class="section-description editable" id="principios-introduccion">
+                    A gestão de riscos na organização fundamenta-se nos seguintes princípios orientadores, que guiam todas as atividades relacionadas com a identificação, avaliação e tratamento de riscos:
+                </div>
+<div class="principles-grid">
+<div class="principle-card">
+<div class="principle-title">
+<span class="principle-number">1</span>
+<span class="editable" id="principio1-title">Identificação e avaliação de riscos</span>
+</div>
+<div class="editable" id="principio1-contenido">
+                            Identificar, avaliar e priorizar os riscos e oportunidades que afetam os nossos processos, produtos, serviços e desempenho organizacional, considerando a sua probabilidade e impacto potencial.
+                        </div>
+</div>
+<div class="principle-card">
+<div class="principle-title">
+<span class="principle-number">2</span>
+<span class="editable" id="principio2-title">Ações Preventivas e Correctivas</span>
+</div>
+<div class="editable" id="principio2-contenido">
+                            Tomar ações preventivas e corretivas para mitigar os riscos identificados e aproveitar as oportunidades, assegurando a atribuição adequada de recursos e responsabilidades.
+                        </div>
+</div>
+<div class="principle-card">
+<div class="principle-title">
+<span class="principle-number">3</span>
+<span class="editable" id="principio3-title">Melhoria Contínua</span>
+</div>
+<div class="editable" id="principio3-contenido">
+                            Fomentar a melhoria contínua na gestão de riscos através da monitorização de resultados, da revisão de políticas e procedimentos e da implementação de ações de melhoria baseadas na aprendizagem organizacional.
+                        </div>
+</div>
+<div class="principle-card">
+<div class="principle-title">
+<span class="principle-number">4</span>
+<span class="editable" id="principio4-title">Cultura de Gestão de Riscos</span>
+</div>
+<div class="editable" id="principio4-contenido">
+                            Desenvolver uma cultura organizacional que valorize a gestão ativa de riscos em todos os níveis da empresa, assegurando que todos os colaboradores participam na identificação e gestão de riscos.
+                        </div>
+</div>
+<div class="principle-card">
+<div class="principle-title">
+<span class="principle-number">5</span>
+<span class="editable" id="principio5-title">Relação com Partes Interessadas</span>
+</div>
+<div class="editable" id="principio5-contenido">
+                            Assegurar que as nossas partes interessadas (clientes, colaboradores, fornecedores, reguladores) são informadas sobre os riscos e as ações que estamos a tomar para os gerir, mantendo uma comunicação transparente e oportuna.
+                        </div>
+</div>
+<div class="principle-card">
+<div class="principle-title">
+<span class="principle-number">6</span>
+<span class="editable" id="principio6-title">Integração com o SGI</span>
+</div>
+<div class="editable" id="principio6-contenido">
+                            Integrar a gestão de riscos em todos os processos do Sistema de Gestão Integrado, assegurando a coerência e o alinhamento com os requisitos das normas ISO 9001 e ISO 45001.
+                        </div>
+</div>
+</div>
+</div>
+<!-- Sección 4: Alcance y Aplicación -->
+<div class="section" id="alcance">
+<div class="section-title">4. Alcance e Aplicação <span class="edit-indicator" id="editIndicator4" style="display: none;">A EDITAR</span></div>
+<div class="subsection-title">Âmbito de aplicação</div>
+<div class="section-description editable" id="ambito-aplicacion">
+                    Esta política aplica-se a todas as atividades, processos, produtos e serviços da organização, bem como a todas as pessoas que trabalham em nome da organização, incluindo colaboradores, contratados e fornecedores. Cobre todos os aspetos do Sistema de Gestão Integrado relacionados com qualidade, ambiente e segurança ocupacional.
+                </div>
+<div class="subsection-title" style="margin-top: 25px;">processo de Gestão de Riscos</div>
+<ul class="bullet-list editable" id="proceso-gestion">
+<li><strong>Identificação:</strong> Deteção sistemática de riscos e oportunidades em todos os processos organizacionais.</li>
+<li><strong>avaliação:</strong> Análise e valorização de riscos considerando probabilidade e impacto.</li>
+<li><strong>Tratamento:</strong> Desenvolvimento e implementação de estratégias para mitigar riscos e aproveitar oportunidades.</li>
+<li><strong>monitorização e Revisão:</strong> Acompanhamento contínuo dos riscos e da eficácia dos controlos implementados.</li>
+<li><strong>Comunicação e Consulta:</strong> Intercâmbio de informação sobre riscos com todas as partes interessadas relevantes.</li>
+</ul>
+</div>
+<!-- Sección 5: Responsabilidades -->
+<div class="section" id="responsabilidades">
+<div class="section-title">5. Responsabilidades <span class="edit-indicator" id="editIndicator5" style="display: none;">A EDITAR</span></div>
+<div class="subsection-title">Alta direção</div>
+<ul class="bullet-list editable" id="responsabilidades-alta-direccion">
+<li>estabelecer e promover a cultura de gestão de riscos em toda a organização.</li>
+<li>Assegurar a atribuição de recursos necessários para a implementação eficaz desta política.</li>
+<li>Rever e aprovar os relatórios de gestão de riscos e o desempenho do sistema.</li>
+<li>Integrar a gestão de riscos na planeamento estratégica e a toma de decisiones.</li>
+</ul>
+<div class="subsection-title" style="margin-top: 20px;">Coordenador do SGI</div>
+<ul class="bullet-list editable" id="responsabilidades-coordinador">
+<li>Coordenar a implementação e manutenção do sistema de gestão de riscos.</li>
+<li>Facilitar a identificação e avaliação de riscos em todos os processos organizacionais.</li>
+<li>Monitorizar a eficácia das ações de tratamento de riscos.</li>
+<li>Elaborar relatórios de desempenho para a revisão pela alta direção.</li>
+</ul>
+<div class="subsection-title" style="margin-top: 20px;">responsáveis de processos</div>
+<ul class="bullet-list editable" id="responsabilidades-responsables">
+<li>Identificar e avaliar riscos específicos nas suas áreas de responsabilidade.</li>
+<li>Implementar e manter controlos operacionais para gerir riscos identificados.</li>
+<li>Reportar incidentes e oportunidades de melhoria relacionadas com riscos.</li>
+<li>Participar em atividades de formação e sensibilização sobre gestão de riscos.</li>
+</ul>
+<div class="subsection-title" style="margin-top: 20px;">Todos os colaboradores</div>
+<ul class="bullet-list editable" id="responsabilidades-colaboradores">
+<li>Participar ativamente na identificação e reporte de riscos nas suas áreas de trabalho.</li>
+<li>cumprir com os procedimentos e controles estabelecidos para a gestão de riscos.</li>
+<li>Comunicar oportunamente qualquer situação que pueda representar um risco.</li>
+<li>Participar em programas de formação sobre gestão de riscos.</li>
+</ul>
+</div>
+<!-- Sección 6: Aprobación y Firma -->
+<div class="section" id="firma">
+<div class="section-title">6. Aprovação e Assinatura <span class="edit-indicator" id="editIndicator6" style="display: none;">A EDITAR</span></div>
+<div class="signature-section">
+<div class="subsection-title">Aprovação da Política</div>
+<div class="section-description editable" id="aprobacion-politica">
+                        Esta Política de Gestão de Riscos Integrada foi revista e aprovada pela Alta direção da organização, demonstrando o compromisso da empresa com a gestão proativa de riscos e a melhoria contínua do Sistema de Gestão Integrado.
+                    </div>
+<div class="signature-container">
+<div class="signature-box">
+<div class="signature-line"></div>
+<div class="signature-name editable" id="firma-nombre">xxxxxxxxxxxxxx</div>
+<div class="signature-title editable" id="firma-cargo">Presidente</div>
+<div class="signature-title editable" id="firma-empresa">La organização</div>
+</div>
+<div class="signature-box">
+<div class="signature-line"></div>
+<div class="signature-name editable" id="firma-nombre2">CEO</div>
+<div class="signature-title editable" id="firma-cargo2">Diretor-Geral</div>
+<div class="signature-title editable" id="firma-empresa2">Sistema de Gestão Integrado</div>
+</div>
+</div>
+<div class="subsection-title" style="margin-top: 40px;">Data de Vigência</div>
+<div class="section-description editable" id="fecha-vigencia">
+                        Esta política entra em vigor a partir de 01 de dezembro de 2024 e será revista anualmente ou quando ocorram alterações significativas no contexto organizacional.
+                    </div>
+</div>
+</div>
+<!-- Historial de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Pie de página -->
+<div class="footer">
+<p>Código: DOC-009 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        class DocumentEditor {
+            constructor() {
+                this.editMode = false;
+                this.storageKey = 'DOC-009-edited-content';
+                this.originalContent = {};
+                this.init();
+            }
+            
+            init() {
+                // Guardar contenido original
+                this.saveOriginalContent();
+                
+                // Configurar eventos de los botones
+                document.getElementById('editContentBtn').addEventListener('click', () => this.toggleEditMode());
+                document.getElementById('saveBtn').addEventListener('click', () => this.saveToBrowser());
+                document.getElementById('exportBtn').addEventListener('click', () => this.exportToHTML());
+                document.getElementById('loadBtn').addEventListener('click', () => this.loadFromStorage());
+                
+                // Verificar si hay contenido guardado
+                if (localStorage.getItem(this.storageKey)) {
+                    console.log('Foram detetadas edições guardadas. Utilize "CARREGAR EDIÇÕES GUARDADAS" para as carregar.');
+                }
+                
+                // Verificar si el logo existe
+                const logoImg = document.querySelector('.logo');
+                if (logoImg) {
+                    logoImg.onerror = function() {
+                        this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c5282" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                        console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+                    };
+                }
+                
+                // Configurar scroll suave para los enlaces del TOC
+                document.querySelectorAll('.toc-link').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href').substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 20,
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                });
+            }
+            
+            saveOriginalContent() {
+                // Guardar contenido original de todos los elementos editables
+                const editableElements = document.querySelectorAll('.editable');
+                this.originalContent = {};
+                
+                editableElements.forEach((element, index) => {
+                    const id = element.id || `editable-${index}`;
+                    this.originalContent[id] = element.innerHTML;
+                });
+            }
+            
+            toggleEditMode() {
+                this.editMode = !this.editMode;
+                const editBtn = document.getElementById('editContentBtn');
+                const editStatus = document.getElementById('editStatus');
+                const editableElements = document.querySelectorAll('.editable');
+                const editIndicators = document.querySelectorAll('.edit-indicator');
+                
+                if (this.editMode) {
+                    // Activar modo edición
+                    editBtn.textContent = 'DESATIVAR EDIÇÃO';
+                    editBtn.style.backgroundColor = '#d69e2e';
+                    editStatus.textContent = 'Modo de edição ativo';
+                    editStatus.style.color = '#d69e2e';
+                    
+                    // Hacer elementos editables
+                    editableElements.forEach(element => {
+                        element.setAttribute('contenteditable', 'true');
+                        element.classList.add('editing');
+                    });
+                    
+                    // Mostrar indicadores de edición
+                    editIndicators.forEach(indicator => {
+                        indicator.style.display = 'inline-block';
+                    });
+                    
+                } else {
+                    // Desactivar modo edición
+                    editBtn.textContent = 'EDITAR CONTEÚDO';
+                    editBtn.style.backgroundColor = '#2c5282';
+                    editStatus.textContent = 'Modo de leitura ativo';
+                    editStatus.style.color = '#666';
+                    
+                    // Deshacer elementos editables
+                    editableElements.forEach(element => {
+                        element.setAttribute('contenteditable', 'false');
+                        element.classList.remove('editing');
+                    });
+                    
+                    // Ocultar indicadores de edición
+                    editIndicators.forEach(indicator => {
+                        indicator.style.display = 'none';
+                    });
+                }
+            }
+            
+            saveToBrowser() {
+                if (!this.editMode) {
+                    alert('Ative primeiro o modo de edição para poder guardar alterações.');
+                    return;
+                }
+                
+                const editableElements = document.querySelectorAll('.editable');
+                const savedContent = {};
+                
+                editableElements.forEach((element, index) => {
+                    const id = element.id || `editable-${index}`;
+                    savedContent[id] = element.innerHTML;
+                });
+                
+                try {
+                    localStorage.setItem(this.storageKey, JSON.stringify(savedContent));
+                    alert('As edições foram guardadas no navegador corretamente.');
+                } catch (error) {
+                    alert('Erro ao guardar as edições: ' + error.message);
+                }
+            }
+            
+            loadFromStorage() {
+                const savedData = localStorage.getItem(this.storageKey);
+                
+                if (!savedData) {
+                    alert('Não foram encontradas edições guardadas no navegador.');
+                    return;
+                }
+                
+                if (confirm('Carregar as edições guardadas? Isto substituirá o conteúdo atual.')) {
+                    try {
+                        const savedContent = JSON.parse(savedData);
+                        const editableElements = document.querySelectorAll('.editable');
+                        
+                        editableElements.forEach((element, index) => {
+                            const id = element.id || `editable-${index}`;
+                            if (savedContent[id]) {
+                                element.innerHTML = savedContent[id];
+                            }
+                        });
+                        
+                        alert('Edições carregadas corretamente a partir do navegador.');
+                    } catch (error) {
+                        alert('Erro ao carregar as edições: ' + error.message);
+                    }
+                }
+            }
+            
+            exportToHTML() {
+                // Crear una copia del documento para exportar
+                const docClone = document.documentElement.cloneNode(true);
+                
+                // Remover atributos de edición
+                const editables = docClone.querySelectorAll('.editable');
+                editables.forEach(element => {
+                    element.removeAttribute('contenteditable');
+                    element.classList.remove('editing');
+                });
+                
+                // Remover panel de controles
+                const controlsPanel = docClone.querySelector('#controlsPanel');
+                if (controlsPanel) {
+                    controlsPanel.remove();
+                }
+                
+                // Remover indicadores de edición
+                const editIndicators = docClone.querySelectorAll('.edit-indicator');
+                editIndicators.forEach(indicator => {
+                    indicator.remove();
+                });
+                
+                // Remover scripts (excepto el necesario para el logo)
+                const scripts = docClone.querySelectorAll('script');
+                scripts.forEach(script => {
+                    if (!script.textContent.includes('logo.onerror')) {
+                        script.remove();
+                    }
+                });
+                
+                // Crear blob y descargar
+                const htmlContent = `<!DOCTYPE html>\n${docClone.outerHTML}`;
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'DOC-009-Politica-de-Gestao-de-Riscos-Integrada-SGI.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                alert('Documento exportado como HTML. A descarregar...');
+            }
+            
+            resetToOriginal() {
+                if (confirm('Restaurar o conteúdo original? Isto eliminará todas as edições atuais.')) {
+                    const editableElements = document.querySelectorAll('.editable');
+                    
+                    editableElements.forEach((element, index) => {
+                        const id = element.id || `editable-${index}`;
+                        if (this.originalContent[id]) {
+                            element.innerHTML = this.originalContent[id];
+                        }
+                    });
+                    
+                    alert('Conteúdo original restaurado.');
+                }
+            }
+        }
+        
+        // Inicializar el editor cuando el DOM esté cargado
+        document.addEventListener('DOMContentLoaded', () => {
+            window.documentEditor = new DocumentEditor();
+        });
+    </script>
+</body>
+</html>

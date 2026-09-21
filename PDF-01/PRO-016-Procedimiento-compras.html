@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PRO-016 Procedimento de Compras e Subcontratação - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2563eb;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        /* Barra de herramientas */
+        .toolbar {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            padding: 15px 40px;
+            background-color: #e2e8f0;
+            border-bottom: 2px solid #2563eb;
+        }
+        
+        .toolbar-btn {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.3s, transform 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .toolbar-btn:hover {
+            background-color: #3b82f6;
+        }
+        
+        .toolbar-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2563eb;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2563eb;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #2563eb;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #2563eb;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #2563eb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #3b82f6;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #2563eb;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-title:before {
+            content: counter(section-counter) ". ";
+        }
+        
+        .subsection-title {
+            color: #2563eb;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #2563eb;
+        }
+        
+        .subsection-title:before {
+            content: counter(section-counter) "." attr(data-subsection) " ";
+        }
+        
+        .subsubsection-title {
+            color: #1e40af;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0 15px;
+        }
+        
+        .subsubsection-title:before {
+            content: counter(section-counter) "." attr(data-subsection) "." attr(data-subsubsection) " ";
+        }
+        
+        .intro-text {
+            background-color: #eff6ff;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #2563eb;
+            font-size: 16px;
+        }
+        
+        .procedure-container {
+            margin: 25px 0;
+        }
+        
+        .procedure-step {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .procedure-title {
+            color: #2563eb;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #cbd5e0;
+        }
+        
+        .procedure-content {
+            line-height: 1.7;
+        }
+        
+        .procedure-list {
+            list-style-type: none;
+            margin-top: 15px;
+        }
+        
+        .procedure-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .procedure-list li:before {
+            content: "•";
+            color: #2563eb;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .numbered-list {
+            list-style-type: decimal;
+            margin-left: 20px;
+            margin-top: 15px;
+        }
+        
+        .numbered-list li {
+            margin-bottom: 10px;
+        }
+        
+        .definition-box {
+            background-color: #e8f4fd;
+            border: 1px solid #b6d7f2;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #2563eb;
+        }
+        
+        .definition-title {
+            color: #1e40af;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .responsibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .responsibility-table th, .responsibility-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .responsibility-table th {
+            background-color: #2563eb;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .responsibility-table tr:nth-child(even) {
+            background-color: #eff6ff;
+        }
+        
+        .kpi-container {
+            background-color: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #0ea5e9;
+        }
+        
+        .kpi-title {
+            color: #0c4a6e;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #cbd5e0;
+            padding-bottom: 10px;
+        }
+        
+        .kpi-item {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px dashed #cbd5e0;
+        }
+        
+        .kpi-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .kpi-name {
+            color: #1e40af;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .kpi-formula {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: monospace;
+            text-align: center;
+            font-size: 16px;
+        }
+        
+        .kpi-tolerance {
+            background-color: #fefce8;
+            border: 1px solid #fde68a;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .tolerance-title {
+            color: #92400e;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .annex-container {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #2563eb;
+        }
+        
+        .annex-title {
+            color: #2563eb;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #cbd5e0;
+            padding-bottom: 10px;
+        }
+        
+        /* ESTILOS PARA CAMPOS EDITABLES (solo visual) */
+        .editable, .editable-table-cell {
+            background-color: #ffffcc;
+            border: 1px dashed #ffcc00;
+            padding: 2px 4px;
+            border-radius: 3px;
+            min-height: 20px;
+            display: inline-block;
+        }
+        
+        .editable-table-cell {
+            display: block;
+            min-height: 30px;
+        }
+        
+        /* Los elementos con contenteditable="true" se resaltan con outline cuando el modo edición está activo */
+        .editable-active [contenteditable="true"] {
+            outline: 2px dashed #2563eb;
+            outline-offset: 2px;
+            background-color: #ffff99 !important;
+            transition: outline 0.2s, background-color 0.2s;
+        }
+        
+        .form-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .form-table th, .form-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        .form-table th {
+            background-color: #2563eb;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .form-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        
+        .purchase-order-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .purchase-order-table th, .purchase-order-table td {
+            border: 1px solid #ddd;
+            padding: 10px 12px;
+            text-align: left;
+        }
+        
+        .purchase-order-table th {
+            background-color: #2563eb;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2563eb;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2563eb;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #eff6ff;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #3b82f6;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .toolbar, .print-btn {
+                display: none;
+            }
+            
+            .editable, .editable-table-cell {
+                background-color: transparent;
+                border: none;
+                padding: 0;
+            }
+            
+            .section {
+                page-break-inside: avoid;
+            }
+            
+            .annex-container {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 2;
+            }
+            
+            .form-table, .purchase-order-table {
+                font-size: 14px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .toc-list {
+                columns: 1;
+            }
+            
+            .form-table, .purchase-order-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            
+            .toolbar {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabecera con logo e información de la organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+<span class="editable">Pendente de validação</span>
+</div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+<span class="editable">ESGI</span>
+</div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+<span class="editable">CEO</span>
+</div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+<span class="editable">002</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Barra de herramientas -->
+<div class="toolbar">
+<button class="toolbar-btn" onclick="window.print()"><i class="fas fa-print"></i> Imprimir</button>
+<button class="toolbar-btn" id="downloadBtn"><i class="fas fa-download"></i> Descarregar HTML</button>
+<button class="toolbar-btn" id="editBtn"><i class="fas fa-edit"></i> Editar conteúdo</button>
+</div>
+<!-- Título del documento -->
+<div class="doc-title">Procedimento de Compras e Subcontratação</div>
+<div class="doc-code">Código: <span class="editable">PRO-016</span></div>
+<!-- Contenido principal -->
+<div class="content">
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#objetivo">Objetivo</a></li>
+<li class="toc-item"><a class="toc-link" href="#alcance">ÂMBITO</a></li>
+<li class="toc-item"><a class="toc-link" href="#responsabilidades">RESPONSABILIDADES</a></li>
+<li class="toc-item"><a class="toc-link" href="#definiciones">DEFINIÇÕES</a></li>
+<li class="toc-item"><a class="toc-link" href="#procedimiento">procedimento</a></li>
+<li class="toc-item"><a class="toc-link" href="#indicadores">Indicadores de desempenho</a></li>
+<li class="toc-item"><a class="toc-link" href="#anexos">Anexos</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Sección 1: OBJETIVO -->
+<div class="section" id="objetivo">
+<div class="section-title">Objetivo</div>
+<div class="procedure-content">
+<p class="editable">Estabelecer as regras para a compra de bens e serviços e para a subcontratação de serviços a terceiros na FACASI, garantindo que os produtos e serviços adquiridos cumprem os requisitos estabelecidos e não comprometem a qualidade dos serviços prestados nem a segurança dos trabalhadores, em conformidade com a ISO 9001:2015 (cláusula 8.4 — Controlo de processos, produtos e serviços de fornecedores externos) e a ISO 45001:2018 (cláusula 8.1.4 — Contratação externa e aquisições).</p>
+</div>
+</div>
+<!-- Sección 2: ALCANCE -->
+<div class="section" id="alcance">
+<div class="section-title">Alcance</div>
+<div class="procedure-content">
+<p class="editable">Este procedimento aplica-se a todas as compras de bens e serviços e à subcontratação de atividades críticas na prestação dos serviços da FACASI, incluindo: equipamentos e consumíveis de inspeção e ensaio, equipamentos de proteção individual, serviços de calibração de equipamentos de medição, serviços de medicina do trabalho, formação técnica e subcontratação de técnicos ou empresas para execução de trabalhos de inspeção e manutenção.</p>
+</div>
+</div>
+<!-- Sección 3: RESPONSABILIDADES -->
+<div class="section" id="responsabilidades">
+<div class="section-title">Responsabilidades</div>
+<table class="responsibility-table">
+<thead>
+<tr>
+<th width="30%">Função</th>
+<th width="70%">Responsabilidades</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="editable">Gerente Administrativo</span></td>
+<td><span class="editable">Responsável pela gestão do processo de compra, pela consulta a fornecedores e pelo arquivo da documentação associada.</span></td>
+</tr>
+<tr>
+<td><span class="editable">Coordenador do SGI</span></td>
+<td><span class="editable">Assegura que os critérios de qualidade e de SST estão definidos nas compras e que os fornecedores são avaliados conforme este procedimento.</span></td>
+</tr>
+<tr>
+<td><span class="editable">Gerente de Operações</span></td>
+<td><span class="editable">Define as especificações técnicas dos bens e serviços a adquirir, coordena as atividades subcontratadas e supervisiona os serviços prestados por terceiros.</span></td>
+</tr>
+<tr>
+<td><span class="editable">Gerente Geral (CEO)</span></td>
+<td><span class="editable">Aprova os fornecedores e os contratos de subcontratação.</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Sección 4: DEFINICIONES -->
+<div class="section" id="definiciones">
+<div class="section-title">Definições</div>
+<div class="definition-box">
+<ul class="procedure-list">
+<li><span class="editable"><strong>Fornecedor externo:</strong> organização ou pessoa que fornece bens ou serviços à FACASI, incluindo prestadores de serviços de calibração e formação.</span></li>
+<li><span class="editable"><strong>Subcontratado:</strong> entidade ou técnico contratado para executar, no todo ou em parte, um serviço que a FACASI se comprometeu a prestar ao cliente.</span></li>
+<li><span class="editable"><strong>Compra crítica:</strong> aquisição que afeta diretamente a qualidade do serviço prestado ou a segurança dos trabalhadores — por exemplo, equipamentos de medição, EPI ou serviços de calibração.</span></li>
+</ul>
+</div>
+</div>
+<!-- Sección 5: PROCEDIMIENTO -->
+<div class="section" id="procedimiento">
+<div class="section-title">Procedimento</div>
+<div class="intro-text">
+<p class="editable">A organização implementa sistematicamente o seguinte procedimento para garantir a aquisição de bens e serviços que cumprem os requisitos estabelecidos.</p>
+</div>
+<!-- 5.1 -->
+<div class="procedure-step">
+<div class="subsection-title" data-subsection="1">Identificação de Necessidades</div>
+<div class="procedure-content">
+<p class="editable">As diferentes áreas comunicam ao Gerente Administrativo as necessidades de materiais, produtos ou serviços, detalhando a especificação do bem ou serviço requerido. Para compras críticas, a especificação técnica é validada pelo Gerente de Operações e, quando envolva requisitos de SST, pelo Coordenador do SGI.</p>
+</div>
+</div>
+<!-- 5.2 -->
+<div class="procedure-step">
+<div class="subsection-title" data-subsection="2">Seleção e Avaliação de Fornecedores</div>
+<div class="procedure-content">
+<ol class="numbered-list">
+<li><span class="editable">Sempre que possível, são consultados vários fornecedores alternativos.</span></li>
+<li><span class="editable">Os fornecedores são avaliados com base em critérios como:</span>
+<ul class="procedure-list">
+<li><span class="editable">Qualidade do produto ou serviço e adequação à especificação técnica.</span></li>
+<li><span class="editable">Certificações aplicáveis — nomeadamente rastreabilidade metrológica no caso de serviços de calibração e certificação dos EPI.</span></li>
+<li><span class="editable">Capacidade de cumprir os requisitos de SST aplicáveis.</span></li>
+<li><span class="editable">Preço competitivo.</span></li>
+<li><span class="editable">Prazos de entrega.</span></li>
+<li><span class="editable">Condições de pagamento.</span></li>
+</ul>
+</li>
+<li><span class="editable">Os fornecedores aprovados constam de uma lista de fornecedores qualificados, sujeita a reavaliação periódica do seu desempenho.</span></li>
+</ol>
+</div>
+</div>
+<!-- 5.3 -->
+<div class="procedure-step">
+<div class="subsection-title" data-subsection="3">Subcontratação de Serviços</div>
+<div class="procedure-content">
+<ol class="numbered-list">
+<li><span class="editable">Quando seja necessário subcontratar um serviço, o Gerente de Operações identifica o serviço e as especificações necessárias.</span></li>
+<li><span class="editable">São selecionados subcontratados qualificados, avaliados pela sua capacidade técnica, pelas qualificações do pessoal que irá afetar aos trabalhos (incluindo certificações em END/NDT ou UTM quando aplicável), pelo cumprimento das normas aplicáveis e pela experiência.</span></li>
+<li><span class="editable"><strong>Requisitos de SST:</strong> antes do início dos trabalhos, é verificado que o pessoal subcontratado dispõe de aptidão médica válida, formação em segurança e EPI adequado. Os subcontratados ficam sujeitos às mesmas regras de SST que o pessoal próprio, conforme a cláusula 8.1.4 da ISO 45001.</span></li>
+<li><span class="editable">É formalizado um contrato que inclui o âmbito do trabalho, os requisitos de qualidade e de SST, e os critérios de aceitação.</span></li>
+<li><span class="editable">O Gerente de Operações acompanha o serviço prestado para verificar o cumprimento das especificações.</span></li>
+</ol>
+</div>
+</div>
+<!-- 5.4 -->
+<div class="procedure-step">
+<div class="subsection-title" data-subsection="4">Realização de Pedidos</div>
+<div class="procedure-content">
+<ol class="numbered-list">
+<li><span class="editable">Selecionado o fornecedor ou subcontratado, é emitida uma Ordem de Compra ou Ordem de Serviço que inclui:</span>
+<ul class="procedure-list">
+<li><span class="editable">Descrição clara do produto ou serviço.</span></li>
+<li><span class="editable">Quantidade.</span></li>
+<li><span class="editable">Especificações técnicas e normativas aplicáveis.</span></li>
+<li><span class="editable">Requisitos de SST aplicáveis, quando relevante.</span></li>
+<li><span class="editable">Preço acordado.</span></li>
+<li><span class="editable">Prazo de entrega.</span></li>
+</ul>
+</li>
+<li><span class="editable">A ordem é enviada ao fornecedor ou subcontratado e uma cópia é arquivada.</span></li>
+</ol>
+</div>
+</div>
+<!-- 5.5 -->
+<div class="procedure-step">
+<div class="subsection-title" data-subsection="5">Receção e Verificação</div>
+<div class="procedure-content">
+<p class="editable">Os produtos ou serviços rececionados são verificados quanto ao cumprimento dos requisitos especificados. No caso de equipamentos de medição, é verificada a existência e validade do certificado de calibração; no caso de EPI, a respetiva certificação.</p>
+<p class="editable">Caso o produto ou serviço não cumpra os requisitos, é registada uma não conformidade e comunicada ao fornecedor ou subcontratado para implementação de ações corretivas, conforme o PRO-005.</p>
+<p class="editable">Se o produto ou serviço cumpre os requisitos, regista-se a aceitação e procede-se ao pagamento.</p>
+</div>
+</div>
+<!-- 5.6 -->
+<div class="procedure-step">
+<div class="subsection-title" data-subsection="6">Registo e Documentação</div>
+<div class="procedure-content">
+<p class="editable">Todos os documentos relacionados com o processo de compras e subcontratação (ordens de compra, contratos, avaliações de fornecedores, certificados de calibração, verificações de receção) são arquivados conforme o PRO-002 e estão disponíveis para auditorias internas e externas.</p>
+</div>
+</div>
+</div>
+<!-- Sección 6: Indicadores de desempeño -->
+<div class="section" id="indicadores">
+<div class="section-title">Indicadores de desempenho</div>
+<div class="kpi-container">
+<!-- KPI 1 -->
+<div class="kpi-item">
+<div class="kpi-name"><span class="editable">1. Percentagem de cumprimento de prazos (PCP) de entrega por parte dos fornecedores</span></div>
+<div class="kpi-formula editable">
+                            PCP = (N.º de entregas a tempo / Total de entregas) × 100
+                        </div>
+<div class="kpi-tolerance">
+<div class="tolerance-title editable">VALOR TOLERABLE:</div>
+<ul class="procedure-list">
+<li><span class="editable"><strong>Tolerável (Aceitável):</strong> ≥ 90%</span></li>
+<li><span class="editable"><strong>Marginal:</strong> 80% - 89%</span></li>
+<li><span class="editable"><strong>Não Aceitável:</strong> &lt; 80%</span></li>
+</ul>
+<p class="editable"><strong>Justificação:</strong> Um cumprimento de pelo menos 90% das entregas a tempo considera-se aceitável na maioria das indústrias, já que garante a continuidade das operações sem interrupções significativas.</p>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="kpi-item">
+<div class="kpi-name"><span class="editable">2. Número de não conformidades registradas por productos o serviços subcontratados</span></div>
+<div class="kpi-formula editable">
+                            NCR = (N° de Não Conformidades / Total de productos o serviços subcontratados) × 100
+                        </div>
+<div class="kpi-tolerance">
+<div class="tolerance-title editable">VALOR TOLERABLE:</div>
+<ul class="procedure-list">
+<li><span class="editable"><strong>Tolerável (Aceitável):</strong> ≤ 5%</span></li>
+<li><span class="editable"><strong>Marginal:</strong> 6% - 10%</span></li>
+<li><span class="editable"><strong>Não Aceitável:</strong> &gt; 10%</span></li>
+</ul>
+<p class="editable"><strong>Justificação:</strong> Uma percentagem baixa de não conformidades (menor ou igual a 5%) indica um bom controlo de qualidade tanto nos produtos adquiridos como nos serviços subcontratados. Um índice superior a 10% poderia significar uma necessidade de rever os fornecedores ou o processo de aquisição.</p>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="kpi-item">
+<div class="kpi-name"><span class="editable">3. Satisfação dos clientes internos e externos com os productos e serviços adquiridos</span></div>
+<div class="kpi-formula editable">
+                            NSC = (Pontuação total obtida / Pontuação máxima possível) × 100
+                        </div>
+<div class="kpi-tolerance">
+<div class="tolerance-title editable">VALOR TOLERABLE:</div>
+<ul class="procedure-list">
+<li><span class="editable"><strong>Tolerável (Aceitável):</strong> ≥ 85%</span></li>
+<li><span class="editable"><strong>Marginal:</strong> 70% - 84%</span></li>
+<li><span class="editable"><strong>Não Aceitável:</strong> &lt; 70%</span></li>
+</ul>
+<p class="editable"><strong>Justificação:</strong> Um nível de satisfação superior a 85% indica que os produtos e serviços adquiridos cumprem ou superam as expectativas dos clientes internos e externos. Uma satisfação abaixo de 70% implica a necessidade de ações corretivas imediatas para melhorar a qualidade dos produtos ou serviços subcontratados.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Sección 7: Anexos -->
+<div class="section" id="anexos">
+<div class="section-title">Anexos</div>
+<div class="procedure-content">
+<p class="editable">A organização dispõe dos seguintes formatos padronizados para apoiar a implementação deste procedimento:</p>
+<ul class="procedure-list">
+<li><span class="editable"><strong>Anexo 1:</strong> Formato de Avaliação de Fornecedores</span></li>
+<li><span class="editable"><strong>Anexo 2:</strong> Formato de Não Conformidade</span></li>
+<li><span class="editable"><strong>Anexo 3:</strong> Formato de Ordem de Compra (OC)</span></li>
+</ul>
+</div>
+<!-- Anexo 1 -->
+<div class="annex-container">
+<div class="annex-title">Anexo 1: Formato de Avaliação de Fornecedores</div>
+<table class="form-table">
+<tbody>
+<tr>
+<td width="30%"><strong>fornecedor:</strong></td>
+<td width="70%"><span class="editable-table-cell"></span></td>
+</tr>
+<tr>
+<td><strong>Produto/serviço:</strong></td>
+<td><span class="editable-table-cell"></span></td>
+</tr>
+<tr>
+<td><strong>Data de avaliação:</strong></td>
+<td><span class="editable-table-cell"></span></td>
+</tr>
+<tr>
+<td><strong>Avaliador:</strong></td>
+<td><span class="editable-table-cell"></span></td>
+</tr>
+</tbody>
+</table>
+<div class="subsubsection-title" data-subsection="1" data-subsubsection="0">Criterios de avaliação:</div>
+<table class="form-table">
+<thead>
+<tr>
+<th width="40%">Critério</th>
+<th width="20%">Pontuação (1-5)</th>
+<th width="40%">Comentarios</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="editable">1. Qualidade do produto/serviço</span></td>
+<td><span class="editable-table-cell"></span></td>
+<td><span class="editable-table-cell"></span></td>
+</tr>
+<tr>
+<td><span class="editable">2. Cumprimento de prazos de entrega</span></td>
+<td><span class="editable-table-cell"></span></td>
+<td><span class="editable-table-cell"></span></td>
+</tr>
+<tr>
+<td><span class="editable">3. Preço competitivo</span></td>
+<td><span class="editable-table-cell"></span></td>
+<td><span class="editable-table-cell"></span></td>
+</tr>
+<tr>
+<td><span class="editable">4. Condições de pagamento</span></td>
+<td><span class="editable-table-cell"></span></td>
+<td><span class="editable-table-cell"></span></td>
+</tr>
+<tr>
+<td><span class="editable">5. Cumprimento de requisitos normativos (ISO, etc.)</span></td>
+<td><span class="editable-table-cell"></span></td>
+<td><span class="editable-table-cell"></span></td>
+</tr>
+<tr>
+<td><span class="editable">6. Atendimento ao cliente e suporte pós-venda</span></td>
+<td><span class="editable-table-cell"></span></td>
+<td><span class="editable-table-cell"></span></td>
+</tr>
+</tbody>
+</table>
+<div class="subsubsection-title" data-subsection="1" data-subsubsection="0">Pontuação Total:</div>
+<p class="editable">(30 resulta de multiplicar 6 critérios * a pontuação máxima possível)</p>
+<div class="subsubsection-title" data-subsection="1" data-subsubsection="0">Resultado da avaliação:</div>
+<table class="form-table">
+<thead>
+<tr>
+<th width="30%">nível de Aprovação</th>
+<th width="70%">Interpretação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="editable"><strong>90 - 100%</strong></span></td>
+<td><span class="editable">Excelente</span></td>
+</tr>
+<tr>
+<td><span class="editable"><strong>80 - 89%</strong></span></td>
+<td><span class="editable">Aceitável</span></td>
+</tr>
+<tr>
+<td><span class="editable"><strong>70 - 79%</strong></span></td>
+<td><span class="editable">Necessita Melhorias</span></td>
+</tr>
+<tr>
+<td><span class="editable"><strong>&lt; 70%</strong></span></td>
+<td><span class="editable">Não Aceitável</span></td>
+</tr>
+</tbody>
+</table>
+<div class="subsubsection-title" data-subsection="1" data-subsubsection="0">Conclusão e Ações Recomendadas:</div>
+<p><span class="editable"><strong>Aprovação do fornecedor:</strong> [Si/No]</span></p>
+<p><span class="editable"><strong>Ações Corretivas (se aplicável):</strong> [Descrição de ações corretivas a implementar]</span></p>
+<p><span class="editable"><strong>Assinatura do Avaliador:</strong> _________________________</span></p>
+</div>
+<!-- Anexo 2 -->
+<div class="annex-container">
+<div class="annex-title">Anexo 2: Formato de Não Conformidade</div>
+<table class="form-table">
+<tbody>
+<tr>
+<td width="40%"><strong>Número de Não Conformidade (NC):</strong></td>
+<td width="60%"><span class="editable-table-cell">[NC-0001]</span></td>
+</tr>
+<tr>
+<td><strong>Data de Deteção:</strong></td>
+<td><span class="editable-table-cell">[Data]</span></td>
+</tr>
+<tr>
+<td><strong>Detetada por:</strong></td>
+<td><span class="editable-table-cell">[Nome do responsável]</span></td>
+</tr>
+<tr>
+<td><strong>Fornecedor/Subcontratado:</strong></td>
+<td><span class="editable-table-cell">[Nome do fornecedor/subcontratado]</span></td>
+</tr>
+<tr>
+<td><strong>Produto/serviço:</strong></td>
+<td><span class="editable-table-cell">[Descrição do produto/serviço]</span></td>
+</tr>
+<tr>
+<td><strong>Referência da Ordem de Compra/serviço:</strong></td>
+<td><span class="editable-table-cell">[OC/OS Número]</span></td>
+</tr>
+</tbody>
+</table>
+<div class="subsubsection-title" data-subsection="2" data-subsubsection="0">Descrição da Não Conformidade</div>
+<p><strong>Detalhe da Não Conformidade:</strong> <span class="editable-table-cell" style="display: block; margin-top: 5px; min-height: 50px;">[Descrição clara e precisa da não conformidade detectada.]</span></p>
+<p><strong>Critério ou Especificação Afetada:</strong> <span class="editable">[Norma ou especificação que não foi cumprida.]</span></p>
+<div class="subsubsection-title" data-subsection="2" data-subsubsection="0">Avaliação da Não Conformidade</div>
+<p><span class="editable"><strong>Gravidade da Não Conformidade:</strong> | [ ] Maior | [ ] Menor</span></p>
+<p><strong>Impacto Potencial:</strong> <span class="editable-table-cell" style="display: block; margin-top: 5px; min-height: 30px;">[Descrição do impacto]</span></p>
+<p><strong>Ação corretiva necessária:</strong> <span class="editable-table-cell" style="display: block; margin-top: 5px; min-height: 30px;">[Descrição da ação corretiva]</span></p>
+<div class="subsubsection-title" data-subsection="2" data-subsubsection="0">Ações Corretivas e Acompanhamento</div>
+<table class="form-table">
+<tbody>
+<tr>
+<td width="40%"><strong>Responsável pela ação corretiva:</strong></td>
+<td width="60%"><span class="editable-table-cell">[Nome]</span></td>
+</tr>
+<tr>
+<td><strong>Data de Implementação:</strong></td>
+<td><span class="editable-table-cell">[Data]</span></td>
+</tr>
+<tr>
+<td colspan="2"><strong>Descrição da ação corretiva implementada:</strong><br/>
+<span class="editable-table-cell" style="min-height: 60px; margin-top: 5px;">[Descrição detalhada das ações tomadas para corrigir a não conformidade.]</span></td>
+</tr>
+</tbody>
+</table>
+<div class="subsubsection-title" data-subsection="2" data-subsubsection="0">Verificação da eficácia</div>
+<p><strong>Data de Verificação:</strong> <span class="editable">[Data]</span></p>
+<p><strong>Resultado da Verificação:</strong><br/>
+<span class="editable-table-cell" style="display: block; margin-top: 5px; min-height: 50px;">[Descrição do resultado da verificação da eficácia da ação corretiva.]</span></p>
+<table class="form-table">
+<tbody>
+<tr>
+<td width="40%"><strong>Avaliador:</strong></td>
+<td width="60%"><span class="editable-table-cell">[Nome do avaliador]</span></td>
+</tr>
+<tr>
+<td><strong>Assinatura do Avaliador:</strong></td>
+<td><span class="editable">_________________________</span></td>
+</tr>
+</tbody>
+</table>
+<div class="subsubsection-title" data-subsection="2" data-subsubsection="0">Encerramento da Não Conformidade</div>
+<p><strong>Data de Encerramento:</strong> <span class="editable">[Data de encerramento da NC]</span></p>
+<p><strong>Responsável pelo Encerramento:</strong> <span class="editable">[Nome do responsável pelo encerramento]</span></p>
+</div>
+<!-- Anexo 3 -->
+<div class="annex-container">
+<div class="annex-title">Anexo 3: Formato de Ordem de Compra (OC)</div>
+<table class="form-table">
+<tbody>
+<tr>
+<td width="40%"><strong>Número da Ordem de Compra (OC):</strong></td>
+<td width="60%"><span class="editable-table-cell">[OC-0001]</span></td>
+</tr>
+<tr>
+<td><strong>Data de Emissão:</strong></td>
+<td><span class="editable-table-cell">[Data]</span></td>
+</tr>
+<tr>
+<td><strong>Fornecedor/Subcontratado:</strong></td>
+<td><span class="editable-table-cell">[Nome do fornecedor/subcontratado]</span></td>
+</tr>
+<tr>
+<td><strong>Morada do fornecedor:</strong></td>
+<td><span class="editable-table-cell">[direção]</span></td>
+</tr>
+<tr>
+<td><strong>Telefone de Contacto:</strong></td>
+<td><span class="editable-table-cell">[Telefone]</span></td>
+</tr>
+<tr>
+<td><strong>Correio Eletrónico:</strong></td>
+<td><span class="editable-table-cell">[Correio do fornecedor]</span></td>
+</tr>
+<tr>
+<td><strong>Responsável pela Compra:</strong></td>
+<td><span class="editable-table-cell">[Nome do responsável pela compra]</span></td>
+</tr>
+</tbody>
+</table>
+<div class="subsubsection-title" data-subsection="3" data-subsubsection="0">Descrição do Produto ou serviço</div>
+<table class="purchase-order-table">
+<thead>
+<tr>
+<th width="10%">Item</th>
+<th width="40%">Descrição</th>
+<th width="10%">Quantidade</th>
+<th width="10%">Unidade de Medida</th>
+<th width="15%">Preço Unitário</th>
+<th width="15%">Preço Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="editable-table-cell">1</span></td>
+<td><span class="editable-table-cell">[Descrição detalhada do produto/serviço]</span></td>
+<td><span class="editable-table-cell">[Quantidade]</span></td>
+<td><span class="editable-table-cell">[Unidade]</span></td>
+<td><span class="editable-table-cell">[Preço unitário]</span></td>
+<td><span class="editable-table-cell">[Preço total]</span></td>
+</tr>
+<tr>
+<td><span class="editable-table-cell">2</span></td>
+<td><span class="editable-table-cell">[Descrição detalhada do produto/serviço]</span></td>
+<td><span class="editable-table-cell">[Quantidade]</span></td>
+<td><span class="editable-table-cell">[Unidade]</span></td>
+<td><span class="editable-table-cell">[Preço unitário]</span></td>
+<td><span class="editable-table-cell">[Preço total]</span></td>
+</tr>
+<tr>
+<td colspan="5" style="text-align: right;"><strong>Total General:</strong></td>
+<td><strong><span class="editable-table-cell">[Total final na moeda correspondente]</span></strong></td>
+</tr>
+</tbody>
+</table>
+<div class="subsubsection-title" data-subsection="3" data-subsubsection="0">Condições de Compra</div>
+<ol class="numbered-list">
+<li><span class="editable"><strong>Prazo de Entrega:</strong> [Número de dias ou data-limite]</span></li>
+<li><span class="editable"><strong>Lugar de Entrega:</strong> [direção onde se entregarán os productos o serviços]</span></li>
+<li><span class="editable"><strong>Condições de Pago:</strong> [Especificar o método e termos de pagamento: crédito, transferência, etc.]</span></li>
+<li><span class="editable"><strong>Garantia:</strong> [Duração e condições da garantia, se aplicável]</span></li>
+<li><span class="editable"><strong>Requisitos Normativos:</strong> [Qualquer norma ou especificação que o produto/serviço deve cumprir, por exemplo, ISO 9001.]</span></li>
+</ol>
+<div class="subsubsection-title" data-subsection="3" data-subsubsection="0">Aprovações</div>
+<table class="form-table">
+<tbody>
+<tr>
+<td width="40%"><strong>Emitido por:</strong></td>
+<td width="60%"><span class="editable-table-cell">[Nome do responsável que emite a ordem]</span></td>
+</tr>
+<tr>
+<td><strong>Assinatura:</strong></td>
+<td><span class="editable">_________________________</span></td>
+</tr>
+<tr>
+<td><strong>Aprovado por:</strong></td>
+<td><span class="editable-table-cell">[Nome do aprovador (se requer dupla assinatura)]</span></td>
+</tr>
+<tr>
+<td><strong>Assinatura:</strong></td>
+<td><span class="editable">_________________________</span></td>
+</tr>
+</tbody>
+</table>
+<div class="subsubsection-title" data-subsection="3" data-subsubsection="0">Observações Adicionais:</div>
+<p><span class="editable-table-cell" style="min-height: 50px; display: block;">[Espaço para incluir qualquer observação ou instrução especial relacionada com a ordem de compra.]</span></p>
+</div>
+</div>
+<!-- Botón de impresión -->
+<button class="print-btn" onclick="window.print()"><i class="fas fa-print"></i> Imprimir documento</button>
+<!-- Historial de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="editable">002</span></td>
+<td><span class="editable">Pendente de validação</span></td>
+<td><span class="editable">Original</span></td>
+<td><span class="editable">CEO</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Pie de página -->
+<div class="footer">
+<p>Código: <span class="editable">PRO-016</span> | Revisão: <span class="editable">002</span> | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        // Configurar scroll suave para los enlaces del TOC
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Verifica si el logo existe, caso contrario muestra un placeholder
+        const logoImg = document.querySelector('.logo');
+        if (logoImg) {
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232563eb" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+            };
+        }
+
+        // Función para descargar el HTML actual
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'PRO-016-Procedimento-compras.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('📁 Documento descarregado como ficheiro HTML.');
+        });
+
+        // Modo edición
+        const editBtn = document.getElementById('editBtn');
+        let editModeActive = false;
+
+        // Elementos que serán editables (todo el texto estático, incluyendo los spans con clase .editable)
+        const editableElements = [
+            document.querySelector('.org-info'),
+            document.querySelector('.doc-title'),
+            document.querySelector('.doc-code'),
+            document.querySelector('.content'),
+            document.querySelector('.footer')
+        ].filter(el => el !== null);
+
+        editBtn.addEventListener('click', function() {
+            editModeActive = !editModeActive;
+            
+            editableElements.forEach(el => {
+                if (editModeActive) {
+                    el.setAttribute('contenteditable', 'true');
+                } else {
+                    el.removeAttribute('contenteditable');
+                }
+            });
+            
+            // Añadir o quitar clase al body para feedback visual
+            if (editModeActive) {
+                document.body.classList.add('editable-active');
+                editBtn.innerHTML = '<i class="fas fa-lock"></i> Terminar edição';
+                editBtn.style.backgroundColor = '#c53030'; // rojo para indicar modo activo
+            } else {
+                document.body.classList.remove('editable-active');
+                editBtn.innerHTML = '<i class="fas fa-edit"></i> Editar conteúdo';
+                editBtn.style.backgroundColor = '#2563eb'; // color original
+            }
+        });
+    </script>
+</body>
+</html>

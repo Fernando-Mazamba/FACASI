@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DOC-005 Política da qualidade do Sistema de Gestão Integrado</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c5282;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5282;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c5282;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+            position: relative;
+        }
+        
+        .policy-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .policy-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2c5282;
+            margin-bottom: 20px;
+        }
+        
+        .iso-logo-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .iso-logo {
+            max-width: 150px;
+            height: auto;
+            margin: 0 auto;
+        }
+        
+        .policy-intro {
+            font-size: 18px;
+            line-height: 1.8;
+            text-align: justify;
+            margin-bottom: 40px;
+            color: #4a5568;
+        }
+        
+        .pillars-container {
+            margin: 40px 0;
+        }
+        
+        .pillar-item {
+            margin-bottom: 30px;
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #2c5282;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .pillar-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .pillar-number {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background-color: #2c5282;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: bold;
+            margin-right: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .pillar-title {
+            display: inline-block;
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c5282;
+            margin-bottom: 15px;
+        }
+        
+        .pillar-description {
+            color: #4a5568;
+            line-height: 1.7;
+            margin-left: 47px;
+        }
+        
+        .commitment-section {
+            background-color: #e6f7ff;
+            border: 1px solid #91d5ff;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 40px 0;
+            border-left: 4px solid #1890ff;
+        }
+        
+        .commitment-title {
+            color: #0050b3;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .commitment-text {
+            font-size: 16px;
+            line-height: 1.8;
+            text-align: justify;
+            color: #4a5568;
+        }
+        
+        .signature-section {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #2c5282;
+            text-align: center;
+        }
+        
+        .signature-line {
+            margin: 40px 0;
+        }
+        
+        .signature-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #2c5282;
+        }
+        
+        .signature-title {
+            font-size: 16px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .company-stamp {
+            margin-top: 30px;
+            font-style: italic;
+            color: #666;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2c5282;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c5282;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .controls-panel {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .edit-btn {
+            background-color: #2c5282;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .edit-btn:hover {
+            background-color: #4299e1;
+        }
+        
+        .action-btn {
+            background-color: #38a169;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        
+        .action-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .action-btn.secondary {
+            background-color: #718096;
+        }
+        
+        .action-btn.secondary:hover {
+            background-color: #4a5568;
+        }
+        
+        .editable {
+            min-height: 20px;
+            outline: none;
+        }
+        
+        .editing {
+            background-color: #fff9e6;
+            border-left: 3px solid #d69e2e;
+            padding-left: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .edit-indicator {
+            display: inline-block;
+            background-color: #d69e2e;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .controls-panel {
+                display: none;
+            }
+            
+            .edit-indicator {
+                display: none;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .controls-panel {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .edit-btn, .action-btn {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .policy-title {
+                font-size: 28px;
+            }
+            
+            .pillar-item {
+                padding: 20px;
+            }
+            
+            .pillar-title {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabecera con logo e información de la organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título del documento -->
+<div class="doc-title">Política da qualidade</div>
+<div class="doc-code">Código: DOC-005</div>
+<!-- Panel de controles de edición -->
+<div class="controls-panel" id="controlsPanel">
+<button class="edit-btn" id="editContentBtn">EDITAR CONTEÚDO</button>
+<button class="action-btn secondary" id="saveBtn">GUARDAR no NAVEGADOR</button>
+<button class="action-btn" id="exportBtn">EXPORTAR como HTML</button>
+<button class="action-btn secondary" id="loadBtn">CARREGAR EDIÇÕES GUARDADAS</button>
+<span id="editStatus" style="margin-left: auto; font-size: 14px; color: #666;">Modo de leitura ativo</span>
+</div>
+<!-- Contenido principal -->
+<div class="content" id="mainContent">
+<!-- Encabezado de la política -->
+<div class="policy-header">
+<div class="policy-title">POLÍTICA DA QUALIDADE <span class="edit-indicator" id="editIndicator1" style="display: none;">A EDITAR</span></div>
+<div class="iso-logo-container"> <img height="118" src="../Logotipo/9001.png" width="132"/></div>
+<div class="policy-intro editable" id="policy-introduction">
+                    Na FACASI, trabalhamos com o firme propósito de prestar serviços de inspeção industrial, inspeção e certificação de equipamentos, manutenção, reparação, logística e apoio a operações de excelência, orientados a satisfazer plenamente os nossos clientes do setor de óleo e gás e a cumprir todas as obrigações legais e regulamentares aplicáveis em Angola.
+                </div>
+</div>
+<!-- Pilares de la política -->
+<div class="pillars-container">
+<div class="section-description editable" id="pillars-intro">
+                    para alcançar este propósito, adotamos uma estratégia de gestão da qualidade fundamentada nos seguintes pilares:
+                </div>
+<!-- Pilar 1 -->
+<div class="pillar-item">
+<div class="pillar-number">1</div>
+<div class="pillar-title editable" id="pillar1-title">Orientação para o cliente</div>
+<div class="pillar-description editable" id="pillar1-description">
+                        Esforçamo-nos por compreender e antecipar as necessidades dos nossos clientes, disponibilizando serviços de inspeção que não só cumprem, como superam as suas expectativas. Ouvimos ativamente as suas opiniões e usamo-las como guia para a melhoria contínua.
+                    </div>
+</div>
+<!-- Pilar 2 -->
+<div class="pillar-item">
+<div class="pillar-number">2</div>
+<div class="pillar-title editable" id="pillar2-title">Cumprimento e Normalização</div>
+<div class="pillar-description editable" id="pillar2-description">
+                        Todos os nossos serviços de inspeção, END/NDT, UTM e manutenção estão alinhados com requisitos técnicos, normativos e contratuais. Implementamos procedimentos normalizados e controlados para assegurar a conformidade e a consistência em cada intervenção.
+                    </div>
+</div>
+<!-- Pilar 3 -->
+<div class="pillar-item">
+<div class="pillar-number">3</div>
+<div class="pillar-title editable" id="pillar3-title">Melhoria Contínua</div>
+<div class="pillar-description editable" id="pillar3-description">
+                        Impulsionamos o aperfeiçoamento constante do nosso Sistema de Gestão da Qualidade através da monitorização regular, da revisão de indicadores e da otimização de processos técnicos de inspeção. Entendemos que há sempre margem para melhorar e evoluir.
+                    </div>
+</div>
+<!-- Pilar 4 -->
+<div class="pillar-item">
+<div class="pillar-number">4</div>
+<div class="pillar-title editable" id="pillar4-title">Desenvolvimento dos Recursos Humanos</div>
+<div class="pillar-description editable" id="pillar4-description">
+                        Fomentamos a formação contínua e o desenvolvimento de competências técnicas da equipa (incluindo qualificações em END/NDT e UTM), assegurando que cada colaborador está plenamente formado e comprometido com os objetivos de qualidade da organização.
+                    </div>
+</div>
+<!-- Pilar 5 -->
+<div class="pillar-item">
+<div class="pillar-number">5</div>
+<div class="pillar-title editable" id="pillar5-title">Abordagem Preventiva e Gestão de Riscos</div>
+<div class="pillar-description editable" id="pillar5-description">
+                        Aplicamos uma abordagem preventiva nas nossas operações, identificando riscos e oportunidades que possam afetar a eficácia do sistema de gestão, particularmente relevantes em atividades de inspeção industrial. Planeamos ações para minimizar impactos negativos e potenciar resultados positivos.
+                    </div>
+</div>
+<!-- Pilar 6 -->
+<div class="pillar-item">
+<div class="pillar-number">6</div>
+<div class="pillar-title editable" id="pillar6-title">Parcerias Estratégicas com Fornecedores</div>
+<div class="pillar-description editable" id="pillar6-description">
+                        Colaboramos estreitamente com os nossos fornecedores e subcontratados, selecionando e avaliando o seu desempenho com base em critérios de qualidade exigentes. A relação com eles é fundamental para manter a integridade da nossa cadeia de fornecimento.
+                    </div>
+</div>
+<!-- Pilar 7 -->
+<div class="pillar-item">
+<div class="pillar-number">7</div>
+<div class="pillar-title editable" id="pillar7-title">Comunicação Clara e Aberta</div>
+<div class="pillar-description editable" id="pillar7-description">
+                        Valorizamos a transparência e fomentamos uma comunicação eficaz em todos os níveis da organização, bem como com clientes, fornecedores e entidades externas. Garantimos que a informação relevante circula de forma oportuna e compreensível.
+                    </div>
+</div>
+</div>
+<!-- Compromiso de la organización -->
+<div class="commitment-section">
+<div class="commitment-title">Compromisso da Organização <span class="edit-indicator" id="editIndicator2" style="display: none;">A EDITAR</span></div>
+<div class="commitment-text editable" id="commitment-text">
+                    esta política encontra-se disponível para todos os membros da organização, é comunicada de forma ativa e é revista periodicamente para assegurar a sua pertinência, coerência e alinhamento com o nosso ambiente dinâmico e os objetivos estratégicos. A Alta Direção compromete-se a disponibilizar os recursos necessários para a implementação e manutenção do Sistema de Gestão da Qualidade, assegurando a sua melhoria contínua.
+                </div>
+</div>
+<!-- Assinatura e aprovação -->
+<div class="signature-section">
+<div class="signature-line">
+<div style="border-top: 1px solid #333; width: 300px; margin: 0 auto; padding-top: 40px;"></div>
+<div class="signature-name editable" id="signature-name">
+                        Fernando Mbilua Casimiro
+                    </div>
+<div class="signature-title editable" id="signature-title">
+                        CEO
+                    </div>
+</div>
+<div class="company-stamp editable" id="company-stamp">
+                    FACASI
+                </div>
+<div class="section-description editable" id="signature-date" style="margin-top: 20px;">
+                    Data: Pendente de validação pela organização
+                </div>
+</div>
+<!-- Historial de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Pie de página -->
+<div class="footer">
+<p>Código: DOC-005 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        class DocumentEditor {
+            constructor() {
+                this.editMode = false;
+                this.storageKey = 'DOC-005-edited-content';
+                this.originalContent = {};
+                this.init();
+            }
+            
+            init() {
+                // Guardar contenido original
+                this.saveOriginalContent();
+                
+                // Configurar eventos de los botones
+                document.getElementById('editContentBtn').addEventListener('click', () => this.toggleEditMode());
+                document.getElementById('saveBtn').addEventListener('click', () => this.saveToBrowser());
+                document.getElementById('exportBtn').addEventListener('click', () => this.exportToHTML());
+                document.getElementById('loadBtn').addEventListener('click', () => this.loadFromStorage());
+                
+                // Verificar si hay contenido guardado
+                if (localStorage.getItem(this.storageKey)) {
+                    console.log('Foram detetadas edições guardadas. Utilize "CARREGAR EDIÇÕES GUARDADAS" para as carregar.');
+                }
+                
+                // Verificar si los logos existen
+                const logoImg = document.querySelector('.logo');
+                if (logoImg) {
+                    logoImg.onerror = function() {
+                        this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c5282" dy="5">LOGÓTIPO DA ORGANIZAÇÃO</text></svg>';
+                        console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+                    };
+                }
+                
+                const isoLogo = document.getElementById('iso9001Logo');
+                if (isoLogo) {
+                    isoLogo.onerror = function() {
+                        this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="150" height="100" viewBox="0 0 150 100"><rect width="150" height="100" fill="#f8f9fa"/><text x="75" y="50" font-family="Arial" font-size="14" text-anchor="middle" fill="%232c5282" dy="5">ISO 9001:2015</text><text x="75" y="70" font-family="Arial" font-size="10" text-anchor="middle" fill="%23666">Sistema de Gestão Integrado</text></svg>';
+                        console.log("Logótipo ISO 9001 não encontrado em logo/9001.png. Por favor, adicione o logótipo na pasta especificada.");
+                    };
+                }
+            }
+            
+            saveOriginalContent() {
+                // Guardar contenido original de todos los elementos editables
+                const editableElements = document.querySelectorAll('.editable');
+                this.originalContent = {};
+                
+                editableElements.forEach((element, index) => {
+                    const id = element.id || `editable-${index}`;
+                    this.originalContent[id] = element.innerHTML;
+                });
+            }
+            
+            toggleEditMode() {
+                this.editMode = !this.editMode;
+                const editBtn = document.getElementById('editContentBtn');
+                const editStatus = document.getElementById('editStatus');
+                const editableElements = document.querySelectorAll('.editable');
+                const editIndicators = document.querySelectorAll('.edit-indicator');
+                
+                if (this.editMode) {
+                    // Activar modo edición
+                    editBtn.textContent = 'DESATIVAR EDIÇÃO';
+                    editBtn.style.backgroundColor = '#d69e2e';
+                    editStatus.textContent = 'Modo de edição ativo';
+                    editStatus.style.color = '#d69e2e';
+                    
+                    // Hacer elementos editables
+                    editableElements.forEach(element => {
+                        element.setAttribute('contenteditable', 'true');
+                        element.classList.add('editing');
+                    });
+                    
+                    // Mostrar indicadores de edición
+                    editIndicators.forEach(indicator => {
+                        indicator.style.display = 'inline-block';
+                    });
+                    
+                } else {
+                    // Desactivar modo edición
+                    editBtn.textContent = 'EDITAR CONTEÚDO';
+                    editBtn.style.backgroundColor = '#2c5282';
+                    editStatus.textContent = 'Modo de leitura ativo';
+                    editStatus.style.color = '#666';
+                    
+                    // Deshacer elementos editables
+                    editableElements.forEach(element => {
+                        element.setAttribute('contenteditable', 'false');
+                        element.classList.remove('editing');
+                    });
+                    
+                    // Ocultar indicadores de edición
+                    editIndicators.forEach(indicator => {
+                        indicator.style.display = 'none';
+                    });
+                }
+            }
+            
+            saveToBrowser() {
+                if (!this.editMode) {
+                    alert('Ative primeiro o modo de edição para poder guardar alterações.');
+                    return;
+                }
+                
+                const editableElements = document.querySelectorAll('.editable');
+                const savedContent = {};
+                
+                editableElements.forEach((element, index) => {
+                    const id = element.id || `editable-${index}`;
+                    savedContent[id] = element.innerHTML;
+                });
+                
+                try {
+                    localStorage.setItem(this.storageKey, JSON.stringify(savedContent));
+                    alert('As edições foram guardadas no navegador corretamente.');
+                } catch (error) {
+                    alert('Erro ao guardar as edições: ' + error.message);
+                }
+            }
+            
+            loadFromStorage() {
+                const savedData = localStorage.getItem(this.storageKey);
+                
+                if (!savedData) {
+                    alert('Não foram encontradas edições guardadas no navegador.');
+                    return;
+                }
+                
+                if (confirm('Carregar as edições guardadas? Isto substituirá o conteúdo atual.')) {
+                    try {
+                        const savedContent = JSON.parse(savedData);
+                        const editableElements = document.querySelectorAll('.editable');
+                        
+                        editableElements.forEach((element, index) => {
+                            const id = element.id || `editable-${index}`;
+                            if (savedContent[id]) {
+                                element.innerHTML = savedContent[id];
+                            }
+                        });
+                        
+                        alert('Edições carregadas corretamente a partir do navegador.');
+                    } catch (error) {
+                        alert('Erro ao carregar as edições: ' + error.message);
+                    }
+                }
+            }
+            
+            exportToHTML() {
+                // Crear una copia del documento para exportar
+                const docClone = document.documentElement.cloneNode(true);
+                
+                // Remover atributos de edición
+                const editables = docClone.querySelectorAll('.editable');
+                editables.forEach(element => {
+                    element.removeAttribute('contenteditable');
+                    element.classList.remove('editing');
+                });
+                
+                // Remover panel de controles
+                const controlsPanel = docClone.querySelector('#controlsPanel');
+                if (controlsPanel) {
+                    controlsPanel.remove();
+                }
+                
+                // Remover indicadores de edición
+                const editIndicators = docClone.querySelectorAll('.edit-indicator');
+                editIndicators.forEach(indicator => {
+                    indicator.remove();
+                });
+                
+                // Remover scripts (excepto el necesario para los logos)
+                const scripts = docClone.querySelectorAll('script');
+                scripts.forEach(script => {
+                    if (!script.textContent.includes('logo.onerror') && !script.textContent.includes('iso9001Logo.onerror')) {
+                        script.remove();
+                    }
+                });
+                
+                // Crear blob y descargar
+                const htmlContent = `<!DOCTYPE html>\n${docClone.outerHTML}`;
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'DOC-005-Politica-de-la-Calidad-SGI.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                alert('Documento exportado como HTML. A descarregar...');
+            }
+            
+            resetToOriginal() {
+                if (confirm('Restaurar o conteúdo original? Isto eliminará todas as edições atuais.')) {
+                    const editableElements = document.querySelectorAll('.editable');
+                    
+                    editableElements.forEach((element, index) => {
+                        const id = element.id || `editable-${index}`;
+                        if (this.originalContent[id]) {
+                            element.innerHTML = this.originalContent[id];
+                        }
+                    });
+                    
+                    alert('Conteúdo original restaurado.');
+                }
+            }
+        }
+        
+        // Inicializar el editor cuando el DOM esté cargado
+        document.addEventListener('DOMContentLoaded', () => {
+            window.documentEditor = new DocumentEditor();
+        });
+    </script>
+</body>
+</html>

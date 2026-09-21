@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DOC-008 Política RSE</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c5282;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5282;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c5282;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #2c5282;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #2c5282;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .toc-item:before {
+            content: "•";
+            color: #2c5282;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .toc-link {
+            color: #2c5282;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #4299e1;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .policy-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #805ad5 0%, #9f7aea 100%);
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .policy-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        
+        .policy-subtitle {
+            font-size: 20px;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        
+        .policy-logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 25px 0;
+        }
+        
+        .rse-logo {
+            width: 140px;
+            height: 140px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .rse-logo .icon {
+            font-size: 60px;
+            color: #805ad5;
+        }
+        
+        .policy-intro {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            text-align: justify;
+            padding: 0 10px;
+            color: #2d3748;
+        }
+        
+        .principles-container {
+            margin: 40px 0;
+        }
+        
+        .principles-title {
+            color: #805ad5;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e9d8fd;
+        }
+        
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .principle-card {
+            background-color: #faf5ff;
+            border-radius: 8px;
+            padding: 30px 25px;
+            border-left: 5px solid #805ad5;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .principle-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .principle-card:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #805ad5, #9f7aea);
+        }
+        
+        .principle-number {
+            display: inline-block;
+            background-color: #805ad5;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .principle-name {
+            color: #805ad5;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .principle-description {
+            color: #4a5568;
+            line-height: 1.7;
+        }
+        
+        .policy-closing {
+            margin-top: 50px;
+            padding: 30px;
+            background-color: #faf5ff;
+            border-radius: 8px;
+            border-left: 5px solid #9f7aea;
+        }
+        
+        .policy-closing p {
+            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.7;
+            color: #553c9a;
+        }
+        
+        .signature-section {
+            text-align: right;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e9d8fd;
+        }
+        
+        .signature-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #805ad5;
+            margin-bottom: 10px;
+        }
+        
+        .signature-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #1a202c;
+            margin-top: 30px;
+        }
+        
+        .signature-role {
+            font-size: 16px;
+            color: #4a5568;
+            font-style: italic;
+        }
+        
+        .version-history {
+            margin-top: 60px;
+            border-top: 2px solid #2c5282;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c5282;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #2c5282;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #4299e1;
+        }
+        
+        .rse-icon {
+            text-align: center;
+            margin: 10px 0;
+        }
+        
+        .rse-icon .icon {
+            font-size: 48px;
+            color: #805ad5;
+        }
+        
+        .community-badge {
+            display: inline-block;
+            background-color: #ebf4ff;
+            color: #434190;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin: 5px 0;
+            border: 1px solid #c3dafe;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn {
+                display: none;
+            }
+            
+            .principle-card {
+                border: 1px solid #ddd;
+                page-break-inside: avoid;
+            }
+            
+            .policy-header {
+                background: #805ad5 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .toc-list {
+                padding-left: 0;
+            }
+            
+            .toc-item {
+                padding-left: 15px;
+            }
+            
+            .policy-title {
+                font-size: 26px;
+            }
+            
+            .policy-intro {
+                font-size: 16px;
+            }
+            
+            .rse-logo {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .rse-logo .icon {
+                font-size: 48px;
+            }
+            
+            .principles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabecera con logo e información de la organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<!-- NOMBRE DE ORGANIZACIÓN ELIMINADO - NO APARECE EN EL DOCUMENTO ORIGINAL -->
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título del documento -->
+<div class="doc-title">Política de Responsabilidade Social Empresarial</div>
+<div class="doc-code">Código: DOC-008</div>
+<!-- Contenido principal -->
+<div class="content">
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#politica-rse">Política de RSE</a></li>
+<li class="toc-item"><a class="toc-link" href="#principios-fundamentales">Principios Fundamentales</a></li>
+<li class="toc-item"><a class="toc-link" href="#declaracion-cierre">Declaração e Encerramento</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Sección 1: Política de RSE -->
+<div class="section" id="politica-rse">
+<div class="policy-header">
+<div class="policy-title">POLÍTICA DE RESPONSABILIDADE SOCIAL EMPRESARIAL</div>
+<div class="policy-subtitle">Compromisso com o Desenvolvimento Sustentável e o Bem-Estar Comunitário</div>
+<div class="policy-logo-container">
+<div class="rse-logo">
+<div class="icon">🤝</div>
+</div>
+</div>
+</div>
+<div class="policy-intro">
+                    A organização compromete-se a atuar de forma ética e responsável, promovendo um desenvolvimento sustentável e contribuindo para o bem-estar da comunidade. Alinhamo-nos com os princípios de responsabilidade social e sustentabilidade ambiental, assegurando que as nossas operações têm um impacto positivo na sociedade e no meio envolvente.
+                </div>
+</div>
+<!-- Sección 2: Principios Fundamentales -->
+<div class="section" id="principios-fundamentales">
+<div class="principles-container">
+<div class="principles-title">Princípios Fundamentais da Política de Responsabilidade Social</div>
+<div class="principles-grid">
+<!-- Principio 1 -->
+<div class="principle-card">
+<div class="principle-number">1</div>
+<div class="principle-name">Compromisso com a Comunidade</div>
+<div class="principle-description">
+                                Assegurar que as nossas operações têm um impacto positivo na comunidade local, promovendo projetos que melhorem a qualidade de vida.
+                            </div>
+<div class="community-badge">Impacto Social</div>
+<div class="community-badge">Desenvolvimento Local</div>
+</div>
+<!-- Principio 2 -->
+<div class="principle-card">
+<div class="principle-number">2</div>
+<div class="principle-name">Sostenibilidad ambiental</div>
+<div class="principle-description">
+                                Adotar práticas que minimizem o impacto ambiental das nossas atividades e promover a sustentabilidade em todas as nossas operações.
+                            </div>
+<div class="community-badge">meio ambiente</div>
+<div class="community-badge">Sostenibilidad</div>
+</div>
+<!-- Principio 3 -->
+<div class="principle-card">
+<div class="principle-number">3</div>
+<div class="principle-name">Ética e Transparência</div>
+<div class="principle-description">
+                                Atuar com a máxima integridade e transparência em todas as nossas operações, mantendo uma relação de confiança com todas as partes interessadas.
+                            </div>
+<div class="community-badge">Integridade</div>
+<div class="community-badge">Transparência</div>
+</div>
+<!-- Principio 4 -->
+<div class="principle-card">
+<div class="principle-number">4</div>
+<div class="principle-name">Colaboração com Fornecedores e Contratados</div>
+<div class="principle-description">
+                                Fomentar que os nossos fornecedores e contratados adotem práticas responsáveis que respeitem os princípios de responsabilidade social e sustentabilidade.
+                            </div>
+<div class="community-badge">Cadeia de Valor</div>
+<div class="community-badge">Colaboração</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sección 3: Declaración de cierre -->
+<div class="section" id="declaracion-cierre">
+<div class="policy-closing">
+<div class="signature-section">
+<div class="signature-title">El Presidente</div>
+<div class="signature-name">___________________________</div>
+<div class="signature-role">Presidente e Diretor Executivo</div>
+</div>
+</div>
+</div>
+<!-- Botón de impresión -->
+<button class="print-btn" onclick="window.print()">📄 Imprimir documento</button>
+<!-- Historial de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Pie de página -->
+<div class="footer">
+<p>Código: DOC-008 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        // Configurar scroll suave para los enlaces del TOC
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Verifica si el logo principal existe
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c5282" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                    console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+                };
+            }
+            
+            // Efecto de hover mejorado para las tarjetas de principios
+            const principleCards = document.querySelectorAll('.principle-card');
+            principleCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 8px 16px rgba(0, 0, 0, 0.12)';
+                    this.style.transform = 'translateY(-5px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.05)';
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+            
+            // Agregar animación sutil a las tarjetas al cargar la página
+            setTimeout(() => {
+                principleCards.forEach((card, index) => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    
+                    setTimeout(() => {
+                        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+            }, 300);
+            
+            // Agregar animación al logo RSE
+            const rseLogo = document.querySelector('.rse-logo');
+            if (rseLogo) {
+                rseLogo.style.transform = 'scale(0.8)';
+                rseLogo.style.opacity = '0';
+                
+                setTimeout(() => {
+                    rseLogo.style.transition = 'transform 0.8s ease, opacity 0.8s ease';
+                    rseLogo.style.transform = 'scale(1)';
+                    rseLogo.style.opacity = '1';
+                }, 500);
+            }
+            
+            // Rotación suave de badges
+            const badges = document.querySelectorAll('.community-badge');
+            badges.forEach(badge => {
+                badge.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.05)';
+                    this.style.transition = 'transform 0.2s ease';
+                });
+                
+                badge.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

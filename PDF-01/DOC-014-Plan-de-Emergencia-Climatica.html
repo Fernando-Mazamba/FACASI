@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DOC-014 Plano de Emergência Climática - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c5282;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        /* Barra de herramientas */
+        .toolbar {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            padding: 15px 40px;
+            background-color: #e2e8f0;
+            border-bottom: 2px solid #2c5282;
+        }
+        
+        .toolbar-btn {
+            background-color: #2c5282;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.3s, transform 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .toolbar-btn:hover {
+            background-color: #4a90e2;
+        }
+        
+        .toolbar-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5282;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c5282;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #2c5282;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #2c5282;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #2c5282;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #4a90e2;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #2c5282;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-subtitle {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #2c5282;
+        }
+        
+        .objective-box {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .scope-box {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 4px solid #38a169;
+        }
+        
+        .responsibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+        
+        .responsibility-table th, .responsibility-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .responsibility-table th {
+            background-color: #2c5282;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .responsibility-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .procedure-list {
+            list-style-type: none;
+            margin: 20px 0 20px 20px;
+        }
+        
+        .procedure-list li {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .procedure-list li:before {
+            content: "•";
+            color: #2c5282;
+            font-weight: bold;
+            font-size: 20px;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+        
+        .protocol-box {
+            background-color: #fefcbf;
+            border: 1px solid #d69e2e;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #d69e2e;
+        }
+        
+        .protocol-title {
+            color: #744210;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .measurement-box {
+            background-color: #faf5ff;
+            border: 1px solid #9f7aea;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #805ad5;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2c5282;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c5282;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Mantenemos el botón de impresión original por compatibilidad */
+        .print-btn {
+            background-color: #2c5282;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #4a90e2;
+        }
+        
+        /* Indicador visual de modo edición */
+        .editable-active [contenteditable="true"] {
+            outline: 2px dashed #2c5282;
+            outline-offset: 4px;
+            background-color: #fffff0;
+            transition: outline 0.2s, background-color 0.2s;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .toolbar {
+                display: none;
+            }
+            
+            .print-btn {
+                display: none;
+            }
+            
+            .protocol-box {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .toolbar {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabecera con logo e información de la organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Barra de herramientas con nuevas opciones -->
+<div class="toolbar">
+<button class="toolbar-btn" id="printToolbarBtn" onclick="window.print()">
+                🖨️ Imprimir
+            </button>
+<button class="toolbar-btn" id="downloadBtn">
+                ⬇️ Descarregar HTML
+            </button>
+<button class="toolbar-btn" id="editBtn">
+                ✏️ Editar conteúdo
+            </button>
+</div>
+<!-- Título del documento -->
+<div class="doc-title">Plano de Emergência Climática</div>
+<div class="doc-code">Código: DOC-014</div>
+<!-- Contenido principal -->
+<div class="content">
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#objetivo">Objetivo do Plano de Emergência Climática</a></li>
+<li class="toc-item"><a class="toc-link" href="#alcance">Âmbito do Plano</a></li>
+<li class="toc-item"><a class="toc-link" href="#responsables">Responsáveis</a></li>
+<li class="toc-item"><a class="toc-link" href="#procedimiento">Procedimento do Plano de Emergência Climática</a></li>
+<li class="toc-item"><a class="toc-link" href="#medicion">Medição e acompanhamento</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Sección Objetivo -->
+<div class="section" id="objetivo">
+<div class="section-title">1. Objetivo do Plano de Emergência Climática</div>
+<div class="objective-box">
+<p>O objetivo deste plano é estabelecer procedimentos e medidas para a gestão de emergências <strong>climáticas dentro da organização</strong>, garantindo uma resposta rápida e eficaz perante fenómenos climáticos extremos (como tempestades, inundações, secas, ondas de calor, etc.), protegendo a saúde e a segurança dos colaboradores, a continuidade dos processos e minimizando os impactos ambientais negativos.</p>
+</div>
+</div>
+<!-- Sección Alcance -->
+<div class="section" id="alcance">
+<div class="section-title">2. Âmbito do Plano</div>
+<div class="scope-box">
+<p>Este plano cobre as ações e medidas necessárias para fazer face a eventos climáticos extremos que possam afetar as operações da organização, incluindo:</p>
+<ul class="procedure-list">
+<li><strong>Inundações, tempestades e furacões.</strong></li>
+<li><strong>Olas de calor e sequías.</strong></li>
+<li><strong>Condições meteorológicas extremas</strong> que afetam a segurança laboral, a infraestrutura e a cadeia de abastecimento.</li>
+<li>Proteção do pessoal e a infraestructura frente a condições climáticas adversas.</li>
+</ul>
+</div>
+</div>
+<!-- Sección Responsables -->
+<div class="section" id="responsables">
+<div class="section-title">3. responsáveis</div>
+<table class="responsibility-table">
+<thead>
+<tr>
+<th>Responsável</th>
+<th>Responsabilidade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Alta direção</td>
+<td>Aprovar o plano de emergência climática, atribuir recursos e supervisionar a implementação.</td>
+</tr>
+<tr>
+<td>responsável de Segurança e Saúde no Trabalho</td>
+<td>Coordenar a implementação das medidas de segurança para os colaboradores durante emergências climáticas.</td>
+</tr>
+<tr>
+<td>responsável de meio ambiente</td>
+<td>Assegurar que o plano contempla medidas para minimizar os impactos ambientais dos eventos climáticos.</td>
+</tr>
+<tr>
+<td>responsável de Logística</td>
+<td>Assegurar que a infraestrutura e a cadeia de abastecimento são resilientes perante emergências climáticas.</td>
+</tr>
+<tr>
+<td>Todos os colaboradores</td>
+<td>Siga as instruções de segurança durante os eventos climáticos e participe em simulacros de emergência.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Sección Procedimento -->
+<div class="section" id="procedimiento">
+<div class="section-title">4. Procedimento do Plano de Emergência Climática</div>
+<div class="section-subtitle">4.1 Identificação de riscos Climáticos e avaliação de Vulnerabilidades</div>
+<ul class="procedure-list">
+<li>Realizar uma análise de riscos climáticos que contemple os possíveis impactos de <strong>fenómenos climáticos extremos</strong> sobre as operações, as pessoas e o meio envolvente.</li>
+<li>Avaliar as vulnerabilidades da infraestrutura, da cadeia de abastecimento e das <strong>operações clave</strong> que possam ser afetadas por eventos como tempestades, secas, inundações ou ondas de calor.</li>
+</ul>
+<div class="section-subtitle">4.2 Medidas Preventivas e Preparação para Emergencias</div>
+<ul class="procedure-list">
+<li><strong>Reforço da infraestrutura:</strong> Assegurar que as instalações e equipamentos são capazes de suportar condições extremas. Isto pode incluir:
+                        <ul style="margin-left: 20px; margin-top: 10px; list-style-type: circle;">
+<li>Melhorias nos sistemas de drenagem e proteção contra inundações.</li>
+<li>Instalação de sistemas de energia de reserva.</li>
+<li>Adoção de estruturas resistentes a tempestades e a condições de calor extremo.</li>
+</ul>
+</li>
+<li><strong>Sistemas de monitorização:</strong> Implementar sistemas de monitorização meteorológica para a deteção precoce de condições climáticas adversas e receber alertas sobre eventos extremos.</li>
+<li><strong>Planeamento de rutas seguras:</strong> Estabelecer rotas seguras para a deslocação do pessoal em caso de evacuação ou para garantir o transporte de mercadorias em condições climáticas adversas.</li>
+</ul>
+<div class="section-subtitle">4.3 Protocolos de segurança e Procedimentos de Ação</div>
+<div class="protocol-box">
+<div class="protocol-title">Olas de calor:</div>
+<ul class="procedure-list">
+<li><strong>Instruções para o pessoal:</strong> Proporcionar equipamento adequado, como protetor solar, roupa leve e acesso a água potável.</li>
+<li><strong>Pausas activas:</strong> Implementar pausas frequentes e em áreas frescas para os colaboradores que trabalham ao ar livre.</li>
+<li><strong>Plano de refrigeração:</strong> Assegure-se de que as áreas de trabalho estão condicionadas com sistemas de refrigeração adequados.</li>
+</ul>
+</div>
+<div class="protocol-box">
+<div class="protocol-title">Tempestades e inundações:</div>
+<ul class="procedure-list">
+<li><strong>Evacuação e refúgio:</strong> Estabelecer procedimentos claros de evacuação e pontos de refúgio dentro das instalações.</li>
+<li><strong>Proteção de equipamentos:</strong> Assegurar que os equipamentos e materiais críticos são transferidos para áreas seguras ou protegidos adequadamente para evitar danos.</li>
+</ul>
+</div>
+<div class="protocol-box">
+<div class="protocol-title">Sequías:</div>
+<ul class="procedure-list">
+<li><strong>Uso eficiente do agua:</strong> Implementar medidas para otimizar o uso da água, como a instalação de sistemas de captação de água da chuva.</li>
+<li><strong>monitorização de fuentes de agua:</strong> Realizar acompanhamentos contínuos sobre a disponibilidade de recursos hídricos essenciais.</li>
+</ul>
+</div>
+<div class="section-subtitle">4.4 Formação e Capacitação</div>
+<ul class="procedure-list">
+<li>Realizar treinos periódicos para os colaboradores sobre como atuar em caso de emergências climáticas (evacuação, medidas de proteção, primeiros socorros).</li>
+<li><strong>Simulacros de emergência:</strong> Programar simulacros regulares para assegurar que todos os colaboradores conhecem os procedimentos de segurança e as rotas de evacuação.</li>
+</ul>
+<div class="section-subtitle">4.5 Comunicação durante Emergencias Climáticas</div>
+<ul class="procedure-list">
+<li><strong>Alertas tempranas:</strong> Implementar sistemas de comunicação para informar rapidamente todo o pessoal sobre alertas climáticos e medidas a tomar (por exemplo, SMS, correio eletrónico, aplicações móveis).</li>
+<li><strong>Puntos de contacto:</strong> Estabelecer um sistema de comunicação interna para manter informados todos os colaboradores durante um evento climático.</li>
+<li><strong>Comunicação com autoridades:</strong> Coordenar com as autoridades locais e organismos meteorológicos para receber informação e diretrizes adicionais.</li>
+</ul>
+<div class="section-subtitle">4.6 Avaliação Pós-emergência</div>
+<ul class="procedure-list">
+<li><strong>Avaliação de danos:</strong> Após um evento climático, realize uma avaliação exaustiva dos danos materiais e das consequências sobre os processos operacionais.</li>
+<li><strong>Informe de incidentes:</strong> Documentar todas as ações tomadas durante o evento, os resultados obtidos e as lições aprendidas para melhorar as respostas futuras.</li>
+<li><strong>Revisão do plano:</strong> Atualizar o plano de emergência conforme os resultados da avaliação pós-emergência e as experiências adquiridas.</li>
+</ul>
+</div>
+<!-- Sección Medición y seguimiento -->
+<div class="section" id="medicion">
+<div class="section-title">5. Medição e acompanhamento</div>
+<div class="measurement-box">
+<div class="section-subtitle">5.1 Indicadores de Desempenho</div>
+<ul class="procedure-list">
+<li><strong>Tempo de resposta perante emergências:</strong> Medir o tempo de resposta desde a deteção do evento climático até à implementação das medidas de emergência.</li>
+<li><strong>Percentagem de colaboradores evacuados de forma segura:</strong> Mede a eficiência do processo de evacuação e a segurança dos colaboradores durante o evento.</li>
+<li><strong>Impacto ambiental mitigado:</strong> Avaliar os danos ambientais provocados pelo evento e as medidas adotadas para os mitigar.</li>
+</ul>
+</div>
+<div class="section-subtitle">5.2 revisão anual</div>
+<ul class="procedure-list">
+<li>Rever e atualizar o plano de emergência climática anualmente, tendo em conta a experiência adquirida, as alterações nas regulamentações e as melhores práticas do setor.</li>
+</ul>
+</div>
+<!-- Botón de impresión (original) -->
+<button class="print-btn" onclick="window.print()">📄 Imprimir documento</button>
+<!-- Historial de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Pie de página -->
+<div class="footer">
+<p>Código: DOC-014 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verifica si el logo existe, caso contrario muestra un placeholder
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c5282" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                    console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+                };
+            }
+            
+            // Configurar scroll suave para los enlaces del TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Función para descargar el HTML actual
+            document.getElementById('downloadBtn').addEventListener('click', function() {
+                const htmlContent = document.documentElement.outerHTML;
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'DOC-014-Plan-de-Emergencia-Climatica.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            });
+
+            // Función para activar/desactivar modo edición
+            const editBtn = document.getElementById('editBtn');
+            let editModeActive = false;
+
+            // Elementos que serán editables (todo el texto del documento, excepto botones y logo)
+            const editableElements = [
+                document.querySelector('.org-info'),
+                document.querySelector('.doc-title'),
+                document.querySelector('.doc-code'),
+                document.querySelector('.content'),
+                document.querySelector('.footer')
+            ].filter(el => el !== null);
+
+            editBtn.addEventListener('click', function() {
+                editModeActive = !editModeActive;
+                
+                editableElements.forEach(el => {
+                    if (editModeActive) {
+                        el.setAttribute('contenteditable', 'true');
+                    } else {
+                        el.removeAttribute('contenteditable');
+                    }
+                });
+                
+                // Añadir o quitar una clase al body para dar feedback visual
+                if (editModeActive) {
+                    document.body.classList.add('editable-active');
+                    editBtn.innerHTML = '🔒 Terminar edição';
+                    editBtn.style.backgroundColor = '#c53030'; // rojo para indicar modo activo
+                } else {
+                    document.body.classList.remove('editable-active');
+                    editBtn.innerHTML = '✏️ Editar conteúdo';
+                    editBtn.style.backgroundColor = '#2c5282'; // color original
+                }
+            });
+        });
+    </script>
+</body>
+</html>

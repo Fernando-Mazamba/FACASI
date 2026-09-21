@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DOC-015 Plano de Ação de Mitigação de GEE - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        /* Barra de herramientas */
+        .toolbar {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            padding: 15px 40px;
+            background-color: #e2e8f0;
+            border-bottom: 2px solid #4a5568;
+        }
+        
+        .toolbar-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.3s, transform 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .toolbar-btn:hover {
+            background-color: #718096;
+        }
+        
+        .toolbar-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .section-subtitle {
+            color: #2d3748;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 30px 0 15px;
+            padding-left: 15px;
+            border-left: 4px solid #38a169;
+        }
+        
+        .action-section {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
+        .action-title {
+            color: #276749;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .action-title:before {
+            content: "○";
+            margin-right: 10px;
+            font-size: 20px;
+        }
+        
+        .action-content {
+            padding-left: 25px;
+        }
+        
+        .action-content p {
+            margin-bottom: 10px;
+        }
+        
+        .nested-list {
+            list-style-type: none;
+            margin: 15px 0 15px 20px;
+        }
+        
+        .nested-list li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .nested-list li:before {
+            content: "•";
+            color: #38a169;
+            font-weight: bold;
+            font-size: 18px;
+            position: absolute;
+            left: 0;
+        }
+        
+        .intro-text {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4a5568;
+            font-size: 16px;
+        }
+        
+        .climate-box {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .climate-title {
+            color: #2c5282;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Mantenemos el botón de impresión original por compatibilidad */
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        /* Indicador visual de modo edición */
+        .editable-active [contenteditable="true"] {
+            outline: 2px dashed #4a5568;
+            outline-offset: 4px;
+            background-color: #fffff0;
+            transition: outline 0.2s, background-color 0.2s;
+        }
+        
+        .ghg-scopes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .scope-box {
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        .scope-header {
+            background-color: #4a5568;
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .scope-1 .scope-header {
+            background-color: #38a169;
+        }
+        
+        .scope-2 .scope-header {
+            background-color: #3182ce;
+        }
+        
+        .scope-3 .scope-header {
+            background-color: #805ad5;
+        }
+        
+        .scope-content {
+            padding: 20px;
+            min-height: 120px;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .toolbar {
+                display: none;
+            }
+            
+            .print-btn {
+                display: none;
+            }
+            
+            .section {
+                page-break-inside: avoid;
+            }
+            
+            .ghg-scopes {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+            
+            .ghg-scopes {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .action-section {
+                padding: 15px;
+            }
+            
+            .toolbar {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabecera con logo e información de la organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Barra de herramientas con nuevas opciones -->
+<div class="toolbar">
+<button class="toolbar-btn" id="printToolbarBtn" onclick="window.print()">
+                🖨️ Imprimir
+            </button>
+<button class="toolbar-btn" id="downloadBtn">
+                ⬇️ Descarregar HTML
+            </button>
+<button class="toolbar-btn" id="editBtn">
+                ✏️ Editar conteúdo
+            </button>
+</div>
+<!-- Título del documento -->
+<div class="doc-title">Plano de Ação de Mitigação de Gases com Efeito de Estufa (GEE)</div>
+<div class="doc-code">Código: DOC-015</div>
+<!-- Contenido principal -->
+<div class="content">
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#objetivo">Objetivo</a></li>
+<li class="toc-item"><a class="toc-link" href="#inventario">Inventario de Emisiones de GEI</a></li>
+<li class="toc-item"><a class="toc-link" href="#optimizacion-energetica">Otimização do Consumo Energético</a></li>
+<li class="toc-item"><a class="toc-link" href="#energias-renovables">Transição para Energias Renováveis</a></li>
+<li class="toc-item"><a class="toc-link" href="#movilidad">Otimização do Uso da Mobilidade</a></li>
+<li class="toc-item"><a class="toc-link" href="#residuos">Gestão de Resíduos e Redução da Pegada de Carbono</a></li>
+<li class="toc-item"><a class="toc-link" href="#compensacion">Compensação de Emissões de GEE</a></li>
+<li class="toc-item"><a class="toc-link" href="#monitoreo">Monitorização e Avaliação do Desempenho</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Introducción -->
+<div class="intro-text">
+<p><strong>Este documento estabelece o Plano de Ação de Mitigação de Gases com Efeito de Estufa (GEE)</strong> para o Sistema de Gestão Integrado (SGI), em cumprimento das emendas climáticas ISO 2024 e dos requisitos das normas. O plano define estratégias específicas para reduzir as emissões de GEE e contribuir para a transição para uma economia de baixo carbono.</p>
+</div>
+<!-- Sección 1: Objetivo -->
+<div class="section" id="objetivo">
+<div class="section-title">Objetivo</div>
+<div class="climate-box">
+<div class="climate-title">Propósito do Plano</div>
+<p>Este Plano de Ação tem como propósito estabelecer as estratégias, metas e ações específicas para reduzir as emissões de gases com efeito de estufa (GEE) geradas pelas nossas operações, alinhando-se com os objetivos globais de mitigação das alterações climáticas e contribuindo para a transição para uma economia de baixo carbono.</p>
+<div class="section-subtitle" style="margin-top: 20px; font-size: 18px;">Ações específicas:</div>
+</div>
+</div>
+<!-- Sección 2: Inventario de Emisiones de GEI -->
+<div class="section" id="inventario">
+<div class="section-title">Inventario de Emisiones de GEI (Alcances 1, 2 e 3)</div>
+<div class="ghg-scopes">
+<div class="scope-box scope-1">
+<div class="scope-header">ALCANCE 1</div>
+<div class="scope-content">
+<p><strong>Emisiones Directas</strong><br/>
+                            Generadas por fuentes propias o controladas por a organização</p>
+</div>
+</div>
+<div class="scope-box scope-2">
+<div class="scope-header">ALCANCE 2</div>
+<div class="scope-content">
+<p><strong>Emissões Indiretas de Energia</strong><br/>
+                            Geradas pela eletricidade, calor ou vapor comprados</p>
+</div>
+</div>
+<div class="scope-box scope-3">
+<div class="scope-header">ALCANCE 3</div>
+<div class="scope-content">
+<p><strong>Outras Emissões Indiretas</strong><br/>
+                            na cadeia de valor da organização, não incluídas no Âmbito 2</p>
+</div>
+</div>
+</div>
+<div class="action-section">
+<div class="action-title">Medição e Avaliação de Emissões</div>
+<div class="action-content">
+<ul class="nested-list">
+<li>Realizar uma <strong>medição exaustiva das emissões de GEE</strong> através de um inventário detalhado, utilizando o Protocolo de Gases com Efeito de Estufa (GHG Protocol), cobrindo tanto as emissões diretas (Âmbito 1), como as indiretas de energia comprada (Âmbito 2) e as emissões indiretas ao longo da cadeia de valor (Âmbito 3).</li>
+<li>avaliar <strong>anualmente as emisiones de GEI</strong> e gerar um relatório que inclua as principais fontes de emissões, os setores responsáveis e as medidas tomadas para as reduzir.</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Sección 3: Optimización del Consumo Energético -->
+<div class="section" id="optimizacion-energetica">
+<div class="section-title">Otimização do Consumo Energético</div>
+<div class="action-section">
+<div class="action-title">Plano de Eficiência Energética</div>
+<div class="action-content">
+<ul class="nested-list">
+<li>implementar um <strong>plano de eficiência energética</strong> em todas as instalações operacionais, realizando auditorias energéticas periódicas e utilizando sistemas inteligentes para gerir o consumo energético.</li>
+<li>Fomentar a instalação de <strong>tecnologias de baixo consumo</strong> e a substituição de equipamentos antigos por modelos mais eficientes, como iluminação LED, equipamentos AVAC (aquecimento, ventilação e ar condicionado) de baixo consumo e motores elétricos eficientes.</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Sección 4: Transición hacia Energías Renovables -->
+<div class="section" id="energias-renovables">
+<div class="section-title">Transição para Energias Renováveis</div>
+<div class="action-section">
+<div class="action-title">Integração de Fontes Renováveis</div>
+<div class="action-content">
+<ul class="nested-list">
+<li>Realizar a <strong>transição para fontes de energia renováveis</strong> (solar, eólica, biomassa, etc.), estabelecendo metas claras de percentagem de energia renovável no mix energético.</li>
+<li>Investir em <strong>projetos de autoprodução de energia</strong>, como painéis solares nas instalações e outros sistemas que gerem energia limpa.</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Sección 5: Optimización del Uso de la Movilidad -->
+<div class="section" id="movilidad">
+<div class="section-title">Otimização do Uso da Mobilidade</div>
+<div class="action-section">
+<div class="action-title">Mobilidade Sustentável</div>
+<div class="action-content">
+<ul class="nested-list">
+<li>Substituir a <strong>frota de veículos da empresa por veículos elétricos ou híbridos</strong>, e fomentar o uso compartido de transporte entre os empleados através de programas de carpooling.</li>
+<li>implementar um <strong>sistema de mobilidade eficiente</strong> para reduzir a pegada de carbono das deslocações de colaboradores e mercadorias.</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Sección 6: Gestão de Residuos -->
+<div class="section" id="residuos">
+<div class="section-title">Gestão de Resíduos e Redução da Pegada de Carbono</div>
+<div class="action-section">
+<div class="action-title">Estratégia de Resíduos</div>
+<div class="action-content">
+<ul class="nested-list">
+<li>Melhorar a <strong>gestão dos residuos generados</strong>, implementando programas de redução na origem, reciclagem e compostagem.</li>
+<li>Fomentar a <strong>reutilização de materiais</strong> e o uso de materiales reciclados em os productos e embalajes.</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Sección 7: Compensación de Emisiones -->
+<div class="section" id="compensacion">
+<div class="section-title">Compensação de Emissões de GEE</div>
+<div class="action-section">
+<div class="action-title">Projetos de Compensação</div>
+<div class="action-content">
+<ul class="nested-list">
+<li>Participar em <strong>projetos de compensação de carbono</strong> através de iniciativas de reflorestação, restauro de ecossistemas ou da implementação de tecnologias para a captura de carbono.</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Sección 8: Monitoreo y Evaluación -->
+<div class="section" id="monitoreo">
+<div class="section-title">Monitorização e Avaliação do Desempenho</div>
+<div class="action-section">
+<div class="action-title">Sistema de acompanhamento</div>
+<div class="action-content">
+<ul class="nested-list">
+<li>estabelecer um <strong>sistema robusto de monitorização e reporte de emisiones</strong> através de indicadores de desempenho (KPIs) e avaliar periodicamente os resultados face às metas estabelecidas.</li>
+</ul>
+</div>
+</div>
+<div class="climate-box">
+<div class="climate-title">Integração com o SGI</div>
+<p>Este Plano de Ação de Mitigação de GEE integra-se plenamente com o Sistema de Gestão Integrado (SGI), alinhando-se com os requisitos das normas:2015 e das emendas climáticas ISO 2024. A implementação, o acompanhamento e a melhoria contínua deste plano serão revistos nas reuniões de revisão pela direção do SGI.</p>
+</div>
+</div>
+<!-- Botón de impresión (original) -->
+<button class="print-btn" onclick="window.print()">📄 Imprimir documento</button>
+<!-- Historial de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Pie de página -->
+<div class="footer">
+<p>Código: DOC-015 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        // Configurar scroll suave para los enlaces del TOC
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Verifica si el logo existe, caso contrario muestra un placeholder
+        const logoImg = document.querySelector('.logo');
+        if (logoImg) {
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+            };
+        }
+
+        // Función para descargar el HTML actual
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'DOC-015-Plan-de-Accion-de-Mitigacion-de-GEI.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        // Función para activar/desactivar modo edición
+        const editBtn = document.getElementById('editBtn');
+        let editModeActive = false;
+
+        // Elementos que serán editables (todo el texto del documento, excepto botones y logo)
+        const editableElements = [
+            document.querySelector('.org-info'),
+            document.querySelector('.doc-title'),
+            document.querySelector('.doc-code'),
+            document.querySelector('.content'),
+            document.querySelector('.footer')
+        ].filter(el => el !== null);
+
+        editBtn.addEventListener('click', function() {
+            editModeActive = !editModeActive;
+            
+            editableElements.forEach(el => {
+                if (editModeActive) {
+                    el.setAttribute('contenteditable', 'true');
+                } else {
+                    el.removeAttribute('contenteditable');
+                }
+            });
+            
+            // Añadir o quitar una clase al body para dar feedback visual
+            if (editModeActive) {
+                document.body.classList.add('editable-active');
+                editBtn.innerHTML = '🔒 Terminar edição';
+                editBtn.style.backgroundColor = '#c53030'; // rojo para indicar modo activo
+            } else {
+                document.body.classList.remove('editable-active');
+                editBtn.innerHTML = '✏️ Editar conteúdo';
+                editBtn.style.backgroundColor = '#4a5568'; // color original
+            }
+        });
+    </script>
+</body>
+</html>

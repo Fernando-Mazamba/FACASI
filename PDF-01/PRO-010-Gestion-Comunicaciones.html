@@ -1,0 +1,894 @@
+<html lang="pt-AO"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PRO-010 - Gestão de Comunicações - SGI (Genérico + Editable)</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c5282;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            cursor: pointer;
+            border: 2px dashed transparent;
+            transition: border 0.2s;
+        }
+        
+        .logo-container:hover {
+            border-color: #fbbf24;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            pointer-events: none; /* para que el clic vaya al contenedor */
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5282;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c5282;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #2c5282;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #2c5282;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .toc-item:before {
+            content: "•";
+            color: #2c5282;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .toc-link {
+            color: #2c5282;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #4299e1;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #2c5282;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .subsection-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .subsubsection-title {
+            color: #718096;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0 10px;
+        }
+        
+        .section-description {
+            margin-bottom: 20px;
+            color: #4a5568;
+            line-height: 1.7;
+        }
+        
+        .procedure-list {
+            list-style-type: decimal;
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .procedure-list li {
+            margin-bottom: 15px;
+            padding-left: 10px;
+        }
+        
+        .procedure-sublist {
+            list-style-type: disc;
+            margin-left: 40px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .procedure-sublist li {
+            margin-bottom: 8px;
+        }
+        
+        .responsibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .responsibility-table th {
+            background-color: #2c5282;
+            color: white;
+            text-align: left;
+            padding: 15px;
+            font-weight: bold;
+            border: 1px solid #1a365d;
+        }
+        
+        .responsibility-table td {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        
+        .responsibility-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .definition-list {
+            list-style-type: none;
+            margin-left: 20px;
+        }
+        
+        .definition-list li {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .definition-list li:before {
+            content: "•";
+            color: #2c5282;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .norma-badge {
+            display: inline-block;
+            background-color: #e6fffa;
+            color: #234e52;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 13px;
+            margin: 3px 3px 3px 0;
+            border-left: 3px solid #38b2ac;
+            white-space: nowrap;
+        }
+        
+        .communication-channel-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .communication-channel {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            border-left: 4px solid #2c5282;
+        }
+        
+        .communication-channel h4 {
+            color: #2c5282;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .emergency-section {
+            background-color: #fff5f5;
+            border: 1px solid #fed7d7;
+            border-radius: 5px;
+            padding: 25px;
+            margin-top: 30px;
+            border-left: 4px solid #c53030;
+        }
+        
+        .emergency-title {
+            color: #c53030;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2c5282;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c5282;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .print-btn, .save-btn, .edit-btn, .download-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .print-btn {
+            background-color: #2c5282;
+            color: white;
+        }
+        
+        .print-btn:hover {
+            background-color: #4299e1;
+        }
+        
+        .save-btn {
+            background-color: #3182ce;
+            color: white;
+        }
+        
+        .save-btn:hover {
+            background-color: #2c5282;
+        }
+        
+        .edit-btn {
+            background-color: #38a169;
+            color: white;
+        }
+        
+        .edit-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .download-btn {
+            background-color: #d69e2e;
+            color: white;
+        }
+        
+        .download-btn:hover {
+            background-color: #b7791f;
+        }
+
+        /* Estilo para modo edición */
+        body.editable-mode .detail-input:enabled,
+        body.editable-mode input:not([type=button]):not([type=submit]):not([type=reset]) {
+            background-color: #ffffe0;
+            border: 1px solid #fbbf24;
+        }
+
+        body.editable-mode td[contenteditable="true"],
+        body.editable-mode div[contenteditable="true"],
+        body.editable-mode p[contenteditable="true"],
+        body.editable-mode li[contenteditable="true"],
+        body.editable-mode span[contenteditable="true"],
+        body.editable-mode h4[contenteditable="true"],
+        body.editable-mode .norma-badge[contenteditable="true"] {
+            background-color: #ffffe0;
+            outline: 1px dashed #fbbf24;
+            cursor: text;
+        }
+
+        /* inputs dentro del procedimiento */
+        .detail-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #a0aec0;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+            color: #2d3748;
+        }
+
+        /* Ajustes para impresión */
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .action-buttons {
+                display: none;
+            }
+            
+            .responsibility-table {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            
+            .communication-channel-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .detail-input {
+                border: none;
+                background: transparent;
+                padding: 0;
+                color: black;
+                font-weight: normal;
+            }
+
+            .logo-container {
+                border: none;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .toc-list {
+                padding-left: 0;
+            }
+            
+            .toc-item {
+                padding-left: 15px;
+            }
+            
+            .responsibility-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .communication-channel-container {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                justify-content: center;
+            }
+        }
+    </style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+</head>
+<body class="">
+<div class="document-container">
+<!-- Cabecera con logo y organización (campos editables) -->
+<div class="header">
+<div class="logo-container" id="logoContainer" title="Clique para alterar o URL do logótipo (simulado)">
+<!-- Imagen del logo con un placeholder SVG que siempre funciona -->
+<img alt="Logótipo da Organização" class="logo" id="logoImg" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name"><input class="detail-input" disabled="" id="orgNameInput" style="background:transparent; color:white; border-color:#a0aec0;" type="text" value="Sistema de Gestão Integrado"/></div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+<input class="detail-input" disabled="" id="fechaEmision" style="width:100px; background:transparent; color:white;" type="text" value="01.12.2024"/>
+</div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+<input class="detail-input" disabled="" id="elabora" style="width:70px; background:transparent; color:white;" type="text" value="ESGI"/>
+</div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+<input class="detail-input" disabled="" id="aprueba" style="width:60px; background:transparent; color:white;" type="text" value="CEO"/>
+</div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+<input class="detail-input" disabled="" id="versionDoc" style="width:50px; background:transparent; color:white;" type="text" value="000"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Título del documento (editables) -->
+<div class="doc-title" contenteditable="false" id="docTitle">Procedimento de Gestão das Comunicações</div>
+<div class="doc-code" contenteditable="false" id="docCode">Código: PRO-010</div>
+<!-- Contenido principal -->
+<div class="content">
+<!-- Tabla de Contenidos (enlaces funcionales) -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#objetivo">Objetivo</a></li>
+<li class="toc-item"><a class="toc-link" href="#alcance">Alcance</a></li>
+<li class="toc-item"><a class="toc-link" href="#definiciones">Definições</a></li>
+<li class="toc-item"><a class="toc-link" href="#responsabilidades">Responsabilidades</a></li>
+<li class="toc-item"><a class="toc-link" href="#procedimiento-gestion">Procedimento de Gestão das Comunicações</a></li>
+<li class="toc-item"><a class="toc-link" href="#gestion-emergencia">Gestão da Comunicação em Casos de Emergência</a></li>
+<li class="toc-item"><a class="toc-link" href="#documentos-relacionados">documentos relacionados</a></li>
+<li class="toc-item"><a class="toc-link" href="#referencias-normativas">Referências Normativas</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial-versiones">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Sección 1: Objetivo (editable) -->
+<div class="section" id="objetivo">
+<div class="section-title" contenteditable="false">1. Objetivo</div>
+<div class="section-description" contenteditable="false">
+                    O objetivo deste procedimento é estabelecer um quadro para a gestão eficaz das comunicações dentro da organização, assegurando que a informação relacionada com a qualidade, o ambiente e a segurança e saúde no trabalho seja gerida de forma adequada e flua corretamente entre as diferentes partes interessadas, tanto internas como externas. Isto garante que se cumprem os requisitos legais, normativos e da organização, promovendo a melhoria contínua.
+                </div>
+</div>
+<!-- Sección 2: Alcance (editable) -->
+<div class="section" id="alcance">
+<div class="section-title" contenteditable="false">2. Alcance</div>
+<div class="section-description" contenteditable="false">
+                    Este procedimento aplica-se a todas as comunicações internas e externas relacionadas com o Sistema de Gestão Integrado (SGI) da organização, incluindo as comunicações com os colaboradores, fornecedores, clientes, autoridades reguladoras e qualquer outra parte interessada, em relação com os aspetos de qualidade, ambiente, segurança e saúde no trabalho.
+                </div>
+</div>
+<!-- Sección 3: Definiciones (editable) -->
+<div class="section" id="definiciones">
+<div class="section-title" contenteditable="false">3. Definições</div>
+<div class="section-description">
+<ul class="definition-list" contenteditable="false">
+<li contenteditable="false"><strong>Comunicação:</strong> O processo de intercâmbio de informação entre partes interessadas.</li>
+<li contenteditable="false"><strong>Comunicações Internas:</strong> Intercâmbio de informação dentro da organização, entre colaboradores e diferentes áreas.</li>
+<li contenteditable="false"><strong>Comunicações Externas:</strong> Informação transmitida a partes externas a organização, incluindo clientes, fornecedores e autoridades.</li>
+<li contenteditable="false"><strong>Partes Interessadas:</strong> Indivíduos ou grupos que podem afetar ou são afetados pelas atividades da organização, incluindo colaboradores, clientes, fornecedores, autoridades reguladoras, entre outros.</li>
+<li contenteditable="false"><strong>Informação Documentada:</strong> Qualquer tipo de informação que deve ser controlada e mantida pela organização, que esteja relacionada com o SGI e os requisitos legais ou normativos.</li>
+</ul>
+</div>
+</div>
+<!-- Sección 4: Responsabilidades (tabla editable) -->
+<div class="section" id="responsabilidades">
+<div class="section-title" contenteditable="false">4. Responsabilidades</div>
+<table class="responsibility-table">
+<thead>
+<tr>
+<th>Rol</th>
+<th>Responsabilidades</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td contenteditable="false"><strong>Alta direção</strong></td>
+<td contenteditable="false">Assegura que as comunicações são consistentes com os objetivos estratégicos da organização e que se atribuem os recursos necessários para uma gestão adequada das comunicações.</td>
+</tr>
+<tr>
+<td contenteditable="false"><strong>Responsável de Comunicações</strong></td>
+<td contenteditable="false">Coordena todas as comunicações internas e externas e assegura que se seguem os procedimentos estabelecidos para a difusão e receção de informação relacionada com a qualidade, o ambiente e a segurança e saúde no trabalho.</td>
+</tr>
+<tr>
+<td contenteditable="false"><strong>responsáveis de processos</strong></td>
+<td contenteditable="false">Garantem que as comunicações relacionadas com as suas áreas são claras, oportunas e eficazes e que se transmitem aos colaboradores e outras partes interessadas de forma adequada.</td>
+</tr>
+<tr>
+<td contenteditable="false"><strong>pessoal Operativo</strong></td>
+<td contenteditable="false">Participa ativamente na transmissão e receção de informação relevante para o seu posto, garantindo que se seguem os procedimentos de comunicação estabelecidos.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Sección 5: Procedimento de Gestão de las Comunicaciones (editable) -->
+<div class="section" id="procedimiento-gestion">
+<div class="section-title" contenteditable="false">5. Procedimento de Gestão das Comunicações</div>
+<div class="subsection-title" contenteditable="false">5.1 Identificação de necessidades de Comunicação</div>
+<div class="section-description" contenteditable="false">
+<p contenteditable="false">Se identifican as necessidades de comunicação das diferentes partes interessadas, tanto internas como externas. isto inclui:</p>
+<ul contenteditable="false" style="list-style-type: disc; margin-left: 20px;">
+<li contenteditable="false">Informação sobre políticas e objetivos de qualidade, ambiente e segurança e saúde laboral.</li>
+<li contenteditable="false">Cambios em os procedimentos o em as normativas que afectan a organização.</li>
+<li contenteditable="false">Resultados de auditorias, revisão de gestão e avaliações de desempenho.</li>
+<li contenteditable="false">Informação relevante para a toma de decisiones estratégicas e operativas.</li>
+<li contenteditable="false">Informação sobre incidentes, acidentes ou não conformidades.</li>
+</ul>
+</div>
+<div class="subsection-title" contenteditable="false">5.2 Planeamento das Comunicações</div>
+<div class="section-description" contenteditable="false">
+<p contenteditable="false">A organização estabelece um plano de comunicação que especifica como, quando e a quem se deve comunicar a informação relevante. Este plano cobre:</p>
+<div class="communication-channel-container">
+<div class="communication-channel">
+<h4 contenteditable="false">Comunicação Interna</h4>
+<p contenteditable="false">Assegura que os colaboradores recebem a informação necessária para cumprir as suas responsabilidades e que há um feedback contínuo.</p>
+</div>
+<div class="communication-channel">
+<h4 contenteditable="false">Comunicação Externa</h4>
+<p contenteditable="false">Assegura que os clientes, fornecedores, autoridades reguladoras e outras partes recebem informação relevante de forma clara e pontual.</p>
+</div>
+<div class="communication-channel">
+<h4 contenteditable="false">Canales de Comunicação</h4>
+<p contenteditable="false">Define os canais de comunicação adequados para cada tipo de informação (correio eletrónico, reuniões, boletins internos, plataformas digitais, etc.).</p>
+</div>
+</div>
+</div>
+<div class="subsection-title" contenteditable="false">5.3 Implementação das Comunicações</div>
+<div class="section-description" contenteditable="false">
+<p contenteditable="false">As comunicações são claras, transparentes e entregues no formato adequado, dependendo da audiência. Alguns exemplos de métodos de comunicação incluem:</p>
+<ul contenteditable="false" style="list-style-type: disc; margin-left: 20px;">
+<li contenteditable="false"><strong>Reuniones internas:</strong> Para a discussão de temas relevantes de qualidade, ambiente e segurança.</li>
+<li contenteditable="false"><strong>Informes escritos:</strong> Para comunicar resultados de auditorias, avaliações ou incidentes.</li>
+<li contenteditable="false"><strong>Canales digitales:</strong> Para a comunicação rápida e eficaz entre colaboradores e partes externas.</li>
+<li contenteditable="false"><strong>Formação e Capacitação:</strong> para comunicar cambios importantes em procedimentos e políticas.</li>
+</ul>
+</div>
+<div class="subsection-title" contenteditable="false">5.4 controlo da Informação Documentada</div>
+<div class="section-description" contenteditable="false">
+<p contenteditable="false">Toda a informação relacionada com o SGI que seja comunicada o recibida se controla de acordo com os procedimentos estabelecidos para a gestão da informação documentada. isto inclui:</p>
+<ul contenteditable="false" style="list-style-type: disc; margin-left: 20px;">
+<li contenteditable="false">El armazenamento e conservação adequada da informação.</li>
+<li contenteditable="false">A garantia de que apenas as pessoas autorizadas têm acesso a informação relevante.</li>
+<li contenteditable="false">La revisão periódica para garantir que a informação comunicada seja precisa e esté atualizada.</li>
+</ul>
+</div>
+<div class="subsection-title" contenteditable="false">5.5 Acompanhamento das Comunicações</div>
+<div class="section-description" contenteditable="false">
+<p contenteditable="false">A eficácia das comunicações é monitorizada para assegurar que se estão a alcançar os objetivos da organização e que as partes interessadas recebem a informação de que necessitam.</p>
+<ul contenteditable="false" style="list-style-type: disc; margin-left: 20px;">
+<li contenteditable="false"><strong>Inquéritos e feedback:</strong> Obtém-se a opinião dos colaboradores e outras partes interessadas sobre a clareza e a eficácia das comunicações.</li>
+<li contenteditable="false"><strong>revisão de incidentes e quejas:</strong> Avalia-se como a informação relacionada com incidentes ou não conformidades foi transmitida e se o feedback foi adequado.</li>
+</ul>
+</div>
+<div class="subsection-title" contenteditable="false">5.6 Melhoria Contínua das Comunicações</div>
+<div class="section-description" contenteditable="false">
+<p contenteditable="false">As comunicações revêem-se periodicamente como parte da melhoria contínua, para assegurar que os métodos e canais são eficazes e se ajustam às necessidades cambiantes da organização.</p>
+<ul contenteditable="false" style="list-style-type: disc; margin-left: 20px;">
+<li contenteditable="false"><strong>revisão de processos:</strong> Avalia-se e ajustam-se os procedimentos de comunicação com base nos resultados do acompanhamento e no feedback recebido.</li>
+</ul>
+</div>
+</div>
+<!-- Sección 6: Gestão de la Comunicación en Casos de Emergencia (editable) -->
+<div class="section" id="gestion-emergencia">
+<div class="emergency-section">
+<div class="emergency-title" contenteditable="false">6. Gestão da Comunicação em Casos de Emergência</div>
+<div class="section-description" contenteditable="false">
+<p contenteditable="false">A organização estabelece procedimentos de comunicação de emergência para assegurar uma resposta rápida e eficaz em caso de incidentes relacionados com a qualidade, o ambiente ou a segurança e saúde laboral.</p>
+<ul contenteditable="false" style="list-style-type: disc; margin-left: 20px;">
+<li contenteditable="false"><strong>Alertas tempranas:</strong> Estabelecem-se sistemas de alerta para situações de emergência.</li>
+<li contenteditable="false"><strong>Protocolos de comunicação:</strong> Assegura-se que se comunicam adequadamente as medidas a seguir, tanto internas como externas, para minimizar o impacto.</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Sección 7: Documentos relacionados (editable) -->
+<div class="section" id="documentos-relacionados">
+<div class="section-title" contenteditable="false">7. documentos relacionados</div>
+<div class="section-description">
+<ul contenteditable="false" style="list-style-type: disc; margin-left: 20px;">
+<li contenteditable="false">Plano de Comunicação Interna e Externa</li>
+<li contenteditable="false">Registo de Comunicação (formato de acompanhamento)</li>
+<li contenteditable="false">Procedimento de controlo da Informação Documentada</li>
+<li contenteditable="false">Relatório de avaliação de Comunicações</li>
+</ul>
+</div>
+</div>
+<!-- Sección 8: Referencias Normativas (genérico solo ISO) -->
+<div class="section" id="referencias-normativas">
+<div class="section-title" contenteditable="false">8. Referências Normativas</div>
+<div class="section-description">
+<span class="norma-badge" contenteditable="false">ISO 9001</span>
+<span class="norma-badge" contenteditable="false"></span>
+<span class="norma-badge" contenteditable="false"></span>
+</div>
+</div>
+<!-- Botones de acción: editar, guardar, descargar HTML, descargar PDF, imprimir -->
+<div class="action-buttons">
+<button class="edit-btn" id="editBtn"><i class="fas fa-pen"></i> MODO DE EDIÇÃO</button>
+<button class="save-btn" id="saveBtn">
+<i class="fas fa-save"></i>
+                    GUARDAR ALTERAÇÕES
+                </button>
+<button class="download-btn" id="downloadHtmlBtn">
+<i class="fas fa-code"></i>
+                    DESCARREGAR HTML
+                </button>
+<button class="download-btn" id="downloadPdfBtn" style="background-color: #c0392b;">
+<i class="fas fa-file-pdf"></i>
+                    DESCARREGAR PDF
+                </button>
+<button class="print-btn" onclick="window.print()">
+<i class="fas fa-print"></i>
+                    IMPRIMIR
+                </button>
+</div>
+<!-- Historial de versiones (editable) -->
+<div class="version-history" id="historial-versiones">
+<div class="section-title" contenteditable="false">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th contenteditable="false">Versão</th>
+<th contenteditable="false">Data</th>
+<th contenteditable="false">Descrição</th>
+<th contenteditable="false">Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td contenteditable="false">000</td>
+<td contenteditable="false">01.12.2024</td>
+<td contenteditable="false">Original</td>
+<td contenteditable="false">CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Pie de página -->
+<div class="footer">
+<p contenteditable="false" id="footerText">Código: PRO-010 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        (function() {
+            // Elementos editables: inputs y contenteditable
+            const inputs = document.querySelectorAll('input.detail-input');
+            const contentEditables = document.querySelectorAll('[contenteditable="false"]');
+            const tableCells = document.querySelectorAll('.responsibility-table td, .version-table td, .version-table th, .communication-channel h4, .communication-channel p, .norma-badge');
+            const listItems = document.querySelectorAll('ul[style*="disc"] li, .definition-list li');
+
+            const editBtn = document.getElementById('editBtn');
+            const saveBtn = document.getElementById('saveBtn');
+            const downloadHtmlBtn = document.getElementById('downloadHtmlBtn');
+            const downloadPdfBtn = document.getElementById('downloadPdfBtn');
+
+            let editMode = false;
+
+            function toggleEditMode(enable) {
+                editMode = enable;
+                inputs.forEach(inp => inp.disabled = !enable);
+                contentEditables.forEach(el => {
+                    el.setAttribute('contenteditable', enable ? 'true' : 'false');
+                });
+                tableCells.forEach(td => {
+                    td.setAttribute('contenteditable', enable ? 'true' : 'false');
+                });
+                listItems.forEach(li => {
+                    li.setAttribute('contenteditable', enable ? 'true' : 'false');
+                });
+                // párrafos sueltos
+                document.querySelectorAll('.section-description p, .emergency-section p').forEach(p => {
+                    p.setAttribute('contenteditable', enable ? 'true' : 'false');
+                });
+
+                if (enable) {
+                    document.body.classList.add('editable-mode');
+                    editBtn.innerHTML = '<i class="fas fa-eye"></i> MODO VISUAL';
+                } else {
+                    document.body.classList.remove('editable-mode');
+                    editBtn.innerHTML = '<i class="fas fa-pen"></i> MODO DE EDIÇÃO';
+                }
+            }
+
+            editBtn.addEventListener('click', () => {
+                toggleEditMode(!editMode);
+            });
+
+            // Guardar en localStorage algunos campos clave
+            saveBtn.addEventListener('click', () => {
+                const data = {
+                    orgName: document.getElementById('orgNameInput').value,
+                    fechaEmision: document.getElementById('fechaEmision').value,
+                    elabora: document.getElementById('elabora').value,
+                    aprueba: document.getElementById('aprueba').value,
+                    versionDoc: document.getElementById('versionDoc').value,
+                    docTitle: document.getElementById('docTitle').innerText,
+                    docCode: document.getElementById('docCode').innerText,
+                    footer: document.getElementById('footerText').innerText,
+                };
+                localStorage.setItem('PRO-010-data', JSON.stringify(data));
+                alert('Dados básicos guardados no localStorage. Os textos editáveis mantêm-se enquanto a página não for recarregada.');
+                if (editMode) toggleEditMode(false);
+            });
+
+            // Cargar datos guardados
+            function loadSaved() {
+                const saved = localStorage.getItem('PRO-010-data');
+                if (saved) {
+                    try {
+                        const data = JSON.parse(saved);
+                        if (data.orgName) document.getElementById('orgNameInput').value = data.orgName;
+                        if (data.fechaEmision) document.getElementById('fechaEmision').value = data.fechaEmision;
+                        if (data.elabora) document.getElementById('elabora').value = data.elabora;
+                        if (data.aprueba) document.getElementById('aprueba').value = data.aprueba;
+                        if (data.versionDoc) document.getElementById('versionDoc').value = data.versionDoc;
+                        if (data.docTitle) document.getElementById('docTitle').innerText = data.docTitle;
+                        if (data.docCode) document.getElementById('docCode').innerText = data.docCode;
+                        if (data.footer) document.getElementById('footerText').innerText = data.footer;
+                    } catch (e) {}
+                }
+            }
+            loadSaved();
+
+            // Descargar HTML
+            function downloadAsHtml() {
+                const htmlContent = document.documentElement.outerHTML;
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'PRO-010-Gestao-Comunicacoes.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+            downloadHtmlBtn.addEventListener('click', downloadAsHtml);
+
+            // Descargar PDF (impresión)
+            downloadPdfBtn.addEventListener('click', () => {
+                window.print();
+            });
+
+            // Logo interactivo
+            document.getElementById('logoContainer').addEventListener('click', () => {
+                const newUrl = prompt('Introduza o URL da nova imagem do logótipo (pode ser um URL da internet ou data:image):', document.getElementById('logoImg').src);
+                if (newUrl) {
+                    document.getElementById('logoImg').src = newUrl;
+                }
+            });
+
+            // Scroll suave en TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Inicialmente modo no-edición
+            toggleEditMode(false);
+        })();
+    </script>
+</body></html>

@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PRO-018 Gestão de Riscos Climáticos - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c5c3e;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        /* Barra de herramientas */
+        .toolbar {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            padding: 15px 40px;
+            background-color: #e2e8f0;
+            border-bottom: 2px solid #2c5c3e;
+        }
+        
+        .toolbar-btn {
+            background-color: #2c5c3e;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.3s, transform 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .toolbar-btn:hover {
+            background-color: #4a8c6d;
+        }
+        
+        .toolbar-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5c3e;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c5c3e;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #2c5c3e;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #2c5c3e;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #2c5c3e;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #4a8c6d;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #2c5c3e;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-subtitle {
+            color: #1e3c2a;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 30px 0 20px;
+            padding-left: 10px;
+            border-left: 4px solid #2c5c3e;
+        }
+        
+        .subsection-title {
+            color: #2c5c3e;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+        }
+        
+        .intro-text {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #2c5c3e;
+            font-size: 16px;
+        }
+        
+        .content-text {
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .bullet-list {
+            list-style-type: none;
+            margin: 15px 0 20px 20px;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .bullet-list li:before {
+            content: "•";
+            color: #2c5c3e;
+            font-weight: bold;
+            font-size: 18px;
+            position: absolute;
+            left: 0;
+        }
+        
+        .nested-list {
+            list-style-type: none;
+            margin: 10px 0 15px 30px;
+        }
+        
+        .nested-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .nested-list li:before {
+            content: "○";
+            color: #4a8c6d;
+            position: absolute;
+            left: 0;
+        }
+        
+        .responsibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .responsibility-table th, .responsibility-table td {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        .responsibility-table th {
+            background-color: #2c5c3e;
+            color: white;
+            font-weight: bold;
+            width: 25%;
+        }
+        
+        .responsibility-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .responsibility-table tr:hover {
+            background-color: #f0fff4;
+        }
+        
+        .risk-category {
+            background-color: #f0f7ff;
+            border: 1px solid #c3d9ff;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .risk-category-title {
+            color: #2c5c3e;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .procedure-box {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .procedure-title {
+            color: #2c5c3e;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #cbd5e0;
+        }
+        
+        .kpi-box {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .kpi-title {
+            color: #2c5c3e;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .kpi-list {
+            list-style-type: none;
+            margin: 15px 0 20px 20px;
+        }
+        
+        .kpi-list li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .kpi-list li:before {
+            content: "✓";
+            color: #3182ce;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2c5c3e;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c5c3e;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #2c5c3e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #4a8c6d;
+        }
+        
+        /* Estilo para elementos editables (cuando el modo edición está activo) */
+        .editable-active [contenteditable="true"] {
+            outline: 2px dashed #2c5c3e;
+            outline-offset: 4px;
+            background-color: #fffff0;
+            transition: outline 0.2s, background-color 0.2s;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .toolbar, .print-btn {
+                display: none;
+            }
+            
+            .editable {
+                border: none;
+            }
+            
+            .editable:hover {
+                background-color: transparent;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+            
+            .responsibility-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .responsibility-table th,
+            .responsibility-table td {
+                padding: 10px;
+                font-size: 14px;
+            }
+            
+            .toolbar {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabecera con logo e información de la organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Barra de herramientas -->
+<div class="toolbar">
+<button class="toolbar-btn" onclick="window.print()"><i class="fas fa-print"></i> Imprimir</button>
+<button class="toolbar-btn" id="downloadBtn"><i class="fas fa-download"></i> Descarregar HTML</button>
+<button class="toolbar-btn" id="editBtn"><i class="fas fa-edit"></i> Editar conteúdo</button>
+</div>
+<!-- Título del documento -->
+<div class="doc-title">Gestão de Riscos Climáticos</div>
+<div class="doc-code">Código: PRO-018</div>
+<!-- Contenido principal -->
+<div class="content">
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#objetivo">1. Objetivo</a></li>
+<li class="toc-item"><a class="toc-link" href="#alcance">2. Alcance</a></li>
+<li class="toc-item"><a class="toc-link" href="#definiciones">3. Definições</a></li>
+<li class="toc-item"><a class="toc-link" href="#responsabilidades">4. Responsabilidades</a></li>
+<li class="toc-item"><a class="toc-link" href="#procedimiento">5. Procedimento para a Gestão de Riscos Climáticos</a></li>
+<li class="toc-item"><a class="toc-link" href="#medicion">6. Medição e acompanhamento</a></li>
+<li class="toc-item"><a class="toc-link" href="#documentacion">7. Documentação relacionada</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Sección 1: Objetivo -->
+<div class="section" id="objetivo">
+<div class="section-title">1. Objetivo</div>
+<div class="content-text">
+                    O objetivo deste procedimento é identificar, avaliar e gerir os riscos climáticos que possam afetar as operações, a infraestrutura, a cadeia de abastecimento, a saúde e a segurança dos colaboradores, bem como o desempenho ambiental da organização. Isto inclui tanto os riscos de <strong>mitigação</strong> como de <strong>adaptação</strong> a os efectos do mudanças climáticas, garantindo a resiliencia operativa e o cumprimento das normativas aplicáveis.
+                </div>
+</div>
+<!-- Sección 2: Alcance -->
+<div class="section" id="alcance">
+<div class="section-title">2. Alcance</div>
+<div class="content-text">
+                    Este procedimento aplica-se a todas as áreas e processos da organização, incluindo:
+                </div>
+<ul class="bullet-list">
+<li><strong>riscos operativos</strong> relacionados com fenómenos climáticos extremos (tempestades, secas, ondas de calor, inundações).</li>
+<li><strong>riscos medioambientales</strong> relacionados com as alterações climáticas, como as alterações dos ecossistemas e a disponibilidade de recursos naturais.</li>
+<li><strong>riscos de saúde e segurança</strong> dos trabalhadores devido às condições climáticas extremas.</li>
+<li>A gestão da cadeia de abastecimento face a impactos climáticos, como interrupções no transporte ou escassez de recursos.</li>
+</ul>
+</div>
+<!-- Sección 3: Definiciones -->
+<div class="section" id="definiciones">
+<div class="section-title">3. Definições</div>
+<div class="risk-category">
+<div class="risk-category-title">risco Climático</div>
+<p>Possibilidade de que os efeitos das alterações climáticas afetem negativamente as operações da organização.</p>
+</div>
+<div class="risk-category">
+<div class="risk-category-title">Risco de Mitigação</div>
+<p>Riscos relacionados com a transição para uma economia de baixo carbono, como o cumprimento de regulamentações ambientais ou a mudança nas expectativas do mercado.</p>
+</div>
+<div class="risk-category">
+<div class="risk-category-title">Risco de Adaptação</div>
+<p>Riscos derivados da capacidade da organização para se adaptar aos efeitos diretos e indiretos das alterações climáticas nas suas operações.</p>
+</div>
+<div class="risk-category">
+<div class="risk-category-title">Risco ambiental</div>
+<p>Riscos relacionados com a alteração dos sistemas naturais devido às atividades humanas e às mudanças no clima.</p>
+</div>
+</div>
+<!-- Sección 4: Responsabilidades -->
+<div class="section" id="responsabilidades">
+<div class="section-title">4. Responsabilidades</div>
+<table class="responsibility-table">
+<thead>
+<tr>
+<th>Responsável</th>
+<th>Responsabilidade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Alta direção</strong></td>
+<td>Aprovar a estratégia e as políticas de gestão de riscos climáticos, atribuir recursos e garantir o cumprimento normativo e a melhoria contínua.</td>
+</tr>
+<tr>
+<td><strong>responsável do SGI</strong></td>
+<td>Coordenar a implementação do procedimento de gestão de riscos climáticos dentro do SGI, assegurando a sua integração com os demais sistemas de gestão.</td>
+</tr>
+<tr>
+<td><strong>responsáveis de processos</strong></td>
+<td>identificar os riscos climáticos específicos de seus processos e colaborar na implementação de medidas para mitigarlos e adaptarse a seus efectos.</td>
+</tr>
+<tr>
+<td><strong>responsável de segurança e saúde</strong></td>
+<td>assegurar que as medidas de segurança estén em seu lugar para proteger a os empleados de riscos asociados com o mudanças climáticas, como olas de calor, tormentas, etc.</td>
+</tr>
+<tr>
+<td><strong>responsável de meio ambiente</strong></td>
+<td>Gerir os riscos climáticos relacionados com a sustentabilidade e o impacto ambiental das atividades operacionais da organização.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Sección 5: Procedimento -->
+<div class="section" id="procedimiento">
+<div class="section-title">5. Procedimento para a Gestão de Riscos Climáticos</div>
+<div class="procedure-box">
+<div class="procedure-title">5.1 Identificação de riscos Climáticos</div>
+<ul class="bullet-list">
+<li><strong>Identificação de fuentes de risco:</strong> Identificar os fenómenos climáticos extremos (como tempestades, inundações, secas, ondas de calor) que podem afetar as operações, os recursos e a infraestrutura da organização.</li>
+<li><strong>Avaliação da vulnerabilidade:</strong> Determinar os pontos críticos nas operações da organização que poderiam ser mais afetados por eventos climáticos extremos (por exemplo, instalações localizadas em zonas propensas a inundações ou secas).</li>
+<li><strong>Revisão da cadeia de abastecimento:</strong> Avaliar como as alterações climáticas podem afetar a cadeia de abastecimento, tanto em termos de escassez de recursos como em interrupções no transporte.</li>
+</ul>
+</div>
+<div class="procedure-box">
+<div class="procedure-title">5.2 avaliação do risco Climático</div>
+<ul class="bullet-list">
+<li><strong>Análise de impacto:</strong> Avaliar o potencial de impacto dos riscos climáticos identificados, considerando a probabilidade de que ocorram e a gravidade dos seus efeitos sobre as operações, a saúde e a segurança laboral, e o meio ambiente.
+                            <ul class="nested-list">
+<li><strong>riscos operativos:</strong> Como impactam as condições climáticas extremas (por exemplo, ondas de calor ou tempestades) na produção, na distribuição ou no funcionamento das instalações?</li>
+<li><strong>riscos de saúde e segurança:</strong> Como afetam as condições climáticas extremas a saúde e a segurança dos colaboradores?</li>
+<li><strong>Riscos de reputação:</strong> Como podem os eventos climáticos extremos afetar a imagem da organização perante os seus clientes, reguladores e partes interessadas?</li>
+</ul>
+</li>
+<li><strong>Prioridade do risco:</strong> Classificar os riscos conforme a sua probabilidade e impacto nas operações.
+                            <ul class="nested-list">
+<li><strong>Probabilidade:</strong> Quão provável é que um evento climático ocorra na região onde opera a organização?</li>
+<li><strong>Impacto:</strong> Quão severo será o impacto deste evento na organização?</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="subsection-title">5.3 Planeamento de Resposta e Adaptação</div>
+<ul class="bullet-list">
+<li><strong>Estratégias de mitigação:</strong> Definir as ações preventivas para reduzir as emissões de gases com efeito de estufa (GEE) e outros impactos ambientais que contribuem para as alterações climáticas.
+                        <ul class="nested-list">
+<li><strong>Redução da pegada de carbono:</strong> Melhorar a eficiência energética, utilizar energias renováveis e otimizar os processos.</li>
+<li><strong>Adaptação da infraestrutura:</strong> Melhorar as instalações para que sejam mais resilientes às condições climáticas extremas.</li>
+</ul>
+</li>
+<li><strong>Estratégias de adaptação:</strong> Estabelecer planos para se adaptar aos riscos climáticos, como eventos extremos que possam interromper as operações.
+                        <ul class="nested-list">
+<li><strong>Infraestructura resiliente:</strong> Assegurar que as instalações sejam capazes de resistir a eventos como inundações ou tempestades.</li>
+<li><strong>Planos de emergência climática:</strong> Desenvolver protocolos claros para eventos climáticos extremos, que incluam evacuação, segurança dos colaboradores e gestão de recursos.</li>
+</ul>
+</li>
+</ul>
+<div class="subsection-title">5.4 Implementação de Medidas Correctivas e Preventivas</div>
+<ul class="bullet-list">
+<li><strong>Ações correctivas:</strong> Tomar medidas para corrigir problemas relacionados com eventos climáticos passados (por exemplo, reparar equipamentos danificados por tempestades ou inundações).</li>
+<li><strong>Ações preventivas:</strong> Implementar medidas para evitar que os riscos climáticos identificados se materializem no futuro (por exemplo, desenhar processos que sejam menos dependentes de recursos naturais afetados pelas alterações climáticas).</li>
+</ul>
+<div class="subsection-title">5.5 Comunicação durante Eventos Climáticos</div>
+<ul class="bullet-list">
+<li><strong>Sistemas de alerta precoce:</strong> Implementar sistemas para receber alertas meteorológicos e notificar os colaboradores e as partes interessadas sobre possíveis eventos climáticos extremos.</li>
+<li><strong>Plano de comunicação interna:</strong> Assegurar que os colaboradores recebam instruções claras sobre como atuar durante emergências climáticas (evacuação, refúgio, procedimentos de segurança).</li>
+<li><strong>Comunicação com partes externas:</strong> Manter informados os fornecedores, clientes e autoridades sobre a situação, especialmente se se prevêem interrupções nas operações.</li>
+</ul>
+<div class="subsection-title">5.6 monitorização e revisão</div>
+<ul class="bullet-list">
+<li><strong>monitorização constante:</strong> Estabelecer um sistema de monitorização contínuo para detetar eventos climáticos extremos e avaliar o seu impacto em tempo real.</li>
+<li><strong>avaliação da eficácia:</strong> Avaliar a eficácia das medidas de resposta e adaptação depois de cada evento e fazer ajustes conforme seja necessário.</li>
+<li><strong>Revisão periódica do plano:</strong> Rever e atualizar o procedimento de gestão de riscos climáticos anualmente para assegurar que as estratégias de mitigação e adaptação sejam eficazes.</li>
+</ul>
+</div>
+<!-- Sección 6: Medición y seguimiento -->
+<div class="section" id="medicion">
+<div class="section-title">6. Medição e acompanhamento</div>
+<div class="kpi-box">
+<div class="kpi-title">6.1 Indicadores de Desempenho</div>
+<ul class="kpi-list">
+<li><strong>Índice de cumprimento de medidas de adaptação:</strong> Mede a percentagem de medidas de adaptação implementadas conforme o planeado.</li>
+<li><strong>Tempo de resposta a emergências climáticas:</strong> Mede o tempo desde o alerta precoce até à implementação das ações de resposta.</li>
+<li><strong>Impacto ambiental mitigado:</strong> Avalia a redução nos impactos ambientais (por exemplo, emissões de GEE, dano à infraestrutura) devido às ações de adaptação.</li>
+</ul>
+</div>
+</div>
+<!-- Sección 7: Documentação relacionada -->
+<div class="section" id="documentacion">
+<div class="section-title">7. Documentação relacionada</div>
+<ul class="bullet-list">
+<li><strong>Análise de Vulnerabilidade Climática.</strong></li>
+<li><strong>Informe de avaliação de riscos Climáticos.</strong></li>
+<li><strong>Plano de Adaptação às Alterações Climáticas.</strong></li>
+<li><strong>Registos de ação corretiva e Preventiva.</strong></li>
+<li><strong>Relatório de monitorização de Desempenho Climático.</strong></li>
+</ul>
+</div>
+<!-- Botón de impresión -->
+<button class="print-btn" onclick="window.print()"><i class="fas fa-print"></i> Imprimir documento</button>
+<!-- Historial de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Pie de página -->
+<div class="footer">
+<p>Código: PRO-018 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        // Configurar scroll suave para los enlaces del TOC
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Verifica si el logo existe, caso contrario muestra un placeholder
+        const logoImg = document.querySelector('.logo');
+        if (logoImg) {
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c5c3e" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+            };
+        }
+
+        // Función para descargar el HTML actual
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'PRO-018-Gestao-de-Riscos-Climaticos.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('📁 Documento descarregado como ficheiro HTML.');
+        });
+
+        // Modo edición
+        const editBtn = document.getElementById('editBtn');
+        let editModeActive = false;
+
+        // Elementos que serán editables (todo el texto del documento, excepto botones y logo)
+        const editableElements = [
+            document.querySelector('.org-info'),
+            document.querySelector('.doc-title'),
+            document.querySelector('.doc-code'),
+            document.querySelector('.content'),
+            document.querySelector('.footer')
+        ].filter(el => el !== null);
+
+        editBtn.addEventListener('click', function() {
+            editModeActive = !editModeActive;
+            
+            editableElements.forEach(el => {
+                if (editModeActive) {
+                    el.setAttribute('contenteditable', 'true');
+                } else {
+                    el.removeAttribute('contenteditable');
+                }
+            });
+            
+            // Añadir o quitar clase al body para feedback visual
+            if (editModeActive) {
+                document.body.classList.add('editable-active');
+                editBtn.innerHTML = '<i class="fas fa-lock"></i> Terminar edição';
+                editBtn.style.backgroundColor = '#c53030'; // rojo para indicar modo activo
+            } else {
+                document.body.classList.remove('editable-active');
+                editBtn.innerHTML = '<i class="fas fa-edit"></i> Editar conteúdo';
+                editBtn.style.backgroundColor = '#2c5c3e'; // color original
+            }
+        });
+    </script>
+</body>
+</html>

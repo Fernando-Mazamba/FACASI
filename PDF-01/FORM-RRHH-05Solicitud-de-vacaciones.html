@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FORM-RRHH-05 Pedido de Férias - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 180px;
+            height: 100px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 26px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 25px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 25px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .vacation-request {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+        
+        .request-text {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .request-text .blank {
+            display: inline-block;
+            min-width: 200px;
+            border-bottom: 1px solid #333;
+            margin: 0 5px;
+            text-align: center;
+            padding-bottom: 5px;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .form-field {
+            margin-bottom: 25px;
+        }
+        
+        .field-label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #4a5568;
+            font-size: 16px;
+        }
+        
+        .field-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #fff;
+            transition: border-color 0.3s;
+        }
+        
+        .field-input:focus {
+            outline: none;
+            border-color: #4a5568;
+            box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+        }
+        
+        .field-input.underline {
+            border: none;
+            border-bottom: 1px solid #cbd5e0;
+            border-radius: 0;
+            padding: 10px 0;
+            background-color: transparent;
+        }
+        
+        .signature-area {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .signature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 30px;
+        }
+        
+        .signature-box {
+            text-align: center;
+        }
+        
+        .signature-line {
+            width: 100%;
+            height: 1px;
+            background-color: #333;
+            margin: 40px auto 10px;
+        }
+        
+        .signature-label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .closing-text {
+            text-align: center;
+            font-style: italic;
+            margin: 40px 0 30px;
+            font-size: 17px;
+            color: #4a5568;
+        }
+        
+        .vacation-period {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .period-title {
+            color: #276749;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .period-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .version-history {
+            margin-top: 60px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin: 30px 0 20px;
+            flex-wrap: wrap;
+        }
+        
+        .print-btn, .save-btn, .download-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+        
+        .save-btn {
+            background-color: #38a169;
+        }
+        
+        .download-btn {
+            background-color: #9f7aea;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        .save-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .download-btn:hover {
+            background-color: #805ad5;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .action-buttons {
+                display: none;
+            }
+            
+            .field-input.underline {
+                border-bottom: 1px solid #999;
+            }
+            
+            .request-text .blank {
+                border-bottom: 1px solid #666;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 22px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .vacation-request {
+                padding: 15px;
+            }
+            
+            .request-text {
+                font-size: 16px;
+            }
+            
+            .request-text .blank {
+                min-width: 150px;
+                margin: 0 3px;
+            }
+            
+            .form-grid, .signature-grid, .period-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .print-btn, .save-btn, .download-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabeçalho com logo e informações da organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        001
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título do documento -->
+<div class="doc-title">Pedido de Férias</div>
+<div class="doc-code">Código: FORM-RRHH-05</div>
+<!-- Conteúdo principal -->
+<div class="content">
+<div class="vacation-request">
+<!-- Información básica -->
+<div class="form-grid">
+<div class="form-field">
+<label class="field-label">Data:</label>
+<input class="field-input date-field" id="fecha-solicitud" placeholder="DD/MM/AAAA" type="text"/>
+</div>
+<div class="form-field">
+<label class="field-label">Área:</label>
+<input class="field-input" placeholder="Nome da área/departamento" type="text"/>
+</div>
+<div class="form-field">
+<label class="field-label">Chefe/Gerente:</label>
+<input class="field-input" placeholder="Nome do chefe ou gerente" type="text"/>
+</div>
+</div>
+<!-- Texto de la solicitud con campos en blanco (con IDs) -->
+<div class="request-text">
+                    Eu 
+                    <span class="blank">
+<input class="field-input underline" id="nombre-trabajador-text" placeholder="Nome do trabalhador" style="width: 100%; text-align: center;" type="text"/>
+</span>
+                    solicito por este meio o gozo das minhas férias correspondentes ao período 
+                    <span class="blank">
+<input class="field-input underline" id="periodo-text" placeholder="Ex.: 2024-2025" style="width: 100%; text-align: center;" type="text"/>
+</span>
+                    desde a data 
+                    <span class="blank">
+<input class="field-input underline date-field" id="fecha-inicio-text" placeholder="DD/MM/AAAA" style="width: 100%; text-align: center;" type="text"/>
+</span>
+                    até 
+                    <span class="blank">
+<input class="field-input underline date-field" id="fecha-fin-text" placeholder="DD/MM/AAAA" style="width: 100%; text-align: center;" type="text"/>
+</span>
+                    regressando às minhas atividades normais no dia 
+                    <span class="blank">
+<input class="field-input underline date-field" id="fecha-retorno-text" placeholder="DD/MM/AAAA" style="width: 100%; text-align: center;" type="text"/>
+</span>
+</div>
+<div class="closing-text">
+                    Sem outro assunto, despeço-me cordialmente.
+                </div>
+<!-- Información del trabajador -->
+<div class="form-grid">
+<div class="form-field">
+<label class="field-label">Nome do trabalhador:</label>
+<input class="field-input" id="nombre-trabajador" placeholder="Nome completo do trabalhador" type="text"/>
+</div>
+<div class="form-field">
+<label class="field-label">Bilhete de Identidade (B.I.):</label>
+<input class="field-input" placeholder="Número do bilhete de identidade" type="text"/>
+</div>
+</div>
+<!-- Período de vacaciones -->
+<div class="vacation-period">
+<div class="period-title">Resumo do Período de Férias</div>
+<div class="period-grid">
+<div class="form-field">
+<label class="field-label">Data de início:</label>
+<input class="field-input date-field" id="fecha-inicio" placeholder="DD/MM/AAAA" type="text"/>
+</div>
+<div class="form-field">
+<label class="field-label">Data de fin:</label>
+<input class="field-input date-field" id="fecha-fin" placeholder="DD/MM/AAAA" type="text"/>
+</div>
+<div class="form-field">
+<label class="field-label">Data de regresso:</label>
+<input class="field-input date-field" id="fecha-retorno" placeholder="DD/MM/AAAA" type="text"/>
+</div>
+</div>
+<div class="form-field" style="margin-top: 20px;">
+<label class="field-label">Dias de férias solicitados:</label>
+<input class="field-input" id="dias-vacaciones" placeholder="Número de dias" readonly="" type="text"/>
+</div>
+</div>
+<!-- Firmas -->
+<div class="signature-area">
+<div class="signature-grid">
+<div class="signature-box">
+<div class="signature-line"></div>
+<div class="signature-label">Assinatura do trabalhador</div>
+</div>
+<div class="signature-box">
+<div class="signature-line"></div>
+<div class="signature-label">Autorizado por</div>
+<input class="field-input" placeholder="Nome de quem autoriza" style="margin-top: 10px; text-align: center;" type="text"/>
+</div>
+</div>
+<div class="signature-grid" style="margin-top: 40px;">
+<div class="signature-box">
+<div class="signature-line"></div>
+<div class="signature-label">Chefe/Gerente da área</div>
+</div>
+<div class="signature-box">
+<div class="signature-line"></div>
+<div class="signature-label">Recursos Humanos</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Botones de acción -->
+<div class="action-buttons">
+<button class="save-btn" onclick="guardarSolicitud()">💾 Guardar Pedido</button>
+<button class="download-btn" onclick="descargarFormulário()">📥 Descarregar HTML</button>
+<button class="print-btn" onclick="window.print()">📄 Imprimir</button>
+</div>
+<!-- Histórico de versiones -->
+<div class="version-history">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>001</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Rodapé -->
+<div class="footer">
+<p>Código: FORM-RRHH-05 | Revisão: 001 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verifica se o logo existe, caso contrário mostra um placeholder
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+            };
+            
+            // Configurar campos de fecha con DatePicker solo si están vacíos
+            const dateFields = document.querySelectorAll('.date-field');
+            dateFields.forEach(field => {
+                if (!field.value) {
+                    // Solo agregar comportamiento a campos vacíos
+                    field.addEventListener('focus', function() {
+                        this.type = 'date';
+                        setTimeout(() => {
+                            this.showPicker?.();
+                        }, 100);
+                    });
+                    
+                    field.addEventListener('blur', function() {
+                        if (!this.value) {
+                            this.type = 'text';
+                        }
+                    });
+                    
+                    field.addEventListener('change', function() {
+                        if (this.value) {
+                            const date = new Date(this.value);
+                            const day = String(date.getDate()).padStart(2, '0');
+                            const month = String(date.getMonth() + 1).padStart(2, '0');
+                            const year = date.getFullYear();
+                            this.value = `${day}/${month}/${year}`;
+                            
+                            // Calcular días de vacaciones si corresponde
+                            calcularDiasVacaciones();
+                        }
+                    });
+                }
+            });
+            
+            // Sincronizar nombre del trabajador
+            const nombreTrabajador = document.getElementById('nombre-trabajador');
+            const nombreText = document.getElementById('nombre-trabajador-text');
+            
+            if (nombreTrabajador && nombreText) {
+                // Si hay valor en texto, pasarlo al principal
+                if (nombreText.value) {
+                    nombreTrabajador.value = nombreText.value;
+                }
+                
+                nombreTrabajador.addEventListener('input', function() {
+                    nombreText.value = nombreTrabajador.value;
+                });
+                
+                nombreText.addEventListener('input', function() {
+                    nombreTrabajador.value = nombreText.value;
+                });
+            }
+            
+            // Sincronizar fechas: los campos del texto con los del resumen
+            const fechaInicioText = document.getElementById('fecha-inicio-text');
+            const fechaFinText = document.getElementById('fecha-fin-text');
+            const fechaRetornoText = document.getElementById('fecha-retorno-text');
+            
+            const fechaInício = document.getElementById('fecha-inicio');
+            const fechaFin = document.getElementById('fecha-fin');
+            const fechaRetorno = document.getElementById('fecha-retorno');
+            
+            function sincronizarFechas(origen, destino) {
+                if (origen && destino) {
+                    // Sincronizar en ambos sentidos según quién cambió
+                    destino.value = origen.value;
+                }
+            }
+            
+            if (fechaInicioText && fechaInício) {
+                // Si el texto ya tiene valor, pasarlo al resumen
+                if (fechaInicioText.value) {
+                    fechaInício.value = fechaInicioText.value;
+                }
+                fechaInicioText.addEventListener('input', function() {
+                    fechaInício.value = fechaInicioText.value;
+                    calcularDiasVacaciones();
+                });
+                fechaInício.addEventListener('input', function() {
+                    fechaInicioText.value = fechaInício.value;
+                    calcularDiasVacaciones();
+                });
+            }
+            
+            if (fechaFinText && fechaFin) {
+                if (fechaFinText.value) {
+                    fechaFin.value = fechaFinText.value;
+                }
+                fechaFinText.addEventListener('input', function() {
+                    fechaFin.value = fechaFinText.value;
+                    calcularDiasVacaciones();
+                });
+                fechaFin.addEventListener('input', function() {
+                    fechaFinText.value = fechaFin.value;
+                    calcularDiasVacaciones();
+                });
+            }
+            
+            if (fechaRetornoText && fechaRetorno) {
+                if (fechaRetornoText.value) {
+                    fechaRetorno.value = fechaRetornoText.value;
+                }
+                fechaRetornoText.addEventListener('input', function() {
+                    fechaRetorno.value = fechaRetornoText.value;
+                });
+                fechaRetorno.addEventListener('input', function() {
+                    fechaRetornoText.value = fechaRetorno.value;
+                });
+            }
+            
+            // Calcular días de vacaciones
+            function calcularDiasVacaciones() {
+                const inicio = fechaInício ? fechaInício.value : null;
+                const fin = fechaFin ? fechaFin.value : null;
+                const diasInput = document.getElementById('dias-vacaciones');
+                
+                if (inicio && fin && diasInput) {
+                    try {
+                        const inicioParts = inicio.split('/');
+                        const finParts = fin.split('/');
+                        
+                        if (inicioParts.length === 3 && finParts.length === 3) {
+                            const inicioDate = new Date(`${inicioParts[2]}-${inicioParts[1]}-${inicioParts[0]}`);
+                            const finDate = new Date(`${finParts[2]}-${finParts[1]}-${finParts[0]}`);
+                            
+                            if (!isNaN(inicioDate) && !isNaN(finDate)) {
+                                const diffTime = Math.abs(finDate - inicioDate);
+                                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+                                if (diffDays > 0) {
+                                    diasInput.value = diffDays + ' dias';
+                                } else {
+                                    diasInput.value = '';
+                                }
+                            }
+                        }
+                    } catch (e) {
+                        console.log("Erro ao calcular dias", e);
+                    }
+                }
+            }
+            
+            // Establecer fecha actual por defecto en fecha de solicitud si está vacía
+            const fechaSolicitud = document.getElementById('fecha-solicitud');
+            if (fechaSolicitud && !fechaSolicitud.value) {
+                const hoy = new Date();
+                const dia = String(hoy.getDate()).padStart(2, '0');
+                const mes = String(hoy.getMonth() + 1).padStart(2, '0');
+                const año = hoy.getFullYear();
+                fechaSolicitud.value = `${dia}/${mes}/${año}`;
+            }
+        });
+        
+        // Función para guardar (simulación)
+        function guardarSolicitud() {
+            alert('✅ Pedido guardado corretamente (simulação). Os dados estão na consola.');
+            // Aquí se podría recolectar y enviar a servidor
+            console.log('Solicitação de férias:', recolectarDatos());
+        }
+        
+        // Recolectar todos los datos del formulario (opcional, para consola)
+        function recolectarDatos() {
+            const datos = {};
+            document.querySelectorAll('.field-input, .textarea-field, select').forEach(el => {
+                if (el.id) datos[el.id] = el.value;
+                else if (el.placeholder) datos[el.placeholder] = el.value;
+            });
+            return datos;
+        }
+        
+        // Función para descargar el formulario como archivo HTML
+        function descargarFormulário() {
+            // Obtenemos el HTML completo de la página (con los valores actuales)
+            const htmlContent = document.documentElement.outerHTML;
+            
+            // Creamos un blob con tipo text/html
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            
+            // Generamos un enlace de descarga
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'FORM-RRHH-05_SolicitudVacaciones.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('📁 Formulário descarregado como ficheiro HTML. Pode abri-lo no seu navegador para continuar a editar.');
+        }
+    </script>
+</body>
+</html>

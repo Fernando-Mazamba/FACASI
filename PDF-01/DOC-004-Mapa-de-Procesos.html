@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DOC-004 Mapa de Processos do Sistema de Gestão Integrado</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c5282;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5282;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c5282;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+            position: relative;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #2c5282;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .section-description {
+            margin-bottom: 20px;
+            color: #4a5568;
+            line-height: 1.7;
+        }
+        
+        .process-map-container {
+            margin: 40px 0;
+            text-align: center;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 30px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .process-map-title {
+            color: #2c5282;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .process-image-container {
+            max-width: 100%;
+            overflow: auto;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .process-image {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .process-legends {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            background-color: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border-left: 4px solid #2c5282;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            margin-right: 10px;
+        }
+        
+        .legend-text {
+            font-size: 14px;
+            color: #4a5568;
+        }
+        
+        .process-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .category-box {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 25px;
+            border-top: 4px solid #2c5282;
+        }
+        
+        .category-title {
+            color: #2c5282;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .process-list {
+            list-style-type: none;
+        }
+        
+        .process-item {
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .process-item:before {
+            content: "→";
+            color: #2c5282;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .stakeholders-section {
+            background-color: #e6f7ff;
+            border: 1px solid #91d5ff;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 40px 0;
+            border-left: 4px solid #1890ff;
+        }
+        
+        .stakeholders-title {
+            color: #0050b3;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .stakeholders-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .stakeholders-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+            break-inside: avoid;
+        }
+        
+        .stakeholders-list li:before {
+            content: "✓";
+            color: #1890ff;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2c5282;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c5282;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .controls-panel {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .edit-btn {
+            background-color: #2c5282;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .edit-btn:hover {
+            background-color: #4299e1;
+        }
+        
+        .action-btn {
+            background-color: #38a169;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        
+        .action-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .action-btn.secondary {
+            background-color: #718096;
+        }
+        
+        .action-btn.secondary:hover {
+            background-color: #4a5568;
+        }
+        
+        .editable {
+            min-height: 20px;
+            outline: none;
+        }
+        
+        .editing {
+            background-color: #fff9e6;
+            border-left: 3px solid #d69e2e;
+            padding-left: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .edit-indicator {
+            display: inline-block;
+            background-color: #d69e2e;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        
+        .image-info {
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .controls-panel {
+                display: none;
+            }
+            
+            .edit-indicator {
+                display: none;
+            }
+            
+            .process-image {
+                max-width: 90%;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .controls-panel {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .edit-btn, .action-btn {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .process-categories {
+                grid-template-columns: 1fr;
+            }
+            
+            .stakeholders-list {
+                columns: 1;
+            }
+            
+            .process-map-container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabecera con logo e información de la organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        Pendente de validação
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título del documento -->
+<div class="doc-title">Mapa de Processos do Sistema de Gestão Integrado</div>
+<div class="doc-code">Código: DOC-004</div>
+<!-- Panel de controles de edición -->
+<div class="controls-panel" id="controlsPanel">
+<button class="edit-btn" id="editContentBtn">EDITAR CONTEÚDO</button>
+<button class="action-btn secondary" id="saveBtn">GUARDAR no NAVEGADOR</button>
+<button class="action-btn" id="exportBtn">EXPORTAR como HTML</button>
+<button class="action-btn secondary" id="loadBtn">CARREGAR EDIÇÕES GUARDADAS</button>
+<span id="editStatus" style="margin-left: auto; font-size: 14px; color: #666;">Modo de leitura ativo</span>
+</div>
+<!-- Contenido principal -->
+<div class="content" id="mainContent">
+<!-- Introducción -->
+<div class="section">
+<div class="section-title">Introdução <span class="edit-indicator" id="editIndicator1" style="display: none;">A EDITAR</span></div>
+<div class="section-description editable" id="introduction">
+                    O presente Mapa de Processos representa graficamente a estrutura, as inter-relações e a sequência dos processos que conformam o Sistema de Gestão Integrado (SGI) da organização. Este mapa permite visualizar de forma clara e concisa como os processos estratégicos, operacionais e de suporte interagem para cumprir os requisitos das normas ISO 9001:2015 e ISO 45001:2018, bem como para satisfazer as necessidades e expectativas das partes interessadas.
+                </div>
+</div>
+<!-- Mapa de Processos Visual -->
+<div class="process-map-container">
+<div class="process-map-title">Mapa de Processos do Sistema de Gestão Integrado</div>
+<div class="process-image-container"> <img height="1024" src="../logo/mapa.png" width="1536"/>
+<div class="image-info editable" id="image-caption">
+                        Figura 1: Mapa de Processos do Sistema de Gestão Integrado da FACASI. Clique na imagem para a ver em ecrã completo.</div>
+</div>
+<div class="section-description editable" id="map-description" style="margin-top: 20px;">
+                    O mapa ilustra a interconexão entre os processos estratégicos, operacionais e de suporte, mostrando como cada um contribui para a consecução dos objetivos do SGI e para a satisfação dos requisitos das partes interessadas.
+                </div>
+</div>
+<!-- Leyenda de Procesos -->
+<div class="section">
+<div class="section-title">Legenda e Tipos de processos <span class="edit-indicator" id="editIndicator2" style="display: none;">A EDITAR</span></div>
+<div class="process-legends">
+<div class="legend-item">
+<div class="legend-color" style="background-color: #2c5282;"></div>
+<div class="legend-text editable" id="legend-strategic">
+<strong>processos Estratégicos:</strong> Orientan e dirigen a organização
+                        </div>
+</div>
+<div class="legend-item">
+<div class="legend-color" style="background-color: #38a169;"></div>
+<div class="legend-text editable" id="legend-operational">
+<strong>processos Operativos:</strong> Generan valor para o cliente
+                        </div>
+</div>
+<div class="legend-item">
+<div class="legend-color" style="background-color: #d69e2e;"></div>
+<div class="legend-text editable" id="legend-support">
+<strong>Processos de Suporte:</strong> Apoyan a operação de outros processos
+                        </div>
+</div>
+</div>
+</div>
+<!-- Categorías de Procesos -->
+<div class="section">
+<div class="section-title">Descrição dos Processos <span class="edit-indicator" id="editIndicator3" style="display: none;">A EDITAR</span></div>
+<div class="process-categories">
+<!-- Procesos Estratégicos -->
+<div class="category-box">
+<div class="category-title editable" id="strategic-title">PROCESSOS ESTRATÉGICOS</div>
+<ul class="process-list">
+<li class="process-item editable" id="process-1">Liderança (PSC-001)</li>
+<li class="process-item editable" id="process-2">Gestão dos Recursos (PSC-002)</li>
+<li class="process-item editable" id="process-3">Segurança e Saúde no Trabalho (PSC-004)</li>
+<li class="process-item editable" id="process-4">Cumprimento e Melhoria (PCS-005)</li>
+</ul>
+<div class="section-description editable" id="strategic-description" style="margin-top: 15px; font-size: 14px;">
+                            Estes processos definem a direção estratégica da organização e asseguram o alinhamento com os objetivos do SGI.
+                        </div>
+</div>
+<!-- Procesos Operativos -->
+<div class="category-box">
+<div class="category-title editable" id="operational-title">PROCESSOS OPERACIONAIS (Cadeia de Valor)</div>
+<ul class="process-list">
+<li class="process-item editable" id="process-6">Análise e Desenho do Serviço (PSC-007)</li>
+<li class="process-item editable" id="process-7">Execução do Serviço — inspeção, END/NDT, UTM, manutenção (PSC-008)</li>
+<li class="process-item editable" id="process-8">Gestão do Cliente (PCS-006)</li>
+<li class="process-item editable" id="process-9">Pós-venta e Acompanhamento (PSC-009)</li>
+<li class="process-item editable" id="process-10">Gestão de Fornecedores e Subcontratados (PSC-011)</li>
+<li class="process-item editable" id="process-11">Logística e Apoio a Operações (PSC-012)</li>
+</ul>
+<div class="section-description editable" id="operational-description" style="margin-top: 15px; font-size: 14px;">
+                            Processos que executam os serviços prestados aos clientes e geram o valor da organização, desde a análise do pedido até à entrega do relatório de inspeção.
+                        </div>
+</div>
+<!-- Procesos de Soporte -->
+<div class="category-box">
+<div class="category-title editable" id="support-title">PROCESSOS DE SUPORTE</div>
+<ul class="process-list">
+<li class="process-item editable" id="process-12">Gestão Documental e de Registos (PRO-001, PRO-002)</li>
+<li class="process-item editable" id="process-13">Recursos Humanos, Formação e Qualificação Técnica (PSC-010, PRO-009)</li>
+<li class="process-item editable" id="process-14">Controlo e Calibração de Equipamentos de Medição</li>
+<li class="process-item editable" id="process-15">Administração e Compras (PRO-016)</li>
+<li class="process-item editable" id="process-16">Comunicação Interna e Externa (PRO-010)</li>
+</ul>
+<div class="section-description editable" id="support-description" style="margin-top: 15px; font-size: 14px;">
+                            Processos que disponibilizam os recursos e as condições necessárias ao funcionamento eficaz dos processos estratégicos e operacionais.
+                        </div>
+</div>
+</div>
+</div>
+<!-- Partes Interessadas -->
+<div class="stakeholders-section">
+<div class="stakeholders-title">Necessidades das Partes Interessadas <span class="edit-indicator" id="editIndicator4" style="display: none;">A EDITAR</span></div>
+<div class="section-description editable" id="stakeholders-intro">
+                    O Sistema de Gestão Integrado considera as necessidades e expectativas das seguintes partes interessadas (ver DOC-003):
+                </div>
+<ul class="stakeholders-list editable" id="stakeholders-list">
+<li>Clientes — fiabilidade técnica dos relatórios, prazos e cumprimento dos requisitos de SST</li>
+<li>Trabalhadores — segurança, saúde e manutenção das qualificações técnicas</li>
+<li>Fornecedores e subcontratados — condições contratuais claras e critérios de avaliação conhecidos</li>
+<li>Autoridades e organismos reguladores — cumprimento legal</li>
+<li>Organismo certificador — evidência objetiva de implementação do SGI</li>
+<li>Comunidade local — operação responsável e criação de competências técnicas locais</li>
+<li>Sócios e Alta Direção — sustentabilidade da organização e prevenção de riscos operacionais e legais</li>
+</ul>
+</div>
+<!-- Interrelación de Procesos -->
+<div class="section">
+<div class="section-title">Interrelação entre Processos <span class="edit-indicator" id="editIndicator5" style="display: none;">A EDITAR</span></div>
+<div class="section-description editable" id="interrelation">
+                    Os processos do SGI estão interligados da seguinte forma:
+                </div>
+<ul class="process-list editable" id="interrelation-list" style="margin-top: 15px;">
+<li class="process-item">Os processos estratégicos definem a direção e os objetivos para os processos operacionais.</li>
+<li class="process-item">Os processos operacionais geram informação — resultados de inspeção, não conformidades, incidentes — que alimenta a melhoria contínua.</li>
+<li class="process-item">Os processos de suporte garantem as condições sem as quais o serviço não pode ser prestado: pessoal qualificado e equipamentos calibrados.</li>
+<li class="process-item">A saída de um processo é frequentemente a entrada de outro, criando um sistema integrado.</li>
+<li class="process-item">O feedback das partes interessadas, incluindo a consulta aos trabalhadores em matéria de SST, influencia a melhoria de todos os processos.</li>
+</ul>
+</div>
+<!-- Historial de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>Pendente de validação</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Pie de página -->
+<div class="footer">
+<p>Código: DOC-004 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        class DocumentEditor {
+            constructor() {
+                this.editMode = false;
+                this.storageKey = 'DOC-004-edited-content';
+                this.originalContent = {};
+                this.init();
+            }
+            
+            init() {
+                // Guardar contenido original
+                this.saveOriginalContent();
+                
+                // Configurar eventos de los botones
+                document.getElementById('editContentBtn').addEventListener('click', () => this.toggleEditMode());
+                document.getElementById('saveBtn').addEventListener('click', () => this.saveToBrowser());
+                document.getElementById('exportBtn').addEventListener('click', () => this.exportToHTML());
+                document.getElementById('loadBtn').addEventListener('click', () => this.loadFromStorage());
+                
+                // Verificar si hay contenido guardado
+                if (localStorage.getItem(this.storageKey)) {
+                    console.log('Foram detetadas edições guardadas. Utilize "CARREGAR EDIÇÕES GUARDADAS" para as carregar.');
+                }
+                
+                // Verificar si los logos existen
+                const logoImg = document.querySelector('.logo');
+                if (logoImg) {
+                    logoImg.onerror = function() {
+                        this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c5282" dy="5">LOGÓTIPO DA ORGANIZAÇÃO</text></svg>';
+                        console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+                    };
+                }
+                
+                const processImg = document.getElementById('processImage');
+                if (processImg) {
+                    processImg.onerror = function() {
+                        this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500"><rect width="800" height="500" fill="#f8f9fa"/><text x="400" y="250" font-family="Arial" font-size="16" text-anchor="middle" fill="%23666">Mapa de Processos - Imagem não encontrada em logo/mapa.png</text><text x="400" y="280" font-family="Arial" font-size="14" text-anchor="middle" fill="%23999">Por favor, adicione a imagem do mapa na pasta logo/</text></svg>';
+                        console.log("Imagem do mapa de processos não encontrada em logo/mapa.png. Por favor, adicione a imagem na pasta especificada.");
+                    };
+                }
+            }
+            
+            saveOriginalContent() {
+                // Guardar contenido original de todos los elementos editables
+                const editableElements = document.querySelectorAll('.editable');
+                this.originalContent = {};
+                
+                editableElements.forEach((element, index) => {
+                    const id = element.id || `editable-${index}`;
+                    this.originalContent[id] = element.innerHTML;
+                });
+            }
+            
+            toggleEditMode() {
+                this.editMode = !this.editMode;
+                const editBtn = document.getElementById('editContentBtn');
+                const editStatus = document.getElementById('editStatus');
+                const editableElements = document.querySelectorAll('.editable');
+                const editIndicators = document.querySelectorAll('.edit-indicator');
+                
+                if (this.editMode) {
+                    // Activar modo edición
+                    editBtn.textContent = 'DESATIVAR EDIÇÃO';
+                    editBtn.style.backgroundColor = '#d69e2e';
+                    editStatus.textContent = 'Modo de edição ativo';
+                    editStatus.style.color = '#d69e2e';
+                    
+                    // Hacer elementos editables
+                    editableElements.forEach(element => {
+                        element.setAttribute('contenteditable', 'true');
+                        element.classList.add('editing');
+                    });
+                    
+                    // Mostrar indicadores de edición
+                    editIndicators.forEach(indicator => {
+                        indicator.style.display = 'inline-block';
+                    });
+                    
+                } else {
+                    // Desactivar modo edición
+                    editBtn.textContent = 'EDITAR CONTEÚDO';
+                    editBtn.style.backgroundColor = '#2c5282';
+                    editStatus.textContent = 'Modo de leitura ativo';
+                    editStatus.style.color = '#666';
+                    
+                    // Deshacer elementos editables
+                    editableElements.forEach(element => {
+                        element.setAttribute('contenteditable', 'false');
+                        element.classList.remove('editing');
+                    });
+                    
+                    // Ocultar indicadores de edición
+                    editIndicators.forEach(indicator => {
+                        indicator.style.display = 'none';
+                    });
+                }
+            }
+            
+            saveToBrowser() {
+                if (!this.editMode) {
+                    alert('Ative primeiro o modo de edição para poder guardar alterações.');
+                    return;
+                }
+                
+                const editableElements = document.querySelectorAll('.editable');
+                const savedContent = {};
+                
+                editableElements.forEach((element, index) => {
+                    const id = element.id || `editable-${index}`;
+                    savedContent[id] = element.innerHTML;
+                });
+                
+                try {
+                    localStorage.setItem(this.storageKey, JSON.stringify(savedContent));
+                    alert('As edições foram guardadas no navegador corretamente.');
+                } catch (error) {
+                    alert('Erro ao guardar as edições: ' + error.message);
+                }
+            }
+            
+            loadFromStorage() {
+                const savedData = localStorage.getItem(this.storageKey);
+                
+                if (!savedData) {
+                    alert('Não foram encontradas edições guardadas no navegador.');
+                    return;
+                }
+                
+                if (confirm('Carregar as edições guardadas? Isto substituirá o conteúdo atual.')) {
+                    try {
+                        const savedContent = JSON.parse(savedData);
+                        const editableElements = document.querySelectorAll('.editable');
+                        
+                        editableElements.forEach((element, index) => {
+                            const id = element.id || `editable-${index}`;
+                            if (savedContent[id]) {
+                                element.innerHTML = savedContent[id];
+                            }
+                        });
+                        
+                        alert('Edições carregadas corretamente a partir do navegador.');
+                    } catch (error) {
+                        alert('Erro ao carregar as edições: ' + error.message);
+                    }
+                }
+            }
+            
+            exportToHTML() {
+                // Crear una copia del documento para exportar
+                const docClone = document.documentElement.cloneNode(true);
+                
+                // Remover atributos de edición
+                const editables = docClone.querySelectorAll('.editable');
+                editables.forEach(element => {
+                    element.removeAttribute('contenteditable');
+                    element.classList.remove('editing');
+                });
+                
+                // Remover panel de controles
+                const controlsPanel = docClone.querySelector('#controlsPanel');
+                if (controlsPanel) {
+                    controlsPanel.remove();
+                }
+                
+                // Remover indicadores de edición
+                const editIndicators = docClone.querySelectorAll('.edit-indicator');
+                editIndicators.forEach(indicator => {
+                    indicator.remove();
+                });
+                
+                // Remover scripts (excepto el necesario para las imágenes)
+                const scripts = docClone.querySelectorAll('script');
+                scripts.forEach(script => {
+                    if (!script.textContent.includes('logo.onerror') && !script.textContent.includes('processImage.onerror')) {
+                        script.remove();
+                    }
+                });
+                
+                // Crear blob y descargar
+                const htmlContent = `<!DOCTYPE html>\n${docClone.outerHTML}`;
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'DOC-004-Mapa-de-Procesos-SGI.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                alert('Documento exportado como HTML. A descarregar...');
+            }
+            
+            resetToOriginal() {
+                if (confirm('Restaurar o conteúdo original? Isto eliminará todas as edições atuais.')) {
+                    const editableElements = document.querySelectorAll('.editable');
+                    
+                    editableElements.forEach((element, index) => {
+                        const id = element.id || `editable-${index}`;
+                        if (this.originalContent[id]) {
+                            element.innerHTML = this.originalContent[id];
+                        }
+                    });
+                    
+                    alert('Conteúdo original restaurado.');
+                }
+            }
+        }
+        
+        // Inicializar el editor cuando el DOM esté cargado
+        document.addEventListener('DOMContentLoaded', () => {
+            window.documentEditor = new DocumentEditor();
+        });
+    </script>
+</body>
+</html>

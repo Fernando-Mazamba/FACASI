@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DES-001 - Descritivo de Cargo Gerente Geral - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c3e50;
+            color: white;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c3e50;
+            margin: 0 40px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .content {
+            padding: 30px 40px;
+            position: relative;
+        }
+        
+        /* Controles de edición */
+        .edit-controls {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            z-index: 100;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .edit-btn {
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+        
+        .edit-btn:hover {
+            background-color: #2c5282;
+        }
+        
+        .save-btn {
+            background-color: #38a169;
+        }
+        
+        .save-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .export-btn {
+            background-color: #d69e2e;
+        }
+        
+        .export-btn:hover {
+            background-color: #b7791f;
+        }
+        
+        .import-btn {
+            background-color: #718096;
+        }
+        
+        .import-btn:hover {
+            background-color: #4a5568;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        /* Estilos para modo edición */
+        .editable {
+            min-height: 50px;
+            padding: 15px;
+            border: 2px dashed transparent;
+            transition: border-color 0.3s;
+            border-radius: 3px;
+        }
+        
+        .editable:hover {
+            border-color: #cbd5e0;
+        }
+        
+        .editing .editable {
+            border-color: #4299e1;
+            background-color: #ebf8ff;
+        }
+        
+        .editing .editable:focus {
+            outline: none;
+            border-color: #3182ce;
+            background-color: #bee3f8;
+        }
+        
+        /* Estilos de contenido */
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #2c3e50;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #2c3e50;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 10px;
+            break-inside: avoid;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .toc-item:before {
+            content: counter(toc-counter) ". ";
+            counter-increment: toc-counter;
+            position: absolute;
+            left: 0;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-title:before {
+            content: counter(section-counter) ". ";
+        }
+        
+        .subsection-title {
+            color: #2d3748;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #2c3e50;
+        }
+        
+        .subsection-subtitle {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0 10px;
+        }
+        
+        .content-text {
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        
+        .bullet-list {
+            list-style-type: none;
+            margin: 15px 0 15px 20px;
+        }
+        
+        .bullet-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .bullet-list li:before {
+            content: "•";
+            color: #2c3e50;
+            font-weight: bold;
+            font-size: 18px;
+            position: absolute;
+            left: 0;
+        }
+        
+        .numbered-list {
+            list-style-type: none;
+            margin: 15px 0 15px 20px;
+            counter-reset: numbered-counter;
+        }
+        
+        .numbered-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .numbered-list li:before {
+            content: counter(numbered-counter) ". ";
+            counter-increment: numbered-counter;
+            color: #2c3e50;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .kpi-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .kpi-table th, .kpi-table td {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        .kpi-table th {
+            background-color: #2c3e50;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .kpi-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2c3e50;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c3e50;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .print-btn {
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #1a252f;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #38a169;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.3s, transform 0.3s;
+            max-width: 300px;
+        }
+        
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .notification.error {
+            background-color: #e53e3e;
+        }
+        
+        .notification.info {
+            background-color: #3182ce;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .edit-controls {
+                display: none;
+            }
+            
+            .editable {
+                border: none !important;
+                background-color: transparent !important;
+            }
+            
+            .print-btn {
+                display: none;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .edit-controls {
+                position: static;
+                margin-bottom: 20px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .kpi-table, .version-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container" id="documentContainer">
+<!-- Controles de edición -->
+<div class="edit-controls">
+<button class="edit-btn" id="editBtn">
+<span>✏️</span> EDITAR CONTEÚDO
+            </button>
+<button class="edit-btn save-btn" id="saveBtn">
+<span>💾</span> GUARDAR
+            </button>
+<button class="edit-btn export-btn" id="exportBtn">
+<span>📤</span> EXPORTAR HTML
+            </button>
+<button class="edit-btn import-btn" id="importBtn">
+<span>📥</span> CARGAR HTML
+            </button>
+<input accept=".html" class="file-input" id="fileInput" type="file"/>
+</div>
+<!-- Cabeçalho com logo e informações da organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" id="logoImg" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+<span id="current-date">01.12.2024</span>
+</div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título do documento -->
+<div class="doc-title" id="docTitle">Descritivo de Cargo - Gerente Geral</div>
+<div class="doc-code" id="docCode">Código: <span id="docCodeValue">DES-001</span></div>
+<!-- Conteúdo principal (editável) -->
+<div class="content" id="contentArea">
+<!-- Tabla de Contenidos -->
+<div class="toc editable" id="tocSection">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list" style="counter-reset: toc-counter;">
+<li class="toc-item"><a class="toc-link" href="#objetivo">Objetivo do Cargo</a></li>
+<li class="toc-item"><a class="toc-link" href="#responsabilidades">Responsabilidades Principais</a></li>
+<li class="toc-item"><a class="toc-link" href="#requisitos">Requisitos do Cargo</a></li>
+<li class="toc-item"><a class="toc-link" href="#relaciones">Relações Organizacionais</a></li>
+<li class="toc-item"><a class="toc-link" href="#indicadores">Indicadores de Desempenho (KPI)</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Sección 1: Objetivo del Cargo -->
+<div class="section" id="objetivo">
+<div class="section-title editable" id="section1Title">Objetivo do Cargo</div>
+<div class="content-text editable" id="objetivoContent">
+<p>O Gerente Geral é responsável pela direção e gestão de todas as operações e atividades da FACASI. O seu principal objetivo é assegurar o cumprimento dos objetivos estratégicos e operacionais da empresa no setor de inspeção industrial e de óleo e gás, supervisionando a eficiência operativa, a rentabilidade, a satisfação do cliente e o bem-estar dos colaboradores, alinhando as ações da empresa com os valores organizacionais e as normas ISO 9001:2015 e ISO 45001:2018.</p>
+</div>
+</div>
+<!-- Sección 2: Responsabilidades Principales -->
+<div class="section" id="responsabilidades">
+<div class="section-title editable" id="section2Title">Responsabilidades Principais</div>
+<div class="subsection-title editable" id="responsabilidad1">Gestão Estratégica e Planeamento</div>
+<ul class="bullet-list editable" id="responsabilidad1List">
+<li>Desenvolver, em colaboração com a alta direção, os planos estratégicos a curto, médio e longo prazo para a empresa.</li>
+<li>Assegurar a implementação das estratégias e objetivos organizacionais, supervisionando a sua execução através dos diferentes departamentos.</li>
+<li>Monitorizar o progresso dos objetivos e realizar ajustes quando necessário para assegurar que se alcançam os resultados esperados.</li>
+</ul>
+<div class="subsection-title editable" id="responsabilidad2">Gestão Operacional e Supervisão de Departamentos</div>
+<ul class="bullet-list editable" id="responsabilidad2List">
+<li>Supervisionar e coordenar todas as operações da empresa, assegurando a eficiência na prestação dos serviços de inspeção, manutenção e apoio a operações.</li>
+<li>Avaliar os processos operacionais e propor melhorias para aumentar a produtividade e reduzir custos.</li>
+<li>Coordenar com os departamentos-chave (administrativo, recursos humanos, comercial, operações) para assegurar que as operações estão alinhadas com os objetivos organizacionais.</li>
+</ul>
+<div class="subsection-title editable" id="responsabilidad3">Gestão Financeira</div>
+<ul class="bullet-list editable" id="responsabilidad3List">
+<li>Desenvolver e administrar o orçamento da empresa, assegurando o uso eficiente dos recursos financeiros.</li>
+<li>Monitorizar os resultados financeiros da empresa, garantindo a rentabilidade e o cumprimento das metas económicas.</li>
+<li>Aprovar despesas e decisões financeiras importantes, assegurando a viabilidade e sustentabilidade a longo prazo da organização.</li>
+</ul>
+<div class="subsection-title editable" id="responsabilidad4">Liderança e Desenvolvimento de Pessoal</div>
+<ul class="bullet-list editable" id="responsabilidad4List">
+<li>Liderar e motivar a equipa de alta direção e colaboradores, promovendo um ambiente laboral positivo e produtivo.</li>
+<li>Fomentar a formação e o desenvolvimento profissional do pessoal, assegurando que as competências estão alinhadas com os objetivos da empresa.</li>
+<li>Promover a cultura organizacional e os valores da empresa, assegurando um clima laboral saudável.</li>
+</ul>
+<div class="subsection-title editable" id="responsabilidad5">Relações Externas e Institucionais</div>
+<ul class="bullet-list editable" id="responsabilidad5List">
+<li>Representar a empresa perante clientes, fornecedores, autoridades reguladoras e outras partes interessadas.</li>
+<li>Negociar acordos estratégicos, parcerias e contratos com terceiros, procurando sempre maximizar a rentabilidade e o benefício para a empresa.</li>
+<li>Gerir a reputação da empresa, mantendo relações positivas com todas as partes interessadas.</li>
+</ul>
+<div class="subsection-title editable" id="responsabilidad6">Cumprimento de Normas e Procedimentos</div>
+<ul class="bullet-list editable" id="responsabilidad6List">
+<li>Assegurar que a organização cumpre todas as normas legais, fiscais e laborais angolanas vigentes.</li>
+<li>Supervisionar o cumprimento das normas ISO 9001:2015 e ISO 45001:2018 em todas as áreas da empresa, promovendo a melhoria contínua em qualidade e segurança.</li>
+</ul>
+</div>
+<!-- Sección 3: Requisitos del Cargo -->
+<div class="section" id="requisitos">
+<div class="section-title editable" id="section3Title">Requisitos do Cargo</div>
+<div class="subsection-subtitle editable" id="formacionSubtitle">Formação Académica</div>
+<ul class="bullet-list editable" id="formacionList">
+<li>Formação superior em Administração de Empresas, Engenharia Industrial, Economia ou áreas afins.</li>
+<li>Formação complementar em gestão estratégica, liderança, qualidade ou normas ISO (desejável).</li>
+</ul>
+<div class="subsection-subtitle editable" id="experienciaSubtitle">Experiência</div>
+<ul class="bullet-list editable" id="experienciaList">
+<li>Experiência mínima de 5 a 10 anos em cargos de alta direção, com experiência comprovada na gestão de equipas e na tomada de decisões estratégicas.</li>
+<li>Conhecimento na implementação e gestão de sistemas de qualidade segundo as normas ISO, preferencialmente no setor industrial ou de óleo e gás.</li>
+</ul>
+<div class="subsection-subtitle editable" id="habilidadesSubtitle">Competências</div>
+<ol class="numbered-list editable" id="habilidadesList">
+<li>Capacidade de liderança e tomada de decisões estratégicas.</li>
+<li>Capacidade para gerir equipas multidisciplinares e fomentar um bom clima laboral.</li>
+<li>Capacidade de análise e resolução de problemas complexos.</li>
+<li>Excelentes competências de comunicação e negociação.</li>
+<li>Orientação para resultados e foco na melhoria contínua.</li>
+</ol>
+<div class="subsection-subtitle editable" id="conocimientosSubtitle">Conhecimentos Técnicos</div>
+<ul class="bullet-list editable" id="conocimientosList">
+<li>Conhecimento das normas ISO 9001:2015 e ISO 45001:2018 e a sua implementação nos processos operacionais e organizacionais.</li>
+<li>Conhecimento em gestão financeira, orçamental e de custos.</li>
+<li>Domínio de ferramentas de gestão empresarial (ERP, CRM, etc.) e análise de dados.</li>
+<li>Conhecimento na gestão de riscos e na tomada de decisões baseadas em dados.</li>
+</ul>
+</div>
+<!-- Sección 4: Relaciones Organizacionales -->
+<div class="section" id="relaciones">
+<div class="section-title editable" id="section4Title">Relações Organizacionais</div>
+<div class="content-text editable" id="relacionesContent">
+<p>O Gerente Geral mantém relações diretas com a alta direção e com todos os departamentos-chave da organização.</p>
+</div>
+<ul class="bullet-list editable" id="relacionesList">
+<li><strong>Colaboração interna:</strong> Coordena com os gerentes dos diferentes departamentos (administrativo, recursos humanos, comercial, operações) para garantir o cumprimento dos objetivos estratégicos.</li>
+<li><strong>Gestão da equipa:</strong> Supervisiona o desempenho das equipas de trabalho, assegurando que os objetivos operacionais são cumpridos.</li>
+<li><strong>Interação externa:</strong> Representa a organização perante clientes, fornecedores, autoridades fiscais, reguladores e outros parceiros estratégicos.</li>
+</ul>
+</div>
+<!-- Sección 5: Indicadores de Desempeño (KPI) -->
+<div class="section" id="indicadores">
+<div class="section-title editable" id="section5Title">Indicadores de Desempenho (KPI)</div>
+<table class="kpi-table editable" id="kpiTable">
+<thead>
+<tr>
+<th>Indicador</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cumprimento de objetivos estratégicos</strong></td>
+<td>Nível de cumprimento dos planos estratégicos da organização.</td>
+</tr>
+<tr>
+<td><strong>Rentabilidade</strong></td>
+<td>Análise da rentabilidade da empresa, medida através de margens de lucro e retorno sobre o investimento (ROI).</td>
+</tr>
+<tr>
+<td><strong>Eficiência operacional</strong></td>
+<td>Redução de custos operacionais e melhoria na produtividade.</td>
+</tr>
+<tr>
+<td><strong>Satisfação do cliente</strong></td>
+<td>Avaliações da satisfação dos clientes baseadas em inquéritos e feedback.</td>
+</tr>
+<tr>
+<td><strong>Desempenho do pessoal</strong></td>
+<td>Avaliação do compromisso, produtividade e bem-estar dos colaboradores, medido através de inquéritos de clima laboral e avaliações de desempenho.</td>
+</tr>
+<tr>
+<td><strong>Cumprimento normativo</strong></td>
+<td>Percentagem de cumprimento nas auditorias internas e externas relacionadas com as normas ISO 9001:2015 e ISO 45001:2018.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Botón de impresión -->
+<button class="print-btn" onclick="window.print()">📄 Imprimir documento</button>
+<!-- Sección 6: Histórico de Versões -->
+<div class="version-history" id="historial">
+<div class="section-title editable" id="section6Title">Histórico de Versões</div>
+<div class="table-container editable" id="versionTable">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>Pendente de validação pela organização</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+<!-- Fila vacía del PDF -->
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Rodapé -->
+<div class="footer">
+<p id="footerText">Código: <span id="footerCode">DES-001</span> | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<!-- Notificación -->
+<div class="notification" id="notification"></div>
+<script>
+        // Variables globales
+        let isEditing = false;
+        let currentDocCode = 'DES-001';
+        let storageKey = 'sgi_document_DES-001';
+        
+        // Elementos DOM
+        const editBtn = document.getElementById('editBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const exportBtn = document.getElementById('exportBtn');
+        const importBtn = document.getElementById('importBtn');
+        const fileInput = document.getElementById('fileInput');
+        const contentArea = document.getElementById('contentArea');
+        const docTitle = document.getElementById('docTitle');
+        const docCode = document.getElementById('docCodeValue');
+        const footerCode = document.getElementById('footerCode');
+        const notification = document.getElementById('notification');
+        
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar logo
+            const logoImg = document.getElementById('logoImg');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c3e50" dy="5">LOGÓTIPO DA ORGANIZAÇÃO</text></svg>';
+            };
+            
+            // Configurar fecha (siempre 01.12.2024 según requisito)
+            document.getElementById('current-date').textContent = '01.12.2024';
+            
+            // Cargar documento guardado si existe
+            loadSavedDocument();
+            
+            // Configurar eventos
+            editBtn.addEventListener('click', toggleEditMode);
+            saveBtn.addEventListener('click', saveDocument);
+            exportBtn.addEventListener('click', exportToHTML);
+            importBtn.addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', importFromHTML);
+            
+            // Configurar contadores para impresión
+            document.body.style.counterReset = 'section-counter';
+            
+            // Configurar scroll suave para los enlaces del TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+        
+        // Alternar modo edición
+        function toggleEditMode() {
+            isEditing = !isEditing;
+            
+            if (isEditing) {
+                // Activar modo edición
+                contentArea.classList.add('editing');
+                editBtn.innerHTML = '<span>🚫</span> CANCELAR EDIÇÃO';
+                editBtn.style.backgroundColor = '#e53e3e';
+                
+                // Hacer todos los elementos editables
+                const editableElements = contentArea.querySelectorAll('.editable');
+                editableElements.forEach(element => {
+                    element.setAttribute('contenteditable', 'true');
+                });
+                
+                showNotification('Modo de edição ativado. Pode editar o conteúdo do documento.', 'info');
+            } else {
+                // Desactivar modo edición
+                contentArea.classList.remove('editing');
+                editBtn.innerHTML = '<span>✏️</span> EDITAR CONTEÚDO';
+                editBtn.style.backgroundColor = '#3182ce';
+                
+                // Quitar atributo contenteditable
+                const editableElements = contentArea.querySelectorAll('.editable');
+                editableElements.forEach(element => {
+                    element.removeAttribute('contenteditable');
+                });
+                
+                showNotification('Modo de edição desativado.', 'info');
+            }
+        }
+        
+        // Guardar documento en LocalStorage
+        function saveDocument() {
+            if (!isEditing) {
+                showNotification('Ative o modo de edição antes de guardar.', 'error');
+                return;
+            }
+            
+            try {
+                // Primero desactivar edición temporalmente para capturar contenido
+                const wasEditing = isEditing;
+                if (wasEditing) {
+                    toggleEditMode();
+                }
+                
+                // Recopilar contenido editable
+                const editableElements = contentArea.querySelectorAll('.editable');
+                const contentData = {};
+                
+                editableElements.forEach((element, index) => {
+                    const id = element.id || `editable_${index}`;
+                    contentData[id] = element.innerHTML;
+                });
+                
+                // Guardar contenido de tablas
+                const tables = contentArea.querySelectorAll('table');
+                tables.forEach((table, index) => {
+                    const tableId = table.id || `table_${index}`;
+                    contentData[tableId] = table.innerHTML;
+                });
+                
+                // Guardar título y código del documento
+                contentData.docTitle = docTitle.textContent;
+                contentData.docCode = docCode.textContent;
+                
+                // Guardar en LocalStorage
+                localStorage.setItem(storageKey, JSON.stringify(contentData));
+                
+                // Reactivar edición si estaba activa
+                if (wasEditing) {
+                    setTimeout(() => toggleEditMode(), 100);
+                }
+                
+                showNotification('Documento guardado corretamente no navegador.', 'success');
+            } catch (error) {
+                showNotification('Erro ao guardar o documento: ' + error.message, 'error');
+                console.error('Erro ao guardar:', error);
+            }
+        }
+        
+        // Cargar documento guardado
+        function loadSavedDocument() {
+            try {
+                const savedData = localStorage.getItem(storageKey);
+                if (savedData) {
+                    const contentData = JSON.parse(savedData);
+                    
+                    // Restaurar elementos editables
+                    for (const [id, content] of Object.entries(contentData)) {
+                        if (!id.startsWith('table_') && id !== 'docTitle' && id !== 'docCode') {
+                            const element = document.getElementById(id);
+                            if (element) {
+                                element.innerHTML = content;
+                            }
+                        }
+                    }
+                    
+                    // Restaurar tablas
+                    const tables = contentArea.querySelectorAll('table');
+                    tables.forEach((table, index) => {
+                        const tableId = table.id || `table_${index}`;
+                        if (contentData[tableId]) {
+                            table.innerHTML = contentData[tableId];
+                        }
+                    });
+                    
+                    // Restaurar título y código si existen
+                    if (contentData.docTitle) {
+                        docTitle.textContent = contentData.docTitle;
+                    }
+                    
+                    if (contentData.docCode) {
+                        docCode.textContent = contentData.docCode;
+                        footerCode.textContent = contentData.docCode;
+                        currentDocCode = contentData.docCode;
+                        storageKey = `sgi_document_${contentData.docCode}`;
+                    }
+                    
+                    showNotification('Documento carregado do armazenamento local.', 'info');
+                }
+            } catch (error) {
+                console.error('Erro ao carregar o documento guardado:', error);
+            }
+        }
+        
+        // Exportar a archivo HTML
+        function exportToHTML() {
+            try {
+                // Crear clon del documento
+                const docClone = document.documentElement.cloneNode(true);
+                
+                // Remover funcionalidades de edición del clon
+                const editControls = docClone.querySelector('.edit-controls');
+                if (editControls) editControls.remove();
+                
+                const editableElements = docClone.querySelectorAll('.editable');
+                editableElements.forEach(element => {
+                    element.removeAttribute('contenteditable');
+                    element.classList.remove('editable');
+                });
+                
+                // Obtener código del documento
+                const docCodeValue = docCode.textContent || 'DES-001';
+                
+                // Crear blob y descargar
+                const htmlContent = docClone.outerHTML;
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${docCodeValue}_Gerente_General_${getCurrentDateForFilename()}.html`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                showNotification(`Documento exportado como ${a.download}`, 'success');
+            } catch (error) {
+                showNotification('Erro ao exportar o documento: ' + error.message, 'error');
+                console.error('Erro ao exportar:', error);
+            }
+        }
+        
+        // Importar desde archivo HTML
+        function importFromHTML(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const parser = new DOMParser();
+                    const importedDoc = parser.parseFromString(e.target.result, 'text/html');
+                    
+                    // Extraer contenido de elementos editables
+                    const editableElements = contentArea.querySelectorAll('.editable');
+                    
+                    editableElements.forEach(element => {
+                        const id = element.id;
+                        if (id) {
+                            const importedElement = importedDoc.getElementById(id);
+                            if (importedElement) {
+                                element.innerHTML = importedElement.innerHTML;
+                            }
+                        }
+                    });
+                    
+                    // Extraer contenido de tablas
+                    const tables = contentArea.querySelectorAll('table');
+                    tables.forEach(table => {
+                        const tableId = table.id;
+                        if (tableId) {
+                            const importedTable = importedDoc.getElementById(tableId);
+                            if (importedTable) {
+                                table.innerHTML = importedTable.innerHTML;
+                            }
+                        }
+                    });
+                    
+                    // Extraer título y código del documento
+                    const importedTitle = importedDoc.getElementById('docTitle');
+                    if (importedTitle) {
+                        docTitle.textContent = importedTitle.textContent;
+                    }
+                    
+                    const importedCode = importedDoc.getElementById('docCodeValue');
+                    if (importedCode) {
+                        const newCode = importedCode.textContent;
+                        docCode.textContent = newCode;
+                        footerCode.textContent = newCode;
+                        currentDocCode = newCode;
+                        storageKey = `sgi_document_${newCode}`;
+                    }
+                    
+                    // Limpiar input de archivo
+                    fileInput.value = '';
+                    
+                    showNotification('Documento importado corretamente.', 'success');
+                } catch (error) {
+                    showNotification('Erro ao importar o documento: ' + error.message, 'error');
+                    console.error('Erro ao importar:', error);
+                }
+            };
+            
+            reader.readAsText(file);
+        }
+        
+        // Mostrar notificación
+        function showNotification(message, type = 'success') {
+            notification.textContent = message;
+            notification.className = 'notification';
+            notification.classList.add(type);
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Obtener fecha actual para nombre de archivo
+        function getCurrentDateForFilename() {
+            const now = new Date();
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const year = now.getFullYear();
+            return `${day}-${month}-${year}`;
+        }
+        
+        // Función para cambiar el código del documento
+        function changeDocumentCode(newCode) {
+            docCode.textContent = newCode;
+            footerCode.textContent = newCode;
+            currentDocCode = newCode;
+            storageKey = `sgi_document_${newCode}`;
+        }
+        
+        // Exponer funciones globalmente
+        window.changeDocumentCode = changeDocumentCode;
+        window.saveDocument = saveDocument;
+        window.loadSavedDocument = loadSavedDocument;
+    </script>
+</body>
+</html>

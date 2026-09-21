@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Formato-Editable - Modelo de documento SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+
+        .org-name[contenteditable="true"] {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            outline: none;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .org-name[contenteditable="true"]:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        .org-name[contenteditable="true"]:focus {
+            background-color: white;
+            color: #333;
+        }
+
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .doc-info-item {
+            text-align: left;
+        }
+        .doc-info-item span[contenteditable="true"] {
+            outline: none;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .doc-info-item span[contenteditable="true"]:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        .doc-info-item span[contenteditable="true"]:focus {
+            background-color: white;
+            color: #333;
+        }
+
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+            outline: none;
+        }
+        .doc-title[contenteditable="true"]:hover {
+            background-color: #f0f4f8;
+        }
+        .doc-title[contenteditable="true"]:focus {
+            background-color: #fef9e7;
+        }
+
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+            outline: none;
+        }
+        .doc-code[contenteditable="true"]:hover {
+            background-color: #f0f4f8;
+        }
+        .doc-code[contenteditable="true"]:focus {
+            background-color: #fef9e7;
+        }
+
+        .content {
+            padding: 30px 40px;
+        }
+
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+            outline: none;
+        }
+        .section-title[contenteditable="true"]:hover {
+            background-color: #f0f4f8;
+        }
+        .section-title[contenteditable="true"]:focus {
+            background-color: #fef9e7;
+        }
+
+        .section-subtitle {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+            outline: none;
+        }
+        .section-subtitle[contenteditable="true"]:hover {
+            background-color: #f0f4f8;
+        }
+        .section-subtitle[contenteditable="true"]:focus {
+            background-color: #fef9e7;
+        }
+
+        .intro-text {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4a5568;
+            font-size: 16px;
+            outline: none;
+        }
+        .intro-text[contenteditable="true"]:hover {
+            background-color: #edf2f7;
+        }
+        .intro-text[contenteditable="true"]:focus {
+            background-color: #fff3d6;
+        }
+
+        .generic-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .generic-table th {
+            background-color: #2d3748;
+            color: white;
+            font-weight: bold;
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #4a5568;
+        }
+
+        .generic-table td {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+
+        .generic-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .generic-table tr:hover {
+            background-color: #edf2f7;
+        }
+
+        .generic-table td[contenteditable="true"],
+        .generic-table th[contenteditable="true"] {
+            outline: none;
+        }
+        .generic-table td[contenteditable="true"]:hover,
+        .generic-table th[contenteditable="true"]:hover {
+            background-color: #e6f7ff;
+        }
+        .generic-table td[contenteditable="true"]:focus,
+        .generic-table th[contenteditable="true"]:focus {
+            background-color: #fff3d6;
+            box-shadow: inset 0 0 0 2px #fbbf24;
+        }
+
+        .highlight-box {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+        }
+
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+
+        .version-table td[contenteditable="true"] {
+            outline: none;
+        }
+        .version-table td[contenteditable="true"]:hover {
+            background-color: #e6f7ff;
+        }
+        .version-table td[contenteditable="true"]:focus {
+            background-color: #fff3d6;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        .footer p[contenteditable="true"] {
+            outline: none;
+        }
+        .footer p[contenteditable="true"]:hover {
+            background-color: #edf2f7;
+        }
+        .footer p[contenteditable="true"]:focus {
+            background-color: #fff3d6;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .print-btn, .save-btn, .download-btn, .pdf-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+        }
+        .print-btn:hover {
+            background-color: #718096;
+            transform: scale(1.05);
+        }
+
+        .save-btn {
+            background-color: #3182ce;
+            color: white;
+        }
+        .save-btn:hover {
+            background-color: #2c5282;
+            transform: scale(1.05);
+        }
+
+        .download-btn {
+            background-color: #38a169;
+            color: white;
+        }
+        .download-btn:hover {
+            background-color: #2f855a;
+            transform: scale(1.05);
+        }
+
+        .pdf-btn {
+            background-color: #e53e3e;
+            color: white;
+        }
+        .pdf-btn:hover {
+            background-color: #c53030;
+            transform: scale(1.05);
+        }
+
+        .edit-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #fbbf24;
+            color: #333;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .edit-indicator i {
+            font-size: 16px;
+        }
+
+        [contenteditable="true"]:empty:before {
+            content: "Editar...";
+            color: #aaa;
+            font-style: italic;
+        }
+
+        @media print {
+            body { background-color: white; padding: 0; }
+            .document-container { box-shadow: none; }
+            .action-buttons, .edit-indicator { display: none; }
+            .section, .generic-table { page-break-inside: avoid; }
+        }
+
+        @media screen and (max-width: 1024px) {
+            .toc-list { columns: 1; }
+            .generic-table { display: block; overflow-x: auto; }
+        }
+
+        @media screen and (max-width: 768px) {
+            .header { flex-direction: column; text-align: center; }
+            .org-info { margin-left: 0; margin-top: 20px; text-align: center; }
+            .doc-info { flex-direction: column; gap: 10px; }
+            .doc-title { font-size: 24px; padding: 20px 20px 10px; margin: 0 20px; }
+            .content { padding: 20px; }
+            .generic-table th, .generic-table td { padding: 10px; font-size: 14px; }
+            .action-buttons { justify-content: center; }
+            .action-buttons button { width: 100%; justify-content: center; }
+        }
+    </style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+<div class="document-container" id="documentContainer">
+<!-- Cabecera con logo y datos de la organización (EDITABLE) -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name" contenteditable="true">[Nome da organização]</div>
+<div class="doc-info">
+<div class="doc-info-item"><strong>Data de emissão:</strong><br/><span contenteditable="true">[DD.MM.AAAA]</span></div>
+<div class="doc-info-item"><strong>Elabora:</strong><br/><span contenteditable="true">[responsável]</span></div>
+<div class="doc-info-item"><strong>Aprova:</strong><br/><span contenteditable="true">[Aprovador]</span></div>
+<div class="doc-info-item"><strong>Versão:</strong><br/><span contenteditable="true">[000]</span></div>
+</div>
+</div>
+</div>
+<!-- Título del documento (EDITABLE) - Genérico -->
+<div class="doc-title" contenteditable="true">[Título do documento]</div>
+<div class="doc-code" contenteditable="true">[Código: XXX-000]</div>
+<!-- Contenido principal -->
+<div class="content">
+<!-- Tabla de Contenidos (navegación - se puede editar si se desea) -->
+<div class="toc">
+<div class="toc-title" contenteditable="true">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#seccion1">1. [Secção 1]</a></li>
+<li class="toc-item"><a class="toc-link" href="#seccion2">2. [Secção 2]</a></li>
+<li class="toc-item"><a class="toc-link" href="#seccion3">3. [Secção 3]</a></li>
+<li class="toc-item"><a class="toc-link" href="#tablas">4. [Tabelas de exemplo]</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">5. Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- SECCIÓN 1: Espacio en blanco para el usuario -->
+<div class="section" id="seccion1">
+<div class="section-title" contenteditable="true">1. [Título da Secção 1]</div>
+<div class="intro-text" contenteditable="true">
+<p>[Escreva aqui o conteúdo da primeira secção. Pode incluir texto, listas, etc. Este é um parágrafo de exemplo que pode modificar completamente.]</p>
+<p>[Pode adicionar tantos parágrafos quantos necessitar. Todo este bloco é editável.]</p>
+</div>
+<ul class="kpi-list" style="list-style-type: none;">
+<li contenteditable="true">[Elemento de lista 1 - editar]</li>
+<li contenteditable="true">[Elemento de lista 2 - editar]</li>
+<li contenteditable="true">[Elemento de lista 3 - editar]</li>
+</ul>
+</div>
+<!-- SECCIÓN 2: Otro espacio en blanco -->
+<div class="section" id="seccion2">
+<div class="section-title" contenteditable="true">2. [Título da Secção 2]</div>
+<div class="highlight-box">
+<div class="section-subtitle" contenteditable="true">[Subtítulo opcional]</div>
+<p contenteditable="true">[Pode utilizar esta caixa destacada para informação importante. Todo o conteúdo é editável, incluindo este texto.]</p>
+</div>
+</div>
+<!-- SECCIÓN 3: Más espacio -->
+<div class="section" id="seccion3">
+<div class="section-title" contenteditable="true">3. [Título da Secção 3]</div>
+<div class="intro-text" contenteditable="true">
+<p>[Conteúdo da terceira secção. Pode escrever aqui livremente.]</p>
+</div>
+</div>
+<!-- SECCIÓN 4: Ejemplo de tabla genérica (totalmente editable y ampliable) -->
+<div class="section" id="tablas">
+<div class="section-title" contenteditable="true">4. [Tabelas de exemplo]</div>
+<div class="intro-text" contenteditable="true">
+<p>[Esta é uma tabela de exemplo. Pode modificar os títulos, adicionar ou eliminar linhas e adaptá-la às suas necessidades.]</p>
+</div>
+<table class="generic-table" id="genericTable1">
+<thead>
+<tr>
+<th contenteditable="true">[Coluna 1]</th>
+<th contenteditable="true">[Coluna 2]</th>
+<th contenteditable="true">[Coluna 3]</th>
+</tr>
+</thead>
+<tbody>
+<tr><td contenteditable="true">[Dato 1.1]</td><td contenteditable="true">[Dato 1.2]</td><td contenteditable="true">[Dato 1.3]</td></tr>
+<tr><td contenteditable="true">[Dato 2.1]</td><td contenteditable="true">[Dato 2.2]</td><td contenteditable="true">[Dato 2.3]</td></tr>
+<tr><td contenteditable="true">[Dato 3.1]</td><td contenteditable="true">[Dato 3.2]</td><td contenteditable="true">[Dato 3.3]</td></tr>
+</tbody>
+</table>
+<button class="save-btn" onclick="addGenericRow('genericTable1')" style="margin-top: 15px; padding: 8px 15px;"><i class="fas fa-plus"></i> Adicionar linha à tabela</button>
+<div class="intro-text" contenteditable="true" style="margin-top:30px;">
+<p>[Pode inserir mais tabelas ou elementos conforme necessite. Tudo é personalizável.]</p>
+</div>
+</div>
+<!-- Botones de acción -->
+<div class="action-buttons">
+<button class="save-btn" id="saveBtn"><i class="fas fa-save"></i> GUARDAR ALTERAÇÕES</button>
+<button class="download-btn" id="downloadHtmlBtn"><i class="fas fa-download"></i> DESCARREGAR HTML</button>
+<button class="pdf-btn" id="downloadPdfBtn"><i class="fas fa-file-pdf"></i> DESCARREGAR PDF</button>
+<button class="print-btn" onclick="window.print()"><i class="fas fa-print"></i> IMPRIMIR</button>
+</div>
+<!-- HISTORIAL DE VERSIONES (EDITABLE) -->
+<div class="version-history" id="historial">
+<div class="section-title" contenteditable="true">5. Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table" id="versionTable">
+<thead><tr><th contenteditable="true">Versão</th><th contenteditable="true">Data</th><th contenteditable="true">Descrição do cambio</th><th contenteditable="true">Aprovado por</th></tr></thead>
+<tbody><tr><td contenteditable="true">000</td><td contenteditable="true">[Data inicial]</td><td contenteditable="true">[Descrição da versão inicial]</td><td contenteditable="true">[Aprovador]</td></tr></tbody>
+</table>
+</div>
+<button class="save-btn" onclick="addVersionRow()" style="margin-top: 15px; padding: 8px 15px;"><i class="fas fa-plus"></i> Adicionar Versão</button>
+</div>
+</div>
+<!-- Pie de página -->
+<div class="footer"><p contenteditable="true">[Código: XXX-000 | Revisão: 000 | Página 1 de 1]</p></div>
+</div>
+<!-- Indicador de modo edición -->
+<div class="edit-indicator"><i class="fas fa-edit"></i><span>Modo de Edição - todos os campos editáveis (duplo clique em tabelas)</span></div>
+<script>
+    // Función para añadir filas a la tabla genérica
+    function addGenericRow(tableId) {
+        const table = document.getElementById(tableId);
+        const tbody = table.getElementsByTagName('tbody')[0];
+        const colCount = table.rows[0]?.cells.length || 3; // número de columnas
+        let newRowHTML = '<tr>';
+        for (let i = 0; i < colCount; i++) {
+            newRowHTML += `<td contenteditable="true">[Nuevo dato]</td>`;
+        }
+        newRowHTML += '</tr>';
+        tbody.insertRow().innerHTML = newRowHTML;
+        saveToLocalStorage();
+    }
+
+    // Función para añadir fila al historial de versiones
+    function addVersionRow() {
+        const tbody = document.querySelector('#versionTable tbody');
+        const newRow = tbody.insertRow();
+        newRow.innerHTML = `<td contenteditable="true">001</td><td contenteditable="true">${new Date().toLocaleDateString()}</td><td contenteditable="true">[Nova versão]</td><td contenteditable="true">[Responsable]</td>`;
+        saveToLocalStorage();
+    }
+
+    // Guardar en localStorage
+    function saveToLocalStorage() {
+        const container = document.getElementById('documentContainer');
+        localStorage.setItem('formatoEditable', container.outerHTML);
+        alert('✅ Documento guardado localmente.');
+    }
+
+    // Descargar HTML
+    function downloadHTML() {
+        const container = document.getElementById('documentContainer');
+        const styles = document.querySelector('style').innerHTML;
+        const htmlContent = `<!DOCTYPE html><html lang="pt-AO"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Formato-Editable</title><style>${styles}</style><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></head><body>${container.outerHTML}</body></html>`;
+        const blob = new Blob([htmlContent], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `Formato-Editable-${new Date().toISOString().split('T')[0]}.html`;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    // Descargar PDF
+    function downloadPDF() {
+        const element = document.getElementById('documentContainer');
+        const actionButtons = element.querySelector('.action-buttons');
+        const editIndicator = document.querySelector('.edit-indicator');
+        if (actionButtons) actionButtons.style.display = 'none';
+        if (editIndicator) editIndicator.style.display = 'none';
+        const opt = { margin: [0.5, 0.5, 0.5, 0.5], filename: `Formato-Editable-${new Date().toISOString().split('T')[0]}.pdf`, image: { type: 'jpeg', quality: 1 }, html2canvas: { scale: 2, letterRendering: true, useCORS: true, logging: false }, jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } };
+        html2pdf().set(opt).from(element).save().then(() => {
+            if (actionButtons) actionButtons.style.display = 'flex';
+            if (editIndicator) editIndicator.style.display = 'flex';
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Logo fallback
+        const logoImg = document.querySelector('.logo');
+        logoImg.onerror = function() {
+            this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+            console.log("Logótipo não encontrado em logo/logo.png. Usa-se um marcador de posição.");
+        };
+
+        // Scroll suave para TOC
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    window.scrollTo({ top: targetElement.offsetTop - 20, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Botones
+        document.getElementById('saveBtn').addEventListener('click', saveToLocalStorage);
+        document.getElementById('downloadHtmlBtn').addEventListener('click', downloadHTML);
+        document.getElementById('downloadPdfBtn').addEventListener('click', downloadPDF);
+    });
+</script>
+</body>
+</html>

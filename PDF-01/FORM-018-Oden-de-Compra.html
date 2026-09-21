@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FORM-018 Ordem de Compra do SGI (Editável)</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .logo-container:hover {
+            box-shadow: 0 0 0 2px #90cdf4;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background-color: rgba(255,255,255,0.1);
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: text;
+        }
+        .org-name[contenteditable="true"]:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+            background-color: rgba(255,255,255,0.1);
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: text;
+        }
+        .doc-info-item[contenteditable="true"]:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        .doc-info-item strong {
+            display: block;
+            margin-bottom: 4px;
+            color: #e2e8f0;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+            cursor: text;
+        }
+        .doc-title[contenteditable="true"]:hover {
+            background-color: #f7fafc;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+            cursor: text;
+        }
+        .doc-code[contenteditable="true"]:hover {
+            background-color: #f7fafc;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            cursor: text;
+        }
+        .section-title[contenteditable="true"]:hover {
+            background-color: #f7fafc;
+        }
+        
+        .section-subtitle {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+            cursor: text;
+        }
+        .section-subtitle[contenteditable="true"]:hover {
+            background-color: #f7fafc;
+        }
+        
+        .order-info {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .form-field {
+            margin-bottom: 15px;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: white;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #4a5568;
+            box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+        }
+        
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .items-table th {
+            background-color: #2d3748;
+            color: white;
+            font-weight: bold;
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #4a5568;
+        }
+        
+        .items-table td {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        
+        .items-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .items-table tr:hover {
+            background-color: #edf2f7;
+        }
+        
+        .add-item-btn {
+            background-color: #38a169;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .add-item-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .total-section {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+            text-align: right;
+        }
+        
+        .total-amount {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5282;
+        }
+        
+        .conditions-section {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .condition-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        
+        .condition-item:last-child {
+            border-bottom: none;
+        }
+        
+        .condition-title {
+            font-weight: bold;
+            color: #276749;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .approval-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .approval-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .approval-block {
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+        
+        .approval-title {
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .signature-line {
+            height: 1px;
+            background-color: #cbd5e0;
+            margin: 20px 0;
+        }
+        
+        .observations-section {
+            background-color: #fefcbf;
+            border: 1px solid #f6e05e;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #d69e2e;
+        }
+        
+        .observations-textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .observations-textarea:focus {
+            outline: none;
+            border-color: #4a5568;
+            box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+
+        .version-table td[contenteditable="true"] {
+            background-color: #fff;
+            cursor: text;
+        }
+        .version-table td[contenteditable="true"]:hover {
+            background-color: #f0f4f8;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+            cursor: text;
+        }
+        .footer[contenteditable="true"]:hover {
+            background-color: #edf2f7;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .print-btn, .save-btn, .calculate-btn, .download-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+        
+        .save-btn {
+            background-color: #38a169;
+        }
+        
+        .calculate-btn {
+            background-color: #3182ce;
+        }
+
+        .download-btn {
+            background-color: #805ad5;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        .save-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .calculate-btn:hover {
+            background-color: #2c5282;
+        }
+
+        .download-btn:hover {
+            background-color: #6b46c1;
+        }
+        
+        /* Estilo para elementos editables */
+        [contenteditable="true"] {
+            outline: none;
+            transition: background-color 0.2s;
+        }
+        [contenteditable="true"]:focus {
+            background-color: #ebf8ff;
+            box-shadow: 0 0 0 2px #90cdf4;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn, .save-btn, .calculate-btn, .download-btn, .add-item-btn, .remove-item-btn {
+                display: none;
+            }
+            
+            .items-table {
+                page-break-inside: avoid;
+            }
+            
+            .form-input, .observations-textarea {
+                border: 1px solid #999;
+            }
+
+            [contenteditable="true"] {
+                background-color: transparent !important;
+                box-shadow: none !important;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .items-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .approval-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .print-btn, .save-btn, .calculate-btn, .download-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container" id="documentoPrincipal">
+<!-- Cabecera con logo e información de la organización - Logo apuntando a logo/logo.png -->
+<div class="header">
+<div class="logo-container" id="logoContainer" title="Clique para alterar o logótipo">
+<img alt="Logótipo da Organização" class="logo" id="logoImg" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,&lt;svg xmlns=\'http://www.w3.org/2000/svg\' width=\'180\' height=\'80\' viewBox=\'0 0 180 80\'&gt;&lt;rect width=\'180\' height=\'80\' fill=\'white\'/&gt;&lt;text x=\'90\' y=\'40\' font-family=\'Arial\' font-size=\'12\' text-anchor=\'middle\' fill=\'%234a5568\' dy=\'5\'&gt;LOGO (haz clic para cambiar)&lt;/text&gt;&lt;/svg&gt;';" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name" contenteditable="true">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item" contenteditable="true">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item" contenteditable="true">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item" contenteditable="true">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item" contenteditable="true">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título del documento - editable -->
+<div class="doc-title" contenteditable="true">Ordem de Compra do Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-code" contenteditable="true">Código: FORM-018</div>
+<!-- Contenido principal -->
+<div class="content">
+<!-- Información de la orden - inputs ya editables -->
+<div class="section">
+<div class="section-title" contenteditable="true">Informação da Ordem de Compra</div>
+<div class="order-info">
+<div class="info-grid">
+<div>
+<div class="form-field">
+<label class="form-label">Número da Ordem de Compra (OC):</label>
+<input class="form-input" id="numero-oc" placeholder="Ex.: OC-0001" type="text" value="OC-0001"/>
+</div>
+<div class="form-field">
+<label class="form-label">Data de Emissão:</label>
+<input class="form-input" id="fecha-emision" type="date" value="2024-12-01"/>
+</div>
+<div class="form-field">
+<label class="form-label">Responsável pela Compra:</label>
+<input class="form-input" id="responsable-compra" placeholder="Nome do responsável" type="text"/>
+</div>
+</div>
+<div>
+<div class="form-field">
+<label class="form-label">Fornecedor/Subcontratado:</label>
+<input class="form-input" id="proveedor" placeholder="Nome do fornecedor" type="text"/>
+</div>
+<div class="form-field">
+<label class="form-label">Telefone de Contacto:</label>
+<input class="form-input" id="telefono-proveedor" placeholder="Telefone do fornecedor" type="tel"/>
+</div>
+<div class="form-field">
+<label class="form-label">Correio Eletrónico:</label>
+<input class="form-input" id="email-proveedor" placeholder="Correio eletrónico do fornecedor" type="email"/>
+</div>
+</div>
+</div>
+<div class="form-field" style="margin-top: 15px;">
+<label class="form-label">Morada do fornecedor:</label>
+<input class="form-input" id="direccion-proveedor" placeholder="Morada completa do fornecedor" type="text"/>
+</div>
+</div>
+</div>
+<!-- Productos/Servicios - Tabla dinámica -->
+<div class="section">
+<div class="section-title" contenteditable="true">Descrição do Produto ou serviço</div>
+<table class="items-table" id="items-table">
+<thead>
+<tr>
+<th style="width: 5%;">Item</th>
+<th style="width: 35%;">Descrição</th>
+<th style="width: 10%;">Quantidade</th>
+<th style="width: 10%;">Unidade de Medida</th>
+<th style="width: 15%;">Preço Unitário</th>
+<th style="width: 15%;">Preço Total</th>
+<th style="width: 10%;">Ações</th>
+</tr>
+</thead>
+<tbody id="items-body">
+<tr class="item-row">
+<td>1</td>
+<td>
+<input class="form-input item-desc" placeholder="Descrição detalhada do produto/serviço" type="text"/>
+</td>
+<td>
+<input class="form-input item-qty" min="1" onchange="calcularTotalItem(this)" type="number" value="1"/>
+</td>
+<td>
+<select class="form-input item-unit">
+<option value="">Selecionar</option>
+<option value="unidad">Unidade</option>
+<option value="kg">Quilograma (kg)</option>
+<option value="l">Litro (l)</option>
+<option value="m">Metro (m)</option>
+<option value="m2">Metro quadrado (m²)</option>
+<option value="m3">Metro cúbico (m³)</option>
+<option value="hr">Hora (h)</option>
+<option value="dia">Dia</option>
+<option value="servicio">Serviço</option>
+<option value="paquete">Pacote</option>
+<option value="caja">Caixa</option>
+</select>
+</td>
+<td>
+<input class="form-input item-price" min="0" onchange="calcularTotalItem(this)" step="0.01" type="number" value="0"/>
+</td>
+<td>
+<div class="item-total">0.00</div>
+<input class="item-total-value" type="hidden" value="0"/>
+</td>
+<td>
+<button class="remove-item-btn" onclick="removerItem(this)" style="background-color: #e53e3e; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;" type="button">X</button>
+</td>
+</tr>
+</tbody>
+</table>
+<button class="add-item-btn" onclick="agregarItem()" type="button">
+                    ➕ Adicionar Item
+                </button>
+<div style="text-align: center; margin: 20px 0;">
+<button class="calculate-btn" onclick="calcularTotalGeneral()">📊 Calcular Total Geral</button>
+</div>
+</div>
+<!-- Total general -->
+<div class="section">
+<div class="section-title" contenteditable="true">Total Geral</div>
+<div class="total-section">
+<div style="margin-bottom: 10px;">
+<span contenteditable="true" style="font-size: 18px; color: #4a5568;">Total da Ordem:</span>
+</div>
+<div class="total-amount" id="total-general">0.00</div>
+<div style="margin-top: 10px; color: #666; font-size: 14px;">
+<div id="currency-selector" style="display: inline-block; margin-right: 20px;">
+<label style="margin-right: 10px;">Moeda:</label>
+<select class="form-input" id="currency" onchange="actualizarMoneda()" style="width: auto; display: inline-block;">
+<option value="PYG">Guaranis (PYG)</option>
+<option value="USD">Dólares (USD)</option>
+<option value="EUR">Euros (EUR)</option>
+<option value="BRL">Reais (BRL)</option>
+<option value="ARS">Pesos Argentinos (ARS)</option>
+</select>
+</div>
+<div id="exchange-rate" style="display: inline-block;">
+<label style="margin-right: 10px;">Taxa de câmbio (opcional):</label>
+<input class="form-input" id="exchange-rate-input" min="0" onchange="actualizarMoneda()" placeholder="1.00" step="0.0001" style="width: 100px; display: inline-block;" type="number"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Condiciones de compra -->
+<div class="section">
+<div class="section-title" contenteditable="true">Condições de Compra</div>
+<div class="conditions-section">
+<div class="condition-item">
+<div class="condition-title" contenteditable="true">
+<span>📅</span>
+<span>1. Prazo de Entrega:</span>
+</div>
+<input class="form-input" id="plazo-entrega" placeholder="Ex.: 15 dias úteis a partir da data da ordem" type="text"/>
+</div>
+<div class="condition-item">
+<div class="condition-title" contenteditable="true">
+<span>📍</span>
+<span>2. Local de Entrega:</span>
+</div>
+<input class="form-input" id="lugar-entrega" placeholder="Morada onde serão entregues os produtos ou serviços" type="text"/>
+</div>
+<div class="condition-item">
+<div class="condition-title" contenteditable="true">
+<span>💰</span>
+<span>3. Condições de Pagamento:</span>
+</div>
+<textarea class="observations-textarea" id="condiciones-pago" placeholder="Especificar o método e os termos de pagamento: crédito, transferência, etc."></textarea>
+</div>
+<div class="condition-item">
+<div class="condition-title" contenteditable="true">
+<span>🛡️</span>
+<span>4. Garantia:</span>
+</div>
+<textarea class="observations-textarea" id="garantia" placeholder="Duração e condições da garantia, se aplicável"></textarea>
+</div>
+<div class="condition-item">
+<div class="condition-title" contenteditable="true">
+<span>📋</span>
+<span>5. Requisitos Normativos:</span>
+</div>
+<div style="margin-bottom: 10px;">
+<p contenteditable="true" style="font-size: 14px; color: #666; margin-bottom: 10px;">Selecione as normas aplicáveis:</p>
+<div style="display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 15px;">
+<div style="display: flex; align-items: center; gap: 5px;">
+<input checked="" id="iso-9001" type="checkbox"/>
+<label contenteditable="true" for="iso-9001" style="font-size: 14px;">ISO 9001:2015</label>
+</div>
+<div style="display: flex; align-items: center; gap: 5px;">
+<input checked="" id="iso-" type="checkbox"/>
+<label contenteditable="true" for="iso-" style="font-size: 14px;">:2015</label>
+</div>
+<div style="display: flex; align-items: center; gap: 5px;">
+<input checked="" id="iso-45001" type="checkbox"/>
+<label contenteditable="true" for="iso-45001" style="font-size: 14px;">ISO 45001:2018</label>
+</div>
+</div>
+</div>
+<textarea class="observations-textarea" id="requisitos-normativos" placeholder="Qualquer norma ou especificação que o produto/serviço deve cumprir"></textarea>
+</div>
+</div>
+</div>
+<!-- Aprobaciones -->
+<div class="section">
+<div class="section-title" contenteditable="true">Aprovações</div>
+<div class="approval-section">
+<div class="approval-grid">
+<div class="approval-block">
+<div class="approval-title" contenteditable="true">Emitido por:</div>
+<div class="form-field">
+<label class="form-label">Nome:</label>
+<input class="form-input" id="nombre-emisor" placeholder="Nome do responsável que emite a ordem" type="text"/>
+</div>
+<div class="form-field">
+<label class="form-label">Cargo:</label>
+<input class="form-input" id="cargo-emisor" placeholder="Cargo do emissor" type="text"/>
+</div>
+<div class="form-field">
+<label class="form-label">Assinatura:</label>
+<div class="signature-line"></div>
+</div>
+<div class="form-field">
+<label class="form-label">Data:</label>
+<input class="form-input" id="fecha-emisor" type="date" value="2024-12-01"/>
+</div>
+</div>
+<div class="approval-block">
+<div class="approval-title" contenteditable="true">Aprovado por:</div>
+<div class="form-field">
+<label class="form-label">Nome:</label>
+<input class="form-input" id="nombre-aprobador" placeholder="Nome do aprovador" type="text"/>
+</div>
+<div class="form-field">
+<label class="form-label">Cargo:</label>
+<input class="form-input" id="cargo-aprobador" placeholder="Cargo do aprovador" type="text"/>
+</div>
+<div class="form-field">
+<label class="form-label">Assinatura:</label>
+<div class="signature-line"></div>
+</div>
+<div class="form-field">
+<label class="form-label">Data:</label>
+<input class="form-input" id="fecha-aprobador" type="date" value="2024-12-01"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Observaciones -->
+<div class="section">
+<div class="section-title" contenteditable="true">Observações Adicionais</div>
+<div class="observations-section">
+<textarea class="observations-textarea" id="observaciones" placeholder="Espaço para incluir qualquer observação ou instrução especial relacionada com a ordem de compra."></textarea>
+</div>
+</div>
+<!-- Botones de acción -->
+<div class="action-buttons">
+<button class="save-btn" onclick="guardarOrden()">💾 Guardar Ordem</button>
+<button class="download-btn" onclick="descargarHTML()">📥 Descarregar HTML</button>
+<button class="print-btn" onclick="window.print()">📄 Imprimir documento</button>
+</div>
+<!-- Histórico de versiones - editable -->
+<div class="version-history">
+<div class="section-title" contenteditable="true">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+                            32<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</thead>
+<tbody>
+                            32<td contenteditable="true">000</td>
+<td contenteditable="true">01.12.2024</td>
+<td contenteditable="true">Original</td>
+<td contenteditable="true">CEO</td>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Pie de página - editable -->
+<div class="footer" contenteditable="true">
+<p>Código: FORM-018 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        // Configurar fechas por defecto
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0];
+            if (!document.getElementById('fecha-emision').value) {
+                document.getElementById('fecha-emision').value = formattedDate;
+            }
+            if (!document.getElementById('fecha-emisor').value) {
+                document.getElementById('fecha-emisor').value = formattedDate;
+            }
+            if (!document.getElementById('fecha-aprobador').value) {
+                document.getElementById('fecha-aprobador').value = formattedDate;
+            }
+            
+            generarNumeroOC();
+            
+            // Hacer que el logo sea editable (cambiar imagen) - manteniendo la ruta por defecto
+            document.getElementById('logoContainer').addEventListener('click', function() {
+                const nuevaURL = prompt('Introduza o URL da nova imagem do logótipo:', document.getElementById('logoImg').src);
+                if (nuevaURL && nuevaURL.trim() !== '') {
+                    document.getElementById('logoImg').src = nuevaURL;
+                }
+            });
+        });
+        
+        // Generar número de orden de compra automático
+        function generarNumeroOC() {
+            const timestamp = new Date().getTime();
+            const randomNum = Math.floor(Math.random() * 1000);
+            const ocNumber = `OC-${timestamp.toString().slice(-4)}-${randomNum.toString().padStart(3, '0')}`;
+            document.getElementById('numero-oc').value = ocNumber;
+        }
+        
+        let itemCounter = 1;
+        
+        function agregarItem() {
+            itemCounter++;
+            const itemsBody = document.getElementById('items-body');
+            
+            const newRow = document.createElement('tr');
+            newRow.className = 'item-row';
+            newRow.innerHTML = `
+                <td>${itemCounter}</td>
+                <td><input type="text" class="form-input item-desc" placeholder="Descrição detalhada do produto/serviço"></td>
+                <td><input type="number" class="form-input item-qty" min="1" value="1" onchange="calcularTotalItem(this)"></td>
+                <td>
+                    <select class="form-input item-unit">
+                        <option value="">Selecionar</option>
+                        <option value="unidad">Unidad</option>
+                        <option value="kg">Kilogramo (kg)</option>
+                        <option value="l">Litro (l)</option>
+                        <option value="m">Metro (m)</option>
+                        <option value="m2">Metro cuadrado (m²)</option>
+                        <option value="m3">Metro cúbico (m³)</option>
+                        <option value="hr">Hora (hr)</option>
+                        <option value="dia">Dia</option>
+                        <option value="servicio">Servicio</option>
+                        <option value="paquete">Paquete</option>
+                        <option value="caja">Caja</option>
+                    </select>
+                </td>
+                <td><input type="number" class="form-input item-price" min="0" step="0.01" value="0" onchange="calcularTotalItem(this)"></td>
+                <td><div class="item-total">0.00</div><input type="hidden" class="item-total-value" value="0"></td>
+                <td><button type="button" class="remove-item-btn" onclick="removerItem(this)" style="background-color: #e53e3e; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">X</button></td>
+            `;
+            itemsBody.appendChild(newRow);
+        }
+        
+        function removerItem(button) {
+            const row = button.closest('tr');
+            if (document.querySelectorAll('.item-row').length > 1) {
+                row.remove();
+                reenumerarItems();
+                calcularTotalGeneral();
+            } else {
+                alert('Deve haver pelo menos um item na ordem.');
+            }
+        }
+        
+        function reenumerarItems() {
+            const rows = document.querySelectorAll('.item-row');
+            rows.forEach((row, index) => {
+                row.cells[0].textContent = index + 1;
+            });
+            itemCounter = rows.length;
+        }
+        
+        function calcularTotalItem(input) {
+            const row = input.closest('tr');
+            const quantity = parseFloat(row.querySelector('.item-qty').value) || 0;
+            const price = parseFloat(row.querySelector('.item-price').value) || 0;
+            const total = quantity * price;
+            
+            const totalElement = row.querySelector('.item-total');
+            const totalValueInput = row.querySelector('.item-total-value');
+            
+            totalElement.textContent = total.toFixed(2);
+            totalValueInput.value = total.toFixed(2);
+            
+            calcularTotalGeneral();
+        }
+        
+        function calcularTotalGeneral() {
+            const totalValueInputs = document.querySelectorAll('.item-total-value');
+            let total = 0;
+            
+            totalValueInputs.forEach(input => {
+                total += parseFloat(input.value) || 0;
+            });
+            
+            const currency = document.getElementById('currency').value;
+            const exchangeRate = parseFloat(document.getElementById('exchange-rate-input').value) || 1;
+            
+            let formattedTotal = total.toFixed(2);
+            
+            if (currency !== 'PYG' && exchangeRate !== 1) {
+                formattedTotal = (total * exchangeRate).toFixed(2);
+            }
+            
+            document.getElementById('total-general').textContent = formatearMoneda(formattedTotal, currency);
+        }
+        
+        function formatearMoneda(valor, moneda) {
+            const simbolos = {
+                'PYG': 'Gs.',
+                'USD': '$',
+                'EUR': '€',
+                'BRL': 'R$',
+                'ARS': '$'
+            };
+            
+            const formato = {
+                'PYG': new Intl.NumberFormat('es-PY', { minimumFractionDigits: 0, maximumFractionDigits: 0 }),
+                'USD': new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                'EUR': new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                'BRL': new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                'ARS': new Intl.NumberFormat('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+            };
+            
+            return `${simbolos[moneda]} ${formato[moneda].format(parseFloat(valor))}`;
+        }
+        
+        function actualizarMoneda() {
+            calcularTotalGeneral();
+        }
+        
+        function actualizarRequisitosNormativos() {
+            const iso9001 = document.getElementById('iso-9001').checked;
+            const iso = document.getElementById('iso-').checked;
+            const iso45001 = document.getElementById('iso-45001').checked;
+            
+            let requisitos = '';
+            if (iso9001) requisitos += 'ISO 9001:2015 - Sistemas de Gestão da Qualidade\n';
+            if (iso) requisitos += ':2015 - Sistemas de Gestão Ambiental\n';
+            if (iso45001) requisitos += 'ISO 45001:2018 - Sistemas de Gestão de Segurança e Saúde no Trabalho\n';
+            
+            document.getElementById('requisitos-normativos').value = requisitos;
+        }
+        
+        document.getElementById('iso-9001').addEventListener('change', actualizarRequisitosNormativos);
+        document.getElementById('iso-').addEventListener('change', actualizarRequisitosNormativos);
+        document.getElementById('iso-45001').addEventListener('change', actualizarRequisitosNormativos);
+        
+        function guardarOrden() {
+            const proveedor = document.getElementById('proveedor').value;
+            const responsable = document.getElementById('responsable-compra').value;
+            const emisor = document.getElementById('nombre-emisor').value;
+            
+            if (!proveedor || !responsable || !emisor) {
+                alert('Por favor, preencha os campos obrigatórios: Fornecedor, Responsável pela Compra e Nome do Emissor.');
+                return;
+            }
+            
+            alert('✅ Ordem de compra guardada corretamente (simulação).');
+        }
+        
+        function descargarHTML() {
+            const doctype = '<!DOCTYPE html>\n';
+            const html = document.documentElement.outerHTML;
+            const blob = new Blob([doctype + html], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'FORM-018-Orden-de-Compra-Editada.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            alert('✅ Ficheiro HTML descarregado com sucesso. Contém todas as suas modificações.');
+        }
+        
+        actualizarRequisitosNormativos();
+    </script>
+</body>
+</html>

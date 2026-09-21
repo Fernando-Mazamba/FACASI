@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DOC-015 Relatório de Auditoria Interna do SGI (editável)</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        /* Barra de herramientas superior */
+        .toolbar {
+            max-width: 1400px;
+            margin: 0 auto 15px auto;
+            background-color: #2d3748;
+            border-radius: 40px;
+            padding: 12px 25px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: flex-end;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .toolbar button {
+            background-color: #edf2f7;
+            border: none;
+            color: #2d3748;
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        
+        .toolbar button:hover {
+            background-color: #cbd5e0;
+            transform: scale(1.02);
+        }
+        
+        .toolbar button.editar-activo {
+            background-color: #38a169;
+            color: white;
+        }
+        
+        .toolbar button i { font-style: normal; font-size: 1.2em; }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        /* Resaltado cuando la edición está activa */
+        .content.editable-active {
+            outline: 3px dashed #38a169;
+            outline-offset: 8px;
+            background-color: #fffff0;
+            border-radius: 12px;
+            transition: outline 0.2s;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-subtitle {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+        }
+        
+        .audit-header {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .audit-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .audit-field {
+            margin-bottom: 15px;
+        }
+        
+        .audit-label {
+            display: block;
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        .audit-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: white;
+        }
+        
+        .audit-input:focus {
+            outline: none;
+            border-color: #4a5568;
+            box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+        }
+        
+        .audit-textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .findings-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .findings-table th {
+            background-color: #2d3748;
+            color: white;
+            font-weight: bold;
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #4a5568;
+            white-space: nowrap;
+        }
+        
+        .findings-table td {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        
+        .findings-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        /* Estilos genéricos para badges ISO (sin números) */
+        .iso-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        
+        .badge-calidad {
+            background-color: #bee3f8;
+            color: #2c5282;
+            border: 1px solid #90cdf4;
+        }
+        
+        .badge-ambiental {
+            background-color: #c6f6d5;
+            color: #276749;
+            border: 1px solid #9ae6b4;
+        }
+        
+        .badge-seguridad {
+            background-color: #fed7d7;
+            color: #c53030;
+            border: 1px solid #fc8181;
+        }
+        
+        .nonconformity-badge {
+            display: inline-block;
+            background-color: #fed7d7;
+            color: #c53030;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .opportunity-badge {
+            display: inline-block;
+            background-color: #fefcbf;
+            color: #975a16;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .performance-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+        
+        .performance-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+            padding: 15px;
+            text-align: left;
+        }
+        
+        .performance-table td {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        
+        .risk-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+        
+        .risk-table th {
+            background-color: #2d3748;
+            color: white;
+            font-weight: bold;
+            padding: 15px;
+            text-align: left;
+        }
+        
+        .risk-table td {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        
+        .summary-box {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .conclusions-box {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .signatures-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .signature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .signature-block {
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+        
+        .signature-title {
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .signature-field {
+            margin-bottom: 15px;
+        }
+        
+        .signature-line {
+            height: 1px;
+            background-color: #cbd5e0;
+            margin: 20px 0;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .print-btn, .save-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+        
+        .save-btn {
+            background-color: #38a169;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        .save-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .toolbar, .action-buttons {
+                display: none !important;
+            }
+            
+            .findings-table, .performance-table, .risk-table {
+                page-break-inside: avoid;
+            }
+            
+            .audit-input, .audit-textarea {
+                border: 1px solid #999;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .toc-list {
+                columns: 1;
+            }
+            
+            .audit-info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .findings-table, .performance-table, .risk-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .signature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .print-btn, .save-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Barra de herramientas (botones) -->
+<div class="toolbar">
+<button id="btnEditar" title="Ativar/desativar edição do conteúdo">
+<i>✎</i> Editar
+        </button>
+<button id="btnHtml" title="Descarregar o documento como ficheiro HTML">
+<i>⬇️</i> Descarregar HTML
+        </button>
+<button id="btnPdf" title="Guardar como PDF (usar impressora → guardar como PDF)">
+<i>📄</i> Descarregar PDF
+        </button>
+</div>
+<div class="document-container">
+<!-- Cabeçalho com logo e informações da organização -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título do documento -->
+<div class="doc-title">Relatório de Auditoria Interna do Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-code">Código: FORM-015</div>
+<!-- Conteúdo principal (editable) -->
+<div class="content" id="mainContent">
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#introduccion">Introdução</a></li>
+<li class="toc-item"><a class="toc-link" href="#objetivo">Objetivo da Auditoria</a></li>
+<li class="toc-item"><a class="toc-link" href="#alcance">Âmbito da Auditoria</a></li>
+<li class="toc-item"><a class="toc-link" href="#metodologia">Metodologia da Auditoria</a></li>
+<li class="toc-item"><a class="toc-link" href="#hallazgos">Constatações da Auditoria</a></li>
+<li class="toc-item"><a class="toc-link" href="#evaluacion">Avaliação do Desempenho do SGI</a></li>
+<li class="toc-item"><a class="toc-link" href="#riesgos">Riscos e Oportunidades Identificados</a></li>
+<li class="toc-item"><a class="toc-link" href="#resumen">Resumo da Auditoria</a></li>
+<li class="toc-item"><a class="toc-link" href="#conclusiones">Conclusões e Recomendações</a></li>
+<li class="toc-item"><a class="toc-link" href="#firmas">Assinaturas</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Información de la auditoría -->
+<div class="audit-header">
+<div class="section-subtitle">Informação Geral da Auditoria</div>
+<div class="audit-info-grid">
+<div>
+<div class="audit-field">
+<label class="audit-label">Organização Auditada:</label>
+<input class="audit-input" id="organizacion" placeholder="Nome da organização" type="text"/>
+</div>
+<div class="audit-field">
+<label class="audit-label">Data da Auditoria:</label>
+<input class="audit-input" id="fecha-auditoria" type="date"/>
+</div>
+</div>
+<div>
+<div class="audit-field">
+<label class="audit-label">Auditor Líder:</label>
+<input class="audit-input" id="auditor-lider" placeholder="Nome do auditor líder" type="text"/>
+</div>
+<div class="audit-field">
+<label class="audit-label">Equipa Auditora:</label>
+<input class="audit-input" id="equipo-auditor" placeholder="Nomes dos auditores" type="text"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Introducción (texto modificado para referencias ISO genéricas) -->
+<div class="section" id="introduccion">
+<div class="section-title">Introdução</div>
+<p>Este relatório de auditoria interna tem como objetivo avaliar o desempenho e a conformidade do Sistema de Gestão Integrado (SGI) da organização, que abrange as <strong>normas ISO</strong> (gestão de qualidade, gestão ambiental e segurança e saúde no trabalho).</p>
+<p>A auditoria foi realizada com o objetivo de verificar o cumprimento dos requisitos estabelecidos por essas normas, identificar áreas de melhoria e assegurar que os processos operacionais estão alinhados com os objetivos estratégicos da empresa.</p>
+</div>
+<!-- Objetivo -->
+<div class="section" id="objetivo">
+<div class="section-title">1. Objetivo da Auditoria</div>
+<p>O objetivo desta auditoria é avaliar a <strong>conformidade, eficácia e desempenho</strong> do Sistema de Gestão Integrado (SGI) conforme as <strong>normativas ISO</strong>, com o objetivo de:</p>
+<ul style="margin-left: 20px; margin-top: 15px;">
+<li style="margin-bottom: 10px;">Identificar áreas de melhoria nos processos de qualidade, ambiente e segurança</li>
+<li style="margin-bottom: 10px;">Garantir o cumprimento dos requisitos normativos aplicáveis</li>
+<li style="margin-bottom: 10px;">Verificar a implementação efetiva dos processos do SGI</li>
+<li style="margin-bottom: 10px;">Avaliar a eficácia das ações corretivas e preventivas implementadas</li>
+<li>Proporcionar informação objetiva para a tomada de decisões da direção</li>
+</ul>
+</div>
+<!-- Alcance: modificado con badges genéricas -->
+<div class="section" id="alcance">
+<div class="section-title">2. Âmbito da Auditoria</div>
+<p>A auditoria cobre os processos e áreas operacionais do Sistema de Gestão Integrado (SGI) conforme os requisitos das seguintes normas:</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+<div style="background-color: #ebf8ff; padding: 20px; border-radius: 5px; border-left: 4px solid #3182ce;">
+<div class="section-subtitle" style="border-left: none; padding-left: 0; margin-top: 0;">
+<span class="iso-badge badge-calidad">ISO</span> Gestão de qualidade
+                        </div>
+<ul style="margin-left: 20px; margin-top: 10px;">
+<li>Satisfação do cliente e gestão de queixas</li>
+<li>Controlo de processos e produtos</li>
+<li>Melhoria contínua da qualidade</li>
+<li>Gestão de não conformidades</li>
+</ul>
+</div>
+<div style="background-color: #f0fff4; padding: 20px; border-radius: 5px; border-left: 4px solid #38a169;">
+<div class="section-subtitle" style="border-left: none; padding-left: 0; margin-top: 0;">
+<span class="iso-badge badge-ambiental">ISO</span> Gestão ambiental
+                        </div>
+<ul style="margin-left: 20px; margin-top: 10px;">
+<li>Controlo de aspetos e impactos ambientais</li>
+<li>Gestão de resíduos e emissões</li>
+<li>Cumprimento normativo ambiental</li>
+<li>Eficiência no uso de recursos</li>
+</ul>
+</div>
+<div style="background-color: #fff5f5; padding: 20px; border-radius: 5px; border-left: 4px solid #fc8181;">
+<div class="section-subtitle" style="border-left: none; padding-left: 0; margin-top: 0;">
+<span class="iso-badge badge-seguridad">ISO</span> Segurança e saúde
+                        </div>
+<ul style="margin-left: 20px; margin-top: 10px;">
+<li>Avaliação de riscos laborais</li>
+<li>Prevenção de acidentes e incidentes</li>
+<li>Condições de trabalho e ergonomia</li>
+<li>Equipamentos de proteção individual</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Metodología (sin cambios) -->
+<div class="section" id="metodologia">
+<div class="section-title">3. Metodologia da Auditoria</div>
+<p>A auditoria realizou-se através da seguinte metodologia:</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+<div style="text-align: center; padding: 20px; background-color: #f8f9fa; border-radius: 5px;">
+<div style="font-size: 36px; margin-bottom: 10px;">📄</div>
+<div style="font-weight: bold; color: #4a5568; margin-bottom: 10px;">Revisão de Documentação</div>
+<p style="font-size: 14px;">Análise de manuais, procedimentos, registos e auditorias anteriores do SGI</p>
+</div>
+<div style="text-align: center; padding: 20px; background-color: #f8f9fa; border-radius: 5px;">
+<div style="font-size: 36px; margin-bottom: 10px;">🗣️</div>
+<div style="font-weight: bold; color: #4a5568; margin-bottom: 10px;">Entrevistas</div>
+<p style="font-size: 14px;">Entrevistas com pessoal-chave para avaliar o conhecimento e o cumprimento de procedimentos</p>
+</div>
+<div style="text-align: center; padding: 20px; background-color: #f8f9fa; border-radius: 5px;">
+<div style="font-size: 36px; margin-bottom: 10px;">👁️</div>
+<div style="font-weight: bold; color: #4a5568; margin-bottom: 10px;">Observação Direta</div>
+<p style="font-size: 14px;">Inspeção de processos e atividades no local de trabalho</p>
+</div>
+<div style="text-align: center; padding: 20px; background-color: #f8f9fa; border-radius: 5px;">
+<div style="font-size: 36px; margin-bottom: 10px;">📊</div>
+<div style="font-weight: bold; color: #4a5568; margin-bottom: 10px;">Amostragem de Registos</div>
+<p style="font-size: 14px;">Revisão de registos de qualidade, ambiente e segurança laboral</p>
+</div>
+</div>
+</div>
+<!-- Hallazgos: modificadas las celdas de criterio -->
+<div class="section" id="hallazgos">
+<div class="section-title">4. Constatações da Auditoria</div>
+<p>As seguintes constatações foram identificadas durante a auditoria interna do SGI:</p>
+<table class="findings-table">
+<thead>
+<tr>
+<th>Critério Avaliado</th>
+<th>Observação</th>
+<th>Tipo de Constatação</th>
+<th>Ações Corretivas Propostas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<span class="iso-badge badge-calidad">ISO</span><br/>
+<strong>Gestão de qualidade</strong>
+</td>
+<td>
+<textarea class="audit-textarea" placeholder="Descrever observações sobre a qualidade e o desempenho de processos" style="min-height: 80px;"></textarea>
+</td>
+<td>
+<select class="audit-input" style="width: 100%;">
+<option value="">Selecionar tipo</option>
+<option value="nc">Não Conformidade</option>
+<option value="op">Oportunidade de Melhoria</option>
+<option value="co">Conformidade</option>
+</select>
+</td>
+<td>
+<textarea class="audit-textarea" placeholder="Propor ações corretivas e prazos" style="min-height: 80px;"></textarea>
+</td>
+</tr>
+<tr>
+<td>
+<span class="iso-badge badge-ambiental">ISO</span><br/>
+<strong>Gestão ambiental</strong>
+</td>
+<td>
+<textarea class="audit-textarea" placeholder="Descrever observações sobre o cumprimento ambiental" style="min-height: 80px;"></textarea>
+</td>
+<td>
+<select class="audit-input" style="width: 100%;">
+<option value="">Selecionar tipo</option>
+<option value="nc">Não Conformidade</option>
+<option value="op">Oportunidade de Melhoria</option>
+<option value="co">Conformidade</option>
+</select>
+</td>
+<td>
+<textarea class="audit-textarea" placeholder="Propor ações corretivas e prazos" style="min-height: 80px;"></textarea>
+</td>
+</tr>
+<tr>
+<td>
+<span class="iso-badge badge-seguridad">ISO</span><br/>
+<strong>Segurança e saúde</strong>
+</td>
+<td>
+<textarea class="audit-textarea" placeholder="Descrever observações sobre as condições de trabalho" style="min-height: 80px;"></textarea>
+</td>
+<td>
+<select class="audit-input" style="width: 100%;">
+<option value="">Selecionar tipo</option>
+<option value="nc">Não Conformidade</option>
+<option value="op">Oportunidade de Melhoria</option>
+<option value="co">Conformidade</option>
+</select>
+</td>
+<td>
+<textarea class="audit-textarea" placeholder="Propor ações corretivas e prazos" style="min-height: 80px;"></textarea>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Evaluación del desempeño: modificadas las celdas de área -->
+<div class="section" id="evaluacion">
+<div class="section-title">5. Avaliação do Desempenho do SGI</div>
+<table class="performance-table">
+<thead>
+<tr>
+<th>Área avaliada</th>
+<th>Pontos fortes identificados</th>
+<th>Áreas de Melhoria Identificadas</th>
+<th>Impacto no Desempenho Geral</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<span class="iso-badge badge-calidad">ISO</span><br/>
+<strong>Gestão de qualidade</strong>
+</td>
+<td>
+<textarea class="audit-textarea" placeholder="Detalhes dos pontos fortes" style="min-height: 80px;"></textarea>
+</td>
+<td>
+<textarea class="audit-textarea" placeholder="Detalhes das áreas de melhoria" style="min-height: 80px;"></textarea>
+</td>
+<td>
+<textarea class="audit-textarea" placeholder="Avaliação do impacto no desempenho global" style="min-height: 80px;"></textarea>
+</td>
+</tr>
+<tr>
+<td>
+<span class="iso-badge badge-ambiental">ISO</span><br/>
+<strong>Gestão ambiental</strong>
+</td>
+<td>
+<textarea class="audit-textarea" placeholder="Detalhes dos pontos fortes" style="min-height: 80px;"></textarea>
+</td>
+<td>
+<textarea class="audit-textarea" placeholder="Detalhes das áreas de melhoria" style="min-height: 80px;"></textarea>
+</td>
+<td>
+<textarea class="audit-textarea" placeholder="Avaliação do impacto no desempenho global" style="min-height: 80px;"></textarea>
+</td>
+</tr>
+<tr>
+<td>
+<span class="iso-badge badge-seguridad">ISO</span><br/>
+<strong>Segurança e saúde</strong>
+</td>
+<td>
+<textarea class="audit-textarea" placeholder="Detalhes dos pontos fortes" style="min-height: 80px;"></textarea>
+</td>
+<td>
+<textarea class="audit-textarea" placeholder="Detalhes das áreas de melhoria" style="min-height: 80px;"></textarea>
+</td>
+<td>
+<textarea class="audit-textarea" placeholder="Avaliação do impacto no desempenho global" style="min-height: 80px;"></textarea>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Riesgos y oportunidades (sin cambios) -->
+<div class="section" id="riesgos">
+<div class="section-title">6. Riscos e Oportunidades Identificados</div>
+<table class="risk-table">
+<thead>
+<tr>
+<th>Riscos identificados</th>
+<th>Oportunidades de melhoria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<textarea class="audit-textarea" placeholder="Descrever riscos que poderiam afetar o SGI" style="min-height: 100px;"></textarea>
+</td>
+<td>
+<textarea class="audit-textarea" placeholder="Descrever oportunidades de melhoria" style="min-height: 100px;"></textarea>
+</td>
+</tr>
+<tr>
+<td>
+<textarea class="audit-textarea" placeholder="Exemplo: falta de formação do pessoal em novos procedimentos" style="min-height: 100px;"></textarea>
+</td>
+<td>
+<textarea class="audit-textarea" placeholder="Exemplo: implementar programa de formação contínua e certificação" style="min-height: 100px;"></textarea>
+</td>
+</tr>
+<tr>
+<td>
+<textarea class="audit-textarea" placeholder="Exemplo: não conformidades ambientais recorrentes na gestão de resíduos" style="min-height: 100px;"></textarea>
+</td>
+<td>
+<textarea class="audit-textarea" placeholder="Exemplo: melhorar o sistema de segregação e reciclagem de resíduos" style="min-height: 100px;"></textarea>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Resumen -->
+<div class="section" id="resumen">
+<div class="section-title">7. Resumo da Auditoria</div>
+<div class="summary-box">
+<div class="section-subtitle" style="border-left: none; padding-left: 0;">Avaliação Geral</div>
+<div style="margin-bottom: 20px;">
+<label class="audit-label">Cumprimento de requisitos normativos:</label>
+<textarea class="audit-textarea" placeholder="Avaliar o grau de cumprimento das normas ISO"></textarea>
+</div>
+<div style="margin-bottom: 20px;">
+<label class="audit-label">Desempeño do Sistema de Gestão Integrado:</label>
+<textarea class="audit-textarea" placeholder="Avaliar se os processos são eficazes e se se estão a alcançar os objetivos de qualidade, ambiente e segurança"></textarea>
+</div>
+<div>
+<label class="audit-label">Ações Corretivas e de Melhoria:</label>
+<textarea class="audit-textarea" placeholder="Resumo de ações corretivas e melhorias propostas"></textarea>
+</div>
+</div>
+</div>
+<!-- Conclusiones y recomendaciones -->
+<div class="section" id="conclusiones">
+<div class="section-title">8. Conclusões e Recomendações</div>
+<div class="conclusions-box">
+<div class="section-subtitle" style="border-left: none; padding-left: 0;">Conclusões Gerais</div>
+<div style="margin-bottom: 20px;">
+<label class="audit-label">Estado do SGI:</label>
+<textarea class="audit-textarea" placeholder="O SGI [cumpre/não cumpre] os requisitos estabelecidos pelas normas ISO"></textarea>
+</div>
+<div style="margin-bottom: 20px;">
+<label class="audit-label">Ações Requeridas:</label>
+<textarea class="audit-textarea" placeholder="Requer-se a implementação de [ações corretivas/processos de melhoria] para abordar as áreas de não conformidade e aproveitar as oportunidades de melhoria"></textarea>
+</div>
+<div>
+<label class="audit-label">Recomendações para a direção:</label>
+<textarea class="audit-textarea" placeholder="Resumo de recomendações para melhorar a eficácia do SGI"></textarea>
+</div>
+</div>
+</div>
+<!-- Firmas -->
+<div class="section signatures-section" id="firmas">
+<div class="section-title">9. Assinaturas</div>
+<div class="signature-grid">
+<div class="signature-block">
+<div class="signature-title">Auditor Líder</div>
+<div class="signature-field">
+<label class="audit-label">Nome:</label>
+<input class="audit-input" placeholder="Nome do auditor líder" type="text"/>
+</div>
+<div class="signature-field">
+<label class="audit-label">Assinatura:</label>
+<div class="signature-line"></div>
+</div>
+<div class="signature-field">
+<label class="audit-label">Data:</label>
+<input class="audit-input" type="date"/>
+</div>
+</div>
+<div class="signature-block">
+<div class="signature-title">Auditor 2 (se aplicável)</div>
+<div class="signature-field">
+<label class="audit-label">Nome:</label>
+<input class="audit-input" placeholder="Nome do auditor 2" type="text"/>
+</div>
+<div class="signature-field">
+<label class="audit-label">Assinatura:</label>
+<div class="signature-line"></div>
+</div>
+<div class="signature-field">
+<label class="audit-label">Data:</label>
+<input class="audit-input" type="date"/>
+</div>
+</div>
+<div class="signature-block">
+<div class="signature-title">Aprovação da direção</div>
+<div class="signature-field">
+<label class="audit-label">Nome:</label>
+<input class="audit-input" placeholder="Nome do representante da Direção" type="text"/>
+</div>
+<div class="signature-field">
+<label class="audit-label">Assinatura:</label>
+<div class="signature-line"></div>
+</div>
+<div class="signature-field">
+<label class="audit-label">Data:</label>
+<input class="audit-input" type="date"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Botones de acción originales (se mantienen) -->
+<div class="action-buttons">
+<button class="save-btn" onclick="guardarAuditoria()">💾 Guardar Relatório</button>
+<button class="print-btn" onclick="window.print()">📄 Imprimir documento</button>
+</div>
+<!-- Histórico de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div> <!-- fin .content -->
+<!-- Rodapé -->
+<div class="footer">
+<p>Código: FORM-015 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div> <!-- fin .document-container -->
+<script>
+        (function() {
+            // Elementos para la barra de herramientas
+            const contentEl = document.getElementById('mainContent');
+            const btnEditar = document.getElementById('btnEditar');
+            const btnHtml = document.getElementById('btnHtml');
+            const btnPdf = document.getElementById('btnPdf');
+
+            // Estado de edición
+            let editable = false;
+
+            // Función para alternar edición
+            function toggleEdicion() {
+                editable = !editable;
+                if (editable) {
+                    contentEl.setAttribute('contenteditable', 'true');
+                    contentEl.classList.add('editable-active');
+                    btnEditar.classList.add('editar-activo');
+                    btnEditar.innerHTML = '<i>🔒</i> Desativar edição';
+                } else {
+                    contentEl.removeAttribute('contenteditable');
+                    contentEl.classList.remove('editable-active');
+                    btnEditar.classList.remove('editar-activo');
+                    btnEditar.innerHTML = '<i>✎</i> Editar';
+                }
+            }
+
+            btnEditar.addEventListener('click', toggleEdicion);
+
+            // Descargar HTML
+            function descargarHTML() {
+                const styles = document.querySelector('style').innerHTML;
+                const containerHTML = document.querySelector('.document-container').outerHTML;
+                const htmlCompleto = `<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte de Auditoria Interna SGI</title>
+    <style>${styles}</style>
+</head>
+<body>
+    ${containerHTML}
+</body>
+</html>`;
+
+                const blob = new Blob([htmlCompleto], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'reporte_auditoria_interna_SGI.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+
+            btnHtml.addEventListener('click', descargarHTML);
+
+            // PDF (usando impresión)
+            btnPdf.addEventListener('click', function() {
+                window.print();
+            });
+
+            // Scroll suave para la tabla de contenidos
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Logo fallback
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                    console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+                };
+            }
+
+            // Data por defecto en campo de fecha
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0];
+            const fechaInput = document.getElementById('fecha-auditoria');
+            if (fechaInput) fechaInput.value = formattedDate;
+
+            // Función guardarAuditoria (original)
+            window.guardarAuditoria = function() {
+                const organizacion = document.getElementById('organizacion').value;
+                const auditorLider = document.getElementById('auditor-lider').value;
+                
+                if (!organizacion || !auditorLider) {
+                    alert('Por favor, preencha os campos obrigatórios: Organização Auditada e Auditor Líder.');
+                    return;
+                }
+                
+                alert('✅ Relatório de auditoria guardado corretamente. (Simulação)');
+            };
+        })();
+    </script>
+</body>
+</html>

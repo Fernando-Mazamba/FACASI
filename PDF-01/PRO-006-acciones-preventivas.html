@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PRO-006 - Ações Preventivas - SGI (Editable)</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        /* Barra de herramientas superior */
+        .toolbar {
+            max-width: 1400px;
+            margin: 0 auto 15px auto;
+            background-color: #2d3748;
+            border-radius: 40px;
+            padding: 12px 25px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: flex-end;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .toolbar button {
+            background-color: #edf2f7;
+            border: none;
+            color: #2d3748;
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        
+        .toolbar button:hover {
+            background-color: #cbd5e0;
+            transform: scale(1.02);
+        }
+        
+        .toolbar button.editar-activo {
+            background-color: #38a169;
+            color: white;
+        }
+        
+        .toolbar button i { font-style: normal; font-size: 1.2em; }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .logo-container:hover {
+            box-shadow: 0 0 0 2px #fbbf24;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        /* Resaltado cuando la edición está activa */
+        .content.editable-active {
+            outline: 3px dashed #38a169;
+            outline-offset: 8px;
+            background-color: #fffff0;
+            border-radius: 12px;
+            transition: outline 0.2s;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-subtitle {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+        }
+        
+        .objective-box {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .objective-title {
+            color: #276749;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .procedure-container {
+            margin: 25px 0;
+        }
+        
+        .procedure-step {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            counter-increment: step-counter;
+        }
+        
+        .procedure-step::before {
+            content: counter(step-counter) ".";
+            color: #4a5568;
+            font-weight: bold;
+            font-size: 20px;
+            margin-right: 10px;
+        }
+        
+        .procedure-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #cbd5e0;
+        }
+        
+        .procedure-content {
+            line-height: 1.7;
+        }
+        
+        .procedure-list {
+            list-style-type: none;
+            margin-top: 15px;
+        }
+        
+        .procedure-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .procedure-list li:before {
+            content: "•";
+            color: #4a5568;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .preventive-box {
+            background-color: #e6fffa;
+            border: 1px solid #81e6d9;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #38b2ac;
+        }
+        
+        .preventive-title {
+            color: #234e52;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .risk-box {
+            background-color: #fed7d7;
+            border: 1px solid #fc8181;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #e53e3e;
+        }
+        
+        .risk-title {
+            color: #c53030;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .action-box {
+            background-color: #c6f6d5;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .action-title {
+            color: #276749;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .analysis-box {
+            background-color: #e6fffa;
+            border: 1px solid #81e6d9;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #38b2ac;
+        }
+        
+        .analysis-title {
+            color: #234e52;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .responsibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .responsibility-table th, .responsibility-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .responsibility-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .highlight-box {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .reference-box {
+            background-color: #fffaf0;
+            border: 1px solid #fbd38d;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #d69e2e;
+        }
+        
+        .reference-title {
+            color: #b7791f;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .form-box {
+            background-color: #f7fafc;
+            border: 2px dashed #cbd5e0;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .form-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .form-field {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #4a5568;
+        }
+        
+        .form-value {
+            color: #2d3748;
+            padding-left: 10px;
+        }
+        
+        .technique-box {
+            background-color: #fefcbf;
+            border: 1px solid #f6e05e;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #d69e2e;
+        }
+        
+        .technique-title {
+            color: #b7791f;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .toolbar, .print-btn {
+                display: none !important;
+            }
+            
+            .procedure-step {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .toolbar {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Barra de herramientas (botones) -->
+<div class="toolbar">
+<button id="btnEditar" title="Ativar/desativar edição do conteúdo">
+<i>✎</i> Editar
+        </button>
+<button id="btnHtml" title="Descarregar o documento como ficheiro HTML">
+<i>⬇️</i> Descarregar HTML
+        </button>
+<button id="btnPdf" title="Guardar como PDF (usar impressora → guardar como PDF)">
+<i>📄</i> Descarregar PDF
+        </button>
+</div>
+<div class="document-container">
+<!-- Cabecera con logo e información de la organización - Logo apuntando a logo/logo.png -->
+<div class="header">
+<div class="logo-container" id="logoContainer" title="Clique para alterar o logótipo">
+<img alt="Logótipo da Organização" class="logo" id="logoImg" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,&lt;svg xmlns=\'http://www.w3.org/2000/svg\' width=\'180\' height=\'80\' viewBox=\'0 0 180 80\'&gt;&lt;rect width=\'180\' height=\'80\' fill=\'white\'/&gt;&lt;text x=\'90\' y=\'40\' font-family=\'Arial\' font-size=\'12\' text-anchor=\'middle\' fill=\'%234a5568\' dy=\'5\'&gt;LOGO EMPRESA&lt;/text&gt;&lt;/svg&gt;';" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name" id="orgName">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+<span id="fechaEmision">Pendente de validação</span>
+</div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+<span id="elabora">ESGI</span>
+</div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+<span id="aprueba">CEO</span>
+</div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+<span id="versionDoc">000</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Título del documento -->
+<div class="doc-title" id="docTitle">Ações Preventivas</div>
+<div class="doc-code" id="docCode">Código: PRO-006</div>
+<!-- Contenido principal (editable) -->
+<div class="content" id="mainContent">
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#objetivo">Objetivo</a></li>
+<li class="toc-item"><a class="toc-link" href="#alcance">Alcance</a></li>
+<li class="toc-item"><a class="toc-link" href="#responsabilidades">Responsabilidades</a></li>
+<li class="toc-item"><a class="toc-link" href="#procedimiento">Procedimento</a></li>
+<li class="toc-item"><a class="toc-link" href="#seguimiento">Acompanhamento e avaliação de Eficácia</a></li>
+<li class="toc-item"><a class="toc-link" href="#documentacion">Documentação Relacionada</a></li>
+<li class="toc-item"><a class="toc-link" href="#referencias">Referências Normativas</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Sección 1: Objetivo -->
+<div class="section" id="objetivo">
+<div class="section-title">1. Objetivo</div>
+<div class="objective-box">
+<div class="objective-title">Propósito do Procedimento</div>
+<p><strong>O objetivo deste procedimento é estabelecer um processo sistemático para a identificação, análise e gestão de riscos potenciais dentro do Sistema de Gestão Integrado (SGI) da FACASI</strong>, de forma a prevenir a ocorrência de não conformidades, incidentes e situações indesejadas. Assenta nos requisitos das normas ISO 9001:2015 (cláusula 6.1 — Ações para tratar riscos e oportunidades) e ISO 45001:2018 (cláusula 6.1), promovendo uma abordagem proativa à melhoria contínua.</p>
+</div>
+</div>
+<!-- Sección 2: Alcance -->
+<div class="section" id="alcance">
+<div class="section-title">2. Alcance</div>
+<p>Este procedimento é aplicável a todas as áreas e processos da FACASI que fazem parte do SGI. Abrange a identificação de riscos potenciais, a análise das suas causas, a definição e implementação de ações preventivas e a verificação da sua eficácia.</p>
+<div class="highlight-box">
+<p><strong>Áreas abrangidas:</strong> qualidade, segurança e saúde no trabalho, processos operacionais de inspeção e manutenção, processos administrativos e de apoio.</p>
+</div>
+<div class="preventive-box">
+<div class="preventive-title">Fontes de Identificação de Riscos</div>
+<ul class="procedure-list">
+<li>Análise de tendências de não conformidades anteriores</li>
+<li>Resultados de auditorias internas e externas</li>
+<li>Revisão pela Direção do SGI</li>
+<li>Análise de dados e desempenho de processos</li>
+<li>Alterações na legislação ou nos requisitos normativos</li>
+<li>Introdução de novas técnicas de ensaio, equipamentos ou serviços</li>
+<li>Avaliações de riscos e oportunidades (PRO-019)</li>
+<li>Quase-acidentes e condições inseguras reportadas pelos trabalhadores</li>
+<li>Feedback de clientes e outras partes interessadas</li>
+</ul>
+</div>
+</div>
+<!-- Sección 3: Responsabilidades -->
+<div class="section" id="responsabilidades">
+<div class="section-title">3. Responsabilidades</div>
+<table class="responsibility-table">
+<thead>
+<tr><th>Função</th><th>Responsabilidade</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Coordenador do SGI</strong></td><td>Coordena e supervisiona a identificação de riscos e a implementação de ações preventivas em toda a organização, assegurando que são definidas e executadas dentro dos prazos estabelecidos.</td></tr>
+<tr><td><strong>Gerentes de Área</strong></td><td>Identificam riscos potenciais nas suas áreas, participam na análise de causas e colaboram na implementação das ações preventivas.</td></tr>
+<tr><td><strong>Gerente de Operações e Coordenador/Fiscalizador</strong></td><td>Identificam riscos operacionais associados aos trabalhos de inspeção e manutenção, e asseguram a aplicação das medidas preventivas em campo.</td></tr>
+<tr><td><strong>Auditores Internos</strong></td><td>Verificam, durante as auditorias internas, a eficácia das ações preventivas implementadas.</td></tr>
+<tr><td><strong>Alta Direção (CEO)</strong></td><td>Disponibiliza os recursos necessários à implementação das ações preventivas e revê os resultados na Revisão pela Direção.</td></tr>
+</tbody>
+</table>
+</div>
+<!-- Sección 4: Procedimento -->
+<div class="section" id="procedimiento">
+<div class="section-title">4. Procedimento</div>
+<p>A organização implementa o seguinte processo sistemático para a gestão de ações preventivas:</p>
+<div class="procedure-container">
+<div class="procedure-step">
+<div class="procedure-title">Identificação de Riscos e Oportunidades</div>
+<div class="procedure-content">
+<p>São identificados de forma proativa os riscos potenciais que possam afetar o desempenho do SGI, considerando fatores internos e externos.</p>
+<div class="risk-box">
+<div class="risk-title">Áreas de Análise Preventiva</div>
+<ul class="procedure-list">
+<li>Alterações em processos, métodos de ensaio ou equipamentos</li>
+<li>Novos requisitos legais ou normativos</li>
+<li>Tendências de não conformidades recorrentes</li>
+<li>Reclamações de clientes ou de outras partes interessadas</li>
+<li>Resultados de avaliações de desempenho</li>
+<li>Condições de contexto (mercado, disponibilidade de pessoal qualificado, cadeia de fornecimento)</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="procedure-step">
+<div class="procedure-title">Avaliação e Priorização de Riscos</div>
+<div class="procedure-content">
+<p>Os riscos identificados são avaliados conforme a sua probabilidade de ocorrência e impacto potencial, estabelecendo prioridades para a implementação de ações preventivas.</p>
+<div class="technique-box">
+<div class="technique-title">Métodos de Avaliação de Riscos</div>
+<ul class="procedure-list">
+<li><strong>Matriz de riscos:</strong> avaliação qualitativa de probabilidade vs. impacto</li>
+<li><strong>Análise de modos de falha:</strong> identificação sistemática de falhas potenciais em processos e equipamentos</li>
+<li><strong>Análise de causas potenciais:</strong> identificação de causas antes da ocorrência da falha</li>
+<li><strong>Análise de cenários:</strong> avaliação de situações futuras possíveis</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="procedure-step">
+<div class="procedure-title">Definição de Ações Preventivas</div>
+<div class="procedure-content">
+<p>Para cada risco priorizado são definidas ações preventivas que eliminem ou reduzam a probabilidade de ocorrência ou o impacto potencial.</p>
+<div class="action-box">
+<div class="action-title">Tipos de Ações Preventivas</div>
+<ul class="procedure-list">
+<li><strong>Controlos de engenharia:</strong> barreiras físicas e sistemas de proteção</li>
+<li><strong>Controlos administrativos:</strong> procedimentos, instruções de trabalho, permissões de trabalho</li>
+<li><strong>Formação preventiva:</strong> formação antecipada do pessoal, incluindo requalificação técnica</li>
+<li><strong>Manutenção e calibração preventivas:</strong> planos programados para os equipamentos de inspeção e medição</li>
+<li><strong>Redundância:</strong> meios alternativos para processos críticos</li>
+<li><strong>Monitorização precoce:</strong> indicadores de alerta antecipada</li>
+</ul>
+</div>
+<div class="form-box">
+<div class="form-title">PLANO DE AÇÃO PREVENTIVA</div>
+<div class="form-field"><div class="form-label">Risco identificado:</div><div class="form-value">________________________________</div></div>
+<div class="form-field"><div class="form-label">Ação preventiva definida:</div><div class="form-value">________________________________</div></div>
+<div class="form-field"><div class="form-label">Responsável pela implementação:</div><div class="form-value">________________________________</div></div>
+<div class="form-field"><div class="form-label">Data-limite de implementação:</div><div class="form-value">________________________________</div></div>
+<div class="form-field"><div class="form-label">Recursos necessários:</div><div class="form-value">________________________________</div></div>
+<div class="form-field"><div class="form-label">Indicadores de acompanhamento:</div><div class="form-value">________________________________</div></div>
+</div>
+</div>
+</div>
+<div class="procedure-step">
+<div class="procedure-title">Implementação das Ações Preventivas</div>
+<div class="procedure-content">
+<p>As ações preventivas são implementadas conforme planeado, assegurando a disponibilidade de recursos e a comunicação eficaz ao pessoal envolvido.</p>
+<div class="highlight-box">
+<p><strong>Princípio da oportunidade:</strong> as ações preventivas devem ser implementadas antes da ocorrência dos eventos indesejados, antecipando-se às causas potenciais.</p>
+</div>
+</div>
+</div>
+<div class="procedure-step">
+<div class="procedure-title">Acompanhamento e Avaliação da Eficácia</div>
+<div class="procedure-content">
+<p>É realizado um acompanhamento contínuo para verificar que as ações preventivas implementadas são eficazes na prevenção de não conformidades ou incidentes.</p>
+<div class="analysis-box">
+<div class="analysis-title">Critérios de Eficácia</div>
+<ul class="procedure-list">
+<li>Redução na taxa de não conformidades relacionadas</li>
+<li>Ausência de ocorrência do evento previsto no período definido</li>
+<li>Melhoria nos indicadores de desempenho preventivos</li>
+<li>Resultados positivos em auditorias específicas</li>
+<li>Retorno positivo do pessoal envolvido</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="procedure-step">
+<div class="procedure-title">Documentação e Encerramento</div>
+<div class="procedure-content">
+<p>Verificada a eficácia, documenta-se o encerramento da ação preventiva e atualizam-se os registos correspondentes do SGI.</p>
+<div class="action-box">
+<div class="action-title">Registos Exigidos</div>
+<ul class="procedure-list">
+<li>Registo de identificação de riscos</li>
+<li>Plano de Ação Preventiva</li>
+<li>Evidências de implementação</li>
+<li>Relatório de avaliação da eficácia</li>
+<li>Registo de encerramento da ação preventiva</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sección 5: Seguimiento y Evaluación de Efectividad -->
+<div class="section" id="seguimiento">
+<div class="section-title">5. Acompanhamento e Avaliação da Eficácia</div>
+<div class="procedure-container">
+<div class="procedure-step">
+<div class="procedure-title">Monitorização Contínua de Riscos</div>
+<div class="procedure-content">
+<p>A monitorização dos riscos e das ações preventivas é realizada de forma contínua, com revisões periódicas coordenadas pelo Coordenador do SGI.</p>
+<div class="preventive-box">
+<div class="preventive-title">Frequência de Revisão</div>
+<ul class="procedure-list">
+<li>Revisão periódica dos indicadores de alerta antecipada</li>
+<li>Avaliação periódica da eficácia das ações preventivas</li>
+<li>Revisão da matriz de riscos sempre que ocorram alterações relevantes</li>
+<li>Revisão anual na Revisão pela Direção do SGI</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="procedure-step">
+<div class="procedure-title">Análise de Tendências Preventivas</div>
+<div class="procedure-content">
+<p>São analisadas as tendências dos riscos identificados e das ações preventivas implementadas, para identificar oportunidades de melhoria do sistema.</p>
+<div class="analysis-box">
+<div class="analysis-title">Indicadores Preventivos</div>
+<ul class="procedure-list">
+<li>% de riscos identificados com ações preventivas definidas</li>
+<li>% de ações preventivas implementadas dentro do prazo</li>
+<li>% de ações preventivas eficazes</li>
+<li>Redução de não conformidades evitáveis</li>
+<li>Tempo médio de implementação das ações preventivas</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sección 6: Documentação Relacionada -->
+<div class="section" id="documentacion">
+<div class="section-title">6. Documentação Relacionada</div>
+<ul class="procedure-list">
+<li>Matriz de Riscos e Oportunidades</li>
+<li>Plano de Ação Preventiva</li>
+<li>PRO-019 — Procedimento de Avaliação de Riscos e Oportunidades</li>
+<li>PRO-005 — Procedimento de Ações Corretivas</li>
+<li>PRO-002 — Procedimento de Controlo de Registos</li>
+<li>Manual do Sistema de Gestão Integrado</li>
+</ul>
+</div>
+<!-- Sección 7: Referencias Normativas -->
+<div class="section" id="referencias">
+<div class="section-title">7. Referências Normativas</div>
+<div class="reference-box">
+<div class="reference-title">Normas de Referência</div>
+<ul class="procedure-list">
+<li><strong>ISO 9001:2015</strong> — Sistemas de Gestão da Qualidade (cláusula 6.1 — Abordagem baseada em risco)</li>
+<li><strong>ISO 45001:2018</strong> — Sistemas de Gestão de Segurança e Saúde no Trabalho (cláusula 6.1 — Ações para tratar riscos e oportunidades)</li>
+<li>Requisitos legais e regulamentares angolanos aplicáveis à prevenção de riscos</li>
+</ul>
+</div>
+</div>
+<!-- Botón de impresión -->
+<button class="print-btn" onclick="window.print()">📄 Imprimir documento</button>
+<!-- Histórico de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead><tr><th>Versão</th><th>Data</th><th>Descrição</th><th>Aprova</th></tr></thead>
+<tbody>
+<tr><td>000</td><td>Pendente de validação</td><td>Original (ISO 9001, 45001)</td><td>CEO</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div> <!-- fin .content -->
+<!-- Pie de página -->
+<div class="footer">
+<p id="footerText">Código: PRO-006 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div> <!-- fin .document-container -->
+<script>
+        (function() {
+            const contentEl = document.getElementById('mainContent');
+            const btnEditar = document.getElementById('btnEditar');
+            const btnHtml = document.getElementById('btnHtml');
+            const btnPdf = document.getElementById('btnPdf');
+            const logoContainer = document.getElementById('logoContainer');
+            const logoImg = document.getElementById('logoImg');
+
+            let editable = false;
+
+            // Hacer que todos los elementos del contenido sean editables individualmente
+            function makeAllContentEditable(enable) {
+                const editableElements = contentEl.querySelectorAll('.section-title, .objective-box p, .objective-title, .section p, .procedure-step, .procedure-title, .procedure-content, .procedure-list li, .highlight-box p, .preventive-box, .risk-box, .action-box, .analysis-box, .technique-box, .form-box, .form-value, .reference-box p, .reference-title, .version-table td, .version-table th');
+                
+                editableElements.forEach(el => {
+                    if (enable) {
+                        el.setAttribute('contenteditable', 'true');
+                    } else {
+                        el.setAttribute('contenteditable', 'false');
+                    }
+                });
+                
+                // También hacer editables los títulos principales y pie de página
+                const docTitle = document.getElementById('docTitle');
+                const docCode = document.getElementById('docCode');
+                const orgName = document.getElementById('orgName');
+                const fechaEmision = document.getElementById('fechaEmision');
+                const elabora = document.getElementById('elabora');
+                const aprueba = document.getElementById('aprueba');
+                const versionDoc = document.getElementById('versionDoc');
+                const footerText = document.getElementById('footerText');
+                
+                if (enable) {
+                    docTitle.setAttribute('contenteditable', 'true');
+                    docCode.setAttribute('contenteditable', 'true');
+                    orgName.setAttribute('contenteditable', 'true');
+                    fechaEmision.setAttribute('contenteditable', 'true');
+                    elabora.setAttribute('contenteditable', 'true');
+                    aprueba.setAttribute('contenteditable', 'true');
+                    versionDoc.setAttribute('contenteditable', 'true');
+                    footerText.setAttribute('contenteditable', 'true');
+                } else {
+                    docTitle.removeAttribute('contenteditable');
+                    docCode.removeAttribute('contenteditable');
+                    orgName.removeAttribute('contenteditable');
+                    fechaEmision.removeAttribute('contenteditable');
+                    elabora.removeAttribute('contenteditable');
+                    aprueba.removeAttribute('contenteditable');
+                    versionDoc.removeAttribute('contenteditable');
+                    footerText.removeAttribute('contenteditable');
+                }
+            }
+            
+            function toggleEdicion() {
+                editable = !editable;
+                if (editable) {
+                    makeAllContentEditable(true);
+                    contentEl.classList.add('editable-active');
+                    btnEditar.classList.add('editar-activo');
+                    btnEditar.innerHTML = '<i>🔒</i> Desativar edição';
+                } else {
+                    makeAllContentEditable(false);
+                    contentEl.classList.remove('editable-active');
+                    btnEditar.classList.remove('editar-activo');
+                    btnEditar.innerHTML = '<i>✎</i> Editar';
+                }
+            }
+            
+            btnEditar.addEventListener('click', toggleEdicion);
+            
+            // Descargar HTML
+            function descargarHTML() {
+                // Desactivar modo edición temporalmente para la exportación
+                const wasEditable = editable;
+                if (wasEditable) toggleEdicion();
+                
+                const styles = document.querySelector('style').innerHTML;
+                const containerHTML = document.querySelector('.document-container').cloneNode(true);
+                // Remover botones de edición de la copia
+                const toolbarClone = document.querySelector('.toolbar').cloneNode(true);
+                
+                const htmlCompleto = `<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRO-006 Ações Preventivas - SGI</title>
+    <style>${styles}</style>
+</head>
+<body>
+    ${document.querySelector('.toolbar').outerHTML}
+    ${document.querySelector('.document-container').outerHTML}
+</body>
+</html>`;
+                
+                const blob = new Blob([htmlCompleto], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'PRO-006_acciones_preventivas.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                if (wasEditable) toggleEdicion();
+                alert('📥 Ficheiro HTML descarregado com sucesso.');
+            }
+            
+            btnHtml.addEventListener('click', descargarHTML);
+            
+            // PDF (impresión)
+            btnPdf.addEventListener('click', function() {
+                window.print();
+            });
+            
+            // Logo editable
+            logoContainer.addEventListener('click', function() {
+                const newUrl = prompt('Introduza o URL da nova imagem do logótipo:', logoImg.src);
+                if (newUrl && newUrl.trim() !== '') {
+                    logoImg.src = newUrl;
+                }
+            });
+            
+            // Scroll suave para enlaces del TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Reiniciar contadores de CSS
+            document.body.style.counterReset = 'section-counter step-counter';
+            
+            console.log('Documento PRO-006 - Ações Preventivas - 100% editável');
+        })();
+    </script>
+</body>
+</html>

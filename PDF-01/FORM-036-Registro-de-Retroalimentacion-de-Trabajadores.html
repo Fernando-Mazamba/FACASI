@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FORM-036 Registo de Feedback dos Trabalhadores - SGI (Editável)</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 180px;
+            height: 100px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .logo-container:hover {
+            box-shadow: 0 0 0 2px #90cdf4;
+        }
+        .logo-container:hover::after {
+            content: "🔍 Cambiar";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(74, 85, 104, 0.9);
+            color: white;
+            font-size: 12px;
+            text-align: center;
+            padding: 4px;
+            pointer-events: none;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background-color: rgba(255,255,255,0.1);
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: text;
+        }
+        .org-name[contenteditable="true"]:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+            background-color: rgba(255,255,255,0.1);
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: text;
+        }
+        .doc-info-item[contenteditable="true"]:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        .doc-info-item strong {
+            display: block;
+            margin-bottom: 4px;
+            color: #e2e8f0;
+        }
+        
+        .doc-title {
+            font-size: 26px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 25px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+            cursor: text;
+        }
+        .doc-title[contenteditable="true"]:hover {
+            background-color: #f7fafc;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 25px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+            cursor: text;
+        }
+        .doc-code[contenteditable="true"]:hover {
+            background-color: #f7fafc;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .objective-box {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4a5568;
+        }
+        
+        .objective-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            cursor: text;
+        }
+        .objective-title[contenteditable="true"]:hover {
+            background-color: #edf2f7;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            cursor: text;
+        }
+        .section-title[contenteditable="true"]:hover {
+            background-color: #f7fafc;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+        }
+        
+        .form-section-title {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+            cursor: text;
+        }
+        .form-section-title[contenteditable="true"]:hover {
+            background-color: #edf2f7;
+        }
+        
+        .form-field {
+            margin-bottom: 25px;
+        }
+        
+        .field-label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #4a5568;
+        }
+        
+        .field-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #fff;
+            transition: border-color 0.3s;
+        }
+        
+        .field-input:focus {
+            outline: none;
+            border-color: #4a5568;
+            box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+        }
+        
+        .field-input.underline {
+            border: none;
+            border-bottom: 1px solid #cbd5e0;
+            border-radius: 0;
+            padding: 10px 0;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 30px;
+            margin-top: 10px;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .radio-option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+        }
+        
+        .textarea-field {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-size: 16px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            resize: vertical;
+        }
+        
+        .signature-area {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .signature-field {
+            display: inline-block;
+            width: 48%;
+            margin-right: 4%;
+            vertical-align: top;
+        }
+        
+        .signature-line {
+            width: 100%;
+            height: 1px;
+            background-color: #333;
+            margin-top: 60px;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        .version-table td[contenteditable="true"] {
+            background-color: #fff;
+            cursor: text;
+        }
+        .version-table td[contenteditable="true"]:hover {
+            background-color: #f0f4f8;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+            cursor: text;
+        }
+        .footer[contenteditable="true"]:hover {
+            background-color: #edf2f7;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .save-btn, .download-btn, .print-btn {
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+        
+        .save-btn {
+            background-color: #38a169;
+        }
+        .save-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .download-btn {
+            background-color: #805ad5;
+        }
+        .download-btn:hover {
+            background-color: #6b46c1;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+        }
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        /* Estilo para elementos editables */
+        [contenteditable="true"] {
+            outline: none;
+            transition: background-color 0.2s;
+        }
+        [contenteditable="true"]:focus {
+            background-color: #ebf8ff;
+            box-shadow: 0 0 0 2px #90cdf4;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .action-buttons {
+                display: none;
+            }
+            
+            .field-input.underline {
+                border-bottom: 1px solid #999;
+            }
+
+            [contenteditable="true"] {
+                background-color: transparent !important;
+                box-shadow: none !important;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 22px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .signature-field {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .radio-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .save-btn, .download-btn, .print-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container" id="documentoPrincipal">
+<!-- Cabeçalho com logo e informações da organización - Tudo editável -->
+<div class="header">
+<div class="logo-container" id="logoContainer" title="Clique para alterar o logótipo (caminho atual: logo/logo.png)">
+<img alt="Logótipo da Organização" class="logo" id="logoImg" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name" contenteditable="true">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item" contenteditable="true">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item" contenteditable="true">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item" contenteditable="true">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item" contenteditable="true">
+<strong>Versão:</strong><br/>
+                        001
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título do documento - editável -->
+<div class="doc-title" contenteditable="true">Registo de Feedback dos Trabalhadores</div>
+<div class="doc-code" contenteditable="true">Código: FORM-036</div>
+<!-- Conteúdo principal -->
+<div class="content">
+<!-- Objetivo - editável -->
+<div class="objective-box">
+<div class="objective-title" contenteditable="true">Objetivo:</div>
+<p contenteditable="true">Recolher as opiniões, sugestões e preocupações dos trabalhadores em relação à segurança e saúde no trabalho, bem como às condições laborais em geral. Este registo ajudará o Comité de Segurança e Saúde no Trabalho a melhorar as políticas e práticas implementadas.</p>
+</div>
+<!-- Seção 1: Información del Trabajador -->
+<div class="section">
+<div class="section-title" contenteditable="true">1. Informação do trabalhador</div>
+<div class="form-field">
+<label class="field-label">Nome do trabalhador:</label>
+<input class="field-input underline" placeholder="Introduza o seu nome completo" type="text"/>
+</div>
+<div class="form-field">
+<label class="field-label">Departamento:</label>
+<input class="field-input underline" placeholder="Introduza o seu departamento" type="text"/>
+</div>
+<div class="form-field">
+<label class="field-label">Cargo:</label>
+<input class="field-input underline" placeholder="Introduza o seu cargo" type="text"/>
+</div>
+<div class="form-field">
+<label class="field-label">Data do Feedback:</label>
+<input class="field-input underline" placeholder="DD/MM/AAAA" type="text"/>
+</div>
+</div>
+<!-- Seção 2: Evaluación de la Segurança e Saúde no Trabalho -->
+<div class="section">
+<div class="section-title" contenteditable="true">2. Avaliação da Segurança e Saúde no Trabalho</div>
+<div class="form-section">
+<div class="form-section-title" contenteditable="true">Considera que as medidas de segurança na sua área de trabalho são suficientes?</div>
+<div class="radio-group">
+<div class="radio-option">
+<input id="suficientes-si" name="suficientes" type="radio" value="Sí"/>
+<label for="suficientes-si">Sim</label>
+</div>
+<div class="radio-option">
+<input id="suficientes-no" name="suficientes" type="radio" value="No"/>
+<label for="suficientes-no">Não</label>
+</div>
+<div class="radio-option">
+<input id="suficientes-a-veces" name="suficientes" type="radio" value="A veces"/>
+<label for="suficientes-a-veces">Por vezes</label>
+</div>
+</div>
+</div>
+<div class="form-section">
+<div class="form-section-title" contenteditable="true">Sente-se à vontade para reportar possíveis riscos ou perigos no seu local de trabalho?</div>
+<div class="radio-group">
+<div class="radio-option">
+<input id="comodo-si" name="comodo" type="radio" value="Sí"/>
+<label for="comodo-si">Sim</label>
+</div>
+<div class="radio-option">
+<input id="comodo-no" name="comodo" type="radio" value="No"/>
+<label for="comodo-no">Não</label>
+</div>
+<div class="radio-option">
+<input id="comodo-a-veces" name="comodo" type="radio" value="A veces"/>
+<label for="comodo-a-veces">Por vezes</label>
+</div>
+</div>
+</div>
+<div class="form-section">
+<div class="form-section-title" contenteditable="true">Recebe formação adequada sobre segurança e saúde no trabalho?</div>
+<div class="radio-group">
+<div class="radio-option">
+<input id="capacitação-si" name="capacitação" type="radio" value="Sí"/>
+<label for="capacitação-si">Sim</label>
+</div>
+<div class="radio-option">
+<input id="capacitação-no" name="capacitação" type="radio" value="No"/>
+<label for="capacitação-no">Não</label>
+</div>
+<div class="radio-option">
+<input id="capacitação-a-veces" name="capacitação" type="radio" value="A veces"/>
+<label for="capacitação-a-veces">Por vezes</label>
+</div>
+</div>
+</div>
+<div class="form-section">
+<div class="form-section-title" contenteditable="true">Acredita que os Equipamentos de Proteção Individual (EPI) fornecidos são adequados para o seu trabalho?</div>
+<div class="radio-group">
+<div class="radio-option">
+<input id="epis-si" name="epis" type="radio" value="Sí"/>
+<label for="epis-si">Sim</label>
+</div>
+<div class="radio-option">
+<input id="epis-no" name="epis" type="radio" value="No"/>
+<label for="epis-no">Não</label>
+</div>
+<div class="radio-option">
+<input id="epis-a-veces" name="epis" type="radio" value="A veces"/>
+<label for="epis-a-veces">Por vezes</label>
+</div>
+</div>
+</div>
+<div class="form-section">
+<div class="form-section-title" contenteditable="true">Sofreu algum incidente ou acidente no trabalho nos últimos 6 meses?</div>
+<div class="radio-group">
+<div class="radio-option">
+<input id="incidente-si" name="incidente" type="radio" value="Sí"/>
+<label for="incidente-si">Sim</label>
+</div>
+<div class="radio-option">
+<input id="incidente-no" name="incidente" type="radio" value="No"/>
+<label for="incidente-no">Não</label>
+</div>
+</div>
+<div class="form-field" id="descripcion-incidente" style="display: none; margin-top: 20px;">
+<label class="field-label" contenteditable="true">Se a resposta é "Sim", por favor, descreva brevemente o incidente ou acidente:</label>
+<textarea class="textarea-field" placeholder="Descreva o incidente ou acidente..."></textarea>
+</div>
+</div>
+</div>
+<!-- Seção 3: Sugerencias y Opiniones -->
+<div class="section">
+<div class="section-title" contenteditable="true">3. Sugestões e Opiniões</div>
+<div class="form-field">
+<label class="field-label" contenteditable="true">Que medidas considera que poderiam melhorar a segurança na sua área de trabalho?</label>
+<textarea class="textarea-field" placeholder="Introduza as suas sugestões..."></textarea>
+</div>
+<div class="form-field">
+<label class="field-label" contenteditable="true">Que ações gostaria que a empresa implementasse para melhorar o seu bem-estar laboral?</label>
+<textarea class="textarea-field" placeholder="Introduza as suas sugestões..."></textarea>
+</div>
+<div class="form-section">
+<div class="form-section-title" contenteditable="true">Está satisfeito com a comunicação das políticas de segurança na empresa?</div>
+<div class="radio-group">
+<div class="radio-option">
+<input id="comunicacion-si" name="comunicacion" type="radio" value="Sí"/>
+<label for="comunicacion-si">Sim</label>
+</div>
+<div class="radio-option">
+<input id="comunicacion-no" name="comunicacion" type="radio" value="No"/>
+<label for="comunicacion-no">Não</label>
+</div>
+<div class="radio-option">
+<input id="comunicacion-a-veces" name="comunicacion" type="radio" value="A veces"/>
+<label for="comunicacion-a-veces">Por vezes</label>
+</div>
+</div>
+</div>
+<div class="form-field">
+<label class="field-label" contenteditable="true">Tem alguma outra sugestão ou comentário relacionado com a segurança e saúde no trabalho?</label>
+<textarea class="textarea-field" placeholder="Introduza os seus comentários..."></textarea>
+</div>
+</div>
+<!-- Seção 4: Firma del Trabajador -->
+<div class="section signature-area">
+<div class="section-title" contenteditable="true">4. Assinatura do trabalhador</div>
+<div class="signature-field">
+<label class="field-label" contenteditable="true">Assinatura:</label>
+<div class="signature-line"></div>
+<p contenteditable="true" style="margin-top: 5px; font-size: 14px; color: #666;">Assinatura do trabalhador</p>
+</div>
+<div class="signature-field">
+<label class="field-label" contenteditable="true">Data:</label>
+<input class="field-input underline" placeholder="DD/MM/AAAA" type="text"/>
+</div>
+<div style="clear: both;"></div>
+</div>
+<!-- Botões de ação -->
+<div class="action-buttons">
+<button class="save-btn" onclick="guardarFormulário()">💾 Guardar (Simular)</button>
+<button class="download-btn" onclick="descargarHTML()">📥 Descarregar HTML</button>
+<button class="print-btn" onclick="window.print()">📄 Imprimir</button>
+</div>
+<!-- Histórico de versiones - editável -->
+<div class="version-history">
+<div class="section-title" contenteditable="true">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td contenteditable="true">001</td>
+<td contenteditable="true">01.12.2024</td>
+<td contenteditable="true">Original</td>
+<td contenteditable="true">CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Rodapé - editável -->
+<div class="footer" contenteditable="true">
+<p>Código: FORM-036 | Revisão: 001 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar tratamento de erro para o logo
+            const logoImg = document.getElementById('logoImg');
+            
+            // Se a imagem não for encontrada, mostrar placeholder com instrução
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="30" font-family="Arial" font-size="10" text-anchor="middle" fill="%234a5568">LOGÓTIPO NÃO ENCONTRADO</text><text x="90" y="50" font-family="Arial" font-size="8" text-anchor="middle" fill="%23e53e3e">(clique para selecionar)</text></svg>';
+                console.warn('Logótipo não encontrado em: logo/logo.png. Clique para definir um novo URL.');
+            };
+            
+            // Logo click para trocar imagem (agora com caminho padrão já definido)
+            document.getElementById('logoContainer').addEventListener('click', function() {
+                const nuevaURL = prompt(
+                    'Introduza o URL da nova imagem do logótipo:',
+                    document.getElementById('logoImg').src
+                );
+                if (nuevaURL && nuevaURL.trim() !== '') {
+                    document.getElementById('logoImg').src = nuevaURL;
+                }
+            });
+            
+            // Mostrar/ocultar descripción de incidente según selección
+            const incidenteSi = document.getElementById('incidente-si');
+            const incidenteNo = document.getElementById('incidente-no');
+            const descripcionIncidente = document.getElementById('descripcion-incidente');
+            
+            function toggleDescripcionIncidente() {
+                if (incidenteSi && incidenteSi.checked) {
+                    descripcionIncidente.style.display = 'block';
+                } else {
+                    descripcionIncidente.style.display = 'none';
+                }
+            }
+            
+            if (incidenteSi) incidenteSi.addEventListener('change', toggleDescripcionIncidente);
+            if (incidenteNo) incidenteNo.addEventListener('change', toggleDescripcionIncidente);
+            
+            // Configurar campos de fecha con DatePicker
+            const dateFields = document.querySelectorAll('input[type="text"][placeholder*="DD/MM/AAAA"]');
+            dateFields.forEach(field => {
+                field.addEventListener('focus', function() {
+                    this.type = 'date';
+                    setTimeout(() => {
+                        this.showPicker?.();
+                    }, 100);
+                });
+                
+                field.addEventListener('blur', function() {
+                    if (!this.value) {
+                        this.type = 'text';
+                    }
+                });
+                
+                field.addEventListener('change', function() {
+                    if (this.value) {
+                        const date = new Date(this.value);
+                        const day = String(date.getDate()).padStart(2, '0');
+                        const month = String(date.getMonth() + 1).padStart(2, '0');
+                        const year = date.getFullYear();
+                        this.value = `${day}/${month}/${year}`;
+                    }
+                });
+            });
+        });
+        
+        // Função para guardar (simulação)
+        function guardarFormulário() {
+            alert('✅ Formulário guardado (simulação).');
+        }
+        
+        // Função para descargar el HTML actual (con todas las modificaciones)
+        function descargarHTML() {
+            const doctype = '<!DOCTYPE html>\n';
+            const html = document.documentElement.outerHTML;
+            
+            const blob = new Blob([doctype + html], { type: 'text/html' });
+            
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'FORM-036_retroalimentacion_editado.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('✅ Ficheiro HTML descarregado com sucesso. Contém todas as suas modificações.');
+        }
+    </script>
+</body>
+</html>

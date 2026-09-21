@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FORM-014 Avaliação de Desempenho do SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .form-header {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .form-field {
+            margin-bottom: 15px;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #cbd5e0;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: white;
+            transition: all 0.3s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #4a5568;
+            box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+        }
+        
+        .evaluation-area {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: all 0.3s;
+        }
+        
+        .evaluation-area:hover {
+            border-color: #4a5568;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .area-title {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #cbd5e0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .norm-badge {
+            display: inline-block;
+            background-color: #e2e8f0;
+            color: #4a5568;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            border: 1px solid #cbd5e0;
+        }
+        
+        .iso-generic {
+            background-color: #e2e8f0;
+            color: #4a5568;
+        }
+        
+        .rating-section {
+            margin-bottom: 20px;
+        }
+        
+        .rating-label {
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .rating-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .rating-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .rating-option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .comments-section {
+            margin-top: 20px;
+        }
+        
+        .comments-label {
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .comments-textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #cbd5e0;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+            min-height: 100px;
+            resize: vertical;
+            transition: all 0.3s;
+        }
+        
+        .comments-textarea:focus {
+            outline: none;
+            border-color: #4a5568;
+            box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+        }
+        
+        .summary-section {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .summary-title {
+            color: #2c5282;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .recommendations-section {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .recommendations-title {
+            color: #276749;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .print-btn, .save-btn, .download-btn, .pdf-btn, .add-area-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+            transform: scale(1.05);
+        }
+        
+        .save-btn {
+            background-color: #38a169;
+            color: white;
+        }
+        
+        .save-btn:hover {
+            background-color: #2f855a;
+            transform: scale(1.05);
+        }
+        
+        .download-btn {
+            background-color: #3182ce;
+            color: white;
+        }
+        
+        .download-btn:hover {
+            background-color: #2c5282;
+            transform: scale(1.05);
+        }
+        
+        .pdf-btn {
+            background-color: #e53e3e;
+            color: white;
+        }
+        
+        .pdf-btn:hover {
+            background-color: #c53030;
+            transform: scale(1.05);
+        }
+        
+        .add-area-btn {
+            background-color: #9f7aea;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .add-area-btn:hover {
+            background-color: #805ad5;
+            transform: scale(1.05);
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .version-table td input {
+            width: 100%;
+            border: 1px solid transparent;
+            background: transparent;
+            padding: 5px;
+        }
+        
+        .version-table td input:focus {
+            outline: none;
+            border-color: #3182ce;
+            background-color: #ebf8ff;
+            border-radius: 3px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .edit-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #fbbf24;
+            color: #333;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+        }
+        
+        .remove-area-btn {
+            background-color: #fc8181;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+        
+        .remove-area-btn:hover {
+            background-color: #f56565;
+        }
+        
+        .norm-select {
+            padding: 4px 8px;
+            border-radius: 12px;
+            border: 1px solid #cbd5e0;
+            background-color: white;
+            font-size: 12px;
+            font-weight: bold;
+            color: #4a5568;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .action-buttons, .edit-indicator, .add-area-btn, .remove-area-btn, .norm-select {
+                display: none;
+            }
+            
+            .evaluation-area {
+                page-break-inside: avoid;
+            }
+            
+            .form-input, .comments-textarea {
+                border: 1px solid #999;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .action-buttons {
+                justify-content: center;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .form-header {
+                grid-template-columns: 1fr;
+            }
+            
+            .rating-options {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-buttons button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="document-container" id="documentContainer">
+<!-- Cabecera con logo e información de la organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" id="companyLogo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name" contenteditable="true">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+<span contenteditable="true">01.12.2024</span>
+</div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+<span contenteditable="true">ESGI</span>
+</div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+<span contenteditable="true">CEO</span>
+</div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+<span contenteditable="true">000</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Título del documento -->
+<div class="doc-title" contenteditable="true">Avaliação de Desempenho do Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-code" contenteditable="true">Código: FORM-014</div>
+<!-- Contenido principal -->
+<div class="content" id="mainContent">
+<!-- Sección de información del formulario -->
+<div class="form-header">
+<div>
+<div class="form-field">
+<label class="form-label">Empresa:</label>
+<input class="form-input" id="empresa" placeholder="Nome da empresa" type="text" value="Empresa Exemplo S.A."/>
+</div>
+<div class="form-field">
+<label class="form-label">Data de avaliação:</label>
+<input class="form-input" id="fecha-evaluacion" type="date" value="2024-12-01"/>
+</div>
+</div>
+<div>
+<div class="form-field">
+<label class="form-label">Avaliador:</label>
+<input class="form-input" id="evaluador" placeholder="Nome do avaliador" type="text" value="Juan Pérez"/>
+</div>
+<div class="form-field">
+<label class="form-label">Período Avaliado:</label>
+<input class="form-input" id="periodo" placeholder="Ex.: Janeiro - Dezembro 2024" type="text" value="Janeiro - Dezembro 2024"/>
+</div>
+</div>
+</div>
+<!-- Introducción -->
+<div class="section">
+<div class="section-title" contenteditable="true">Áreas de avaliação do Sistema de Gestão Integrado</div>
+<p contenteditable="true">Este formulário permite avaliar o desempenho do Sistema de Gestão Integrado (SGI) de acordo com os requisitos das normas ISO aplicáveis. Marque a classificação correspondente a cada área e proporcione comentários específicos que sustentem a sua avaliação.</p>
+</div>
+<!-- Botón para añadir nueva área -->
+<button class="add-area-btn" onclick="addEvaluationArea()">
+<i class="fas fa-plus"></i> Adicionar Nova Área de Avaliação
+            </button>
+<div id="evaluationAreas">
+<!-- Área 1: Gestão de Calidad -->
+<div class="evaluation-area" id="area1">
+<div class="area-title">
+<span contenteditable="true">1. Cumprimento dos requisitos do cliente e Satisfação do cliente</span>
+<select class="norm-select" id="select1" onchange="updateBadge(this, 'badge1')">
+<option value="ISO 9001">ISO 9001 - Qualidade</option>
+<option value=""> - ambiental</option>
+<option value="ISO 45001">ISO 45001 - SST</option>
+<option value="ISO 27001">ISO 27001 - Segurança</option>
+<option value="ISO 22000">ISO 22000 - Alimentos</option>
+<option selected="" value="SGI Integrado">SGI Integrado</option>
+<option value="Otras Normas">Outras Normas</option>
+</select>
+<span class="norm-badge iso-generic" id="badge1">SGI Integrado</span>
+<button class="remove-area-btn" onclick="removeArea(this)"><i class="fas fa-trash"></i></button>
+</div>
+<div class="rating-section">
+<label class="rating-label">Classificação:</label>
+<div class="rating-options">
+<div class="rating-option">
+<input checked="" name="area1-rating" type="radio" value="excelente"/>
+<label>Excelente</label>
+</div>
+<div class="rating-option">
+<input name="area1-rating" type="radio" value="bueno"/>
+<label>Bom</label>
+</div>
+<div class="rating-option">
+<input name="area1-rating" type="radio" value="satisfactorio"/>
+<label>Satisfatório</label>
+</div>
+<div class="rating-option">
+<input name="area1-rating" type="radio" value="mejora"/>
+<label>Necessita Melhoria</label>
+</div>
+</div>
+</div>
+<div class="comments-section">
+<label class="comments-label">Comentários e Observações:</label>
+<textarea class="comments-textarea" placeholder="Descreva o cumprimento de requisitos do cliente, nível de satisfação, queixas, sugestões, etc.">Alta satisfação dos clientes, com comentários positivos. Os indicadores de queixas estão abaixo da meta estabelecida.</textarea>
+</div>
+</div>
+<!-- Área 2: Gestão Ambiental -->
+<div class="evaluation-area" id="area2">
+<div class="area-title">
+<span contenteditable="true">2. Conformidade com Normas ambientais e Redução do Impacto ambiental</span>
+<select class="norm-select" id="select2" onchange="updateBadge(this, 'badge2')">
+<option value="ISO 9001">ISO 9001 - Qualidade</option>
+<option selected="" value=""> - ambiental</option>
+<option value="ISO 45001">ISO 45001 - SST</option>
+<option value="ISO 27001">ISO 27001 - Segurança</option>
+<option value="ISO 22000">ISO 22000 - Alimentos</option>
+<option value="SGI Integrado">SGI Integrado</option>
+<option value="Otras Normas">Outras Normas</option>
+</select>
+<span class="norm-badge iso-generic" id="badge2"></span>
+<button class="remove-area-btn" onclick="removeArea(this)"><i class="fas fa-trash"></i></button>
+</div>
+<div class="rating-section">
+<label class="rating-label">Classificação:</label>
+<div class="rating-options">
+<div class="rating-option">
+<input name="area2-rating" type="radio" value="excelente"/>
+<label>Excelente</label>
+</div>
+<div class="rating-option">
+<input checked="" name="area2-rating" type="radio" value="bueno"/>
+<label>Bom</label>
+</div>
+<div class="rating-option">
+<input name="area2-rating" type="radio" value="satisfactorio"/>
+<label>Satisfatório</label>
+</div>
+<div class="rating-option">
+<input name="area2-rating" type="radio" value="mejora"/>
+<label>Necessita Melhoria</label>
+</div>
+</div>
+</div>
+<div class="comments-section">
+<label class="comments-label">Comentários e Observações:</label>
+<textarea class="comments-textarea" placeholder="Descreva a conformidade ambiental, redução de impactos, gestão de resíduos, eficiência energética, etc.">Programa de reciclagem implementado com êxito. Consumo de energia reduzido em 15% no período. Oportunidade de melhoria na gestão de resíduos perigosos.</textarea>
+</div>
+</div>
+<!-- Área 3: Seguridad y Salud Ocupacional -->
+<div class="evaluation-area" id="area3">
+<div class="area-title">
+<span contenteditable="true">3. Cumprimento dos requisitos de segurança e saúde ocupacional</span>
+<select class="norm-select" id="select3" onchange="updateBadge(this, 'badge3')">
+<option value="ISO 9001">ISO 9001 - Qualidade</option>
+<option value=""> - ambiental</option>
+<option selected="" value="ISO 45001">ISO 45001 - SST</option>
+<option value="ISO 27001">ISO 27001 - Segurança</option>
+<option value="ISO 22000">ISO 22000 - Alimentos</option>
+<option value="SGI Integrado">SGI Integrado</option>
+<option value="Otras Normas">Outras Normas</option>
+</select>
+<span class="norm-badge iso-generic" id="badge3">ISO 45001</span>
+<button class="remove-area-btn" onclick="removeArea(this)"><i class="fas fa-trash"></i></button>
+</div>
+<div class="rating-section">
+<label class="rating-label">Classificação:</label>
+<div class="rating-options">
+<div class="rating-option">
+<input name="area3-rating" type="radio" value="excelente"/>
+<label>Excelente</label>
+</div>
+<div class="rating-option">
+<input name="area3-rating" type="radio" value="bueno"/>
+<label>Bom</label>
+</div>
+<div class="rating-option">
+<input checked="" name="area3-rating" type="radio" value="satisfactorio"/>
+<label>Satisfatório</label>
+</div>
+<div class="rating-option">
+<input name="area3-rating" type="radio" value="mejora"/>
+<label>Necessita Melhoria</label>
+</div>
+</div>
+</div>
+<div class="comments-section">
+<label class="comments-label">Comentários e Observações:</label>
+<textarea class="comments-textarea" placeholder="Descreva a conformidade de SST, incidentes/acidentes, condições de trabalho, equipamentos de proteção, etc.">Taxa de acidentes reduzida, embora se tenham registado 2 incidentes sem baixa. Formações de segurança em dia. Necessário reforçar o uso de EPI em algumas áreas.</textarea>
+</div>
+</div>
+<!-- Área 4: Eficacia de Procesos -->
+<div class="evaluation-area" id="area4">
+<div class="area-title">
+<span contenteditable="true">4. Eficácia dos processos do SGI e cumprimento de objetivos</span>
+<select class="norm-select" id="select4" onchange="updateBadge(this, 'badge4')">
+<option value="ISO 9001">ISO 9001 - Qualidade</option>
+<option value=""> - ambiental</option>
+<option value="ISO 45001">ISO 45001 - SST</option>
+<option value="ISO 27001">ISO 27001 - Segurança</option>
+<option value="ISO 22000">ISO 22000 - Alimentos</option>
+<option selected="" value="SGI Integrado">SGI Integrado</option>
+<option value="Otras Normas">Outras Normas</option>
+</select>
+<span class="norm-badge iso-generic" id="badge4">SGI Integrado</span>
+<button class="remove-area-btn" onclick="removeArea(this)"><i class="fas fa-trash"></i></button>
+</div>
+<div class="rating-section">
+<label class="rating-label">Classificação:</label>
+<div class="rating-options">
+<div class="rating-option">
+<input name="area4-rating" type="radio" value="excelente"/>
+<label>Excelente</label>
+</div>
+<div class="rating-option">
+<input checked="" name="area4-rating" type="radio" value="bueno"/>
+<label>Bom</label>
+</div>
+<div class="rating-option">
+<input name="area4-rating" type="radio" value="satisfactorio"/>
+<label>Satisfatório</label>
+</div>
+<div class="rating-option">
+<input name="area4-rating" type="radio" value="mejora"/>
+<label>Necessita Melhoria</label>
+</div>
+</div>
+</div>
+<div class="comments-section">
+<label class="comments-label">Comentários e Observações:</label>
+<textarea class="comments-textarea" placeholder="Descreva a eficácia de processos integrados, cumprimento de objetivos, eficiência operacional, etc.">85% dos objetivos do SGI foram alcançados. Processos documentados e seguidos pela maioria das equipas. Oportunidade de melhoria na integração entre áreas.</textarea>
+</div>
+</div>
+<!-- Área 5: Melhoria Contínua -->
+<div class="evaluation-area" id="area5">
+<div class="area-title">
+<span contenteditable="true">5. Desempenho na Melhoria Contínua do SGI</span>
+<select class="norm-select" id="select5" onchange="updateBadge(this, 'badge5')">
+<option value="ISO 9001">ISO 9001 - Qualidade</option>
+<option value=""> - ambiental</option>
+<option value="ISO 45001">ISO 45001 - SST</option>
+<option value="ISO 27001">ISO 27001 - Segurança</option>
+<option value="ISO 22000">ISO 22000 - Alimentos</option>
+<option selected="" value="SGI Integrado">SGI Integrado</option>
+<option value="Otras Normas">Outras Normas</option>
+</select>
+<span class="norm-badge iso-generic" id="badge5">SGI Integrado</span>
+<button class="remove-area-btn" onclick="removeArea(this)"><i class="fas fa-trash"></i></button>
+</div>
+<div class="rating-section">
+<label class="rating-label">Classificação:</label>
+<div class="rating-options">
+<div class="rating-option">
+<input name="area5-rating" type="radio" value="excelente"/>
+<label>Excelente</label>
+</div>
+<div class="rating-option">
+<input name="area5-rating" type="radio" value="bueno"/>
+<label>Bom</label>
+</div>
+<div class="rating-option">
+<input checked="" name="area5-rating" type="radio" value="satisfactorio"/>
+<label>Satisfatório</label>
+</div>
+<div class="rating-option">
+<input name="area5-rating" type="radio" value="mejora"/>
+<label>Necessita Melhoria</label>
+</div>
+</div>
+</div>
+<div class="comments-section">
+<label class="comments-label">Comentários e Observações:</label>
+<textarea class="comments-textarea" placeholder="Descreva as ações de melhoria, implementação de melhorias, resultados de auditorias, não conformidades, etc.">Ações corretivas implementadas para não conformidades identificadas. Sugestões de melhoria dos colaboradores estão a ser analisadas. Cultura de melhoria contínua em desenvolvimento.</textarea>
+</div>
+</div>
+</div>
+<!-- Resumen del desempeño -->
+<div class="summary-section">
+<div class="summary-title" contenteditable="true">Resumo de Desempenho do SGI</div>
+<p contenteditable="true">Proporcione um resumo geral do desempenho do Sistema de Gestão Integrado com base nas avaliações anteriores:</p>
+<textarea class="comments-textarea" id="resumen-desempeno" placeholder="Resuma os pontos fortes, áreas de oportunidade, tendências observadas e conclusões gerais sobre o desempenho do SGI.">O SGI apresenta um desempenho satisfatório na maioria das áreas avaliadas. Pontos fortes incluem satisfação do cliente e gestão ambiental. Áreas que necessitam de atenção: SST (incidentes) e agilidade na implementação de melhorias. Recomenda-se reforçar formações e monitorização de indicadores críticos.</textarea>
+</div>
+<!-- Recomendaciones -->
+<div class="recommendations-section">
+<div class="recommendations-title" contenteditable="true">Recomendações para Melhoria Contínua</div>
+<p contenteditable="true">Indique as recomendações específicas para melhorar o desempenho do SGI no próximo período:</p>
+<textarea class="comments-textarea" id="recomendaciones-mejora" placeholder="Enumere as recomendações, ações corretivas, oportunidades de melhoria e prioridades para o próximo ciclo de gestão.">1. Intensificar campanhas de consciencialização sobre o uso de EPI 2. Implementar sistema de gestão de resíduos perigosos 3. Rever indicadores de desempenho para melhor acompanhamento 4. Promover formações integradas para equipas multidisciplinares 5. Estabelecer metas mais desafiantes para 2025</textarea>
+</div>
+<!-- Botones de acción -->
+<div class="action-buttons">
+<button class="save-btn" onclick="saveEvaluation()">
+<i class="fas fa-save"></i> GUARDAR AVALIAÇÃO
+                </button>
+<button class="download-btn" onclick="downloadHTML()">
+<i class="fas fa-download"></i> DESCARREGAR HTML
+                </button>
+<button class="pdf-btn" onclick="downloadPDF()">
+<i class="fas fa-file-pdf"></i> DESCARREGAR PDF
+                </button>
+<button class="print-btn" onclick="window.print()">
+<i class="fas fa-print"></i> IMPRIMIR
+                </button>
+</div>
+<!-- Historial de versiones -->
+<div class="version-history">
+<div class="section-title" contenteditable="true">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table" id="versionTable">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprovado por</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><input type="text" value="000"/></td>
+<td><input type="text" value="01.12.2024"/></td>
+<td><input type="text" value="Versão original"/></td>
+<td><input type="text" value="CEO"/></td>
+</tr>
+</tbody>
+</table>
+</div>
+<button class="add-area-btn" onclick="addVersionRow()" style="margin-top: 15px; padding: 8px 15px;">
+<i class="fas fa-plus"></i> Adicionar Versão
+                </button>
+</div>
+</div>
+<!-- Pie de página -->
+<div class="footer">
+<p contenteditable="true">Código: FORM-014 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<!-- Indicador de modo de edición -->
+<div class="edit-indicator">
+<i class="fas fa-edit"></i>
+<span>Modo de Edição - todos os campos são editáveis</span>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+        let areaCounter = 5; // Comienza después de las 5 áreas existentes
+
+        // Función para actualizar la badge de la norma
+        function updateBadge(select, badgeId) {
+            const badge = document.getElementById(badgeId);
+            badge.textContent = select.value;
+        }
+
+        // Función para añadir nueva área de evaluación
+        function addEvaluationArea() {
+            areaCounter++;
+            const container = document.getElementById('evaluationAreas');
+            const newArea = document.createElement('div');
+            newArea.className = 'evaluation-area';
+            newArea.id = `area${areaCounter}`;
+            newArea.innerHTML = `
+                <div class="area-title">
+                    <span contenteditable="true">${areaCounter}. Nova Área de Avaliação</span>
+                    <select class="norm-select" onchange="updateBadge(this, 'badge${areaCounter}')" id="select${areaCounter}">
+                        <option value="ISO 9001">ISO 9001 - Calidad</option>
+                        <option value=""> - Ambiental</option>
+                        <option value="ISO 45001">ISO 45001 - SST</option>
+                        <option value="ISO 27001">ISO 27001 - Seguridad</option>
+                        <option value="ISO 22000">ISO 22000 - Alimentos</option>
+                        <option value="SGI Integrado" selected>SGI Integrado</option>
+                        <option value="Otras Normas">Outras Normas</option>
+                    </select>
+                    <span class="norm-badge iso-generic" id="badge${areaCounter}">SGI Integrado</span>
+                    <button class="remove-area-btn" onclick="removeArea(this)"><i class="fas fa-trash"></i></button>
+                </div>
+                
+                <div class="rating-section">
+                    <label class="rating-label">Classificação:</label>
+                    <div class="rating-options">
+                        <div class="rating-option">
+                            <input type="radio" name="area${areaCounter}-rating" value="excelente">
+                            <label>Excelente</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="area${areaCounter}-rating" value="bueno" checked>
+                            <label>Bueno</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="area${areaCounter}-rating" value="satisfactorio">
+                            <label>Satisfactorio</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="area${areaCounter}-rating" value="mejora">
+                            <label>Necessita Melhoria</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="comments-section">
+                    <label class="comments-label">Comentarios y Observaciones:</label>
+                    <textarea class="comments-textarea" placeholder="Describa los detalles de esta área de evaluación."></textarea>
+                </div>
+            `;
+            container.appendChild(newArea);
+            saveToLocalStorage();
+        }
+
+        // Función para eliminar área de evaluación
+        function removeArea(btn) {
+            if (confirm('Tem a certeza de que deseja eliminar esta área de avaliação?')) {
+                const area = btn.closest('.evaluation-area');
+                area.remove();
+                saveToLocalStorage();
+            }
+        }
+
+        // Función para añadir línea en el historial de versiones
+        function addVersionRow() {
+            const table = document.getElementById('versionTable').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+            const versionNum = String(table.rows.length + 1).padStart(3, '0');
+            newRow.innerHTML = `
+                <td><input type="text" value="${versionNum}" placeholder="Versão"></td>
+                <td><input type="text" value="${new Date().toLocaleDateString()}" placeholder="Data"></td>
+                <td><input type="text" value="Nova versão" placeholder="Descrição"></td>
+                <td><input type="text" value="Responsável" placeholder="Aprovado por"></td>
+            `;
+            saveToLocalStorage();
+        }
+
+        // Función para guardar en localStorage
+        function saveToLocalStorage() {
+            const container = document.getElementById('documentContainer');
+            const htmlContent = container.outerHTML;
+            localStorage.setItem('evaluationForm014', htmlContent);
+        }
+
+        // Función para guardar evaluación
+        function saveEvaluation() {
+            // Validar campos obligatorios
+            const empresa = document.getElementById('empresa').value;
+            const evaluador = document.getElementById('evaluador').value;
+            
+            if (!empresa || !evaluador) {
+                alert('Por favor, preencha os campos obrigatórios: Empresa e Avaliador.');
+                return;
+            }
+            
+            // Recopilar datos
+            const datosEvaluacion = {
+                empresa: empresa,
+                fechaEvaluacion: document.getElementById('fecha-evaluacion').value,
+                evaluador: evaluador,
+                periodo: document.getElementById('periodo').value,
+                areas: [],
+                resumen: document.getElementById('resumen-desempeno').value,
+                recomendaciones: document.getElementById('recomendaciones-mejora').value,
+                fechaGuardado: new Date().toLocaleString()
+            };
+            
+            // Recopilar datos de cada área
+            const areas = document.querySelectorAll('.evaluation-area');
+            areas.forEach((area, index) => {
+                const titulo = area.querySelector('.area-title span').innerText;
+                const norma = area.querySelector('.norm-badge').innerText;
+                const rating = area.querySelector('input[type="radio"]:checked');
+                const comentarios = area.querySelector('textarea').value;
+                
+                datosEvaluacion.areas.push({
+                    id: index + 1,
+                    titulo: titulo,
+                    norma: norma,
+                    calificacion: rating ? rating.value : 'No evaluado',
+                    comentarios: comentarios
+                });
+            });
+            
+            console.log('Dados da avaliação:', datosEvaluacion);
+            
+            // Guardar en localStorage
+            localStorage.setItem('ultimaEvaluacion014', JSON.stringify(datosEvaluacion));
+            saveToLocalStorage();
+            
+            alert('✅ Avaliação guardada corretamente.');
+        }
+
+        // Función para descargar HTML
+        function downloadHTML() {
+            const container = document.getElementById('documentContainer');
+            const styles = document.querySelector('style').innerHTML;
+            const htmlContent = `
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORM-014 Avaliação de Desempenho SGI</title>
+    <style>${styles}</style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    ${container.outerHTML}
+</body>
+</html>`;
+
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `FORM-014-Evaluacion-SGI-${new Date().toISOString().split('T')[0]}.html`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Función para descargar PDF
+        function downloadPDF() {
+            const element = document.getElementById('documentContainer');
+            
+            // Configuraciones optimizadas para PDF
+            const opt = {
+                margin:        [0.5, 0.5, 0.5, 0.5],
+                filename:      `FORM-014-Evaluacion-SGI-${new Date().toISOString().split('T')[0]}.pdf`,
+                image:         { type: 'jpeg', quality: 1 },
+                html2canvas:   { scale: 2, letterRendering: true, useCORS: true, logging: false },
+                jsPDF:         { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+
+            // Ocultar botones para el PDF
+            const actionButtons = document.querySelector('.action-buttons');
+            const editIndicator = document.querySelector('.edit-indicator');
+            const addButtons = document.querySelectorAll('.add-area-btn');
+            const removeButtons = document.querySelectorAll('.remove-area-btn');
+            const normSelects = document.querySelectorAll('.norm-select');
+            
+            if (actionButtons) actionButtons.style.display = 'none';
+            if (editIndicator) editIndicator.style.display = 'none';
+            addButtons.forEach(btn => btn.style.display = 'none');
+            removeButtons.forEach(btn => btn.style.display = 'none');
+            normSelects.forEach(select => select.style.display = 'none');
+            
+            // Generar PDF
+            html2pdf().set(opt).from(element).save().then(() => {
+                // Restaurar botones
+                if (actionButtons) actionButtons.style.display = 'flex';
+                if (editIndicator) editIndicator.style.display = 'flex';
+                addButtons.forEach(btn => btn.style.display = 'inline-flex');
+                removeButtons.forEach(btn => btn.style.display = 'inline-block');
+                normSelects.forEach(select => select.style.display = 'inline-block');
+            });
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar fecha actual
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0];
+            
+            const fechaInput = document.getElementById('fecha-evaluacion');
+            if (fechaInput && !fechaInput.value) {
+                fechaInput.value = formattedDate;
+            }
+
+            // Manejar el logo - si no existe, mostrar placeholder SVG
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                };
+            }
+
+            // Cargar datos guardados (opcional)
+            const savedData = localStorage.getItem('ultimaEvaluacion014');
+            if (savedData) {
+                console.log('Última avaliação carregada do localStorage');
+            }
+
+            // Guardar automáticamente al cambiar inputs
+            document.querySelectorAll('input, textarea, [contenteditable="true"]').forEach(el => {
+                el.addEventListener('input', function() {
+                    clearTimeout(this.saveTimeout);
+                    this.saveTimeout = setTimeout(() => {
+                        saveToLocalStorage();
+                    }, 1000);
+                });
+            });
+
+            // Sincronizar badges iniciales
+            for (let i = 1; i <= 5; i++) {
+                const select = document.getElementById(`select${i}`);
+                const badge = document.getElementById(`badge${i}`);
+                if (select && badge) {
+                    badge.textContent = select.value;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

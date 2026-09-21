@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DOC-019 Plano de Mitigação de Riscos - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        /* Barra de herramientas */
+        .toolbar {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            padding: 15px 40px;
+            background-color: #e2e8f0;
+            border-bottom: 2px solid #4a5568;
+        }
+        
+        .toolbar-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.3s, transform 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .toolbar-btn:hover {
+            background-color: #718096;
+        }
+        
+        .toolbar-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .objective-box {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .objective-title {
+            color: #2c5282;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .risk-categories {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4a5568;
+        }
+        
+        .categories-list {
+            list-style-type: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .category-item {
+            padding: 10px 15px;
+            background-color: #e2e8f0;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 25px 0;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+        }
+        
+        .risk-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .risk-table th, .risk-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .risk-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+        }
+        
+        .risk-high {
+            background-color: #fed7d7;
+            color: #9b2c2c;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        
+        .risk-medium {
+            background-color: #feebc8;
+            color: #744210;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        
+        .risk-low {
+            background-color: #c6f6d5;
+            color: #22543d;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        
+        .matrix-box {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .matrix-title {
+            color: #276749;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .matrix-table {
+            width: 100%;
+            max-width: 500px;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .matrix-table th, .matrix-table td {
+            border: 1px solid #9ae6b4;
+            padding: 12px 15px;
+            text-align: center;
+        }
+        
+        .matrix-table th {
+            background-color: #38a169;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .emergency-plan {
+            background-color: #fff5f5;
+            border: 1px solid #fed7d7;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #e53e3e;
+        }
+        
+        .emergency-title {
+            color: #9b2c2c;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .emergency-list {
+            list-style-type: none;
+            margin-top: 15px;
+        }
+        
+        .emergency-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .emergency-list li:before {
+            content: "⚠";
+            color: #e53e3e;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Mantenemos el botón de impresión original por compatibilidad */
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        /* Indicador visual de modo edición */
+        .editable-active [contenteditable="true"] {
+            outline: 2px dashed #4a5568;
+            outline-offset: 4px;
+            background-color: #fffff0;
+            transition: outline 0.2s, background-color 0.2s;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .toolbar {
+                display: none;
+            }
+            
+            .print-btn {
+                display: none;
+            }
+            
+            .table-container {
+                overflow-x: visible;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .categories-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .categories-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .toolbar {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabecera con logo e información de la organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Barra de herramientas con nuevas opciones -->
+<div class="toolbar">
+<button class="toolbar-btn" onclick="window.print()">🖨️ Imprimir</button>
+<button class="toolbar-btn" id="downloadBtn">⬇️ Descarregar HTML</button>
+<button class="toolbar-btn" id="editBtn">✏️ Editar conteúdo</button>
+</div>
+<!-- Título del documento -->
+<div class="doc-title">Plano de Mitigação de Riscos</div>
+<div class="doc-code">Código: DOC-019</div>
+<!-- Contenido principal -->
+<div class="content">
+<!-- Objetivo -->
+<div class="section">
+<div class="objective-box">
+<div class="objective-title">Objetivo do Plano</div>
+<p>O objetivo deste plano é identificar e avaliar os riscos presentes no ambiente laboral, estabelecendo medidas específicas para os mitigar e prevenir que afetem a segurança, a saúde dos trabalhadores ou as operações da empresa.</p>
+</div>
+</div>
+<!-- 1. Identificación de los Riesgos -->
+<div class="section">
+<div class="section-title">1. Identificação dos riscos</div>
+<p>Nesta secção identificam-se os riscos mais relevantes no ambiente de trabalho, considerando tanto os riscos laborais como os ambientais, tecnológicos ou de outro tipo.</p>
+<div class="risk-categories">
+<p><strong>Categorías de riscos:</strong></p>
+<ul class="categories-list">
+<li class="category-item">riscos físicos</li>
+<li class="category-item">riscos químicos</li>
+<li class="category-item">riscos biológicos</li>
+<li class="category-item">riscos ergonómicos</li>
+<li class="category-item">riscos psicosociales</li>
+<li class="category-item">riscos ambientales</li>
+</ul>
+</div>
+<div class="table-container">
+<table class="risk-table">
+<thead>
+<tr>
+<th>risco Identificado</th>
+<th>Categoria</th>
+<th>Probabilidade</th>
+<th>Impacto</th>
+<th>nível de risco</th>
+<th>Área Afetada</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exposição a substâncias químicas</td>
+<td>Químico</td>
+<td>Alta</td>
+<td>Grave</td>
+<td><span class="risk-high">Alto</span></td>
+<td>Laboratório</td>
+</tr>
+<tr>
+<td>Estrés laboral</td>
+<td>Psicosocial</td>
+<td>Média</td>
+<td>Moderado</td>
+<td><span class="risk-medium">Médio</span></td>
+<td>Oficina</td>
+</tr>
+<tr>
+<td>Caídas em superficies mojadas</td>
+<td>Físico</td>
+<td>Alta</td>
+<td>Grave</td>
+<td><span class="risk-high">Alto</span></td>
+<td>Pasillos</td>
+</tr>
+<tr>
+<td>Danos por sobrecarga muscular</td>
+<td>Ergonómico</td>
+<td>Média</td>
+<td>Moderado</td>
+<td><span class="risk-medium">Médio</span></td>
+<td>Departamento A</td>
+</tr>
+<tr>
+<td>Exposição a radiação</td>
+<td>Químico</td>
+<td>Baixa</td>
+<td>Grave</td>
+<td><span class="risk-medium">Médio</span></td>
+<td>Área B</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- 2. Evaluación de los Riesgos -->
+<div class="section">
+<div class="section-title">2. avaliação dos riscos</div>
+<p>Uma vez identificados os riscos, é necessário avaliá-los em função da sua probabilidade de ocorrência e do seu impacto potencial na organização. Isto pode fazer-se utilizando uma matriz de riscos.</p>
+<div class="matrix-box">
+<div class="matrix-title">Matriz de avaliação de riscos</div>
+<table class="matrix-table">
+<thead>
+<tr>
+<th>Probabilidade</th>
+<th>Impacto</th>
+<th>nível de risco</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Alta</td>
+<td>Grave</td>
+<td><span class="risk-high">Alto</span></td>
+</tr>
+<tr>
+<td>Média</td>
+<td>Moderado</td>
+<td><span class="risk-medium">Médio</span></td>
+</tr>
+<tr>
+<td>Baixa</td>
+<td>Baixo</td>
+<td><span class="risk-low">Baixo</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- 3. Medidas de Mitigación -->
+<div class="section">
+<div class="section-title">3. Medidas de Mitigação</div>
+<p>Aqui detalham-se as ações específicas que serão tomadas para mitigar cada um dos riscos identificados. As medidas de mitigação podem incluir tanto ações preventivas como ações corretivas.</p>
+<div class="table-container">
+<table class="risk-table">
+<thead>
+<tr>
+<th>risco Identificado</th>
+<th>Medidas de Mitigação</th>
+<th>Responsável</th>
+<th>Prazo de Implementação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exposição a substâncias químicas</td>
+<td>Uso de equipamentos de proteção individual (EPI)</td>
+<td>Chefe de segurança</td>
+<td>1 semana</td>
+</tr>
+<tr>
+<td>Estrés laboral</td>
+<td>Programas de gestão de stress e apoio psicológico</td>
+<td>Departamento de RRHH</td>
+<td>2 semanas</td>
+</tr>
+<tr>
+<td>Caídas em superficies mojadas</td>
+<td>Sinais de advertência e melhoria da limpeza</td>
+<td>Supervisor de Manutenção</td>
+<td>3 días</td>
+</tr>
+<tr>
+<td>Danos por sobrecarga muscular</td>
+<td>Revisão de postos de trabalho e ajustes ergonómicos</td>
+<td>Departamento de saúde Ocupacional</td>
+<td>1 mês</td>
+</tr>
+<tr>
+<td>Exposição a radiação</td>
+<td>Instalação de barreiras protetoras e monitorização de níveis</td>
+<td>Departamento Técnico</td>
+<td>1 mês</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- 4. Monitoreo y Seguimiento -->
+<div class="section">
+<div class="section-title">4. monitorização e acompanhamento</div>
+<p>É crucial realizar um acompanhamento regular para assegurar que as medidas de mitigação são eficazes e que os riscos estão a ser geridos adequadamente. O responsável de monitorização deve garantir que as ações preventivas e corretivas se levam a cabo dentro dos prazos estabelecidos.</p>
+</div>
+<!-- 5. Revisión y Melhoria Contínua -->
+<div class="section">
+<div class="section-title">5. revisão e Melhoria Contínua</div>
+<p>O plano de mitigação de riscos deve ser revisto periodicamente para se adaptar a novos riscos ou alterações nas condições laborais. Esta revisão deve incluir a avaliação da eficácia das medidas implementadas, a identificação de novos riscos e o ajuste das ações de mitigação.</p>
+</div>
+<!-- 6. Plano de Ação en Caso de Emergencia -->
+<div class="section">
+<div class="section-title">6. Plano de Ação em Caso de Emergência</div>
+<p>Além do plano de mitigação de riscos, devem estabelecer-se procedimentos de emergência caso um risco se materialize.</p>
+<div class="emergency-plan">
+<div class="emergency-title">Procedimentos de Emergência</div>
+<ul class="emergency-list">
+<li>Planos de evacuação</li>
+<li>Entrenamientos regulares em segurança</li>
+<li>Equipas de resposta perante emergências (bombeiros, primeiros socorros)</li>
+</ul>
+</div>
+</div>
+<!-- Botón de impresión (original) -->
+<button class="print-btn" onclick="window.print()">📄 Imprimir documento</button>
+<!-- Historial de versiones -->
+<div class="version-history">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Pie de página -->
+<div class="footer">
+<p>Código: DOC-019 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        // Verifica si el logo existe, caso contrario muestra un placeholder
+        const logoImg = document.querySelector('.logo');
+        if (logoImg) {
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+            };
+        }
+
+        // Función para descargar el HTML actual
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'DOC-019-Plan_de_Mitigacion_de_Riesgos.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        // Función para activar/desactivar modo edición
+        const editBtn = document.getElementById('editBtn');
+        let editModeActive = false;
+
+        // Elementos que serán editables (todo el texto del documento, excepto botones y logo)
+        const editableElements = [
+            document.querySelector('.org-info'),
+            document.querySelector('.doc-title'),
+            document.querySelector('.doc-code'),
+            document.querySelector('.content'),
+            document.querySelector('.footer')
+        ].filter(el => el !== null);
+
+        editBtn.addEventListener('click', function() {
+            editModeActive = !editModeActive;
+            
+            editableElements.forEach(el => {
+                if (editModeActive) {
+                    el.setAttribute('contenteditable', 'true');
+                } else {
+                    el.removeAttribute('contenteditable');
+                }
+            });
+            
+            // Añadir o quitar una clase al body para dar feedback visual
+            if (editModeActive) {
+                document.body.classList.add('editable-active');
+                editBtn.innerHTML = '🔒 Terminar edição';
+                editBtn.style.backgroundColor = '#c53030'; // rojo para indicar modo activo
+            } else {
+                document.body.classList.remove('editable-active');
+                editBtn.innerHTML = '✏️ Editar conteúdo';
+                editBtn.style.backgroundColor = '#4a5568'; // color original
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PRO-001 - controlo de Informação Documentada - SGI (Editable)</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            cursor: pointer;
+            border: 2px dashed transparent;
+            transition: border 0.2s;
+        }
+        
+        .logo-container:hover {
+            border-color: #fbbf24;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            pointer-events: none;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-subtitle {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+        }
+        
+        .objective-box {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .objective-title {
+            color: #276749;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .procedure-container {
+            margin: 25px 0;
+        }
+        
+        .procedure-step {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            counter-increment: step-counter;
+        }
+        
+        .procedure-step::before {
+            content: counter(step-counter) ".";
+            color: #4a5568;
+            font-weight: bold;
+            font-size: 20px;
+            margin-right: 10px;
+        }
+        
+        .procedure-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #cbd5e0;
+        }
+        
+        .procedure-content {
+            line-height: 1.7;
+        }
+        
+        .procedure-list {
+            list-style-type: none;
+            margin-top: 15px;
+        }
+        
+        .procedure-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .procedure-list li:before {
+            content: "•";
+            color: #4a5568;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .responsibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .responsibility-table th, .responsibility-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .responsibility-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+
+        .responsibility-table td {
+            background-color: white;
+        }
+        
+        .highlight-box {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .reference-box {
+            background-color: #fffaf0;
+            border: 1px solid #fbd38d;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #d69e2e;
+        }
+        
+        .reference-title {
+            color: #b7791f;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .print-btn, .save-btn, .edit-btn, .download-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        .save-btn {
+            background-color: #3182ce;
+            color: white;
+        }
+        
+        .save-btn:hover {
+            background-color: #2c5282;
+        }
+        
+        .edit-btn {
+            background-color: #38a169;
+            color: white;
+        }
+        
+        .edit-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .download-btn {
+            background-color: #d69e2e;
+            color: white;
+        }
+        
+        .download-btn:hover {
+            background-color: #b7791f;
+        }
+
+        /* Estilo para modo edición */
+        body.editable-mode .detail-input:enabled,
+        body.editable-mode input:not([type=button]):not([type=submit]):not([type=reset]) {
+            background-color: #ffffe0;
+            border: 1px solid #fbbf24;
+        }
+
+        body.editable-mode td[contenteditable="true"],
+        body.editable-mode div[contenteditable="true"],
+        body.editable-mode p[contenteditable="true"],
+        body.editable-mode li[contenteditable="true"],
+        body.editable-mode span[contenteditable="true"] {
+            background-color: #ffffe0;
+            outline: 1px dashed #fbbf24;
+            cursor: text;
+        }
+
+        .edit-indicator {
+            display: inline-block;
+            background-color: #fbbf24;
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 20px;
+            vertical-align: middle;
+        }
+
+        .detail-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #a0aec0;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+            color: #2d3748;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .action-buttons {
+                display: none;
+            }
+            
+            .procedure-step {
+                page-break-inside: avoid;
+            }
+
+            .detail-input {
+                border: none;
+                background: transparent;
+                padding: 0;
+                color: black;
+                font-weight: normal;
+            }
+
+            .logo-container {
+                border: none;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+
+            .action-buttons {
+                justify-content: center;
+            }
+        }
+    </style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabecera con logo y organización - Logo apuntando a logo/logo.png -->
+<div class="header">
+<div class="logo-container" id="logoContainer" title="Clique para alterar o URL do logótipo">
+<img alt="Logótipo da Organização" class="logo" id="logoImg" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,&lt;svg xmlns=\'http://www.w3.org/2000/svg\' width=\'180\' height=\'80\' viewBox=\'0 0 180 80\'&gt;&lt;rect width=\'180\' height=\'80\' fill=\'white\'/&gt;&lt;text x=\'90\' y=\'40\' font-family=\'Arial\' font-size=\'12\' text-anchor=\'middle\' fill=\'%234a5568\' dy=\'5\'&gt;LOGO EMPRESA&lt;/text&gt;&lt;/svg&gt;';" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name"><input class="detail-input" id="orgNameInput" style="background:transparent; color:white; border-color:#a0aec0;" type="text" value="Sistema de Gestão Integrado (SGI)"/></div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+<input class="detail-input" id="fechaEmision" style="width:100px; background:transparent; color:white;" type="text" value="01.12.2024"/>
+</div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+<input class="detail-input" id="elabora" style="width:70px; background:transparent; color:white;" type="text" value="ESGI"/>
+</div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+<input class="detail-input" id="aprueba" style="width:60px; background:transparent; color:white;" type="text" value="CEO"/>
+</div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+<input class="detail-input" id="versionDoc" style="width:50px; background:transparent; color:white;" type="text" value="000"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Título del documento (editables) -->
+<div class="doc-title" contenteditable="false" id="docTitle">Control de Informação Documentada</div>
+<div class="doc-code" contenteditable="false" id="docCode">Código: PRO-001</div>
+<!-- Contenido principal -->
+<div class="content">
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#objetivo">Objetivo</a></li>
+<li class="toc-item"><a class="toc-link" href="#alcance">Alcance</a></li>
+<li class="toc-item"><a class="toc-link" href="#responsabilidades">Responsabilidades</a></li>
+<li class="toc-item"><a class="toc-link" href="#procedimiento">Procedimento</a></li>
+<li class="toc-item"><a class="toc-link" href="#control-registros">Control de Registos</a></li>
+<li class="toc-item"><a class="toc-link" href="#auditoria">Auditoria e revisão</a></li>
+<li class="toc-item"><a class="toc-link" href="#documentacion">Documentação Relacionada</a></li>
+<li class="toc-item"><a class="toc-link" href="#referencias">Referências Normativas</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Sección 1: Objetivo -->
+<div class="section" id="objetivo">
+<div class="section-title" contenteditable="false">1. Objetivo</div>
+<div class="objective-box">
+<div class="objective-title" contenteditable="false">Propósito do Procedimento</div>
+<p contenteditable="false"><strong>O propósito deste procedimento é garantir o controlo adequado de toda a informação documentada que faz parte do Sistema de Gestão Integrado (SGI) da FACASI</strong>, de acordo com os requisitos das normas ISO 9001:2015 (cláusula 7.5) e ISO 45001:2018 (cláusula 7.5). Isto inclui a criação, revisão, atualização, distribuição, armazenamento, proteção e eliminação da documentação, incluindo os relatórios técnicos de inspeção emitidos aos clientes.</p>
+</div>
+</div>
+<!-- Sección 2: Alcance -->
+<div class="section" id="alcance">
+<div class="section-title" contenteditable="false">2. Alcance</div>
+<p contenteditable="false">Este procedimento aplica-se a todos os documentos controlados da FACASI, incluindo os documentos internos e externos necessários ao funcionamento eficaz do SGI. Abrange políticas, manuais, procedimentos, registos, instruções de trabalho, formulários, relatórios de inspeção (END/NDT, UTM), certificados de equipamentos e qualquer outro documento relevante para o Sistema de Gestão Integrado.</p>
+<div class="highlight-box">
+<p contenteditable="false"><strong>Âmbito de aplicação:</strong> todas as áreas e processos da organização que façam parte do Sistema de Gestão Integrado (SGI), incluindo as atividades de campo.</p>
+</div>
+</div>
+<!-- Sección 3: Responsabilidades -->
+<div class="section" id="responsabilidades">
+<div class="section-title" contenteditable="false">3. Responsabilidades</div>
+<table class="responsibility-table">
+<thead>
+<tr><th>Função</th><th>Responsabilidade</th></tr>
+</thead>
+<tbody>
+<tr><td contenteditable="false"><strong>Coordenador do SGI</strong></td><td contenteditable="false">Assegura o cumprimento deste procedimento em todas as áreas da organização, bem como a revisão e aprovação da documentação do Sistema de Gestão Integrado.</td></tr>
+<tr><td contenteditable="false"><strong>Gerentes de Área</strong></td><td contenteditable="false">Zelam por que os documentos e registos das suas respetivas áreas sejam adequados, atualizados e controlados conforme os requisitos do SGI.</td></tr>
+<tr><td contenteditable="false"><strong>Assistente Administrativo</strong></td><td contenteditable="false">Encarregado da distribuição, arquivo e controlo físico dos documentos e registos do Sistema de Gestão Integrado.</td></tr>
+<tr><td contenteditable="false"><strong>Coordenador/Fiscalizador</strong></td><td contenteditable="false">Assegura que os relatórios e registos de inspeção gerados em campo são preenchidos, identificados e entregues conforme este procedimento.</td></tr>
+<tr><td contenteditable="false"><strong>Auditores Internos</strong></td><td contenteditable="false">Verificam a conformidade dos documentos e a sua correta gestão durante as auditorias internas do SGI.</td></tr>
+</tbody>
+</table>
+</div>
+<!-- Sección 4: Procedimento -->
+<div class="section" id="procedimiento">
+<div class="section-title" contenteditable="false">4. Procedimento</div>
+<p contenteditable="false">A organização implementa os seguintes passos para o controlo da informação documentada:</p>
+<div class="procedure-container">
+<div class="procedure-step" contenteditable="false">
+<div class="procedure-title" contenteditable="false">Criação de documentos</div>
+<div class="procedure-content" contenteditable="false">
+<p>Os documentos são criados ou modificados pelo responsável de cada área de acordo com os requisitos do SGI. O responsável assegura que os documentos são adequados ao uso previsto e contêm informação relevante, precisa e clara.</p>
+</div>
+</div>
+<div class="procedure-step" contenteditable="false">
+<div class="procedure-title" contenteditable="false">Revisão e Aprovação</div>
+<div class="procedure-content" contenteditable="false">
+<p>Todos os documentos são revistos e aprovados antes da sua emissão. As revisões e aprovações são realizadas pela pessoa ou grupo designado conforme o tipo de documento (por exemplo, Coordenador do SGI, Gerente de Operações, CEO).</p>
+</div>
+</div>
+<div class="procedure-step" contenteditable="false">
+<div class="procedure-title" contenteditable="false">Controlo de Alterações</div>
+<div class="procedure-content" contenteditable="false">
+<p>Toda a alteração efetuada num documento é registada e refletida na versão atualizada do mesmo. Mantém-se um histórico de revisões para assegurar a rastreabilidade, indicando a data da alteração, a descrição da modificação e a pessoa responsável.</p>
+</div>
+</div>
+<div class="procedure-step" contenteditable="false">
+<div class="procedure-title" contenteditable="false">Identificação e Formato</div>
+<div class="procedure-content" contenteditable="false">
+<p>Cada documento controlado é identificado com um código, título, número de versão e data de emissão e, quando aplicável, a data de validade ou de revisão. A codificação segue o padrão do SGI: DOC (institucionais), POL (políticas), PRO (procedimentos), MAN (manuais), PLA (planos), DES (descrições de cargo), FORM (formulários), REG (registos), MAT (matrizes), INS (instruções de trabalho) e EXT (documentos externos).</p>
+</div>
+</div>
+<div class="procedure-step" contenteditable="false">
+<div class="procedure-title" contenteditable="false">Distribuição e Acesso</div>
+<div class="procedure-content" contenteditable="false">
+<p>Os documentos controlados são distribuídos e acessíveis apenas às pessoas que deles necessitem para realizar as suas tarefas. A distribuição faz-se em formato eletrónico ou físico conforme o processo o exija, assegurando que as versões em circulação são as versões atuais.</p>
+</div>
+</div>
+<div class="procedure-step" contenteditable="false">
+<div class="procedure-title" contenteditable="false">Armazenamento</div>
+<div class="procedure-content" contenteditable="false">
+<p>Os documentos são armazenados de forma segura para evitar dano, perda ou acesso não autorizado. Os documentos eletrónicos são guardados num sistema de gestão documental seguro e os documentos físicos em locais de acesso restrito e controlado.</p>
+</div>
+</div>
+<div class="procedure-step" contenteditable="false">
+<div class="procedure-title" contenteditable="false">Proteção da Informação</div>
+<div class="procedure-content" contenteditable="false">
+<p>A documentação é protegida contra perdas, danos, alterações ou acessos não autorizados, através da realização de cópias de segurança, controlos de acesso, proteção física e procedimentos de segurança informática. Os relatórios de inspeção e os dados dos clientes são tratados como informação confidencial.</p>
+</div>
+</div>
+<div class="procedure-step" contenteditable="false">
+<div class="procedure-title" contenteditable="false">Eliminação de documentos</div>
+<div class="procedure-content" contenteditable="false">
+<p>Os documentos obsoletos, desnecessários ou fora de uso são eliminados de forma segura e responsável. Para os documentos obsoletos mantidos por razões legais ou de conhecimento, aplica-se uma identificação adequada que impeça o seu uso indevido, e mantém-se um registo da eliminação para garantir a rastreabilidade.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Sección 5: Control de Registos -->
+<div class="section" id="control-registros">
+<div class="section-title" contenteditable="false">5. Controlo de Registos</div>
+<div class="highlight-box">
+<p contenteditable="false"><strong>Requisitos de Registo:</strong> os registos gerados como parte do SGI devem ser legíveis, facilmente identificáveis e acessíveis. Os registos são documentos que contêm evidência da conformidade com os requisitos e das atividades realizadas, incluindo os resultados de inspeções e as evidências de formação do pessoal técnico.</p>
+<p contenteditable="false"><strong>Retenção de Registos:</strong> os registos são conservados durante um período determinado, de acordo com os requisitos legais, normativos ou os períodos definidos pela organização. São armazenados de forma segura e permanecem acessíveis durante o período de retenção. <em>Os períodos de retenção específicos por tipo de registo ficam pendentes de validação pela organização.</em></p>
+</div>
+</div>
+<!-- Sección 6: Auditoría y Revisión -->
+<div class="section" id="auditoria">
+<div class="section-title" contenteditable="false">6. Auditoria e Revisão</div>
+<p contenteditable="false">Este procedimento é revisto periodicamente para assegurar a sua eficácia e a sua adequação às normas ISO 9001:2015 e ISO 45001:2018, bem como a quaisquer alterações nos processos, na legislação ou nos requisitos da organização. As auditorias internas são realizadas de acordo com o plano de auditoria anual para verificar a correta aplicação deste procedimento.</p>
+<div class="reference-box">
+<div class="reference-title" contenteditable="false">Frequência de Revisão</div>
+<p contenteditable="false">O procedimento é revisto pelo menos uma vez por ano ou sempre que ocorram alterações significativas no sistema de gestão ou na legislação aplicável.</p>
+</div>
+</div>
+<!-- Sección 7: Documentação Relacionada -->
+<div class="section" id="documentacion">
+<div class="section-title" contenteditable="false">7. Documentação Relacionada</div>
+<ul class="procedure-list">
+<li contenteditable="false">Manual do Sistema de Gestão Integrado</li>
+<li contenteditable="false">PRO-004 — Procedimento de Auditorias Internas</li>
+<li contenteditable="false">PRO-002 — Procedimento de Controlo de Registos</li>
+<li contenteditable="false">PRO-024 — Procedimento de Gestão da Mudança</li>
+<li contenteditable="false">DOC-005 — Política da Qualidade e DOC-007 — Política de SST</li>
+</ul>
+</div>
+<!-- Sección 8: Referencias Normativas -->
+<div class="section" id="referencias">
+<div class="section-title" contenteditable="false">8. Referências Normativas</div>
+<div class="reference-box">
+<div class="reference-title" contenteditable="false">Normas de Referência</div>
+<ul class="procedure-list">
+<li contenteditable="false"><strong>ISO 9001:2015</strong> — Sistemas de Gestão da Qualidade (cláusula 7.5 — Informação documentada)</li>
+<li contenteditable="false"><strong>ISO 45001:2018</strong> — Sistemas de Gestão de Segurança e Saúde no Trabalho (cláusula 7.5 — Informação documentada)</li>
+<li contenteditable="false">Requisitos legais angolanos aplicáveis em matéria de gestão documental e conservação de registos</li>
+</ul>
+</div>
+</div>
+<!-- Botones de acción -->
+<div class="action-buttons">
+<button class="edit-btn" id="editBtn"><i class="fas fa-pen"></i> MODO DE EDIÇÃO</button>
+<button class="save-btn" id="saveBtn"><i class="fas fa-save"></i> GUARDAR ALTERAÇÕES</button>
+<button class="download-btn" id="downloadHtmlBtn"><i class="fas fa-code"></i> DESCARREGAR HTML</button>
+<button class="print-btn" onclick="window.print()"><i class="fas fa-print"></i> IMPRIMIR</button>
+</div>
+<!-- Historial de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title" contenteditable="false">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+                            32<th contenteditable="false">Versão</th><th contenteditable="false">Data</th><th contenteditable="false">Descrição</th><th contenteditable="false">Aprova</th>
+</thead>
+<tbody>
+<tr><td contenteditable="false">000</td><td contenteditable="false">01.12.2024</td><td contenteditable="false">Original (ISO 9001, 45001)</td><td contenteditable="false">CEO</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Pie de página -->
+<div class="footer">
+<p contenteditable="false" id="footerText">Código: PRO-001 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        (function() {
+            // Elementos editables
+            const inputs = document.querySelectorAll('input.detail-input');
+            const contentEditables = document.querySelectorAll('[contenteditable="false"]');
+            const tableCells = document.querySelectorAll('.responsibility-table td, .version-table td, .version-table th');
+            const allParagraphs = document.querySelectorAll('.objective-box p, .highlight-box p, .reference-box p, .procedure-content p, .procedure-step > p');
+            const listItems = document.querySelectorAll('.procedure-list li');
+            const stepDivs = document.querySelectorAll('.procedure-step');
+            
+            const editBtn = document.getElementById('editBtn');
+            const saveBtn = document.getElementById('saveBtn');
+            const downloadHtmlBtn = document.getElementById('downloadHtmlBtn');
+            
+            let editMode = false;
+            
+            function toggleEditMode(enable) {
+                editMode = enable;
+                
+                // Inputs
+                inputs.forEach(inp => inp.disabled = !enable);
+                
+                // Elementos con contenteditable
+                contentEditables.forEach(el => {
+                    if (enable) {
+                        el.setAttribute('contenteditable', 'true');
+                    } else {
+                        el.setAttribute('contenteditable', 'false');
+                    }
+                });
+                
+                // Celdas de tabla
+                tableCells.forEach(td => {
+                    if (enable) {
+                        td.setAttribute('contenteditable', 'true');
+                    } else {
+                        td.setAttribute('contenteditable', 'false');
+                    }
+                });
+                
+                // Párrafos adicionales
+                allParagraphs.forEach(p => {
+                    if (enable) p.setAttribute('contenteditable', 'true');
+                    else p.setAttribute('contenteditable', 'false');
+                });
+                
+                // Elementos de lista
+                listItems.forEach(li => {
+                    if (enable) li.setAttribute('contenteditable', 'true');
+                    else li.setAttribute('contenteditable', 'false');
+                });
+                
+                // Procedimento steps (para que el contenido sea editable)
+                stepDivs.forEach(step => {
+                    if (enable) step.setAttribute('contenteditable', 'true');
+                    else step.setAttribute('contenteditable', 'false');
+                });
+                
+                if (enable) {
+                    document.body.classList.add('editable-mode');
+                    editBtn.innerHTML = '<i class="fas fa-eye"></i> MODO VISUAL';
+                } else {
+                    document.body.classList.remove('editable-mode');
+                    editBtn.innerHTML = '<i class="fas fa-pen"></i> MODO DE EDIÇÃO';
+                }
+            }
+            
+            editBtn.addEventListener('click', () => {
+                toggleEditMode(!editMode);
+            });
+            
+            // Guardar en localStorage
+            saveBtn.addEventListener('click', () => {
+                const data = {
+                    orgName: document.getElementById('orgNameInput').value,
+                    fechaEmision: document.getElementById('fechaEmision').value,
+                    elabora: document.getElementById('elabora').value,
+                    aprueba: document.getElementById('aprueba').value,
+                    versionDoc: document.getElementById('versionDoc').value,
+                    docTitle: document.getElementById('docTitle').innerText,
+                    docCode: document.getElementById('docCode').innerText,
+                    footer: document.getElementById('footerText').innerText,
+                };
+                
+                // Guardar contenido de elementos contenteditable
+                const editableContents = {};
+                document.querySelectorAll('[contenteditable="true"]').forEach((el, idx) => {
+                    const key = `editable-${idx}`;
+                    editableContents[key] = el.innerHTML;
+                });
+                data.editableContents = editableContents;
+                
+                localStorage.setItem('PRO-001-data', JSON.stringify(data));
+                alert('✅ Dados guardados corretamente no localStorage.');
+                if (editMode) toggleEditMode(false);
+            });
+            
+            // Cargar datos guardados
+            function loadSaved() {
+                const saved = localStorage.getItem('PRO-001-data');
+                if (saved) {
+                    try {
+                        const data = JSON.parse(saved);
+                        if (data.orgName) document.getElementById('orgNameInput').value = data.orgName;
+                        if (data.fechaEmision) document.getElementById('fechaEmision').value = data.fechaEmision;
+                        if (data.elabora) document.getElementById('elabora').value = data.elabora;
+                        if (data.aprueba) document.getElementById('aprueba').value = data.aprueba;
+                        if (data.versionDoc) document.getElementById('versionDoc').value = data.versionDoc;
+                        if (data.docTitle) document.getElementById('docTitle').innerText = data.docTitle;
+                        if (data.docCode) document.getElementById('docCode').innerText = data.docCode;
+                        if (data.footer) document.getElementById('footerText').innerText = data.footer;
+                        
+                        if (data.editableContents) {
+                            const editables = document.querySelectorAll('[contenteditable="true"]');
+                            let idx = 0;
+                            Object.values(data.editableContents).forEach(content => {
+                                if (editables[idx]) editables[idx].innerHTML = content;
+                                idx++;
+                            });
+                        }
+                    } catch(e) {}
+                }
+            }
+            loadSaved();
+            
+            // Descargar HTML
+            function downloadAsHtml() {
+                // Desactivar modo edición temporalmente para la exportación
+                const wasEditMode = editMode;
+                if (wasEditMode) toggleEditMode(false);
+                
+                const htmlContent = document.documentElement.outerHTML;
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'PRO-001-Control-Informacion-Documentada.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                if (wasEditMode) toggleEditMode(true);
+                alert('📥 Ficheiro HTML descarregado com sucesso.');
+            }
+            downloadHtmlBtn.addEventListener('click', downloadAsHtml);
+            
+            // Logo interactivo
+            document.getElementById('logoContainer').addEventListener('click', () => {
+                const newUrl = prompt('Introduza o URL da nova imagem do logótipo:', document.getElementById('logoImg').src);
+                if (newUrl && newUrl.trim() !== '') {
+                    document.getElementById('logoImg').src = newUrl;
+                }
+            });
+            
+            // Scroll suave en TOC
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Inicialmente modo no-edición
+            toggleEditMode(false);
+        })();
+    </script>
+</body>
+</html>

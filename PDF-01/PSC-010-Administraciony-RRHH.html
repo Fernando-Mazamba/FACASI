@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PSC-010 Administração e RH - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        /* Barra de herramientas */
+        .toolbar {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            padding: 15px 40px;
+            background-color: #e2e8f0;
+            border-bottom: 2px solid #4a5568;
+        }
+        
+        .toolbar-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.3s, transform 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .toolbar-btn:hover {
+            background-color: #718096;
+        }
+        
+        .toolbar-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        /* Resaltado cuando la edición está activa */
+        .editable-active [contenteditable="true"] {
+            outline: 2px dashed #4a5568;
+            outline-offset: 4px;
+            background-color: #fffff0;
+            transition: outline 0.2s, background-color 0.2s;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-title:before {
+            content: counter(section-counter) ". ";
+        }
+        
+        .subsection-title {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+            counter-increment: subsection-counter;
+        }
+        
+        .subsection-title:before {
+            content: counter(section-counter) "." counter(subsection-counter) ". ";
+        }
+        
+        .intro-text {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4a5568;
+            font-size: 16px;
+        }
+        
+        .process-matrix {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .process-matrix th {
+            background-color: #4a5568;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .process-matrix td {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        
+        .process-matrix .input-cell {
+            background-color: #f0fff4;
+            width: 30%;
+        }
+        
+        .process-matrix .procedure-cell {
+            background-color: #ebf8ff;
+            width: 40%;
+        }
+        
+        .process-matrix .output-cell {
+            background-color: #fefcbf;
+            width: 30%;
+        }
+        
+        .resource-list {
+            list-style-type: none;
+            margin: 15px 0;
+        }
+        
+        .resource-list li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .resource-list li:before {
+            content: "•";
+            color: #4a5568;
+            font-weight: bold;
+            font-size: 20px;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+        
+        .indicator-box {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .indicator-title {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .formula-box {
+            background-color: white;
+            border: 2px solid #cbd5e0;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            overflow-x: auto;
+        }
+        
+        .risk-opportunity-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .risk-box, .opportunity-box {
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .risk-header {
+            background-color: #e53e3e;
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .opportunity-header {
+            background-color: #38a169;
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .risk-content, .opportunity-content {
+            padding: 20px;
+        }
+        
+        .risk-item, .opportunity-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        
+        .risk-item:last-child, .opportunity-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .toolbar, .print-btn {
+                display: none;
+            }
+            
+            .process-matrix {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .risk-opportunity-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .toc-list {
+                columns: 1;
+            }
+            
+            .process-matrix {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .toolbar {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabecera con logo e información de la organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        001
+                    </div>
+</div>
+</div>
+</div>
+<!-- Barra de herramientas -->
+<div class="toolbar">
+<button class="toolbar-btn" onclick="window.print()"><i class="fas fa-print"></i> Imprimir</button>
+<button class="toolbar-btn" id="downloadBtn"><i class="fas fa-download"></i> Descarregar HTML</button>
+<button class="toolbar-btn" id="editBtn"><i class="fas fa-edit"></i> Editar conteúdo</button>
+</div>
+<!-- Título del documento -->
+<div class="doc-title">Administração e Recursos Humanos - Sistema de Gestão Integrado</div>
+<div class="doc-code">Código: PSC-010</div>
+<!-- Contenido principal -->
+<div class="content" id="mainContent">
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#objetivo">Objetivo do processo</a></li>
+<li class="toc-item"><a class="toc-link" href="#alcance">Alcance do processo</a></li>
+<li class="toc-item"><a class="toc-link" href="#matriz">Matriz do processo</a></li>
+<li class="toc-item"><a class="toc-link" href="#recursos">Recursos do processo</a>
+<ol style="margin-left: 20px; margin-top: 5px;">
+<li class="toc-item"><a class="toc-link" href="#responsables">Responsáveis</a></li>
+</ol>
+</li>
+<li class="toc-item"><a class="toc-link" href="#seguimiento">acompanhamento</a>
+<ol style="margin-left: 20px; margin-top: 5px;">
+<li class="toc-item"><a class="toc-link" href="#indicadores">indicadores</a></li>
+</ol>
+</li>
+<li class="toc-item"><a class="toc-link" href="#riesgos">Análise e avaliação de riscos do processo</a></li>
+<li class="toc-item"><a class="toc-link" href="#oportunidades">Análise e avaliação de oportunidades do processo</a></li>
+<li class="toc-item"><a class="toc-link" href="#referencia">Documentação de Referencia</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Sección 1: Objetivo -->
+<div class="section" id="objetivo">
+<div class="section-title">Objetivo do processo</div>
+<div class="intro-text">
+<p>O objetivo do processo de Administração e Recursos Humanos é assegurar uma gestão eficiente do capital humano, promovendo o desenvolvimento profissional, o cumprimento de normativas laborais e a criação de um ambiente de trabalho positivo. Este processo abrange a seleção, contratação, formação, gestão do desempenho e bem-estar do pessoal, alinhado com a missão e visão de <strong>la organização</strong>.</p>
+</div>
+</div>
+<!-- Sección 2: Alcance -->
+<div class="section" id="alcance">
+<div class="section-title">Alcance do processo</div>
+<div class="intro-text">
+<p>Este processo aplica-se a todas as atividades relacionadas com a administração e gestão dos recursos humanos em <strong>la organização</strong>, desde a captação de talento até ao desenvolvimento e retenção de colaboradores. Cobre a administração de pessoal, cumprimento de regulamentações laborais, avaliação do desempenho, formação, desenvolvimento profissional e bem-estar dos colaboradores.</p>
+</div>
+</div>
+<!-- Sección 3: Matriz del Proceso -->
+<div class="section" id="matriz">
+<div class="section-title">Matriz do processo</div>
+<table class="process-matrix">
+<thead>
+<tr>
+<th class="input-cell">ENTRADAS</th>
+<th class="procedure-cell">procedimentoS (atividades)</th>
+<th class="output-cell">SAÍDAS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="input-cell" rowspan="5">
+<strong>Requisitos de pessoal e perfis de cargo</strong>
+</td>
+<td class="procedure-cell" rowspan="5">
+<p><strong>1. Recrutamento e Seleção:</strong> Definir perfis de cargo, publicar vagas, avaliar candidatos e selecionar o melhor talento conforme os requisitos de <strong>la organização</strong>.</p>
+<p style="margin-top: 15px;"><strong>2. Formação e Desenvolvimento:</strong> Identificar necessidades de formação, organizar formações e avaliar a eficácia dos programas de desenvolvimento para o pessoal.</p>
+<p style="margin-top: 15px;"><strong>3. Avaliação do Desempenho:</strong> Realizar avaliações periódicas do desempenho dos colaboradores e proporcionar feedback para fomentar o desenvolvimento e a melhoria contínua.</p>
+<p style="margin-top: 15px;"><strong>4. Gestão de Bem-estar e Clima Laboral:</strong> Implementar programas de bem-estar, inquéritos de clima laboral e atividades para melhorar o ambiente de trabalho e o compromisso do pessoal.</p>
+<p style="margin-top: 15px;"><strong>5. cumprimento Normativo e Gestão de Contratos:</strong> Assegurar que todas as práticas de RH cumprem as normativas laborais e gerir os contratos e benefícios dos colaboradores.</p>
+</td>
+<td class="output-cell">
+<p><strong>Registo de Seleção de pessoal:</strong> Documentação do processo de seleção e candidatos escolhidos.</p>
+</td>
+</tr>
+<tr>
+<td class="output-cell">
+<p><strong>Plano de Formação:</strong> Programa detalhado de formações e desenvolvimento de competências.</p>
+</td>
+</tr>
+<tr>
+<td class="output-cell">
+<p><strong>Informe de Avaliação de Desempenho:</strong> Documento com resultados e planos de melhoria.</p>
+</td>
+</tr>
+<tr>
+<td class="output-cell">
+<p><strong>Relatório de Bem-estar e Clima Laboral:</strong> Registo de programas e resultados de encuestas de clima.</p>
+</td>
+</tr>
+<tr>
+<td class="output-cell">
+<p><strong>Registo de cumprimento Normativo:</strong> Documentação do cumprimento legal em temas laborales.</p>
+</td>
+</tr>
+<tr>
+<td class="input-cell">
+<p><strong>Políticas de desenvolvimento e formação</strong></p>
+</td>
+<td class="procedure-cell" rowspan="4" style="vertical-align: middle;">
+<!-- Procedimentos ya definidos arriba -->
+</td>
+<td class="output-cell">
+<!-- Espacio vacío para alineación -->
+</td>
+</tr>
+<tr>
+<td class="input-cell">
+<p><strong>Avaliações de desempenho e feedback</strong></p>
+</td>
+<td class="output-cell">
+<!-- Espacio vacío para alineación -->
+</td>
+</tr>
+<tr>
+<td class="input-cell">
+<p><strong>Políticas de bem-estar e clima laboral</strong></p>
+</td>
+<td class="output-cell">
+<!-- Espacio vacío para alineación -->
+</td>
+</tr>
+<tr>
+<td class="input-cell">
+<p><strong>Normativas laborais e regulamentações aplicáveis</strong></p>
+</td>
+<td class="output-cell">
+<!-- Espacio vacío para alineación -->
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Sección 4: Recursos -->
+<div class="section" id="recursos">
+<div class="section-title">Recursos do processo</div>
+<ul class="resource-list">
+<li><strong>Recursos Humanos:</strong> Equipa de recursos humanos com conhecimentos em recrutamento, desenvolvimento organizacional e cumprimento laboral.</li>
+<li><strong>Recursos Tecnológicos:</strong> Software de gestão de recursos humanos (HRMS), ferramentas de avaliação de desempenho e plataformas de aprendizagem.</li>
+<li><strong>Recursos Materiales:</strong> Materiales de formação, documentos normativos e políticas internas de recursos humanos.</li>
+</ul>
+<div class="subsection-title" id="responsables">Responsáveis</div>
+<ul class="resource-list">
+<li><strong>responsável de Recursos Humanos:</strong> Coordena as atividades de recrutamento, formação, desempenho e bem-estar, assegurando que se cumpram as políticas de RH.</li>
+<li><strong>Supervisores de Área:</strong> Colaboram na avaliação de desempenho da sua equipa e proporcionam feedback aos colaboradores.</li>
+<li><strong>Alta Gerência:</strong> Assegura o alinhamento das políticas de RH com os objetivos estratégicos e proporciona os recursos necessários.</li>
+</ul>
+</div>
+<!-- Sección 5: Seguimiento -->
+<div class="section" id="seguimiento">
+<div class="section-title">acompanhamento</div>
+<ul class="resource-list">
+<li><strong>Índice de Retenção de pessoal (IRP):</strong> Mede a percentagem de colaboradores que permanecem na organização durante um período determinado.</li>
+<li><strong>Índice de Satisfação do Colaborador (ISE):</strong> Evalúa o nível de satisfação dos empleados através de encuestas de clima laboral e feedback.</li>
+<li><strong>cumprimento de Planes de Formação (CPC):</strong> Verifica a execução dos planos de formação em função dos objetivos estabelecidos.</li>
+</ul>
+<div class="subsection-title" id="indicadores">indicadores</div>
+<div class="indicator-box">
+<div class="indicator-title">Índice de Retenção de pessoal IRP (Mede o desempenho do processo 010)</div>
+<div class="formula-box">
+                        $$IRP = \left( \frac{Número\ de\ Colaboradores\ Retidos}{Número\ Total\ de\ Colaboradores} \right)*100$$
+                    </div>
+<p><strong>Valor Tolerável:</strong></p>
+<ul class="resource-list">
+<li><strong>Tolerável (Aceitável):</strong> ≥ 90%</li>
+<li><strong>Marginal:</strong> 75% - 89%</li>
+<li><strong>Não Aceitável:</strong> &lt; 75%</li>
+</ul>
+<p><strong>Justificação:</strong> Um índice de retenção superior a 90% indica uma gestão bem-sucedida dos recursos humanos, com colaboradores comprometidos e satisfeitos no seu ambiente laboral. Um valor marginal (75%-89%) sugere que se mantêm níveis aceitáveis de retenção, mas existem áreas que requerem ajuste. Um índice inferior a 75% implica uma necessidade urgente de rever as práticas de RH para melhorar a retenção.</p>
+<p><strong>Fonte de Dados:</strong></p>
+<ul class="resource-list">
+<li><strong>Registo de pessoal:</strong> Informação sobre contratações, baixas e promoções.</li>
+<li><strong>Inquéritos de Satisfação:</strong> Avaliações periódicas do clima laboral e satisfação do colaborador.</li>
+</ul>
+<p><strong>Frequência de avaliação:</strong> Semestral, coincidiendo com as revisiones de recursos humanos e avaliação de clima laboral.</p>
+<p><strong>Plano de Ação:</strong> Se o IRP se encontrar no intervalo Não Aceitável (&lt;75%), a equipa de recursos humanos deve:</p>
+<ul class="resource-list">
+<li>Rever as políticas de contratação, desenvolvimento e bem-estar dos colaboradores.</li>
+<li>Implementar programas de melhoria de clima laboral e benefícios.</li>
+<li>Reforçar a comunicação e feedback entre colaboradores e supervisores.</li>
+</ul>
+</div>
+</div>
+<!-- Sección 6: Riesgos -->
+<div class="section" id="riesgos">
+<div class="section-title">Análise e avaliação de riscos do processo</div>
+<div class="risk-opportunity-container">
+<div class="risk-box">
+<div class="risk-header">riscoS IDENTIFICADOS</div>
+<div class="risk-content">
+<div class="risk-item">
+<div class="swot-title">Risco de Alta Rotatividade</div>
+<p>Uma rotatividade elevada de pessoal pode afetar a estabilidade e a produtividade da empresa.</p>
+</div>
+<div class="risk-item">
+<div class="swot-title">risco de No cumprimento Laboral</div>
+<p>A falta de cumprimento de normativas laborais pode acarretar sanções e afetar a reputação de <strong>la organização</strong>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sección 7: Oportunidades -->
+<div class="section" id="oportunidades">
+<div class="section-title">Análise e avaliação de oportunidades do processo</div>
+<div class="risk-opportunity-container">
+<div class="opportunity-box">
+<div class="opportunity-header">oportunidadeES IDENTIFICADAS</div>
+<div class="opportunity-content">
+<div class="opportunity-item">
+<div class="swot-title">Fortalecimento da Cultura Organizacional</div>
+<p>Promover uma cultura baseada nos valores da empresa para melhorar o compromisso dos colaboradores.</p>
+</div>
+<div class="opportunity-item">
+<div class="swot-title">Automatização de processos de RH</div>
+<p>Utilizar software de gestão para automatizar tarefas administrativas e permitir um foco mais estratégico.</p>
+</div>
+<div class="opportunity-item">
+<div class="swot-title">Desenvolvimento de Programas de Bem-estar Integral</div>
+<p>Implementar iniciativas que promovam a saúde física e mental dos colaboradores para melhorar a sua produtividade e satisfação.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sección 8: Documentação de Referencia -->
+<div class="section" id="referencia">
+<div class="section-title">Documentação de Referencia</div>
+<ul class="resource-list">
+<li><strong>Políticas de Recursos Humanos da organização.</strong></li>
+<li><strong>Manual de Normativas e Procedimentos Laborales.</strong></li>
+<li><strong>Plano de Desenvolvimento e Formação Anual.</strong></li>
+</ul>
+</div>
+<!-- Botón de impresión original -->
+<button class="print-btn" onclick="window.print()"><i class="fas fa-print"></i> Imprimir documento</button>
+<!-- Historial de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>001</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Pie de página -->
+<div class="footer">
+<p>Código: PSC-010 | Revisão: 001 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        // Configurar scroll suave para los enlaces del TOC
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Verifica si el logo existe, caso contrario muestra un placeholder
+        const logoImg = document.querySelector('.logo');
+        if (logoImg) {
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+            };
+        }
+
+        // Función para descargar el HTML actual
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'PSC-010-Administraciony-RRHH.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('📁 Documento descarregado como ficheiro HTML.');
+        });
+
+        // Modo edición
+        const editBtn = document.getElementById('editBtn');
+        const contentEl = document.getElementById('mainContent');
+        let editModeActive = false;
+
+        // Elementos que serán editables (todo el texto del documento, excepto botones y logo)
+        const editableElements = [
+            document.querySelector('.org-info'),
+            document.querySelector('.doc-title'),
+            document.querySelector('.doc-code'),
+            contentEl,
+            document.querySelector('.footer')
+        ].filter(el => el !== null);
+
+        editBtn.addEventListener('click', function() {
+            editModeActive = !editModeActive;
+            
+            editableElements.forEach(el => {
+                if (editModeActive) {
+                    el.setAttribute('contenteditable', 'true');
+                } else {
+                    el.removeAttribute('contenteditable');
+                }
+            });
+            
+            // Añadir o quitar clase al body para feedback visual
+            if (editModeActive) {
+                document.body.classList.add('editable-active');
+                editBtn.innerHTML = '<i class="fas fa-lock"></i> Terminar edição';
+                editBtn.style.backgroundColor = '#c53030'; // rojo para indicar modo activo
+            } else {
+                document.body.classList.remove('editable-active');
+                editBtn.innerHTML = '<i class="fas fa-edit"></i> Editar conteúdo';
+                editBtn.style.backgroundColor = '#4a5568'; // color original
+            }
+        });
+
+        // Configurar contador de secciones y subsecciones
+        document.body.style.counterReset = 'section-counter subsection-counter';
+    </script>
+</body>
+</html>

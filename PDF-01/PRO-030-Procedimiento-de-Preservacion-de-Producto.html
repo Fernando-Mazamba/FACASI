@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PRO-030 Procedimento de Preservação de Produto - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        /* Barra de herramientas */
+        .toolbar {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            padding: 15px 40px;
+            background-color: #e2e8f0;
+            border-bottom: 2px solid #4a5568;
+        }
+        
+        .toolbar-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.3s, transform 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .toolbar-btn:hover {
+            background-color: #718096;
+        }
+        
+        .toolbar-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        /* Resaltado cuando la edición está activa */
+        .editable-active [contenteditable="true"] {
+            outline: 2px dashed #4a5568;
+            outline-offset: 4px;
+            background-color: #fffff0;
+            transition: outline 0.2s, background-color 0.2s;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-title:before {
+            content: counter(section-counter) ". ";
+        }
+        
+        .subsection {
+            margin-bottom: 30px;
+            padding-left: 20px;
+        }
+        
+        .subsection-title {
+            color: #2d3748;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+            counter-increment: subsection-counter;
+        }
+        
+        .subsection-title:before {
+            content: counter(section-counter) "." counter(subsection-counter) ". ";
+        }
+        
+        .content-text {
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        
+        .definition-list {
+            list-style-type: none;
+            margin: 15px 0 25px 20px;
+        }
+        
+        .definition-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        
+        .definition-title {
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+        
+        .definition-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .responsibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0 25px 0;
+        }
+        
+        .responsibility-table th, .responsibility-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        .responsibility-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+            width: 30%;
+        }
+        
+        .responsibility-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .procedure-list {
+            list-style-type: none;
+            margin: 15px 0 25px 30px;
+        }
+        
+        .procedure-item {
+            margin-bottom: 20px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .procedure-item:before {
+            content: "•";
+            color: #4a5568;
+            font-weight: bold;
+            font-size: 20px;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+        
+        .sub-item {
+            margin: 10px 0 10px 20px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .sub-item:before {
+            content: "○";
+            color: #718096;
+            position: absolute;
+            left: 0;
+        }
+        
+        .indicator-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0 25px 0;
+        }
+        
+        .indicator-table th, .indicator-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        .indicator-table th {
+            background-color: #2d3748;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .indicator-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .documentation-list {
+            list-style-type: none;
+            margin: 15px 0 25px 20px;
+        }
+        
+        .documentation-item {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .documentation-item:before {
+            content: "—";
+            color: #4a5568;
+            position: absolute;
+            left: 0;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .toolbar, .print-btn {
+                display: none;
+            }
+            
+            .responsibility-table, .indicator-table {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+            
+            .responsibility-table th, .responsibility-table td {
+                padding: 10px;
+                font-size: 14px;
+            }
+            
+            .indicator-table th, .indicator-table td {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .responsibility-table, .indicator-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            
+            .toolbar {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabecera con logo e información de la organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Barra de herramientas -->
+<div class="toolbar">
+<button class="toolbar-btn" onclick="window.print()"><i class="fas fa-print"></i> Imprimir</button>
+<button class="toolbar-btn" id="downloadBtn"><i class="fas fa-download"></i> Descarregar HTML</button>
+<button class="toolbar-btn" id="editBtn"><i class="fas fa-edit"></i> Editar conteúdo</button>
+</div>
+<!-- Título del documento -->
+<div class="doc-title">Procedimento de Preservação de Produto</div>
+<div class="doc-code">Código: PRO-030</div>
+<!-- Contenido principal -->
+<div class="content" id="mainContent">
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#objetivo">Objetivo</a></li>
+<li class="toc-item"><a class="toc-link" href="#alcance">Alcance</a></li>
+<li class="toc-item"><a class="toc-link" href="#definiciones">Definições</a></li>
+<li class="toc-item"><a class="toc-link" href="#responsabilidades">Responsabilidades</a></li>
+<li class="toc-item"><a class="toc-link" href="#procedimientos">Procedimentos</a>
+<ol style="margin-left: 20px; margin-top: 5px;">
+<li><a class="toc-link" href="#condiciones-almacenamiento">Condições de Armazenamento</a></li>
+<li><a class="toc-link" href="#control-inventarios">Control de Inventarios</a></li>
+<li><a class="toc-link" href="#preservacion-transporte">Preservação durante o Transporte</a></li>
+<li><a class="toc-link" href="#preservacion-distribucion">Preservação durante a Distribuição</a></li>
+<li><a class="toc-link" href="#control-calidad">Control de qualidade na Preservação</a></li>
+<li><a class="toc-link" href="#manejo-deteriorados">Manejo de Productos Deteriorados</a></li>
+</ol>
+</li>
+<li class="toc-item"><a class="toc-link" href="#indicadores">Indicadores de Desempenho</a></li>
+<li class="toc-item"><a class="toc-link" href="#documentacion">Documentação Relacionada</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Sección 1: Objetivo -->
+<div class="section" id="objetivo">
+<div class="section-title">Objetivo</div>
+<p class="content-text">O objetivo deste procedimento é estabelecer as diretrizes e as ações necessárias para garantir a preservação dos produtos durante todas as etapas do seu ciclo de vida, desde a produção até à entrega ao cliente final. Isto inclui assegurar que os produtos mantenham as suas características de qualidade, segurança e conformidade ambiental em todo o momento, e que se cumpram os requisitos estabelecidos pelo SGI.</p>
+<p class="content-text">A organização implementa este procedimento para proteger a integridade dos seus produtos, assegurando que cheguem ao cliente em condições ótimas, cumprindo os mais altos padrões de qualidade e preservação ambiental.</p>
+</div>
+<!-- Sección 2: Alcance -->
+<div class="section" id="alcance">
+<div class="section-title">Alcance</div>
+<p class="content-text">Este procedimento aplica-se a todos os produtos fabricados, armazenados e distribuídos pela organização, incluindo:</p>
+<ul class="procedure-list">
+<li class="procedure-item"><strong>Preservação durante o armazenamento:</strong> Controlo das condições de armazenamento para evitar danos, deterioração ou alteração do produto.</li>
+<li class="procedure-item"><strong>Preservação durante o transporte:</strong> garantir que os productos sejam transportados em condições adequadas, que mantengan seu qualidade e segurança.</li>
+<li class="procedure-item"><strong>Preservação durante a distribuição:</strong> Assegurar que os produtos cheguem ao cliente final sem comprometer a sua integridade ou segurança.</li>
+</ul>
+<p class="content-text">A organização garante que este procedimento cobre todos os tipos de produtos, incluindo matérias-primas, produtos intermédios, produtos terminados e produtos em processo, assegurando a sua preservação em cada etapa da cadeia de valor.</p>
+</div>
+<!-- Sección 3: Definiciones -->
+<div class="section" id="definiciones">
+<div class="section-title">Definições</div>
+<ul class="definition-list">
+<li class="definition-item">
+<div class="definition-title">Preservação de Produto</div>
+<p class="content-text">Conjunto de medidas tomadas para manter as propriedades e características do produto intactas durante o seu armazenamento, transporte e distribuição. A organização implementa sistemas de preservação adaptados às características específicas de cada produto.</p>
+</li>
+<li class="definition-item">
+<div class="definition-title">Condições de Armazenamento</div>
+<p class="content-text">As condições sob as quais os produtos devem ser armazenados, incluindo temperatura, humidade e proteção contra danos físicos. A organização define e controla estas condições conforme os requisitos de cada produto.</p>
+</li>
+<li class="definition-item">
+<div class="definition-title">Vida Útil do Produto</div>
+<p class="content-text">O período durante o qual um produto mantém as suas características de qualidade e é apto para o uso a que está destinado. A organização estabelece e controla a vida útil de cada produto, implementando sistemas de rotação adequados.</p>
+</li>
+<li class="definition-item">
+<div class="definition-title">Deterioro</div>
+<p class="content-text">Qualquer alteração física ou química que afete negativamente as propriedades do produto. A organização implementa controlos para prevenir a deterioração e procedimentos para a gerir quando ocorre.</p>
+</li>
+</ul>
+</div>
+<!-- Sección 4: Responsabilidades -->
+<div class="section" id="responsabilidades">
+<div class="section-title">Responsabilidades</div>
+<table class="responsibility-table">
+<thead>
+<tr>
+<th>Responsável</th>
+<th>Responsabilidade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Alta direção</td>
+<td>Aprovar o procedimento e garantir os recursos necessários para implementar as medidas de preservação de produtos. Demonstrar liderança e compromisso com a preservação da qualidade dos produtos.</td>
+</tr>
+<tr>
+<td>responsável do SGI</td>
+<td>Coordenar e supervisionar a implementação do procedimento dentro do SGI, assegurando que se cumpram os padrões de preservação. Manter atualizado o sistema e realizar revisões periódicas.</td>
+</tr>
+<tr>
+<td>Responsável de Armazém</td>
+<td>Garantir que as condições de armazenamento sejam adequadas para manter a qualidade dos produtos. Supervisionar o controlo de inventários e a organização do armazém.</td>
+</tr>
+<tr>
+<td>responsável de Logística</td>
+<td>Assegurar que o transporte e a distribuição de produtos se realizem sob as condições adequadas para manter a sua preservação. Selecionar e supervisionar os transportadores e gestores logísticos.</td>
+</tr>
+<tr>
+<td>Responsável de qualidade</td>
+<td>Monitorizar que os produtos sejam preservados adequadamente e que os controlos de qualidade se mantenham durante todas as etapas do processo. Realizar inspeções e testes de qualidade periódicos.</td>
+</tr>
+<tr>
+<td>responsável de segurança</td>
+<td>assegurar que as condições de preservação também consideren a segurança dos productos e do pessoal que os manipula. implementar medidas de segurança em armazenamento e transporte.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Sección 5: Procedimentos -->
+<div class="section" id="procedimientos">
+<div class="section-title">Procedimentos</div>
+<p class="content-text">A organização implementa os seguintes procedimentos para garantir a preservação efetiva de todos os seus produtos em cada etapa do seu ciclo de vida:</p>
+<!-- Subsección 5.1 -->
+<div class="subsection" id="condiciones-almacenamiento">
+<div class="subsection-title">Condições de Armazenamento</div>
+<ul class="procedure-list">
+<li class="procedure-item">Os produtos devem ser armazenados em condições adequadas que mantenham a sua qualidade e segurança. As condições de armazenamento incluem:
+                            <div class="sub-item"><strong>Temperatura controlada:</strong> Para produtos sensíveis à temperatura (por exemplo, produtos farmacêuticos, alimentos, produtos químicos). A organização monitoriza e regista continuamente as temperaturas em áreas de armazenamento críticas.</div>
+<div class="sub-item"><strong>Humidade controlada:</strong> Para produtos sensíveis à humidade (por exemplo, produtos eletrónicos, têxteis, papel). A organização implementa sistemas de controlo de humidade quando seja necessário.</div>
+<div class="sub-item"><strong>Proteção contra danos físicos:</strong> Os produtos devem estar protegidos de golpes, quedas e outras formas de dano físico através de embalagem adequada, estantes apropriadas e manuseamentos cuidadosos.</div>
+<div class="sub-item"><strong>Proteção contra contaminantes:</strong> Os produtos devem estar armazenados de maneira que não entrem em contacto com substâncias que possam contaminá-los, incluindo pó, fumo, produtos químicos e agentes biológicos.</div>
+</li>
+<li class="procedure-item">A organização documenta as condições específicas de armazenamento para cada tipo de produto e realiza controlos periódicos para verificar o seu cumprimento.</li>
+</ul>
+</div>
+<!-- Subsección 5.2 -->
+<div class="subsection" id="control-inventarios">
+<div class="subsection-title">Control de Inventarios</div>
+<ul class="procedure-list">
+<li class="procedure-item">Implementar um sistema de gestão de inventários que permita conhecer o estado dos produtos armazenados em tempo real. Este sistema garante:
+                            <div class="sub-item">A rotação de inventários (princípio FIFO - First In, First Out) para evitar que os produtos caducados ou com data de validade próxima fiquem armazenados por longos períodos.</div>
+<div class="sub-item">A identificação clara dos produtos com datas de validade ou condições especiais de armazenamento através de etiquetagem visível e sistemas de codificação.</div>
+<div class="sub-item">El controlo de lotes e números de serie para facilitar a trazabilidad e o retiro específico quando seja necessário.</div>
+</li>
+<li class="procedure-item">A organização realiza inventários físicos periódicos para verificar a exatidão do sistema de gestão de inventários.</li>
+</ul>
+</div>
+<!-- Subsección 5.3 -->
+<div class="subsection" id="preservacion-transporte">
+<div class="subsection-title">Preservação durante o Transporte</div>
+<ul class="procedure-list">
+<li class="procedure-item">Os produtos devem ser transportados em condições que mantenham a sua qualidade e integridade:
+                            <div class="sub-item"><strong>Embalagem adequada:</strong> Os produtos devem ser embalados de maneira que se evite o seu dano durante o transporte, utilizando materiais de proteção apropriados para cada tipo de produto.</div>
+<div class="sub-item"><strong>Control de temperatura:</strong> Para produtos que requerem temperaturas específicas durante o transporte (por exemplo, alimentos refrigerados, produtos farmacêuticos), a organização utiliza veículos com controlo de temperatura e monitorização contínua.</div>
+<div class="sub-item"><strong>Proteção contra a humidade:</strong> Para produtos sensíveis à humidade, tomam-se medidas para evitar a sua deterioração durante o transporte, incluindo embalagens impermeáveis e controlo de humidade relativa.</div>
+<div class="sub-item"><strong>Rutas de transporte:</strong> Escolhem-se as rotas mais seguras e eficientes para reduzir o risco de dano durante o transporte, considerando fatores como condições rodoviárias, tempos de trânsito e pontos de risco.</div>
+</li>
+</ul>
+</div>
+<!-- Subsección 5.4 -->
+<div class="subsection" id="preservacion-distribucion">
+<div class="subsection-title">Preservação durante a Distribuição</div>
+<ul class="procedure-list">
+<li class="procedure-item">Durante a distribuição, se garantiza que os productos lleguen ao cliente sem comprometer seu qualidade ni segurança:
+                            <div class="sub-item"><strong>Condições de transporte:</strong> Mantêm-se as mesmas condições de armazenamento e transporte durante a distribuição, assegurando a continuidade na cadeia de preservação.</div>
+<div class="sub-item"><strong>acompanhamento do transporte:</strong> Implementa-se um sistema de monitorização em tempo real para assegurar que os produtos cheguem em condições adequadas, incluindo acompanhamento por GPS, sensores de temperatura/humidade e comunicação constante com os transportadores.</div>
+<div class="sub-item"><strong>Entrega segura:</strong> Assegura-se que os produtos sejam entregues de maneira que se mantenha a sua integridade e que o cliente receba os produtos em condições ótimas, incluindo verificação no ponto de entrega e assinatura de conformidade.</div>
+</li>
+</ul>
+</div>
+<!-- Subsección 5.5 -->
+<div class="subsection" id="control-calidad">
+<div class="subsection-title">Control de qualidade na Preservação</div>
+<ul class="procedure-list">
+<li class="procedure-item">Durante todas as etapas de armazenamento, transporte e distribuição, realizam-se controlos de qualidade para garantir que os produtos não tenham sofrido danos ou deterioração:
+                            <div class="sub-item"><strong>Inspeção visual:</strong> Inspecionam-se os produtos regularmente para detetar danos evidentes, incluindo deformações, roturas, mudanças de cor ou outros sinais visíveis de deterioração.</div>
+<div class="sub-item"><strong>Testes de laboratório:</strong> Realizam-se testes periódicos para assegurar que os produtos continuam a cumprir os padrões de qualidade requeridos, especialmente para produtos com requisitos específicos de estabilidade.</div>
+<div class="sub-item"><strong>Verificação de condições ambientales:</strong> Monitorizam-se e registam-se continuamente as condições de temperatura, humidade e outras variáveis ambientais em áreas críticas de armazenamento e transporte.</div>
+</li>
+</ul>
+</div>
+<!-- Subsección 5.6 -->
+<div class="subsection" id="manejo-deteriorados">
+<div class="subsection-title">Manejo de Productos Deteriorados</div>
+<ul class="procedure-list">
+<li class="procedure-item">Se se detetar que um produto está deteriorado devido a condições de armazenamento, transporte ou distribuição, procede-se da seguinte maneira:
+                            <div class="sub-item"><strong>Retirada imediata:</strong> Retira-se o produto de circulação imediatamente para evitar o seu uso ou distribuição.</div>
+<div class="sub-item"><strong>Notificação ao cliente:</strong> Notifica-se o cliente se já recebeu o produto deteriorado, oferecendo as alternativas correspondentes.</div>
+<div class="sub-item"><strong>Substituição ou reembolso:</strong> Substitui-se o produto ou devolve-se o dinheiro ao cliente conforme corresponda e conforme os termos estabelecidos.</div>
+<div class="sub-item"><strong>Investigação e ações corretivas:</strong> Se investiga a causa do deterioro e se toman medidas correctivas para evitar futuras ocurrencias, documentando todo o processo.</div>
+<div class="sub-item"><strong>Eliminação adequada:</strong> Elimina-se o produto deteriorado de maneira ambientalmente responsável, seguindo os procedimentos estabelecidos para gestão de resíduos.</div>
+</li>
+</ul>
+</div>
+</div>
+<!-- Sección 6: Indicadores de Desempeño -->
+<div class="section" id="indicadores">
+<div class="section-title">Indicadores de Desempenho</div>
+<table class="indicator-table">
+<thead>
+<tr>
+<th>Indicador</th>
+<th>Descrição</th>
+<th>Meta</th>
+<th>Frequência de Medição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>% de productos almacenados em condições adequadas</td>
+<td>Mede a percentagem de produtos armazenados de acordo com as condições especificadas nas suas respetivas fichas técnicas.</td>
+<td>100%</td>
+<td>Mensal</td>
+</tr>
+<tr>
+<td>Número de productos deteriorados</td>
+<td>Mede a quantidade de produtos que se deterioraram durante o armazenamento, transporte ou distribuição.</td>
+<td>≤ 0.5% do inventario total</td>
+<td>Mensal</td>
+</tr>
+<tr>
+<td>Tempo médio de transporte</td>
+<td>Mede o tempo médio que demora um produto a ser transportado desde o armazém até ao cliente.</td>
+<td>Segundo acordos de nível de serviço (SLA)</td>
+<td>Semanal</td>
+</tr>
+<tr>
+<td>% de productos entregados em condições óptimas</td>
+<td>Mede a percentagem de produtos entregues sem danos nem alterações verificáveis.</td>
+<td>≥ 99.5%</td>
+<td>Mensal</td>
+</tr>
+<tr>
+<td>Taxa de cumprimento de condições ambientais</td>
+<td>Percentagem de tempo durante o qual se mantêm as condições ambientais especificadas (temperatura, humidade) em áreas críticas.</td>
+<td>≥ 98%</td>
+<td>Contínuo (relatório mensal)</td>
+</tr>
+</tbody>
+</table>
+<p class="content-text">A organização revê estes indicadores regularmente nas reuniões de revisão do SGI e toma ações de melhoria quando não se alcançam as metas estabelecidas.</p>
+</div>
+<!-- Sección 7: Documentação Relacionada -->
+<div class="section" id="documentacion">
+<div class="section-title">Documentação Relacionada</div>
+<ul class="documentation-list">
+<li class="documentation-item">Registos de Armazenamento e controlo de Inventarios - Documentação que evidencia as condições de armazenamento e os movimientos de inventario.</li>
+<li class="documentation-item">Informe de Inspeção de qualidade - Resultados das inspeções e pruebas realizadas para verificar a preservação de productos.</li>
+<li class="documentation-item">Registos de controlo de Transporte - Documentação de condições de transporte, rotas, tempos e verificações durante o transporte.</li>
+<li class="documentation-item">Relatório de Danos e Deterioração de Produtos - Registo de incidentes de deterioração e as ações tomadas para a sua gestão.</li>
+<li class="documentation-item">PRO-001 - Procedimento de controlo da Documentação do SGI.</li>
+<li class="documentation-item">PRO-005 - Procedimento de controlo de Produto Não Conforme.</li>
+<li class="documentation-item">PRO-026 - Procedimento de Identificação e Rastreabilidade.</li>
+<li class="documentation-item">Instruções de Armazenamento específicas por Produto - Documentação técnica que especifica condições particulares de preservação.</li>
+</ul>
+</div>
+<!-- Botón de impresión original -->
+<button class="print-btn" onclick="window.print()"><i class="fas fa-print"></i> Imprimir documento</button>
+<!-- Historial de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Pie de página -->
+<div class="footer">
+<p>Código: PRO-030 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        // Configurar scroll suave para los enlaces del TOC
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Verifica si el logo existe, caso contrario muestra un placeholder
+        const logoImg = document.querySelector('.logo');
+        if (logoImg) {
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+            };
+        }
+
+        // Función para descargar el HTML actual
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'PRO-030-Procedimento-de-Preservacion-de-Producto.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('📁 Documento descarregado como ficheiro HTML.');
+        });
+
+        // Modo edición
+        const editBtn = document.getElementById('editBtn');
+        const contentEl = document.getElementById('mainContent');
+        let editModeActive = false;
+
+        editBtn.addEventListener('click', function() {
+            editModeActive = !editModeActive;
+            
+            if (editModeActive) {
+                contentEl.setAttribute('contenteditable', 'true');
+                document.body.classList.add('editable-active');
+                editBtn.innerHTML = '<i class="fas fa-lock"></i> Terminar edição';
+                editBtn.style.backgroundColor = '#c53030'; // rojo para indicar modo activo
+            } else {
+                contentEl.removeAttribute('contenteditable');
+                document.body.classList.remove('editable-active');
+                editBtn.innerHTML = '<i class="fas fa-edit"></i> Editar conteúdo';
+                editBtn.style.backgroundColor = '#4a5568'; // color original
+            }
+        });
+
+        // Reiniciar contadores de CSS
+        document.body.style.counterReset = 'section-counter subsection-counter';
+    </script>
+</body>
+</html>

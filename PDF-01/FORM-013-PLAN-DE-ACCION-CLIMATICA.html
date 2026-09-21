@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DOC-013 Plano de Ação Climática - SGI (editável)</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        /* Barra de herramientas superior */
+        .toolbar {
+            max-width: 1400px;
+            margin: 0 auto 15px auto;
+            background-color: #2d3748;
+            border-radius: 40px;
+            padding: 12px 25px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: flex-end;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .toolbar button {
+            background-color: #edf2f7;
+            border: none;
+            color: #2d3748;
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        
+        .toolbar button:hover {
+            background-color: #cbd5e0;
+            transform: scale(1.02);
+        }
+        
+        .toolbar button.editar-activo {
+            background-color: #38a169;
+            color: white;
+        }
+        
+        .toolbar button i { font-style: normal; font-size: 1.2em; }
+        
+        /* Contenedor principal del documento */
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        /* Estilo para cuando la edición está activa */
+        .content.editable-active {
+            outline: 3px dashed #38a169;
+            outline-offset: 8px;
+            background-color: #fffff0;
+            border-radius: 12px;
+            transition: outline 0.2s;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        
+        .toc-link {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc-link:hover {
+            color: #718096;
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            counter-increment: section-counter;
+        }
+        
+        .section-subtitle {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #4a5568;
+        }
+        
+        .intro-text {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4a5568;
+            font-size: 16px;
+        }
+        
+        .action-plan-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .action-plan-table th {
+            background-color: #2d3748;
+            color: white;
+            font-weight: bold;
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #4a5568;
+        }
+        
+        .action-plan-table td {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        
+        .action-plan-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .action-plan-table tr:hover {
+            background-color: #edf2f7;
+        }
+        
+        .climate-highlight {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .climate-title {
+            color: #276749;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .responsibility-list {
+            list-style-type: none;
+            margin: 20px 0;
+        }
+        
+        .responsibility-list li {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        
+        .responsibility-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .responsibility-list li:before {
+            content: "▸";
+            color: #4a5568;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .kpi-list {
+            list-style-type: none;
+            margin: 20px 0;
+        }
+        
+        .kpi-list li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .kpi-list li:before {
+            content: "✓";
+            color: #38a169;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .highlight-box {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Ocultar la barra de herramientas al imprimir */
+        @media print {
+            .toolbar {
+                display: none !important;
+            }
+            body {
+                padding: 0;
+                background-color: white;
+            }
+            .document-container {
+                box-shadow: none;
+            }
+            .content.editable-active {
+                outline: none;
+                background-color: white;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .toc-list {
+                columns: 1;
+            }
+            .action-plan-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            .content {
+                padding: 20px;
+            }
+            .toolbar {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Barra de herramientas (botones) -->
+<div class="toolbar">
+<button id="btnEditar" title="Ativar/desativar edição do conteúdo">
+<i>✎</i> Editar
+        </button>
+<button id="btnHtml" title="Descarregar o documento como ficheiro HTML">
+<i>⬇️</i> Descarregar HTML
+        </button>
+<button id="btnPdf" title="Guardar como PDF (usar impressora → guardar como PDF)">
+<i>📄</i> Descarregar PDF
+        </button>
+</div>
+<div class="document-container">
+<!-- Cabeçalho com logo e informações da organização -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título do documento -->
+<div class="doc-title">Plano de Ação Climática - Sistema de Gestão Integrado</div>
+<div class="doc-code">Código: FORM-013</div>
+<!-- Conteúdo principal (editable) -->
+<div class="content" id="mainContent">
+<!-- Tabla de Contenidos -->
+<div class="toc">
+<div class="toc-title">Conteúdo</div>
+<ol class="toc-list">
+<li class="toc-item"><a class="toc-link" href="#introduccion">Introdução</a></li>
+<li class="toc-item"><a class="toc-link" href="#objetivos">Objetivos</a></li>
+<li class="toc-item"><a class="toc-link" href="#estrategias">Estratégias de Ação</a></li>
+<li class="toc-item"><a class="toc-link" href="#seguimiento">Mecanismos de acompanhamento e avaliação</a></li>
+<li class="toc-item"><a class="toc-link" href="#responsabilidades">Responsabilidades</a></li>
+<li class="toc-item"><a class="toc-link" href="#ajustes">Ajustes e Melhorias</a></li>
+<li class="toc-item"><a class="toc-link" href="#historial">Histórico de Versões</a></li>
+</ol>
+</div>
+<!-- Introducción -->
+<div class="section" id="introduccion">
+<div class="section-title">Introdução</div>
+<div class="climate-highlight">
+<div class="climate-title">Cumprimento das Emendas Climáticas ISO 2024</div>
+<p>O presente documento estabelece o <strong>Plano de Ação Climática</strong>, definindo estratégias e medidas para mitigar o impacto das alterações climáticas nas operações da empresa, alinhando-se com os requisitos das <strong>normas ISO</strong>.</p>
+<p>Este plano faz parte integrante do nosso Sistema de Gestão Integrado (SGI) e responde ao nosso compromisso com a sustentabilidade e a responsabilidade ambiental, cumprindo as expectativas das partes interessadas e os requisitos normativos atualizados.</p>
+</div>
+</div>
+<!-- Objetivos -->
+<div class="section" id="objetivos">
+<div class="section-title">Objetivos</div>
+<div class="intro-text">
+<p>O Plano de Ação Climática tem como propósito principal estabelecer um quadro estratégico para a gestão proativa dos aspetos climáticos nas nossas operações. Os objetivos específicos são:</p>
+</div>
+<ul class="kpi-list">
+<li><strong>Reduzir a pegada ambiental</strong> das atividades operacionais, com foco na eficiência energética e na gestão de resíduos.</li>
+<li><strong>Assegurar o cumprimento</strong> das regulamentações ambientais aplicáveis e dos requisitos das normas ISO.</li>
+<li><strong>Fomentar práticas sustentáveis</strong> em toda a cadeia de valor, incluindo fornecedores e clientes.</li>
+<li><strong>Estabelecer mecanismos de acompanhamento e melhoria contínua</strong> para avaliar a eficácia das ações implementadas.</li>
+<li><strong>Promover uma cultura organizacional</strong> consciente das alterações climáticas e comprometida com a ação climática.</li>
+</ul>
+</div>
+<!-- Estrategias de Acción -->
+<div class="section" id="estrategias">
+<div class="section-title">Estratégias de Ação</div>
+<div class="intro-text">
+<p>As seguintes estratégias e ações específicas foram concebidas para alcançar os objetivos do Plano de Ação Climática. Cada ação conta com responsáveis definidos, prazos estabelecidos e indicadores de acompanhamento para medir a sua eficácia.</p>
+</div>
+<table class="action-plan-table">
+<thead>
+<tr>
+<th>Estratégia</th>
+<th>Ação específica</th>
+<th>Responsável</th>
+<th>Prazo</th>
+<th>Indicador de acompanhamento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Eficiência Energética</strong></td>
+<td>Implementar tecnologia LED nas instalações e otimizar sistemas de climatização</td>
+<td>Área de Operações</td>
+<td>6 meses</td>
+<td>% de redução no consumo energético</td>
+</tr>
+<tr>
+<td><strong>Energia Renovável</strong></td>
+<td>Avaliar a viabilidade de painéis solares para fornecimento energético</td>
+<td>Direção Técnica</td>
+<td>12 meses</td>
+<td>Estudo de viabilidade concluído</td>
+</tr>
+<tr>
+<td><strong>Gestão de Resíduos</strong></td>
+<td>Aumentar a reciclagem e reduzir o desperdício através de programas de segregação</td>
+<td>Gestão ambiental</td>
+<td>9 meses</td>
+<td>Toneladas de resíduos reciclados vs. enviados para aterro</td>
+</tr>
+<tr>
+<td><strong>Fornecedores Sustentáveis</strong></td>
+<td>Priorizar compras a fornecedores com certificação ambiental (, etc.)</td>
+<td>Compras</td>
+<td>12 meses</td>
+<td>% de fornecedores certificados ambientalmente</td>
+</tr>
+<tr>
+<td><strong>Formação</strong></td>
+<td>Formar colaboradores em práticas sustentáveis e consciência climática</td>
+<td>Recursos Humanos</td>
+<td>3 meses</td>
+<td>Número de colaboradores formados / % de participação</td>
+</tr>
+<tr>
+<td><strong>Transporte Sustentável</strong></td>
+<td>Avaliar opções de mobilidade elétrica para a frota corporativa</td>
+<td>Logística</td>
+<td>8 meses</td>
+<td>Número de veículos elétricos incorporados</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-box">
+<div class="section-subtitle">Alinhamento com o SGI</div>
+<p>As estratégias aqui definidas alinham-se diretamente com:</p>
+<ul class="kpi-list">
+<li><strong>Normas ISO de gestão de qualidade:</strong> Consideração das alterações climáticas no contexto da organização.</li>
+<li><strong>Normas ISO de gestão ambiental:</strong> Gestão de aspetos e impactos ambientais.</li>
+<li><strong>Normas ISO de gestão de segurança e saúde:</strong> Proteção do bem-estar dos trabalhadores num contexto climático em mudança.</li>
+<li><strong>Política Integrada de SGI:</strong> Compromisso com a sustentabilidade e a melhoria contínua.</li>
+</ul>
+</div>
+</div>
+<!-- Mecanismos de Seguimiento -->
+<div class="section" id="seguimiento">
+<div class="section-title">Mecanismos de acompanhamento e avaliação</div>
+<div class="intro-text">
+<p>Para garantir a eficácia do Plano de Ação Climática, implementar-se-ão as seguintes atividades de monitorização e avaliação, integradas nos processos do Sistema de Gestão Integrado:</p>
+</div>
+<div class="climate-highlight">
+<div class="climate-title">Sistema de Monitorização Integrado</div>
+<ul class="kpi-list">
+<li><strong>Auditorias internas:</strong> Avaliação periódica do cumprimento das estratégias e ações estabelecidas, integrando os aspetos climáticos nos programas de auditoria do SGI.</li>
+<li><strong>Indicadores-chave de desempenho (KPIs):</strong> Medição do impacto das ações na sustentabilidade da empresa, incluindo métricas de consumo energético, geração de resíduos, pegada de carbono, entre outros.</li>
+<li><strong>Relatórios de sustentabilidade:</strong> Elaboração de relatórios trimestrais com os avanços e melhorias implementadas, apresentados à Alta direção e às partes interessadas relevantes.</li>
+<li><strong>Revisão anual:</strong> Ajuste de estratégias em função dos resultados obtidos e das alterações no contexto organizacional, climático e regulatório.</li>
+<li><strong>Monitorização contínua:</strong> Acompanhamento de parâmetros ambientais operacionais através do sistema de gestão ambiental.</li>
+</ul>
+</div>
+</div>
+<!-- Responsabilidades -->
+<div class="section" id="responsabilidades">
+<div class="section-title">Responsabilidades</div>
+<div class="intro-text">
+<p>Cada departamento tem um papel fundamental na implementação e no cumprimento do Plano de Ação Climática. A tabela seguinte detalha as responsabilidades atribuídas:</p>
+</div>
+<ul class="responsibility-list">
+<li><strong>Direção Geral:</strong> Aprovar e supervisionar a execução do plano, atribuir recursos necessários e rever os avanços nas reuniões de revisão do SGI.</li>
+<li><strong>Gestão ambiental (SGI):</strong> Coordenar as ações do plano, avaliar os impactos ambientais, monitorizar indicadores e elaborar relatórios de sustentabilidade.</li>
+<li><strong>Área de Operações:</strong> Implementar medidas de eficiência energética, gestão de resíduos no local e otimização de processos para reduzir a pegada ambiental.</li>
+<li><strong>Departamento de Compras:</strong> Garantir a seleção de fornecedores sustentáveis, incorporando critérios ambientais nos processos de contratação.</li>
+<li><strong>Recursos Humanos:</strong> Conceber e ministrar programas de formação em sustentabilidade e ação climática para todos os níveis da organização.</li>
+<li><strong>Direção Técnica:</strong> Avaliar e implementar soluções tecnológicas para a eficiência energética e energias renováveis.</li>
+<li><strong>Logística e Transporte:</strong> Gerir a mobilidade sustentável e otimizar rotas para reduzir emissões.</li>
+</ul>
+</div>
+<!-- Ajustes y Mejoras -->
+<div class="section" id="ajustes">
+<div class="section-title">Ajustes e Melhorias</div>
+<div class="intro-text">
+<p>O Plano de Ação Climática é um documento dinâmico que será revisto periodicamente para assegurar a sua eficácia e relevância. Os ajustes e melhorias realizar-se-ão com base em:</p>
+</div>
+<div class="highlight-box">
+<ul class="kpi-list">
+<li><strong>Novas regulamentações ambientais:</strong> Atualização do plano para cumprir a legislação local e internacional atualizada sobre alterações climáticas.</li>
+<li><strong>Avanços tecnológicos:</strong> Incorporação de novas tecnologias em eficiência energética, redução de emissões e gestão ambiental.</li>
+<li><strong>Revisão de desempenho:</strong> Análise de resultados de indicadores KPIs e auditorias para identificar áreas de melhoria.</li>
+<li><strong>Alterações no contexto organizacional:</strong> Adaptação a novas operações, produtos ou serviços que modifiquem a pegada ambiental.</li>
+<li><strong>Sugestões das partes interessadas:</strong> Consideração das expectativas de clientes, comunidade, reguladores e outros stakeholders relevantes.</li>
+<li><strong>Boas práticas do setor:</strong> Adoção de normas e práticas reconhecidas na indústria para a ação climática.</li>
+<li><strong>Eventos climáticos extremos:</strong> Aprendizagem e adaptação baseadas em experiências de fenómenos climáticos que afetem as operações.</li>
+</ul>
+</div>
+<div class="climate-highlight">
+<div class="climate-title">Ciclo de Melhoria Contínua PDCA</div>
+<p>O Plano de Ação Climática é gerido sob o ciclo <strong>Planear-Fazer-Verificar-Agir (PDCA)</strong> do SGI:</p>
+<ul class="kpi-list">
+<li><strong>Planear:</strong> Estabelecer objetivos, estratégias e indicadores (este documento)</li>
+<li><strong>Fazer:</strong> Implementar as ações planeadas</li>
+<li><strong>Verificar:</strong> Monitorizar resultados através de auditorias e indicadores</li>
+<li><strong>Agir:</strong> Realizar ajustes e melhorias com base nas constatações</li>
+</ul>
+</div>
+</div>
+<!-- Histórico de versiones -->
+<div class="version-history" id="historial">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div> <!-- fin .content -->
+<!-- Rodapé -->
+<div class="footer">
+<p>Código: FORM-013 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div> <!-- fin .document-container -->
+<script>
+        (function() {
+            // Elementos
+            const contentEl = document.getElementById('mainContent');
+            const btnEditar = document.getElementById('btnEditar');
+            const btnHtml = document.getElementById('btnHtml');
+            const btnPdf = document.getElementById('btnPdf');
+
+            // Estado de edición
+            let editable = false;
+
+            // Función para alternar edición
+            function toggleEdicion() {
+                editable = !editable;
+                if (editable) {
+                    contentEl.setAttribute('contenteditable', 'true');
+                    contentEl.classList.add('editable-active');
+                    btnEditar.classList.add('editar-activo');
+                    btnEditar.innerHTML = '<i>🔒</i> Desativar edição';
+                } else {
+                    contentEl.removeAttribute('contenteditable');
+                    contentEl.classList.remove('editable-active');
+                    btnEditar.classList.remove('editar-activo');
+                    btnEditar.innerHTML = '<i>✎</i> Editar';
+                }
+            }
+
+            // Evento botón editar
+            btnEditar.addEventListener('click', toggleEdicion);
+
+            // Botón Descargar HTML: genera un archivo .html con el contenido actual + estilos
+            function descargarHTML() {
+                // Obtenemos los estilos (el primer estilo de la cabecera)
+                const styles = document.querySelector('style').innerHTML;
+                
+                // Obtenemos el contenido del documento (container) tal como está (con ediciones)
+                const containerHTML = document.querySelector('.document-container').outerHTML;
+                
+                // Creamos la estructura completa de la página
+                const htmlCompleto = `<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano de Ação Climática - SGI</title>
+    <style>${styles}</style>
+</head>
+<body>
+    ${containerHTML}
+</body>
+</html>`;
+
+                // Crear blob y descargar
+                const blob = new Blob([htmlCompleto], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'plan_accion_climatica_SGI.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+
+            btnHtml.addEventListener('click', descargarHTML);
+
+            // Botón PDF: usa window.print() (el usuario elige guardar como PDF)
+            btnPdf.addEventListener('click', function() {
+                window.print();
+            });
+
+            // Scroll suave para la tabla de contenidos (respetando edición)
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Logo fallback (mismo código original)
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                    console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+                };
+            }
+
+            // Evitar que al pulsar Enter en contenteditable haga submit o cosas raras (opcional)
+            contentEl.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && editable) {
+                    // Permitir el enter normal (nueva línea)
+                }
+            });
+
+        })();
+    </script>
+</body>
+</html>
