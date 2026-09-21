@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FORM-001 Folha de Reclamações - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .form-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #2d3748;
+            text-align: center;
+            margin: 20px 0 40px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #4a5568;
+        }
+        
+        .form-code {
+            text-align: right;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 30px;
+            padding-right: 20px;
+        }
+        
+        .excel-table-container {
+            overflow-x: auto;
+            margin: 30px 0 50px;
+        }
+        
+        .excel-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1200px;
+        }
+        
+        .excel-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+            padding: 15px 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+            white-space: nowrap;
+        }
+        
+        .excel-table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+            vertical-align: top;
+            height: 50px;
+        }
+        
+        .excel-table input,
+        .excel-table select,
+        .excel-table textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 13px;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+        
+        .excel-table input:focus,
+        .excel-table select:focus,
+        .excel-table textarea:focus {
+            outline: none;
+            border-color: #4a5568;
+            box-shadow: 0 0 0 2px rgba(74, 85, 104, 0.1);
+        }
+        
+        .excel-table textarea {
+            resize: vertical;
+            min-height: 40px;
+        }
+        
+        .excel-table select {
+            cursor: pointer;
+        }
+        
+        .empty-row {
+            background-color: #f9f9f9;
+        }
+        
+        .empty-row:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .status-pending {
+            background-color: #fed7d7;
+            color: #c53030;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .status-in-progress {
+            background-color: #feebc8;
+            color: #b7791f;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .status-completed {
+            background-color: #c6f6d5;
+            color: #276749;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .instructions {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #4a5568;
+            font-size: 14px;
+        }
+        
+        .instructions-title {
+            color: #4a5568;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .form-btn {
+            background-color: #38a169;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .form-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .form-btn.secondary {
+            background-color: #718096;
+        }
+        
+        .form-btn.secondary:hover {
+            background-color: #4a5568;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn,
+            .form-actions {
+                display: none;
+            }
+            
+            .excel-table input,
+            .excel-table select,
+            .excel-table textarea {
+                border: none;
+                padding: 4px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabeçalho com logo e informações da organização -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título do documento -->
+<div class="doc-title">Folha de acompanhamento de Reclamações</div>
+<div class="doc-code">Código: FORM-001</div>
+<!-- Conteúdo principal -->
+<div class="content">
+<div class="form-title">Acompanhamento de Reclamações</div>
+<div class="form-code">FORM-001 Rev.00</div>
+<div class="instructions">
+<div class="instructions-title">Instruções:</div>
+<p>Preencha todos os campos da tabela para registar e dar seguimento às reclamações recebidas. Mantenha um registo atualizado do estado de cada caso.</p>
+</div>
+<!-- Tabla Excel -->
+<div class="excel-table-container">
+<table class="excel-table">
+<thead>
+<tr>
+<th width="8%">Número</th>
+<th width="15%">Descrição</th>
+<th width="12%">Cliente</th>
+<th width="12%">Contacto do cliente</th>
+<th width="10%">Atribuído a</th>
+<th width="8%">Data de início</th>
+<th width="8%">Data de encerramento</th>
+<th width="15%">Ação corretiva</th>
+<th width="8%">Estado</th>
+<th width="6%">Tipo</th>
+<th width="8%">Obs.</th>
+</tr>
+</thead>
+<tbody>
+<!-- Fila 1 (ejemplo) -->
+<tr>
+<td><input placeholder="Ex.: QJ-2024-001" type="text" value="QJ-2024-001"/></td>
+<td><textarea placeholder="Descreva a queixa/reclamação">Atraso na entrega do projeto X</textarea></td>
+<td><input placeholder="Nome do cliente" type="text" value="Empresa ABC S.A."/></td>
+<td><textarea placeholder="Telefone, email, etc.">Juan Pérez
+0991-123456
+juan@abc.com.py</textarea></td>
+<td><input placeholder="Responsável" type="text" value="María González"/></td>
+<td><input type="date" value="2024-11-15"/></td>
+<td><input type="date" value="2024-11-25"/></td>
+<td><textarea placeholder="Ação tomada">Implementação de sistema de acompanhamento de projetos</textarea></td>
+<td>
+<select>
+<option value="pendiente">Pendente</option>
+<option selected="" value="proceso">Em processo</option>
+<option value="completado">Concluído</option>
+</select>
+</td>
+<td>
+<select>
+<option value="calidad">Qualidade</option>
+<option selected="" value="plazo">Prazo</option>
+<option value="servicio">Serviço</option>
+</select>
+</td>
+<td><textarea placeholder="Observações">Cliente informado</textarea></td>
+</tr>
+<!-- Fila 2 (ejemplo) -->
+<tr>
+<td><input placeholder="Ex.: QJ-2024-002" type="text" value="QJ-2024-002"/></td>
+<td><textarea placeholder="Descreva a queixa/reclamação">Produto com defeito de fabrico</textarea></td>
+<td><input placeholder="Nome do cliente" type="text" value="Comercial XYZ Ltda."/></td>
+<td><textarea placeholder="Telefone, email, etc.">Ana Martínez
+0982-654321
+ana.m@xyz.com.py</textarea></td>
+<td><input placeholder="Responsável" type="text" value="Carlos Rodríguez"/></td>
+<td><input type="date" value="2024-11-20"/></td>
+<td><input type="date" value="2024-11-30"/></td>
+<td><textarea placeholder="Ação tomada">Substituição do produto defeituoso</textarea></td>
+<td>
+<select>
+<option value="pendiente">Pendente</option>
+<option value="proceso">Em processo</option>
+<option selected="" value="completado">Concluído</option>
+</select>
+</td>
+<td>
+<select>
+<option selected="" value="calidad">Qualidade</option>
+<option value="plazo">Prazo</option>
+<option value="servicio">Serviço</option>
+</select>
+</td>
+<td><textarea placeholder="Observações">Realizou-se análise de causa raiz</textarea></td>
+</tr>
+<!-- Fila 3 (ejemplo) -->
+<tr>
+<td><input placeholder="Ex.: QJ-2024-003" type="text" value="QJ-2024-003"/></td>
+<td><textarea placeholder="Descreva a queixa/reclamação">Erro na faturação do serviço</textarea></td>
+<td><input placeholder="Nome do cliente" type="text" value="Serviços Técnicos S.R.L."/></td>
+<td><textarea placeholder="Telefone, email, etc.">Roberto Díaz 0971-789012 roberto.d@servicos.com.py</textarea></td>
+<td><input placeholder="Responsável" type="text" value="Laura Fernández"/></td>
+<td><input type="date" value="2024-11-28"/></td>
+<td><input type="date" value="2024-12-05"/></td>
+<td><textarea placeholder="Ação tomada">Em processo de verificação</textarea></td>
+<td>
+<select>
+<option selected="" value="pendiente">Pendente</option>
+<option value="proceso">Em processo</option>
+<option value="completado">Concluído</option>
+</select>
+</td>
+<td>
+<select>
+<option value="calidad">Qualidade</option>
+<option value="plazo">Prazo</option>
+<option selected="" value="facturacion">Faturação</option>
+</select>
+</td>
+<td><textarea placeholder="Observações">A aguardar confirmação da área financeira</textarea></td>
+</tr>
+<!-- Filas vacías para nuevos registros (6 filas como en el Excel original) -->
+<tr class="empty-row">
+<td><input placeholder="Ex.: QJ-2024-004" type="text"/></td>
+<td><textarea placeholder="Descreva a queixa/reclamação"></textarea></td>
+<td><input placeholder="Nome do cliente" type="text"/></td>
+<td><textarea placeholder="Telefone, email, etc."></textarea></td>
+<td><input placeholder="Responsável" type="text"/></td>
+<td><input type="date"/></td>
+<td><input type="date"/></td>
+<td><textarea placeholder="Ação tomada"></textarea></td>
+<td>
+<select>
+<option disabled="" selected="" value="">Selecione</option>
+<option value="pendiente">Pendente</option>
+<option value="proceso">Em processo</option>
+<option value="completado">Concluído</option>
+</select>
+</td>
+<td>
+<select>
+<option disabled="" selected="" value="">Selecione</option>
+<option value="calidad">Qualidade</option>
+<option value="plazo">Prazo</option>
+<option value="servicio">Serviço</option>
+<option value="facturacion">Faturação</option>
+<option value="seguridad">Segurança</option>
+</select>
+</td>
+<td><textarea placeholder="Observações"></textarea></td>
+</tr>
+<tr class="empty-row">
+<td><input placeholder="Ex.: QJ-2024-005" type="text"/></td>
+<td><textarea placeholder="Descreva a queixa/reclamação"></textarea></td>
+<td><input placeholder="Nome do cliente" type="text"/></td>
+<td><textarea placeholder="Telefone, email, etc."></textarea></td>
+<td><input placeholder="Responsável" type="text"/></td>
+<td><input type="date"/></td>
+<td><input type="date"/></td>
+<td><textarea placeholder="Ação tomada"></textarea></td>
+<td>
+<select>
+<option disabled="" selected="" value="">Selecione</option>
+<option value="pendiente">Pendente</option>
+<option value="proceso">Em processo</option>
+<option value="completado">Concluído</option>
+</select>
+</td>
+<td>
+<select>
+<option disabled="" selected="" value="">Selecione</option>
+<option value="calidad">Qualidade</option>
+<option value="plazo">Prazo</option>
+<option value="servicio">Serviço</option>
+<option value="facturacion">Faturação</option>
+<option value="seguridad">Segurança</option>
+</select>
+</td>
+<td><textarea placeholder="Observações"></textarea></td>
+</tr>
+<tr class="empty-row">
+<td><input placeholder="Ex.: QJ-2024-006" type="text"/></td>
+<td><textarea placeholder="Descreva a queixa/reclamação"></textarea></td>
+<td><input placeholder="Nome do cliente" type="text"/></td>
+<td><textarea placeholder="Telefone, email, etc."></textarea></td>
+<td><input placeholder="Responsável" type="text"/></td>
+<td><input type="date"/></td>
+<td><input type="date"/></td>
+<td><textarea placeholder="Ação tomada"></textarea></td>
+<td>
+<select>
+<option disabled="" selected="" value="">Selecione</option>
+<option value="pendiente">Pendente</option>
+<option value="proceso">Em processo</option>
+<option value="completado">Concluído</option>
+</select>
+</td>
+<td>
+<select>
+<option disabled="" selected="" value="">Selecione</option>
+<option value="calidad">Qualidade</option>
+<option value="plazo">Prazo</option>
+<option value="servicio">Serviço</option>
+<option value="facturacion">Faturação</option>
+<option value="seguridad">Segurança</option>
+</select>
+</td>
+<td><textarea placeholder="Observações"></textarea></td>
+</tr>
+<tr class="empty-row">
+<td><input placeholder="Ex.: QJ-2024-007" type="text"/></td>
+<td><textarea placeholder="Descreva a queixa/reclamação"></textarea></td>
+<td><input placeholder="Nome do cliente" type="text"/></td>
+<td><textarea placeholder="Telefone, email, etc."></textarea></td>
+<td><input placeholder="Responsável" type="text"/></td>
+<td><input type="date"/></td>
+<td><input type="date"/></td>
+<td><textarea placeholder="Ação tomada"></textarea></td>
+<td>
+<select>
+<option disabled="" selected="" value="">Selecione</option>
+<option value="pendiente">Pendente</option>
+<option value="proceso">Em processo</option>
+<option value="completado">Concluído</option>
+</select>
+</td>
+<td>
+<select>
+<option disabled="" selected="" value="">Selecione</option>
+<option value="calidad">Qualidade</option>
+<option value="plazo">Prazo</option>
+<option value="servicio">Serviço</option>
+<option value="facturacion">Faturação</option>
+<option value="seguridad">Segurança</option>
+</select>
+</td>
+<td><textarea placeholder="Observações"></textarea></td>
+</tr>
+<tr class="empty-row">
+<td><input placeholder="Ex.: QJ-2024-008" type="text"/></td>
+<td><textarea placeholder="Descreva a queixa/reclamação"></textarea></td>
+<td><input placeholder="Nome do cliente" type="text"/></td>
+<td><textarea placeholder="Telefone, email, etc."></textarea></td>
+<td><input placeholder="Responsável" type="text"/></td>
+<td><input type="date"/></td>
+<td><input type="date"/></td>
+<td><textarea placeholder="Ação tomada"></textarea></td>
+<td>
+<select>
+<option disabled="" selected="" value="">Selecione</option>
+<option value="pendiente">Pendente</option>
+<option value="proceso">Em processo</option>
+<option value="completado">Concluído</option>
+</select>
+</td>
+<td>
+<select>
+<option disabled="" selected="" value="">Selecione</option>
+<option value="calidad">Qualidade</option>
+<option value="plazo">Prazo</option>
+<option value="servicio">Serviço</option>
+<option value="facturacion">Faturação</option>
+<option value="seguridad">Segurança</option>
+</select>
+</td>
+<td><textarea placeholder="Observações"></textarea></td>
+</tr>
+<tr class="empty-row">
+<td><input placeholder="Ex.: QJ-2024-009" type="text"/></td>
+<td><textarea placeholder="Descreva a queixa/reclamação"></textarea></td>
+<td><input placeholder="Nome do cliente" type="text"/></td>
+<td><textarea placeholder="Telefone, email, etc."></textarea></td>
+<td><input placeholder="Responsável" type="text"/></td>
+<td><input type="date"/></td>
+<td><input type="date"/></td>
+<td><textarea placeholder="Ação tomada"></textarea></td>
+<td>
+<select>
+<option disabled="" selected="" value="">Selecione</option>
+<option value="pendiente">Pendente</option>
+<option value="proceso">Em processo</option>
+<option value="completado">Concluído</option>
+</select>
+</td>
+<td>
+<select>
+<option disabled="" selected="" value="">Selecione</option>
+<option value="calidad">Qualidade</option>
+<option value="plazo">Prazo</option>
+<option value="servicio">Serviço</option>
+<option value="facturacion">Faturação</option>
+<option value="seguridad">Segurança</option>
+</select>
+</td>
+<td><textarea placeholder="Observações"></textarea></td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Botones de acción -->
+<div class="form-actions">
+<button class="form-btn secondary" onclick="addNewRow()">+ Adicionar Linha</button>
+<button class="form-btn" onclick="saveForm()">💾 Guardar Dados</button>
+</div>
+<!-- Botón de impresión -->
+<button class="print-btn" onclick="window.print()">📄 Imprimir Formulário</button>
+</div>
+<!-- Rodapé -->
+<div class="footer">
+<p>Código: FORM-001 | Revisão: 000 | Página 1 de 1</p>
+<p><em>Documento controlado. Este formulário deve ser arquivado por um período mínimo de 3 anos conforme os requisitos do SGI.</em></p>
+</div>
+</div>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verifica si el logo existe, caso contrário muestra un placeholder
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                };
+            }
+            
+            // Establecer fechas por defecto en campos vacíos
+            const today = new Date().toISOString().split('T')[0];
+            const dateInputs = document.querySelectorAll('.excel-table input[type="date"]:not([value])');
+            dateInputs.forEach(input => {
+                if (!input.value) {
+                    input.value = today;
+                }
+            });
+            
+            // Generar números automáticos para nuevas filas
+            generateAutoNumbers();
+        });
+        
+        function generateAutoNumbers() {
+            const numberInputs = document.querySelectorAll('.empty-row td:first-child input');
+            let baseNumber = 4; // Comenzar desde QJ-2024-004
+            
+            numberInputs.forEach((input, index) => {
+                if (!input.value) {
+                    const number = baseNumber + index;
+                    input.value = `QJ-2024-${number.toString().padStart(3, '0')}`;
+                }
+            });
+        }
+        
+        function addNewRow() {
+            const table = document.querySelector('.excel-table tbody');
+            const lastRow = table.lastElementChild.cloneNode(true);
+            
+            // Limpiar los valores de la nueva fila
+            const inputs = lastRow.querySelectorAll('input, textarea, select');
+            inputs.forEach(input => {
+                if (input.tagName === 'INPUT') {
+                    if (input.type === 'date') {
+                        input.value = new Date().toISOString().split('T')[0];
+                    } else if (input.type === 'text') {
+                        // Generar nuevo número automático
+                        const lastNumberInput = document.querySelector('.empty-row:last-child td:first-child input');
+                        if (lastNumberInput && lastNumberInput.value) {
+                            const match = lastNumberInput.value.match(/QJ-2024-(\d+)/);
+                            if (match) {
+                                const nextNum = parseInt(match[1]) + 1;
+                                input.value = `QJ-2024-${nextNum.toString().padStart(3, '0')}`;
+                            }
+                        }
+                    }
+                } else if (input.tagName === 'TEXTAREA') {
+                    input.value = '';
+                } else if (input.tagName === 'SELECT') {
+                    input.selectedIndex = 0;
+                }
+            });
+            
+            table.appendChild(lastRow);
+            
+            // Desplazar la vista hacia la nueva fila
+            lastRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        function saveForm() {
+            const rows = document.querySelectorAll('.excel-table tbody tr');
+            const data = [];
+            
+            rows.forEach((row, index) => {
+                const inputs = row.querySelectorAll('input, textarea, select');
+                const rowData = {};
+                
+                const headers = ['Número', 'Descrição', 'Cliente', 'Contacto', 'Atribuído', 'FechaInício', 'FechaCierre', 'Ação', 'Estado', 'Tipo', 'Observações'];
+                
+                inputs.forEach((input, i) => {
+                    if (i < headers.length) {
+                        rowData[headers[i]] = input.value;
+                    }
+                });
+                
+                if (Object.values(rowData).some(value => value && value.trim() !== '')) {
+                    data.push(rowData);
+                }
+            });
+            
+            // Aquí normalmente se enviarían los datos a un servidor
+            // Por ahora, mostramos un mensaje de confirmación
+            alert(`✅ Dados guardados com sucesso\n\nForam registadas ${data.length} queixas/reclamações.\n\nNuma implementação real, estes dados seriam enviados para uma base de dados.`);
+            
+            // Podríamos también descargar como JSON
+            const jsonData = JSON.stringify(data, null, 2);
+            const blob = new Blob([jsonData], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'quejas-reclamos-' + new Date().toISOString().split('T')[0] + '.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

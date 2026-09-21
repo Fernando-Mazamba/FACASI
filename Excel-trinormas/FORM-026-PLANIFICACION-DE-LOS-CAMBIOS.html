@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FORM-026 Planeamento das Alterações - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .form-intro {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4a5568;
+            font-size: 16px;
+        }
+        
+        .form-table-container {
+            overflow-x: auto;
+            margin: 30px 0;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+        }
+        
+        .form-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1800px;
+        }
+        
+        .form-table th, .form-table td {
+            border: 1px solid #e2e8f0;
+            padding: 10px 8px;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 12px;
+        }
+        
+        .form-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .form-header-row {
+            background-color: #2d3748;
+            color: white;
+        }
+        
+        .form-header-cell {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .form-subheader-row {
+            background-color: #718096;
+            color: white;
+        }
+        
+        .form-info-cell {
+            text-align: left;
+            font-weight: bold;
+            background-color: #f7fafc;
+        }
+        
+        .form-input-cell {
+            min-width: 80px;
+        }
+        
+        .form-wide-cell {
+            min-width: 120px;
+        }
+        
+        .form-narrow-cell {
+            min-width: 60px;
+        }
+        
+        .form-checkbox-cell {
+            width: 40px;
+        }
+        
+        .form-instructions {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .instructions-title {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .instructions-list {
+            list-style-type: none;
+            margin-top: 10px;
+        }
+        
+        .instructions-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .instructions-list li:before {
+            content: "•";
+            color: #3182ce;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .signature-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .signature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .signature-field {
+            border-bottom: 1px solid #cbd5e0;
+            padding: 10px 0 30px;
+            text-align: center;
+        }
+        
+        .signature-label {
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 5px;
+        }
+        
+        .signature-name {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn {
+                display: none;
+            }
+            
+            .form-table-container {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .signature-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabeçalho com logo e informações da organização -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título do documento -->
+<div class="doc-title">Controlo das Alterações ao Sistema de Gestão</div>
+<div class="doc-code">Código: FORM-026</div>
+<!-- Conteúdo principal -->
+<div class="content">
+<!-- Introducción -->
+<div class="form-intro">
+<p><strong>Este formulário tem como objetivo planear e controlar as alterações realizadas ao Sistema de Gestão Integrado (SGI)</strong>. Permite identificar, avaliar e gerir de forma estruturada as modificações, assegurando que se mantém a integridade do sistema e se mitigam os impactos negativos.</p>
+</div>
+<!-- Sección del formulario -->
+<div class="section">
+<div class="section-title">Planeamento das Alterações - Formulário de Controlo</div>
+<div class="form-table-container">
+<table class="form-table">
+<thead>
+<!-- Fila de encabezado principal -->
+<tr class="form-header-row">
+<th class="form-header-cell" colspan="18">CONTROLO DAS ALTERAÇÕES AO SISTEMA DE GESTÃO</th>
+</tr>
+<!-- Fila de información del formulario -->
+<tr class="form-subheader-row">
+<td colspan="17"></td>
+<td class="form-info-cell">
+                                    CÓDIGO: FORM-026<br/>
+                                    REV: 000<br/>
+                                    DATA: 01.12.2024
+                                </td>
+</tr>
+<!-- Fila vacía para separación -->
+<tr>
+<td colspan="18" style="height: 10px;"></td>
+</tr>
+<!-- Encabezado de identificación del cambio -->
+<tr>
+<td class="form-info-cell" colspan="8">Identificação da ALTERAÇÃO</td>
+<td class="form-info-cell" colspan="2">AUTORIDADE</td>
+<td class="form-info-cell" colspan="8">CONSEQUÊNCIAS POTENCIAIS E AÇÕES PARA MITIGAR OS SEUS EFEITOS</td>
+</tr>
+<!-- Encabezados de columnas principales -->
+<tr>
+<th class="form-narrow-cell" rowspan="2">Item</th>
+<th class="form-input-cell" rowspan="2">Empresa</th>
+<th class="form-input-cell" rowspan="2">Processo</th>
+<th class="form-wide-cell" rowspan="2">Descrição das alterações</th>
+<th class="form-wide-cell" rowspan="2">Propósito das alterações</th>
+<th class="form-wide-cell" rowspan="2">Atribuição ou reatribuição de responsabilidades</th>
+<th class="form-wide-cell" rowspan="2">Recursos necessários</th>
+<th class="form-input-cell" rowspan="2">Data de início da alteração</th>
+<th class="form-input-cell" rowspan="2">Responsável (aprovador)</th>
+<th class="form-wide-cell" rowspan="2">Consequências potenciais das alterações</th>
+<th class="form-wide-cell" rowspan="2">Planos de ação</th>
+<th class="form-input-cell" rowspan="2">Data de execução dos planos de ação</th>
+<th class="form-input-cell" rowspan="2">Responsável pelo plano de ação</th>
+<th class="form-input-cell" rowspan="2">Data de verificação</th>
+<th class="form-wide-cell" rowspan="2">Evidências após aplicar os planos de ação</th>
+<th class="form-input-cell" rowspan="2">Mantém-se a integridade do sistema?</th>
+<th class="form-input-cell" rowspan="2">Data de encerramento</th>
+</tr>
+</thead>
+<tbody>
+<!-- Filas para completar (5 filas vacías para registro) -->
+<tr>
+<td><input placeholder="001" style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input placeholder="Nome da empresa" style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input placeholder="Processo afetado" style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><textarea placeholder="Descrição detalhada da alteração" style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><textarea placeholder="Objetivo da alteração" style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><textarea placeholder="Responsabilidades atribuídas" style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><textarea placeholder="Recursos requeridos" style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><input placeholder="DD.MM.AAAA" style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input placeholder="Nome do responsável" style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><textarea placeholder="Consequências identificadas" style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><textarea placeholder="Planos de ação definidos" style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><input placeholder="DD.MM.AAAA" style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input placeholder="Nome do responsável" style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input placeholder="DD.MM.AAAA" style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><textarea placeholder="Evidências documentais" style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td>
+<select style="width: 100%; border: none; text-align: center;">
+<option value="">Selecionar</option>
+<option value="si">SIM</option>
+<option value="no">NÃO</option>
+</select>
+</td>
+<td><input placeholder="DD.MM.AAAA" style="width: 100%; border: none; text-align: center;" type="text"/></td>
+</tr>
+<!-- Repetir filas vacías -->
+<tr>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td>
+<select style="width: 100%; border: none; text-align: center;">
+<option value="">Selecionar</option>
+<option value="si">SIM</option>
+<option value="no">NÃO</option>
+</select>
+</td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+</tr>
+<tr>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td>
+<select style="width: 100%; border: none; text-align: center;">
+<option value="">Selecionar</option>
+<option value="si">SIM</option>
+<option value="no">NÃO</option>
+</select>
+</td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+</tr>
+<tr>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td>
+<select style="width: 100%; border: none; text-align: center;">
+<option value="">Selecionar</option>
+<option value="si">SIM</option>
+<option value="no">NÃO</option>
+</select>
+</td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+</tr>
+<tr>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td>
+<select style="width: 100%; border: none; text-align: center;">
+<option value="">Selecionar</option>
+<option value="si">SIM</option>
+<option value="no">NÃO</option>
+</select>
+</td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Instrucciones de uso -->
+<div class="form-instructions">
+<div class="instructions-title">Instruções para preencher o formulário:</div>
+<ul class="instructions-list">
+<li><strong>Item:</strong> Número sequencial de identificação da alteração.</li>
+<li><strong>Empresa:</strong> Nome da empresa ou unidade organizacional onde se realiza a alteração.</li>
+<li><strong>Processo:</strong> Processo do SGI que é afetado pela alteração.</li>
+<li><strong>Descrição das alterações:</strong> Detalhe completo das modificações a realizar.</li>
+<li><strong>Propósito das alterações:</strong> Objetivo e justificação da alteração.</li>
+<li><strong>Atribuição de responsabilidades:</strong> Pessoas responsáveis por implementar a alteração.</li>
+<li><strong>Recursos necessários:</strong> Recursos humanos, materiais e financeiros requeridos.</li>
+<li><strong>Data de início:</strong> Data planeada para iniciar a alteração.</li>
+<li><strong>Responsável (aprovador):</strong> Pessoa que autoriza a alteração.</li>
+<li><strong>Consequências potenciais:</strong> Impactos identificados da alteração no sistema.</li>
+<li><strong>Planos de ação:</strong> Ações definidas para mitigar consequências negativas.</li>
+<li><strong>Data de execução:</strong> Data para implementar os planos de ação.</li>
+<li><strong>Responsável pelo plano:</strong> Pessoa encarregada de executar os planos de ação.</li>
+<li><strong>Data de verificação:</strong> Data para verificar a eficácia da alteração.</li>
+<li><strong>Evidências:</strong> Documentação que demonstra a implementação bem-sucedida.</li>
+<li><strong>Integridade do sistema:</strong> Avaliação de se a alteração mantém a integridade do SGI.</li>
+<li><strong>Data de encerramento:</strong> Data em que se encerra formalmente o registo da alteração.</li>
+</ul>
+</div>
+<!-- Sección de firmas -->
+<div class="signature-section">
+<div class="section-title">Autorizações e Assinaturas</div>
+<div class="signature-grid">
+<div class="signature-field">
+<div class="signature-label">SOLICITANTE DA ALTERAÇÃO</div>
+<div class="signature-name">Nome e Assinatura</div>
+</div>
+<div class="signature-field">
+<div class="signature-label">ANALISTA DE IMPACTO</div>
+<div class="signature-name">Nome e Assinatura</div>
+</div>
+<div class="signature-field">
+<div class="signature-label">APROVADOR FINAL</div>
+<div class="signature-name">Nome e Assinatura</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Botón de impresión -->
+<button class="print-btn" onclick="window.print()">📄 Imprimir documento</button>
+<!-- Histórico de versiones -->
+<div class="version-history">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Rodapé -->
+<div class="footer">
+<p>Código: FORM-026 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        // Verifica se o logo existe, caso contrário mostra um placeholder
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+            };
+            
+            // Configurar campos de fecha con formato sugerido
+            document.querySelectorAll('input[type="text"][placeholder*="DD.MM.AAAA"]').forEach(input => {
+                input.addEventListener('focus', function() {
+                    if (!this.value) {
+                        this.value = '';
+                    }
+                });
+                
+                input.addEventListener('blur', function() {
+                    if (this.value && !this.value.match(/\d{2}\.\d{2}\.\d{4}/)) {
+                        this.style.border = '1px solid #e53e3e';
+                    } else {
+                        this.style.border = 'none';
+                    }
+                });
+            });
+            
+            // Auto-incrementar el número de Item
+            let itemNumber = 1;
+            document.querySelectorAll('input[type="text"][placeholder="001"]').forEach(input => {
+                input.value = itemNumber.toString().padStart(3, '0');
+                itemNumber++;
+                
+                input.addEventListener('blur', function() {
+                    if (!this.value.match(/^\d+$/)) {
+                        this.style.border = '1px solid #e53e3e';
+                    } else {
+                        this.style.border = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

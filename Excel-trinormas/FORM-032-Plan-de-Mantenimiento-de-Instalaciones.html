@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FORM-032 Programa de Manutenção de Instalações - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2d3748;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 180px;
+            height: 100px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2d3748;
+            text-align: center;
+            padding: 25px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 25px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .form-title-container {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px double #4a5568;
+        }
+        
+        .form-main-title {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+        
+        .form-subtitle {
+            font-size: 28px;
+            color: #4a5568;
+            margin-bottom: 15px;
+        }
+        
+        .form-document-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        
+        .document-code {
+            font-weight: bold;
+            color: #2d3748;
+        }
+        
+        .document-revision {
+            font-weight: bold;
+            color: #2d3748;
+        }
+        
+        .legend-section {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        
+        .legend-title {
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 15px;
+            font-size: 18px;
+            text-align: center;
+        }
+        
+        .legend-items {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+        }
+        
+        .legend-p {
+            background-color: #90cdf4;
+        }
+        
+        .legend-r {
+            background-color: #9ae6b4;
+        }
+        
+        .legend-x {
+            background-color: #fc8181;
+        }
+        
+        .maintenance-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            font-size: 13px;
+            table-layout: fixed;
+        }
+        
+        .maintenance-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+            padding: 12px 5px;
+            text-align: center;
+            border: 1px solid #2d3748;
+            vertical-align: middle;
+        }
+        
+        .maintenance-table td {
+            padding: 10px 5px;
+            text-align: center;
+            border: 1px solid #ddd;
+            vertical-align: middle;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .maintenance-table .equipo-column {
+            width: 180px;
+            font-weight: bold;
+        }
+        
+        .maintenance-table .tarea-column {
+            width: 250px;
+        }
+        
+        .maintenance-table .frec-column {
+            width: 70px;
+        }
+        
+        .maintenance-table .month-column {
+            width: 70px;
+            min-width: 70px;
+        }
+        
+        .month-checkbox {
+            width: 30px;
+            height: 30px;
+            margin: 0 auto;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .month-checkbox.programado {
+            background-color: #90cdf4;
+            color: #2c5282;
+        }
+        
+        .month-checkbox.realizado {
+            background-color: #9ae6b4;
+            color: #276749;
+        }
+        
+        .month-checkbox.no-realizado {
+            background-color: #fc8181;
+            color: #c53030;
+        }
+        
+        .month-checkbox:hover {
+            transform: scale(1.1);
+        }
+        
+        .task-input {
+            width: 100%;
+            padding: 8px 5px;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            font-size: 13px;
+            background-color: #f8f9fa;
+            resize: vertical;
+            min-height: 60px;
+        }
+        
+        .task-input:focus {
+            outline: none;
+            border-color: #4a5568;
+            background-color: white;
+        }
+        
+        .equipo-input {
+            width: 100%;
+            padding: 8px 5px;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: bold;
+            background-color: #f8f9fa;
+        }
+        
+        .equipo-input:focus {
+            outline: none;
+            border-color: #4a5568;
+            background-color: white;
+        }
+        
+        .frecuencia-input {
+            width: 100%;
+            padding: 8px 5px;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            font-size: 13px;
+            background-color: #f8f9fa;
+        }
+        
+        .frecuencia-input:focus {
+            outline: none;
+            border-color: #4a5568;
+            background-color: white;
+        }
+        
+        .controls-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #edf2f7;
+            border-radius: 5px;
+        }
+        
+        .add-row-btn {
+            background-color: #38a169;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .add-row-btn:hover {
+            background-color: #48bb78;
+        }
+        
+        .summary-stats {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .stat-item {
+            background-color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #718096;
+            margin-top: 5px;
+        }
+        
+        .approval-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 40px 0;
+            padding: 30px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .approval-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .approval-title {
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 20px;
+            font-size: 16px;
+            text-align: center;
+        }
+        
+        .signature-box {
+            height: 100px;
+            border-bottom: 2px solid #cbd5e0;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 10px;
+        }
+        
+        .signature-name {
+            text-align: center;
+            font-style: italic;
+            color: #718096;
+        }
+        
+        .modifications-section {
+            margin: 30px 0;
+            padding: 25px;
+            background-color: #fff5f5;
+            border: 1px solid #fed7d7;
+            border-radius: 5px;
+        }
+        
+        .modifications-title {
+            font-weight: bold;
+            color: #c53030;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .modifications-input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #fed7d7;
+            border-radius: 5px;
+            font-size: 14px;
+            background-color: white;
+            min-height: 80px;
+            resize: vertical;
+        }
+        
+        .modifications-input:focus {
+            outline: none;
+            border-color: #c53030;
+        }
+        
+        .validity-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .validity-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .validity-label {
+            font-weight: bold;
+            color: #4a5568;
+        }
+        
+        .validity-input {
+            padding: 8px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .validity-input:focus {
+            outline: none;
+            border-color: #4a5568;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .save-btn {
+            background-color: #38a169;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .reset-btn {
+            background-color: #e53e3e;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        .save-btn:hover {
+            background-color: #48bb78;
+        }
+        
+        .reset-btn:hover {
+            background-color: #f56565;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .action-buttons,
+            .add-row-btn {
+                display: none;
+            }
+            
+            .month-checkbox {
+                border: 1px solid #ddd;
+            }
+        }
+        
+        @media screen and (max-width: 1200px) {
+            .maintenance-table {
+                font-size: 12px;
+            }
+            
+            .month-checkbox {
+                width: 25px;
+                height: 25px;
+                font-size: 12px;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .maintenance-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .controls-section {
+                flex-direction: column;
+                gap: 20px;
+                align-items: stretch;
+            }
+            
+            .summary-stats {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .approval-section {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .form-main-title {
+                font-size: 28px;
+            }
+            
+            .form-subtitle {
+                font-size: 22px;
+            }
+            
+            .form-document-info {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabeçalho com logo e informações da organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título do documento -->
+<div class="doc-title">Programa de Manutenção de Instalações</div>
+<div class="doc-code">Código: FORM-032</div>
+<!-- Conteúdo principal -->
+<div class="content">
+<!-- Título do formulário -->
+<div class="form-title-container">
+<div class="form-main-title">PROGRAMA DE MANUTENÇÃO</div>
+<div class="form-subtitle">DE INSTALAÇÕES</div>
+<div class="form-document-info">
+<div class="document-code">Documento: FORM-032</div>
+<div class="document-revision">Revisão N.º: 00</div>
+</div>
+</div>
+<!-- Leyenda de estados -->
+<div class="legend-section">
+<div class="legend-title">LEGENDA DE ESTADOS</div>
+<div class="legend-items">
+<div class="legend-item">
+<div class="legend-color legend-p"></div>
+<div><strong>P</strong> - Programado</div>
+</div>
+<div class="legend-item">
+<div class="legend-color legend-r"></div>
+<div><strong>R</strong> - Realizado</div>
+</div>
+<div class="legend-item">
+<div class="legend-color legend-x"></div>
+<div><strong>X</strong> - Não Realizado</div>
+</div>
+</div>
+</div>
+<!-- Controles y estadísticas -->
+<div class="controls-section">
+<button class="add-row-btn" onclick="addNewRow()">
+                    ➕ Adicionar Nova Tarefa
+                </button>
+<div class="summary-stats">
+<div class="stat-item">
+<div class="stat-value" id="total-tasks">0</div>
+<div class="stat-label">TOTAL DE TAREFAS</div>
+</div>
+<div class="stat-item">
+<div class="stat-value" id="completed-tasks">0</div>
+<div class="stat-label">REALIZADAS</div>
+</div>
+<div class="stat-item">
+<div class="stat-value" id="pending-tasks">0</div>
+<div class="stat-label">PENDENTES</div>
+</div>
+<div class="stat-item">
+<div class="stat-value" id="completion-rate">0%</div>
+<div class="stat-label">Cumprimento</div>
+</div>
+</div>
+</div>
+<!-- Tabla de mantenimiento -->
+<table class="maintenance-table" id="maintenance-table">
+<thead>
+<tr>
+<th class="equipo-column">EQUIPAMENTO</th>
+<th class="tarea-column">TAREFA</th>
+<th class="frec-column">FREQ.</th>
+<th class="month-column">JAN</th>
+<th class="month-column">FEV</th>
+<th class="month-column">MAR</th>
+<th class="month-column">ABR</th>
+<th class="month-column">MAI</th>
+<th class="month-column">JUN</th>
+<th class="month-column">JUL</th>
+<th class="month-column">AGO</th>
+<th class="month-column">SET</th>
+<th class="month-column">OUT</th>
+<th class="month-column">NOV</th>
+<th class="month-column">DEZ</th>
+</tr>
+</thead>
+<tbody id="maintenance-body">
+<!-- Fila 1 -->
+<tr>
+<td><input class="equipo-input" placeholder="Ex.: Sistema elétrico" type="text"/></td>
+<td><textarea class="task-input" placeholder="Descrição da tarefa de manutenção"></textarea></td>
+<td><input class="frecuencia-input" placeholder="Mensal" type="text"/></td>
+<td><div class="month-checkbox" data-month="ene" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="feb" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="mar" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="abr" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="may" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="jun" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="jul" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="agos" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="set" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="oct" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="nov" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="dic" onclick="toggleStatus(this)"></div></td>
+</tr>
+<!-- Fila 2 -->
+<tr>
+<td><input class="equipo-input" placeholder="Ex.: Sistema AVAC" type="text"/></td>
+<td><textarea class="task-input" placeholder="Descrição da tarefa de manutenção"></textarea></td>
+<td><input class="frecuencia-input" placeholder="Trimestral" type="text"/></td>
+<td><div class="month-checkbox" data-month="ene" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="feb" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="mar" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="abr" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="may" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="jun" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="jul" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="agos" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="set" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="oct" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="nov" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="dic" onclick="toggleStatus(this)"></div></td>
+</tr>
+<!-- Fila 3 -->
+<tr>
+<td><input class="equipo-input" placeholder="Ex.: Sistema de água" type="text"/></td>
+<td><textarea class="task-input" placeholder="Descrição da tarefa de manutenção"></textarea></td>
+<td><input class="frecuencia-input" placeholder="Semestral" type="text"/></td>
+<td><div class="month-checkbox" data-month="ene" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="feb" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="mar" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="abr" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="may" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="jun" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="jul" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="agos" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="set" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="oct" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="nov" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="dic" onclick="toggleStatus(this)"></div></td>
+</tr>
+<!-- Fila 4 -->
+<tr>
+<td><input class="equipo-input" placeholder="Ex.: Sistema de segurança" type="text"/></td>
+<td><textarea class="task-input" placeholder="Descrição da tarefa de manutenção"></textarea></td>
+<td><input class="frecuencia-input" placeholder="Anual" type="text"/></td>
+<td><div class="month-checkbox" data-month="ene" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="feb" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="mar" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="abr" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="may" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="jun" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="jul" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="agos" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="set" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="oct" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="nov" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="dic" onclick="toggleStatus(this)"></div></td>
+</tr>
+<!-- Fila 5 -->
+<tr>
+<td><input class="equipo-input" placeholder="Ex.: Sistema de telecomunicações" type="text"/></td>
+<td><textarea class="task-input" placeholder="Descrição da tarefa de manutenção"></textarea></td>
+<td><input class="frecuencia-input" placeholder="Mensal" type="text"/></td>
+<td><div class="month-checkbox" data-month="ene" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="feb" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="mar" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="abr" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="may" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="jun" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="jul" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="agos" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="set" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="oct" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="nov" onclick="toggleStatus(this)"></div></td>
+<td><div class="month-checkbox" data-month="dic" onclick="toggleStatus(this)"></div></td>
+</tr>
+</tbody>
+</table>
+<!-- Sección de aprobación -->
+<div class="approval-section">
+<div class="approval-group">
+<div class="approval-title">REVISTO POR:</div>
+<div class="signature-box" id="reviewed-signature">
+<div style="color: #a0aec0; font-style: italic;">Assinatura do responsável</div>
+</div>
+<div class="signature-name" id="reviewed-name"></div>
+</div>
+<div class="approval-group">
+<div class="approval-title">APROVADO POR:</div>
+<div class="signature-box" id="approved-signature">
+<div style="color: #a0aec0; font-style: italic;">Assinatura do aprovador</div>
+</div>
+<div class="signature-name" id="approved-name"></div>
+</div>
+</div>
+<!-- Sección de modificaciones -->
+<div class="modifications-section">
+<div class="modifications-title">Descrição das MODIFICAÇÕES:</div>
+<textarea class="modifications-input" id="modifications-input" placeholder="Descreva as modificações realizadas ao programa de manutenção...">Emissão inicial</textarea>
+<div class="validity-section">
+<div class="validity-group">
+<div class="validity-label">Data de Vigência:</div>
+<input class="validity-input" id="validity-date" type="date" value="2024-12-01"/>
+</div>
+<div class="validity-group">
+<div class="validity-label">Próxima Revisão:</div>
+<input class="validity-input" id="next-review-date" type="date" value="2025-06-01"/>
+</div>
+</div>
+</div>
+<!-- Botones de acción -->
+<div class="action-buttons">
+<button class="reset-btn" onclick="resetForm()">🔄 Reiniciar Programa</button>
+<button class="save-btn" onclick="saveProgram()">💾 Guardar Programa</button>
+<button class="print-btn" onclick="window.print()">📄 Imprimir Programa</button>
+</div>
+<!-- Historial de versiones -->
+<div class="version-history">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Rodapé -->
+<div class="footer">
+<p>Código: FORM-032 | Revisão: 00 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verifica se o logo existe
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232d3748" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                console.log("Logótipo não encontrado. Por favor, adicione o logótipo na pasta especificada.");
+            };
+            
+            // Hacer las firmas editables
+            document.querySelectorAll('.signature-box').forEach(box => {
+                box.addEventListener('click', function() {
+                    const isReviewed = this.id === 'reviewed-signature';
+                    const title = isReviewed ? "Nome do Revisor" : "Nome do Aprovador";
+                    const name = prompt(`Introduza o nome para ${title}:`, "");
+                    
+                    if (name) {
+                        this.innerHTML = `<div style="font-weight: bold; color: #2d3748;">${name}</div>`;
+                        const nameField = isReviewed ? document.getElementById('reviewed-name') : document.getElementById('approved-name');
+                        nameField.textContent = name;
+                        nameField.style.color = "#4a5568";
+                        nameField.style.fontStyle = "normal";
+                    }
+                });
+            });
+            
+            // Agregar event listeners a los inputs existentes
+            document.querySelectorAll('.equipo-input, .task-input, .frecuencia-input').forEach(input => {
+                input.addEventListener('input', updateStats);
+            });
+            
+            // Calcular estadísticas iniciales
+            updateStats();
+        });
+        
+        let statusCycle = ['', 'programado', 'realizado', 'no-realizado'];
+        let statusLabels = ['', 'P', 'R', 'X'];
+        
+        function toggleStatus(element) {
+            // Encontrar el índice actual
+            let currentClass = '';
+            if (element.classList.contains('programado')) currentClass = 'programado';
+            else if (element.classList.contains('realizado')) currentClass = 'realizado';
+            else if (element.classList.contains('no-realizado')) currentClass = 'no-realizado';
+            
+            // Obtener el siguiente estado
+            const currentIndex = statusCycle.indexOf(currentClass);
+            const nextIndex = (currentIndex + 1) % statusCycle.length;
+            
+            // Limpiar clases anteriores
+            element.classList.remove('programado', 'realizado', 'no-realizado');
+            
+            // Aplicar nueva clase si no está vacío
+            if (statusCycle[nextIndex]) {
+                element.classList.add(statusCycle[nextIndex]);
+                element.textContent = statusLabels[nextIndex];
+            } else {
+                element.textContent = '';
+            }
+            
+            updateStats();
+        }
+        
+        function updateStats() {
+            const rows = document.querySelectorAll('#maintenance-body tr');
+            let totalTasks = 0;
+            let totalCompleted = 0;
+            let totalPending = 0;
+            
+            rows.forEach(row => {
+                const equipo = row.querySelector('.equipo-input').value;
+                const tarea = row.querySelector('.task-input').value;
+                
+                // Contar solo si tiene equipo y tarea
+                if (equipo.trim() && tarea.trim()) {
+                    totalTasks++;
+                    
+                    // Contar checkboxes realizados
+                    const checkboxes = row.querySelectorAll('.month-checkbox');
+                    let rowCompleted = 0;
+                    let rowTotal = 0;
+                    
+                    checkboxes.forEach(cb => {
+                        if (cb.classList.contains('realizado')) {
+                            rowCompleted++;
+                        }
+                        if (cb.classList.contains('programado') || cb.classList.contains('realizado') || cb.classList.contains('no-realizado')) {
+                            rowTotal++;
+                        }
+                    });
+                    
+                    totalCompleted += rowCompleted;
+                    totalPending += (rowTotal - rowCompleted);
+                }
+            });
+            
+            // Actualizar estadísticas
+            document.getElementById('total-tasks').textContent = totalTasks;
+            document.getElementById('completed-tasks').textContent = totalCompleted;
+            document.getElementById('pending-tasks').textContent = totalPending;
+            
+            const completionRate = totalTasks > 0 ? Math.round((totalCompleted / (totalCompleted + totalPending)) * 100) : 0;
+            document.getElementById('completion-rate').textContent = `${completionRate}%`;
+            
+            // Cambiar color según el porcentaje
+            const rateElement = document.getElementById('completion-rate');
+            rateElement.style.color = completionRate >= 80 ? '#276749' : 
+                                   completionRate >= 50 ? '#d69e2e' : '#c53030';
+        }
+        
+        function addNewRow() {
+            const tbody = document.getElementById('maintenance-body');
+            const newRow = document.createElement('tr');
+            
+            newRow.innerHTML = `
+                <td><input type="text" class="equipo-input" placeholder="Ex.: Novo equipamento"></td>
+                <td><textarea class="task-input" placeholder="Descrição da tarefa de manutenção"></textarea></td>
+                <td><input type="text" class="frecuencia-input" placeholder="Frequência"></td>
+                <td><div class="month-checkbox" data-month="ene" onclick="toggleStatus(this)"></div></td>
+                <td><div class="month-checkbox" data-month="feb" onclick="toggleStatus(this)"></div></td>
+                <td><div class="month-checkbox" data-month="mar" onclick="toggleStatus(this)"></div></td>
+                <td><div class="month-checkbox" data-month="abr" onclick="toggleStatus(this)"></div></td>
+                <td><div class="month-checkbox" data-month="may" onclick="toggleStatus(this)"></div></td>
+                <td><div class="month-checkbox" data-month="jun" onclick="toggleStatus(this)"></div></td>
+                <td><div class="month-checkbox" data-month="jul" onclick="toggleStatus(this)"></div></td>
+                <td><div class="month-checkbox" data-month="agos" onclick="toggleStatus(this)"></div></td>
+                <td><div class="month-checkbox" data-month="set" onclick="toggleStatus(this)"></div></td>
+                <td><div class="month-checkbox" data-month="oct" onclick="toggleStatus(this)"></div></td>
+                <td><div class="month-checkbox" data-month="nov" onclick="toggleStatus(this)"></div></td>
+                <td><div class="month-checkbox" data-month="dic" onclick="toggleStatus(this)"></div></td>
+            `;
+            
+            tbody.appendChild(newRow);
+            
+            // Agregar event listeners a los nuevos inputs
+            newRow.querySelectorAll('.equipo-input, .task-input, .frecuencia-input').forEach(input => {
+                input.addEventListener('input', updateStats);
+            });
+            
+            updateStats();
+        }
+        
+        function saveProgram() {
+            const modifications = document.getElementById('modifications-input').value;
+            const validityDate = document.getElementById('validity-date').value;
+            const nextReviewDate = document.getElementById('next-review-date').value;
+            
+            // Validar que haya al menos una tarea definida
+            let hasTasks = false;
+            document.querySelectorAll('.equipo-input').forEach(input => {
+                if (input.value.trim()) hasTasks = true;
+            });
+            
+            if (!hasTasks) {
+                alert('Por favor, defina pelo menos um equipamento e tarefa de manutenção.');
+                return;
+            }
+            
+            // Aquí normalmente se enviaría a un servidor
+            // Por ahora solo mostramos un mensaje
+            alert(`Programa de manutenção guardado com sucesso.\n\nData de vigência: ${validityDate}\nPróxima revisão: ${nextReviewDate}\n\nOs dados foram registados no sistema.`);
+            
+            console.log('Programa guardado:', {
+                modifications,
+                validityDate,
+                nextReviewDate,
+                timestamp: new Date().toISOString(),
+                stats: {
+                    totalTasks: document.getElementById('total-tasks').textContent,
+                    completedTasks: document.getElementById('completed-tasks').textContent,
+                    completionRate: document.getElementById('completion-rate').textContent
+                }
+            });
+        }
+        
+        function resetForm() {
+            if (confirm('Tem a certeza de que deseja reiniciar todo o programa de manutenção? Perder-se-ão todos os dados introduzidos.')) {
+                // Limpiar inputs
+                document.querySelectorAll('.equipo-input, .task-input, .frecuencia-input').forEach(input => {
+                    if (input.classList.contains('task-input')) {
+                        input.value = '';
+                    } else {
+                        input.value = '';
+                    }
+                });
+                
+                // Limpiar checkboxes
+                document.querySelectorAll('.month-checkbox').forEach(cb => {
+                    cb.classList.remove('programado', 'realizado', 'no-realizado');
+                    cb.textContent = '';
+                });
+                
+                // Restablecer modificaciones
+                document.getElementById('modifications-input').value = 'Emissão inicial';
+                document.getElementById('validity-date').value = '2024-12-01';
+                document.getElementById('next-review-date').value = '2025-06-01';
+                
+                // Limpiar firmas
+                document.querySelectorAll('.signature-box').forEach(box => {
+                    box.innerHTML = '<div style="color: #a0aec0; font-style: italic;">' + 
+                                   (box.id === 'reviewed-signature' ? 'Assinatura do responsável' : 'Assinatura do aprovador') + 
+                                   '</div>';
+                });
+                
+                document.getElementById('reviewed-name').textContent = '';
+                document.getElementById('approved-name').textContent = '';
+                
+                // Actualizar estadísticas
+                updateStats();
+                
+                alert('Programa reiniciado com sucesso.');
+            }
+        }
+        
+        // Función para exportar a Excel (simplificada)
+        function exportToExcel() {
+            alert('Função de exportação para Excel disponível na versão completa do sistema.');
+        }
+    </script>
+</body>
+</html>

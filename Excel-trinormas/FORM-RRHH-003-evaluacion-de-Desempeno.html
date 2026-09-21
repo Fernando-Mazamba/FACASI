@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FOR-RRHH-003 Avaliação de Desempenho - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 180px;
+            height: 100px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 30px;
+        }
+        
+        .org-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 25px;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 26px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 25px 30px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 30px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 30px 25px;
+            margin: 0 30px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 25px 30px;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .form-row {
+            display: flex;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        
+        .form-label {
+            width: 200px;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        
+        .form-field {
+            flex-grow: 1;
+        }
+        
+        input[type="text"], input[type="date"], input[type="number"], textarea, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+            background-color: white;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #3182ce;
+            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+        }
+        
+        .rating-scale {
+            background-color: #edf2f7;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .scale-title {
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .scale-items {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .scale-item {
+            flex: 1;
+            min-width: 180px;
+            text-align: center;
+            padding: 10px;
+            background-color: white;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+        }
+        
+        .scale-number {
+            font-size: 20px;
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 5px;
+        }
+        
+        .scale-description {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .criterion-section {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px dashed #cbd5e0;
+        }
+        
+        .criterion-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+        
+        .rating-options {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .rating-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+            border: 2px solid #cbd5e0;
+            border-radius: 5px;
+            background-color: white;
+            min-width: 70px;
+            transition: all 0.3s;
+        }
+        
+        .rating-option:hover {
+            border-color: #718096;
+            transform: translateY(-2px);
+        }
+        
+        .rating-option.selected {
+            border-color: #3182ce;
+            background-color: #ebf8ff;
+        }
+        
+        .rating-number {
+            font-size: 20px;
+            font-weight: bold;
+            color: #4a5568;
+        }
+        
+        .rating-description {
+            font-size: 11px;
+            color: #666;
+            text-align: center;
+        }
+        
+        .comments-section {
+            margin-top: 15px;
+        }
+        
+        .comments-label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+            color: #4a5568;
+        }
+        
+        .summary-section {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .summary-title {
+            color: #276749;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .summary-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .summary-item {
+            text-align: center;
+            padding: 15px;
+            background-color: white;
+            border-radius: 5px;
+            border: 1px solid #cbd5e0;
+            min-width: 150px;
+        }
+        
+        .summary-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        
+        .summary-label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .signatures-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #4a5568;
+        }
+        
+        .signatures {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .signature-box {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+        
+        .signature-line {
+            border-top: 1px solid #000;
+            margin: 40px 0 10px;
+        }
+        
+        .signature-label {
+            font-weight: bold;
+            margin-top: 10px;
+            color: #2d3748;
+        }
+        
+        .btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #718096;
+        }
+        
+        .btn-primary {
+            background-color: #3182ce;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2c5282;
+        }
+        
+        .btn-success {
+            background-color: #38a169;
+        }
+        
+        .btn-success:hover {
+            background-color: #2f855a;
+        }
+        
+        .btn-danger {
+            background-color: #e53e3e;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c53030;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: flex-end;
+        }
+        
+        .version-history {
+            margin-top: 40px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 30px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .instructions {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #276749;
+        }
+        
+        .instructions-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .edi-dates {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .edi-date-item {
+            flex: 1;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .btn, .button-group {
+                display: none;
+            }
+            
+            .rating-option {
+                border: 1px solid #000;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 15px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .doc-title {
+                font-size: 22px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: 15px;
+            }
+            
+            .form-label {
+                width: 100%;
+                margin-bottom: 8px;
+            }
+            
+            .scale-items {
+                flex-direction: column;
+            }
+            
+            .scale-item {
+                min-width: 100%;
+            }
+            
+            .summary-content {
+                flex-direction: column;
+            }
+            
+            .signatures {
+                flex-direction: column;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .edi-dates {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabeçalho com logo e informações da organização -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título do documento -->
+<div class="doc-title">AVALIAÇÃO DE DESEMPENHO INDIVIDUAL - EDI</div>
+<div class="doc-code">Código: FOR-RRHH-003 | Revisão: 00</div>
+<!-- Conteúdo principal -->
+<div class="content">
+<!-- Instrucciones -->
+<div class="instructions">
+<div class="instructions-title">Instruções para preencher a avaliação:</div>
+<p>1. Preencha todos os campos de informação do colaborador. 2. Selecione uma nota de 1 a 5 para cada critério conforme a escala de avaliação. 3. Acrescente comentários específicos para cada critério. 4. Reveja o resumo e assine o documento.</p>
+</div>
+<!-- Sección 1: Información general -->
+<div class="form-section">
+<div class="section-title">INFORMAÇÃO GERAL</div>
+<div class="form-row">
+<div class="form-label">ANO:</div>
+<div class="form-field">
+<input id="ano-evaluacion" placeholder="Introduza o ano de avaliação" type="text" value="2024"/>
+</div>
+</div>
+<div class="form-row">
+<div class="form-label">NOME E APELIDO:</div>
+<div class="form-field">
+<input id="nombre-empleado" placeholder="Introduza o nome completo do colaborador" type="text"/>
+</div>
+</div>
+<div class="form-row">
+<div class="form-label">CARGO ATUAL:</div>
+<div class="form-field">
+<input id="cargo-empleado" placeholder="Introduza o cargo atual" type="text"/>
+</div>
+</div>
+<div class="form-row">
+<div class="form-label">CHEFE / GESTOR:</div>
+<div class="form-field">
+<input id="jefe-empleado" placeholder="Introduza o nome do chefe ou gestor" type="text"/>
+</div>
+</div>
+<div class="form-row">
+<div class="form-label">DATA DE ENTRADA:</div>
+<div class="form-field">
+<input id="fecha-ingreso" placeholder="Data de admissão na empresa" type="date"/>
+</div>
+</div>
+<div class="edi-dates">
+<div class="edi-date-item">
+<div class="form-row">
+<div class="form-label">EDI ANTERIOR:</div>
+<div class="form-field">
+<input id="fecha-edi-anterior" placeholder="Data da EDI anterior" type="date"/>
+</div>
+</div>
+</div>
+<div class="edi-date-item">
+<div class="form-row">
+<div class="form-label">EDI ATUAL:</div>
+<div class="form-field">
+<input id="fecha-edi-actual" type="date" value="2024-12-01"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Escala de evaluación -->
+<div class="rating-scale">
+<div class="scale-title">ESCALA DE AVALIAÇÃO - NOTAS DE 1 A 5</div>
+<div class="scale-items">
+<div class="scale-item">
+<div class="scale-number">1</div>
+<div class="scale-description">Desempenho muito insuficiente</div>
+</div>
+<div class="scale-item">
+<div class="scale-number">2</div>
+<div class="scale-description">Desempenho insuficiente</div>
+</div>
+<div class="scale-item">
+<div class="scale-number">3</div>
+<div class="scale-description">Desempenho médio</div>
+</div>
+<div class="scale-item">
+<div class="scale-number">4</div>
+<div class="scale-description">Desempenho bom</div>
+</div>
+<div class="scale-item">
+<div class="scale-number">5</div>
+<div class="scale-description">Desempenho excelente</div>
+</div>
+</div>
+</div>
+<!-- Sección 2: Criterios de evaluación -->
+<div class="form-section">
+<div class="section-title">CRITÉRIOS DE AVALIAÇÃO</div>
+<!-- Criterio 1 -->
+<div class="criterion-section" data-criterion="1">
+<div class="criterion-title">CRITÉRIO 1: Compromisso pessoal (entusiasmo, iniciativa, dedicação)</div>
+<div class="rating-options">
+<div class="rating-option" onclick="selectRating(1, 1)">
+<div class="rating-number">1</div>
+<div class="rating-description">Muito insuficiente</div>
+</div>
+<div class="rating-option" onclick="selectRating(1, 2)">
+<div class="rating-number">2</div>
+<div class="rating-description">Insuficiente</div>
+</div>
+<div class="rating-option" onclick="selectRating(1, 3)">
+<div class="rating-number">3</div>
+<div class="rating-description">Médio</div>
+</div>
+<div class="rating-option" onclick="selectRating(1, 4)">
+<div class="rating-number">4</div>
+<div class="rating-description">Bom</div>
+</div>
+<div class="rating-option" onclick="selectRating(1, 5)">
+<div class="rating-number">5</div>
+<div class="rating-description">Excelente</div>
+</div>
+</div>
+<div class="comments-section">
+<label class="comments-label">Comentários:</label>
+<textarea class="criterion-comments" data-criterion="1" placeholder="Introduza comentários específicos sobre o compromisso pessoal..."></textarea>
+</div>
+</div>
+<!-- Criterio 2 -->
+<div class="criterion-section" data-criterion="2">
+<div class="criterion-title">CRITÉRIO 2: Pontualidade / Responsabilidade</div>
+<div class="rating-options">
+<div class="rating-option" onclick="selectRating(2, 1)">
+<div class="rating-number">1</div>
+<div class="rating-description">Muito insuficiente</div>
+</div>
+<div class="rating-option" onclick="selectRating(2, 2)">
+<div class="rating-number">2</div>
+<div class="rating-description">Insuficiente</div>
+</div>
+<div class="rating-option" onclick="selectRating(2, 3)">
+<div class="rating-number">3</div>
+<div class="rating-description">Médio</div>
+</div>
+<div class="rating-option" onclick="selectRating(2, 4)">
+<div class="rating-number">4</div>
+<div class="rating-description">Bom</div>
+</div>
+<div class="rating-option" onclick="selectRating(2, 5)">
+<div class="rating-number">5</div>
+<div class="rating-description">Excelente</div>
+</div>
+</div>
+<div class="comments-section">
+<label class="comments-label">Comentários:</label>
+<textarea class="criterion-comments" data-criterion="2" placeholder="Introduza comentários específicos sobre pontualidade e responsabilidade..."></textarea>
+</div>
+</div>
+<!-- Criterio 3 -->
+<div class="criterion-section" data-criterion="3">
+<div class="criterion-title">CRITÉRIO 3: Qualidade do serviço prestado</div>
+<div class="rating-options">
+<div class="rating-option" onclick="selectRating(3, 1)">
+<div class="rating-number">1</div>
+<div class="rating-description">Muito insuficiente</div>
+</div>
+<div class="rating-option" onclick="selectRating(3, 2)">
+<div class="rating-number">2</div>
+<div class="rating-description">Insuficiente</div>
+</div>
+<div class="rating-option" onclick="selectRating(3, 3)">
+<div class="rating-number">3</div>
+<div class="rating-description">Médio</div>
+</div>
+<div class="rating-option" onclick="selectRating(3, 4)">
+<div class="rating-number">4</div>
+<div class="rating-description">Bom</div>
+</div>
+<div class="rating-option" onclick="selectRating(3, 5)">
+<div class="rating-number">5</div>
+<div class="rating-description">Excelente</div>
+</div>
+</div>
+<div class="comments-section">
+<label class="comments-label">Comentários:</label>
+<textarea class="criterion-comments" data-criterion="3" placeholder="Introduza comentários específicos sobre a qualidade do serviço..."></textarea>
+</div>
+</div>
+<!-- Criterio 4 -->
+<div class="criterion-section" data-criterion="4">
+<div class="criterion-title">CRITÉRIO 4: Relacionamento interno - trabalho em equipa</div>
+<div class="rating-options">
+<div class="rating-option" onclick="selectRating(4, 1)">
+<div class="rating-number">1</div>
+<div class="rating-description">Muito insuficiente</div>
+</div>
+<div class="rating-option" onclick="selectRating(4, 2)">
+<div class="rating-number">2</div>
+<div class="rating-description">Insuficiente</div>
+</div>
+<div class="rating-option" onclick="selectRating(4, 3)">
+<div class="rating-number">3</div>
+<div class="rating-description">Médio</div>
+</div>
+<div class="rating-option" onclick="selectRating(4, 4)">
+<div class="rating-number">4</div>
+<div class="rating-description">Bom</div>
+</div>
+<div class="rating-option" onclick="selectRating(4, 5)">
+<div class="rating-number">5</div>
+<div class="rating-description">Excelente</div>
+</div>
+</div>
+<div class="comments-section">
+<label class="comments-label">Comentários:</label>
+<textarea class="criterion-comments" data-criterion="4" placeholder="Introduza comentários específicos sobre trabalho em equipa..."></textarea>
+</div>
+</div>
+<!-- Criterio 5 -->
+<div class="criterion-section" data-criterion="5">
+<div class="criterion-title">CRITÉRIO 5: Bom uso e cuidado dos equipamentos / instalações</div>
+<div class="rating-options">
+<div class="rating-option" onclick="selectRating(5, 1)">
+<div class="rating-number">1</div>
+<div class="rating-description">Muito insuficiente</div>
+</div>
+<div class="rating-option" onclick="selectRating(5, 2)">
+<div class="rating-number">2</div>
+<div class="rating-description">Insuficiente</div>
+</div>
+<div class="rating-option" onclick="selectRating(5, 3)">
+<div class="rating-number">3</div>
+<div class="rating-description">Médio</div>
+</div>
+<div class="rating-option" onclick="selectRating(5, 4)">
+<div class="rating-number">4</div>
+<div class="rating-description">Bom</div>
+</div>
+<div class="rating-option" onclick="selectRating(5, 5)">
+<div class="rating-number">5</div>
+<div class="rating-description">Excelente</div>
+</div>
+</div>
+<div class="comments-section">
+<label class="comments-label">Comentários:</label>
+<textarea class="criterion-comments" data-criterion="5" placeholder="Introduza comentários específicos sobre o cuidado dos equipamentos..."></textarea>
+</div>
+</div>
+<!-- Criterio 6 -->
+<div class="criterion-section" data-criterion="6">
+<div class="criterion-title">CRITÉRIO 6: Conhecimentos técnicos relacionados com o cargo</div>
+<div class="rating-options">
+<div class="rating-option" onclick="selectRating(6, 1)">
+<div class="rating-number">1</div>
+<div class="rating-description">Muito insuficiente</div>
+</div>
+<div class="rating-option" onclick="selectRating(6, 2)">
+<div class="rating-number">2</div>
+<div class="rating-description">Insuficiente</div>
+</div>
+<div class="rating-option" onclick="selectRating(6, 3)">
+<div class="rating-number">3</div>
+<div class="rating-description">Médio</div>
+</div>
+<div class="rating-option" onclick="selectRating(6, 4)">
+<div class="rating-number">4</div>
+<div class="rating-description">Bom</div>
+</div>
+<div class="rating-option" onclick="selectRating(6, 5)">
+<div class="rating-number">5</div>
+<div class="rating-description">Excelente</div>
+</div>
+</div>
+<div class="comments-section">
+<label class="comments-label">Comentários:</label>
+<textarea class="criterion-comments" data-criterion="6" placeholder="Introduza comentários específicos sobre conhecimentos técnicos..."></textarea>
+</div>
+</div>
+<!-- Criterio adicional -->
+<div class="criterion-section" data-criterion="7">
+<div class="criterion-title">OUTRO CRITÉRIO ADICIONAL:</div>
+<input id="criterio-adicional" placeholder="Introduza outro critério de avaliação (opcional)" style="margin-bottom: 15px;" type="text"/>
+<div class="rating-options">
+<div class="rating-option" onclick="selectRating(7, 1)">
+<div class="rating-number">1</div>
+<div class="rating-description">Muito insuficiente</div>
+</div>
+<div class="rating-option" onclick="selectRating(7, 2)">
+<div class="rating-number">2</div>
+<div class="rating-description">Insuficiente</div>
+</div>
+<div class="rating-option" onclick="selectRating(7, 3)">
+<div class="rating-number">3</div>
+<div class="rating-description">Médio</div>
+</div>
+<div class="rating-option" onclick="selectRating(7, 4)">
+<div class="rating-number">4</div>
+<div class="rating-description">Bom</div>
+</div>
+<div class="rating-option" onclick="selectRating(7, 5)">
+<div class="rating-number">5</div>
+<div class="rating-description">Excelente</div>
+</div>
+</div>
+<div class="comments-section">
+<label class="comments-label">Comentários:</label>
+<textarea class="criterion-comments" data-criterion="7" placeholder="Introduza comentários específicos sobre o critério adicional..."></textarea>
+</div>
+</div>
+</div>
+<!-- Resumen de evaluación -->
+<div class="summary-section">
+<div class="summary-title">RESUMO DA AVALIAÇÃO</div>
+<div class="summary-content">
+<div class="summary-item">
+<div class="summary-value" id="promedio-total">0.0</div>
+<div class="summary-label">MÉDIA TOTAL</div>
+</div>
+<div class="summary-item">
+<div class="summary-value" id="criterios-evaluados">0</div>
+<div class="summary-label">CRITÉRIOS AVALIADOS</div>
+</div>
+<div class="summary-item">
+<div class="summary-value" id="calificacion-final">-</div>
+<div class="summary-label">CLASSIFICAÇÃO FINAL</div>
+</div>
+</div>
+<div class="comments-section">
+<label class="comments-label">Resumo comparativo EDI ANTERIOR / EDI ATUAL:</label>
+<textarea id="resumen-comparativo" placeholder="Introduza um resumo comparativo entre a avaliação anterior e a atual..."></textarea>
+</div>
+</div>
+<!-- Firmas -->
+<div class="signatures-section">
+<div class="section-title">ASSINATURAS</div>
+<div class="signatures">
+<div class="signature-box">
+<div class="signature-line"></div>
+<div class="signature-label">COLABORADOR AVALIADO</div>
+<div style="margin-top: 5px; font-size: 12px; color: #666;">
+                            Nome: <span id="nombre-firma-empleado">___________________</span><br/>
+                            Data: <span id="fecha-firma-empleado">___________________</span>
+</div>
+</div>
+<div class="signature-box">
+<div class="signature-line"></div>
+<div class="signature-label">CHEFE / GESTOR</div>
+<div style="margin-top: 5px; font-size: 12px; color: #666;">
+                            Nome: <span id="nombre-firma-jefe">___________________</span><br/>
+                            Data: <span id="fecha-firma-jefe">___________________</span>
+</div>
+</div>
+<div class="signature-box">
+<div class="signature-line"></div>
+<div class="signature-label">RECURSOS HUMANOS</div>
+<div style="margin-top: 5px; font-size: 12px; color: #666;">
+                            Nome: <span id="nombre-firma-rrhh">___________________</span><br/>
+                            Data: <span id="fecha-firma-rrhh">___________________</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Botones de acción -->
+<div class="button-group">
+<button class="btn btn-success" onclick="saveEvaluation()">💾 Guardar Avaliação</button>
+<button class="btn btn-primary" onclick="printEvaluation()">📄 Imprimir Avaliação</button>
+<button class="btn" onclick="clearEvaluation()">🗑️ Limpar Avaliação</button>
+<button class="btn btn-danger" onclick="exportEvaluation()">📤 Gerar Relatório</button>
+</div>
+<!-- Histórico de versiones -->
+<div class="version-history">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Rodapé -->
+<div class="footer">
+<p>Código: FOR-RRHH-003 | Revisão: 00 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        // Configuração inicial quando o documento é carregado
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verifica se o logo existe, caso contrário mostra um placeholder
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                    console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+                };
+            }
+            
+            // Carregar dados salvos, se existirem
+            loadEvaluationData();
+            
+            // Configurar data atual para EDI actual
+            document.getElementById('fecha-edi-actual').valueAsDate = new Date('2024-12-01');
+            
+            // Atualizar resumo inicial
+            updateSummary();
+            
+            // Atualizar firmas quando os nomes forem alterados
+            document.getElementById('nombre-empleado').addEventListener('input', function() {
+                document.getElementById('nombre-firma-empleado').textContent = this.value || '___________________';
+            });
+            
+            document.getElementById('jefe-empleado').addEventListener('input', function() {
+                document.getElementById('nombre-firma-jefe').textContent = this.value || '___________________';
+            });
+            
+            // Atualizar datas de firma
+            document.getElementById('fecha-edi-actual').addEventListener('change', function() {
+                document.getElementById('fecha-firma-empleado').textContent = this.value || '___________________';
+                document.getElementById('fecha-firma-jefe').textContent = this.value || '___________________';
+                document.getElementById('fecha-firma-rrhh').textContent = this.value || '___________________';
+            });
+            
+            // Configurar data atual nas firmas
+            const fechaActual = new Date().toISOString().split('T')[0];
+            document.getElementById('fecha-firma-empleado').textContent = fechaActual;
+            document.getElementById('fecha-firma-jefe').textContent = fechaActual;
+            document.getElementById('fecha-firma-rrhh').textContent = fechaActual;
+            
+            // Definir nombre por defecto para RRHH
+            document.getElementById('nombre-firma-rrhh').textContent = 'Recursos Humanos';
+        });
+        
+        // Função para selecionar uma avaliação
+        function selectRating(criterion, rating) {
+            // Remover classe selected de todas as opções deste critério
+            const section = document.querySelector(`.criterion-section[data-criterion="${criterion}"]`);
+            const allOptions = section.querySelectorAll('.rating-option');
+            allOptions.forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Adicionar classe selected à opção escolhida
+            const selectedOption = section.querySelectorAll('.rating-option')[rating - 1];
+            selectedOption.classList.add('selected');
+            
+            // Armazenar a avaliação
+            localStorage.setItem(`criterion_${criterion}_rating`, rating);
+            
+            // Atualizar resumo
+            updateSummary();
+        }
+        
+        // Função para atualizar o resumo da avaliação
+        function updateSummary() {
+            let totalScore = 0;
+            let evaluatedCriteria = 0;
+            
+            // Calcular pontuação para os 6 critérios principais
+            for (let i = 1; i <= 7; i++) {
+                const rating = localStorage.getItem(`criterion_${i}_rating`);
+                if (rating && !isNaN(rating) && rating > 0) {
+                    totalScore += parseInt(rating);
+                    evaluatedCriteria++;
+                }
+            }
+            
+            // Calcular média
+            const average = evaluatedCriteria > 0 ? (totalScore / evaluatedCriteria).toFixed(1) : "0.0";
+            
+            // Determinar qualificação final
+            let finalGrade = "-";
+            if (evaluatedCriteria > 0) {
+                const avgNum = parseFloat(average);
+                if (avgNum < 2.0) {
+                    finalGrade = "MUITO INSUFICIENTE";
+                } else if (avgNum < 3.0) {
+                    finalGrade = "INSUFICIENTE";
+                } else if (avgNum < 4.0) {
+                    finalGrade = "MÉDIO";
+                } else if (avgNum < 4.5) {
+                    finalGrade = "BOM";
+                } else {
+                    finalGrade = "EXCELENTE";
+                }
+            }
+            
+            // Atualizar exibição
+            document.getElementById('promedio-total').textContent = average;
+            document.getElementById('criterios-evaluados').textContent = evaluatedCriteria;
+            document.getElementById('calificacion-final').textContent = finalGrade;
+        }
+        
+        // Função para salvar a avaliação
+        function saveEvaluation() {
+            const evaluationData = collectEvaluationData();
+            localStorage.setItem('evaluation_rrhh_003', JSON.stringify(evaluationData));
+            alert('Avaliação guardada corretamente no armazenamento local.');
+        }
+        
+        // Função para carregar dados salvos
+        function loadEvaluationData() {
+            const savedData = localStorage.getItem('evaluation_rrhh_003');
+            if (savedData) {
+                const evaluationData = JSON.parse(savedData);
+                
+                // Preencher campos de informação geral
+                document.getElementById('ano-evaluacion').value = evaluationData.ano || '2024';
+                document.getElementById('nombre-empleado').value = evaluationData.nombreEmpleado || '';
+                document.getElementById('cargo-empleado').value = evaluationData.cargoEmpleado || '';
+                document.getElementById('jefe-empleado').value = evaluationData.jefeEmpleado || '';
+                document.getElementById('fecha-ingreso').value = evaluationData.fechaIngreso || '';
+                document.getElementById('fecha-edi-anterior').value = evaluationData.fechaEdiAnterior || '';
+                document.getElementById('fecha-edi-actual').value = evaluationData.fechaEdiActual || '2024-12-01';
+                document.getElementById('criterio-adicional').value = evaluationData.criterioAdicional || '';
+                document.getElementById('resumen-comparativo').value = evaluationData.resumenComparativo || '';
+                
+                // Preencher avaliações dos critérios
+                if (evaluationData.criterionRatings) {
+                    for (const [criterion, rating] of Object.entries(evaluationData.criterionRatings)) {
+                        selectRating(parseInt(criterion.replace('criterion_', '').replace('_rating', '')), rating);
+                    }
+                }
+                
+                // Preencher comentários
+                if (evaluationData.criterionComments) {
+                    for (const [criterion, comment] of Object.entries(evaluationData.criterionComments)) {
+                        const textarea = document.querySelector(`.criterion-comments[data-criterion="${criterion.replace('criterion_', '').replace('_comments', '')}"]`);
+                        if (textarea) {
+                            textarea.value = comment;
+                        }
+                    }
+                }
+                
+                // Atualizar resumo
+                updateSummary();
+                
+                // Atualizar firmas
+                document.getElementById('nombre-firma-empleado').textContent = evaluationData.nombreEmpleado || '___________________';
+                document.getElementById('nombre-firma-jefe').textContent = evaluationData.jefeEmpleado || '___________________';
+                
+                if (evaluationData.fechaEdiActual) {
+                    document.getElementById('fecha-firma-empleado').textContent = evaluationData.fechaEdiActual;
+                    document.getElementById('fecha-firma-jefe').textContent = evaluationData.fechaEdiActual;
+                    document.getElementById('fecha-firma-rrhh').textContent = evaluationData.fechaEdiActual;
+                }
+                
+                console.log('Avaliação carregada do armazenamento local.');
+            }
+        }
+        
+        // Função para coletar dados da avaliação
+        function collectEvaluationData() {
+            const evaluationData = {
+                ano: document.getElementById('ano-evaluacion').value,
+                nombreEmpleado: document.getElementById('nombre-empleado').value,
+                cargoEmpleado: document.getElementById('cargo-empleado').value,
+                jefeEmpleado: document.getElementById('jefe-empleado').value,
+                fechaIngreso: document.getElementById('fecha-ingreso').value,
+                fechaEdiAnterior: document.getElementById('fecha-edi-anterior').value,
+                fechaEdiActual: document.getElementById('fecha-edi-actual').value,
+                criterioAdicional: document.getElementById('criterio-adicional').value,
+                resumenComparativo: document.getElementById('resumen-comparativo').value
+            };
+            
+            // Coletar avaliações dos critérios
+            const criterionRatings = {};
+            for (let i = 1; i <= 7; i++) {
+                const rating = localStorage.getItem(`criterion_${i}_rating`);
+                if (rating) {
+                    criterionRatings[`criterion_${i}_rating`] = parseInt(rating);
+                }
+            }
+            evaluationData.criterionRatings = criterionRatings;
+            
+            // Coletar comentários
+            const criterionComments = {};
+            document.querySelectorAll('.criterion-comments').forEach(textarea => {
+                const criterion = textarea.getAttribute('data-criterion');
+                if (textarea.value.trim() !== '') {
+                    criterionComments[`criterion_${criterion}_comments`] = textarea.value;
+                }
+            });
+            evaluationData.criterionComments = criterionComments;
+            
+            // Adicionar resumo atual
+            evaluationData.promedioTotal = document.getElementById('promedio-total').textContent;
+            evaluationData.calificacionFinal = document.getElementById('calificacion-final').textContent;
+            
+            return evaluationData;
+        }
+        
+        // Função para imprimir avaliação
+        function printEvaluation() {
+            // Atualizar resumo antes de imprimir
+            updateSummary();
+            window.print();
+        }
+        
+        // Função para limpar avaliação
+        function clearEvaluation() {
+            if (confirm('Tem a certeza de que deseja limpar toda a avaliação? Perder-se-ão todos os dados não guardados.')) {
+                // Limpar campos de entrada
+                document.querySelectorAll('input[type="text"], input[type="date"], textarea').forEach(field => {
+                    field.value = '';
+                });
+                
+                // Restaurar valores por defecto
+                document.getElementById('ano-evaluacion').value = '2024';
+                document.getElementById('fecha-edi-actual').value = '2024-12-01';
+                
+                // Limpar seleções de avaliação
+                document.querySelectorAll('.rating-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                
+                // Limpar localStorage das avaliações
+                for (let i = 1; i <= 7; i++) {
+                    localStorage.removeItem(`criterion_${i}_rating`);
+                }
+                
+                // Limpar avaliação completa
+                localStorage.removeItem('evaluation_rrhh_003');
+                
+                // Atualizar resumo
+                updateSummary();
+                
+                // Restaurar firmas
+                document.getElementById('nombre-firma-empleado').textContent = '___________________';
+                document.getElementById('nombre-firma-jefe').textContent = '___________________';
+                
+                const fechaActual = new Date().toISOString().split('T')[0];
+                document.getElementById('fecha-firma-empleado').textContent = fechaActual;
+                document.getElementById('fecha-firma-jefe').textContent = fechaActual;
+                document.getElementById('fecha-firma-rrhh').textContent = fechaActual;
+                
+                alert('Avaliação limpa corretamente.');
+            }
+        }
+        
+        // Função para exportar avaliação
+        function exportEvaluation() {
+            // Coletar dados
+            const evaluationData = collectEvaluationData();
+            
+            // Criar relatório textual
+            let report = `RELATÓRIO DE AVALIAÇÃO DE DESEMPENHO\n`;
+            report += `========================================\n\n`;
+            report += `Código: FOR-RRHH-003 | Data: ${new Date().toLocaleDateString('pt-PT')}\n\n`;
+            report += `INFORMAÇÃO DO COLABORADOR:\n`;
+            report += `Nome: ${evaluationData.nombreEmpleado || 'Não especificado'}\n`;
+            report += `Cargo: ${evaluationData.cargoEmpleado || 'Não especificado'}\n`;
+            report += `Chefe/Gestor: ${evaluationData.jefeEmpleado || 'Não especificado'}\n`;
+            report += `Data EDI: ${evaluationData.fechaEdiActual || 'Não especificada'}\n\n`;
+            
+            report += `RESULTADOS DA AVALIAÇÃO:\n`;
+            report += `Média Total: ${evaluationData.promedioTotal}\n`;
+            report += `Classificação Final: ${evaluationData.calificacionFinal}\n\n`;
+            
+            report += `DETALHE POR CRITÉRIOS:\n`;
+            for (let i = 1; i <= 7; i++) {
+                const rating = evaluationData.criterionRatings[`criterion_${i}_rating`];
+                if (rating) {
+                    let criterionName = '';
+                    switch(i) {
+                        case 1: criterionName = 'Compromisso pessoal'; break;
+                        case 2: criterionName = 'Pontualidade/Responsabilidade'; break;
+                        case 3: criterionName = 'Qualidade do serviço'; break;
+                        case 4: criterionName = 'Trabalho em equipa'; break;
+                        case 5: criterionName = 'Cuidado com os equipamentos'; break;
+                        case 6: criterionName = 'Conhecimentos técnicos'; break;
+                        case 7: criterionName = evaluationData.criterioAdicional || 'Critério adicional'; break;
+                    }
+                    report += `${i}. ${criterionName}: ${rating}/5\n`;
+                }
+            }
+            
+            report += `\nRESUMO COMPARATIVO:\n`;
+            report += `${evaluationData.resumenComparativo || 'Não há resumo comparativo.'}\n\n`;
+            
+            report += `ASSINATURAS:\n`;
+            report += `Colaborador: ___________________\n`;
+            report += `Chefe/Gestor: ___________________\n`;
+            report += `Recursos Humanos: ___________________\n`;
+            
+            // Criar arquivo para download
+            const dataStr = 'data:text/plain;charset=utf-8,' + encodeURIComponent(report);
+            const exportFileDefaultName = `FOR-RRHH-003_Evaluacion_${evaluationData.nombreEmpleado || 'colaborador'}_${new Date().toISOString().split('T')[0]}.txt`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataStr);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            
+            alert('Relatório de avaliação gerado corretamente.');
+        }
+        
+        // Inicializar resumo
+        updateSummary();
+    </script>
+</body>
+</html>

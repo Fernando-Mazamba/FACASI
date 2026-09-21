@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FORM-021 Programa de Formação em Segurança e Saúde Ocupacional</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2c3e50;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #2c3e50;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            font-size: 14px;
+        }
+        
+        .code-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .objective-box {
+            background-color: #e8f4fd;
+            border: 1px solid #b6e0fe;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .objective-label {
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .indicators-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .indicator-card {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .indicator-title {
+            color: #2c3e50;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .indicator-levels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        
+        .indicator-level {
+            text-align: center;
+            flex: 1;
+            padding: 10px;
+        }
+        
+        .level-high {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            border-radius: 4px;
+        }
+        
+        .level-medium {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            border-radius: 4px;
+            margin: 0 10px;
+        }
+        
+        .level-low {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            border-radius: 4px;
+        }
+        
+        .level-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .level-value {
+            font-size: 14px;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 25px 0;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+        }
+        
+        .training-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1200px;
+        }
+        
+        .training-table th {
+            background-color: #2c3e50;
+            color: white;
+            font-weight: bold;
+            padding: 12px 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .training-table td {
+            padding: 10px 8px;
+            border: 1px solid #ddd;
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .training-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .training-table tr:hover {
+            background-color: #f0f7ff;
+        }
+        
+        .item-cell {
+            text-align: center;
+            font-weight: bold;
+            background-color: #f0f7ff;
+            width: 50px;
+        }
+        
+        .activity-cell {
+            text-align: left;
+            padding-left: 15px !important;
+        }
+        
+        .week-header {
+            background-color: #34495e !important;
+            color: white;
+            font-size: 12px;
+            text-align: center;
+            min-width: 30px;
+        }
+        
+        .day-cell {
+            width: 30px;
+            height: 30px;
+            position: relative;
+        }
+        
+        .day-cell.scheduled {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+            border-radius: 50%;
+        }
+        
+        .day-cell.scheduled::after {
+            content: "X";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .day-cell:hover {
+            background-color: #e3f2fd;
+            cursor: pointer;
+        }
+        
+        .day-cell.scheduled:hover {
+            background-color: #2980b9;
+        }
+        
+        .observations-box {
+            background-color: #fff8e1;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 30px;
+            border-left: 4px solid #f39c12;
+        }
+        
+        .observations-title {
+            color: #2c3e50;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #e2e8f0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .search-filter {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .search-box {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 300px;
+        }
+        
+        .filter-select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+            min-width: 150px;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .btn-print {
+            background-color: #2c3e50;
+            color: white;
+        }
+        
+        .btn-print:hover {
+            background-color: #34495e;
+        }
+        
+        .btn-export {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .btn-export:hover {
+            background-color: #2980b9;
+        }
+        
+        .btn-add {
+            background-color: #27ae60;
+            color: white;
+        }
+        
+        .btn-add:hover {
+            background-color: #219653;
+        }
+        
+        .btn-edit {
+            background-color: #f39c12;
+            color: white;
+        }
+        
+        .btn-edit:hover {
+            background-color: #e67e22;
+        }
+        
+        .btn-save {
+            background-color: #9b59b6;
+            color: white;
+            display: none;
+        }
+        
+        .btn-save:hover {
+            background-color: #8e44ad;
+        }
+        
+        .summary-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .summary-card {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .summary-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 10px 0;
+        }
+        
+        .summary-label {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #2c3e50;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #2c3e50;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .edit-mode-active {
+            background-color: #fff8e1 !important;
+            border-color: #f39c12 !important;
+        }
+        
+        .editing-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 10px;
+            background-color: #fff8e1;
+            border: 1px solid #f39c12;
+            border-radius: 4px;
+            color: #d35400;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-filter {
+                flex-direction: column;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+            
+            .actions {
+                justify-content: center;
+            }
+            
+            .table-container {
+                font-size: 12px;
+            }
+            
+            .training-table th,
+            .training-table td {
+                padding: 6px 4px;
+            }
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .controls,
+            .actions {
+                display: none;
+            }
+            
+            .table-container {
+                overflow: visible;
+            }
+            
+            .training-table {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabeçalho com logo e informações da organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título do documento -->
+<div class="doc-title">
+            PROGRAMA DE FORMAÇÕES EM SEGURANÇA E SAÚDE OCUPACIONAL
+            <span class="editing-indicator" id="editIndicator" style="display: none;">
+<span>✏️</span> Modo de Edição Ativo
+            </span>
+</div>
+<div class="doc-code">
+<div class="code-item">
+<strong>CÓDIGO:</strong> FORM-021
+            </div>
+<div class="code-item">
+<strong>DATA:</strong> 01.12.2024
+            </div>
+<div class="code-item">
+<strong>PÁGINA:</strong> 1 DE 1
+            </div>
+</div>
+<!-- Conteúdo principal -->
+<div class="content">
+<!-- Controles de interação -->
+<div class="controls">
+<div class="search-filter">
+<input class="search-box" id="searchInput" placeholder="Pesquisar formação..." type="text"/>
+<select class="filter-select" id="monthFilter">
+<option value="">Todos os meses</option>
+<option value="1">Mês 1</option>
+<option value="2">Mês 2</option>
+<option value="3">Mês 3</option>
+<option value="4">Mês 4</option>
+</select>
+<select class="filter-select" id="statusFilter">
+<option value="">Todas as formações</option>
+<option value="scheduled">Programadas</option>
+<option value="completed">Concluídas</option>
+<option value="pending">Pendentes</option>
+</select>
+</div>
+<div class="actions">
+<button class="btn btn-add" onclick="addNewTraining()">
+<span>➕</span> Nova Formação
+                    </button>
+<button class="btn btn-edit" id="editModeBtn" onclick="toggleEditMode()">
+<span>✏️</span> Modo de Edição
+                    </button>
+<button class="btn btn-save" id="saveBtn" onclick="saveData()">
+<span>💾</span> Guardar
+                    </button>
+<button class="btn btn-export" onclick="exportData()">
+<span>📊</span> Exportar
+                    </button>
+<button class="btn btn-print" onclick="window.print()">
+<span>📄</span> Imprimir
+                    </button>
+</div>
+</div>
+<!-- Objetivo del Programa -->
+<div class="section">
+<div class="objective-box">
+<span class="objective-label">OBJETIVO DO PROGRAMA:</span>
+<div class="editable-text" contenteditable="true" id="programObjective">
+                        Estabelecer e executar um programa sistemático de formações em segurança e saúde ocupacional para todo o pessoal, com o objetivo de prevenir acidentes, doenças profissionais e promover uma cultura de segurança organizacional.
+                    </div>
+</div>
+</div>
+<!-- Indicadores de Gestão -->
+<div class="section">
+<div class="section-title">INDICADORES DE GESTÃO</div>
+<div class="indicators-container">
+<div class="indicator-card">
+<div class="indicator-title">1. Cumprimento do programa</div>
+<div class="indicator-levels">
+<div class="indicator-level level-high">
+<div class="level-label">Alto</div>
+<div class="level-value">100%</div>
+</div>
+<div class="indicator-level level-medium">
+<div class="level-label">Médio</div>
+<div class="level-value">80%-99%</div>
+</div>
+<div class="indicator-level level-low">
+<div class="level-label">Baixo</div>
+<div class="level-value">&lt; 79%</div>
+</div>
+</div>
+</div>
+<div class="indicator-card">
+<div class="indicator-title">2. % de Assiduidade</div>
+<div class="indicator-levels">
+<div class="indicator-level level-high">
+<div class="level-label">Alto</div>
+<div class="level-value">100%</div>
+</div>
+<div class="indicator-level level-medium">
+<div class="level-label">Médio</div>
+<div class="level-value">80%-99%</div>
+</div>
+<div class="indicator-level level-low">
+<div class="level-label">Baixo</div>
+<div class="level-value">&lt; 79%</div>
+</div>
+</div>
+</div>
+<div class="indicator-card">
+<div class="indicator-title">META GERAL</div>
+<div class="summary-value" style="color: #27ae60;">95%</div>
+<div class="summary-label">Cumprimento anual do programa</div>
+</div>
+</div>
+</div>
+<!-- Resumen del Programa -->
+<div class="summary-container">
+<div class="summary-card">
+<div class="summary-value" id="totalTrainings">9</div>
+<div class="summary-label">Formações Programadas</div>
+</div>
+<div class="summary-card">
+<div class="summary-value" id="scheduledDays">18</div>
+<div class="summary-label">Dias de Formação</div>
+</div>
+<div class="summary-card">
+<div class="summary-value" id="completionRate">66%</div>
+<div class="summary-label">Taxa de cumprimento</div>
+</div>
+<div class="summary-card">
+<div class="summary-value" id="nextTraining">15 DEZ</div>
+<div class="summary-label">Próxima Formação</div>
+</div>
+</div>
+<!-- Programa de Capacitaçãoes -->
+<div class="section">
+<div class="section-title">PROGRAMA DE FORMAÇÕES 2024</div>
+<div class="table-container" id="tableWrapper">
+<table class="training-table" id="trainingTable">
+<thead>
+<tr>
+<th rowspan="2">ITEM</th>
+<th rowspan="2">Atividades</th>
+<th class="week-header" colspan="7">SEMANA 1</th>
+<th class="week-header" colspan="7">SEMANA 2</th>
+<th class="week-header" colspan="7">SEMANA 3</th>
+<th class="week-header" colspan="7">SEMANA 4</th>
+</tr>
+<tr>
+<!-- Días de la semana para cada semana -->
+<th class="week-header">S</th>
+<th class="week-header">T</th>
+<th class="week-header">Q</th>
+<th class="week-header">Q</th>
+<th class="week-header">S</th>
+<th class="week-header">S</th>
+<th class="week-header">D</th>
+<th class="week-header">S</th>
+<th class="week-header">T</th>
+<th class="week-header">Q</th>
+<th class="week-header">Q</th>
+<th class="week-header">S</th>
+<th class="week-header">S</th>
+<th class="week-header">D</th>
+<th class="week-header">S</th>
+<th class="week-header">T</th>
+<th class="week-header">Q</th>
+<th class="week-header">Q</th>
+<th class="week-header">S</th>
+<th class="week-header">S</th>
+<th class="week-header">D</th>
+<th class="week-header">S</th>
+<th class="week-header">T</th>
+<th class="week-header">Q</th>
+<th class="week-header">Q</th>
+<th class="week-header">S</th>
+<th class="week-header">S</th>
+<th class="week-header">D</th>
+</tr>
+</thead>
+<tbody id="tableBody">
+<!-- Los datos serán insertados por JavaScript -->
+</tbody>
+</table>
+</div>
+</div>
+<!-- Observaciones -->
+<div class="observations-box">
+<div class="observations-title">OBSERVAÇÕES</div>
+<div class="editable-text" contenteditable="true" id="observationsText">
+                    As formações podem ser modificadas (tema e data) de acordo com as solicitações de terceiros. Esclarece-se que estas formações são diferentes das formações ministradas por terceiros nas suas instalações.
+                </div>
+</div>
+<!-- Histórico de versiones -->
+<div class="version-history">
+<div class="section-title">HISTÓRICO DE VERSÕES</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+<th>Descrição de Alterações</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+<td>Criação inicial do Programa de Formações em SST</td>
+</tr>
+<tr id="auto-save-version" style="display: none;">
+<td>001</td>
+<td id="save-date">01.12.2024</td>
+<td>Auto-guardado</td>
+<td>Sistema</td>
+<td>Alterações realizadas pelo utilizador</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Rodapé -->
+<div class="footer">
+<p>Código: FORM-021 | Revisão: <span id="current-revision">000</span> | Página 1 de 1</p>
+<p style="font-size: 12px; color: #999; margin-top: 5px;">
+<span id="last-saved">Último guardado: --:--:--</span> | 
+                <span id="unsaved-changes" style="color: #e53e3e; display: none;">● Alterações por guardar</span>
+</p>
+</div>
+</div>
+<script>
+        // Variables globales
+        let isEditMode = false;
+        let unsavedChanges = false;
+        let currentData = [];
+        let editTimeout = null;
+        
+        // Datos iniciales de capacitaçãoes
+        const initialData = [
+            {
+                id: 1,
+                item: "1",
+                actividad: "FORMAÇÃO AO COMITÉ DE SST",
+                semanas: [
+                    {L: true, M: false, X: false, J: false, V: false, S: false, D: false},
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false},
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false},
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false}
+                ],
+                completada: false
+            },
+            {
+                id: 2,
+                item: "2",
+                actividad: "FORMAÇÃO EM TRABALHOS DE RISCOS CRÍTICOS",
+                semanas: [
+                    {L: false, M: true, X: false, J: false, V: false, S: false, D: false},
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false},
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false},
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false}
+                ],
+                completada: false
+            },
+            {
+                id: 3,
+                item: "3",
+                actividad: "MATERIAIS PERIGOSOS",
+                semanas: [
+                    {L: false, M: false, X: true, J: false, V: false, S: false, D: false},
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false},
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false},
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false}
+                ],
+                completada: false
+            },
+            {
+                id: 4,
+                item: "4",
+                actividad: "BRIGADAS DE EMERGÊNCIA",
+                semanas: [
+                    {L: false, M: false, X: false, J: true, V: false, S: false, D: false},
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false},
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false},
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false}
+                ],
+                completada: false
+            },
+            {
+                id: 5,
+                item: "5",
+                actividad: "CURSO DE AUDITOR INTERNO",
+                semanas: [
+                    {L: false, M: false, X: false, J: false, V: true, S: false, D: false},
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false},
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false},
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false}
+                ],
+                completada: false
+            },
+            {
+                id: 6,
+                item: "6",
+                actividad: "NORMATIVA BÁSICA EM SAÚDE OCUPACIONAL",
+                semanas: [
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false},
+                    {L: true, M: true, X: true, J: true, V: false, S: false, D: false},
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false},
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false}
+                ],
+                completada: false
+            },
+            {
+                id: 7,
+                item: "7",
+                actividad: "ERGONOMIA NO ESCRITÓRIO",
+                semanas: [
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false},
+                    {L: false, M: false, X: false, J: false, V: true, S: false, D: false},
+                    {L: true, M: false, X: false, J: false, V: false, S: false, D: false},
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false}
+                ],
+                completada: false
+            },
+            {
+                id: 8,
+                item: "8",
+                actividad: "HÁBITOS E EXERCÍCIOS PARA A COLUNA",
+                semanas: [
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false},
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false},
+                    {L: false, M: true, X: true, J: false, V: false, S: false, D: false},
+                    {L: true, M: false, X: false, J: true, X: true, V: false, S: false, D: false}
+                ],
+                completada: false
+            },
+            {
+                id: 9,
+                item: "9",
+                actividad: "PREVENÇÃO DA DOR LOMBAR",
+                semanas: [
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false},
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false},
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false},
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false}
+                ],
+                completada: false
+            }
+        ];
+        
+        // Días de la semana en orden
+        const daysOrder = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
+        
+        // Inicializar datos
+        function initializeData() {
+            const savedData = localStorage.getItem('form-021-data');
+            if (savedData) {
+                currentData = JSON.parse(savedData);
+            } else {
+                currentData = JSON.parse(JSON.stringify(initialData));
+            }
+            
+            // Cargar texto editable
+            const savedObjective = localStorage.getItem('form-021-objective');
+            if (savedObjective) {
+                document.getElementById('programObjective').innerHTML = savedObjective;
+            }
+            
+            const savedObservations = localStorage.getItem('form-021-observations');
+            if (savedObservations) {
+                document.getElementById('observationsText').innerHTML = savedObservations;
+            }
+        }
+        
+        // Función para renderizar la tabla
+        function renderTable(data) {
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = '';
+            
+            let totalScheduledDays = 0;
+            let completedTrainings = 0;
+            let nextTrainingDate = null;
+            
+            data.forEach((item, rowIndex) => {
+                const row = document.createElement('tr');
+                
+                // Celda de ITEM
+                const itemCell = document.createElement('td');
+                itemCell.className = 'item-cell';
+                itemCell.textContent = item.item;
+                itemCell.dataset.rowIndex = rowIndex;
+                itemCell.dataset.field = 'item';
+                
+                if (isEditMode) {
+                    itemCell.contentEditable = true;
+                    itemCell.classList.add('editable-cell');
+                    itemCell.addEventListener('input', function() {
+                        updateTrainingValue(rowIndex, 'item', this.textContent);
+                    });
+                }
+                
+                // Celda de ACTIVIDAD
+                const activityCell = document.createElement('td');
+                activityCell.className = 'activity-cell';
+                activityCell.textContent = item.actividad;
+                activityCell.dataset.rowIndex = rowIndex;
+                activityCell.dataset.field = 'actividad';
+                
+                if (isEditMode) {
+                    activityCell.contentEditable = true;
+                    activityCell.classList.add('editable-cell');
+                    activityCell.addEventListener('input', function() {
+                        updateTrainingValue(rowIndex, 'actividad', this.textContent);
+                    });
+                }
+                
+                row.appendChild(itemCell);
+                row.appendChild(activityCell);
+                
+                // Celdas de días para cada semana
+                item.semanas.forEach((semana, semanaIndex) => {
+                    daysOrder.forEach(day => {
+                        const dayCell = document.createElement('td');
+                        dayCell.className = 'day-cell';
+                        
+                        if (semana[day]) {
+                            dayCell.classList.add('scheduled');
+                            totalScheduledDays++;
+                            
+                            // Encontrar la próxima capacitação
+                            if (!item.completada) {
+                                const trainingDate = calculateTrainingDate(semanaIndex, day);
+                                if (trainingDate && (!nextTrainingDate || trainingDate < nextTrainingDate)) {
+                                    nextTrainingDate = trainingDate;
+                                }
+                            }
+                        }
+                        
+                        if (item.completada && semana[day]) {
+                            dayCell.style.backgroundColor = '#27ae60';
+                        }
+                        
+                        dayCell.dataset.rowIndex = rowIndex;
+                        dayCell.dataset.semana = semanaIndex;
+                        dayCell.dataset.day = day;
+                        
+                        if (isEditMode) {
+                            dayCell.style.cursor = 'pointer';
+                            dayCell.addEventListener('click', function() {
+                                toggleDaySchedule(this);
+                            });
+                        }
+                        
+                        row.appendChild(dayCell);
+                    });
+                });
+                
+                // Contar capacitaçãoes completadas
+                if (item.completada) {
+                    completedTrainings++;
+                    row.style.backgroundColor = '#f0fff4';
+                }
+                
+                tableBody.appendChild(row);
+            });
+            
+            // Actualizar resúmenes
+            updateSummaries(data.length, totalScheduledDays, completedTrainings, nextTrainingDate);
+        }
+        
+        // Calcular fecha de capacitação
+        function calculateTrainingDate(semanaIndex, day) {
+            const today = new Date();
+            const currentMonth = today.getMonth();
+            const currentYear = today.getFullYear();
+            
+            // Calcular día de la semana (0=Domingo, 1=Lunes, etc.)
+            let dayOfWeek;
+            switch(day) {
+                case 'L': dayOfWeek = 1; break;
+                case 'M': dayOfWeek = 2; break;
+                case 'X': dayOfWeek = 3; break;
+                case 'J': dayOfWeek = 4; break;
+                case 'V': dayOfWeek = 5; break;
+                case 'S': dayOfWeek = 6; break;
+                case 'D': dayOfWeek = 0; break;
+                default: return null;
+            }
+            
+            // Calcular fecha aproximada (primera semana del mes + índice de semana)
+            const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
+            const firstMonday = new Date(firstDayOfMonth);
+            const dayDiff = (dayOfWeek - firstMonday.getDay() + 7) % 7;
+            firstMonday.setDate(firstMonday.getDate() + dayDiff);
+            
+            // Añadir semanas
+            const trainingDate = new Date(firstMonday);
+            trainingDate.setDate(firstMonday.getDate() + (semanaIndex * 7));
+            
+            return trainingDate > today ? trainingDate : null;
+        }
+        
+        // Alternar programación de día
+        function toggleDaySchedule(cell) {
+            if (!isEditMode) return;
+            
+            const rowIndex = parseInt(cell.dataset.rowIndex);
+            const semanaIndex = parseInt(cell.dataset.semana);
+            const day = cell.dataset.day;
+            
+            // Actualizar datos
+            currentData[rowIndex].semanas[semanaIndex][day] = !currentData[rowIndex].semanas[semanaIndex][day];
+            
+            // Actualizar apariencia
+            if (currentData[rowIndex].semanas[semanaIndex][day]) {
+                cell.classList.add('scheduled');
+            } else {
+                cell.classList.remove('scheduled');
+            }
+            
+            markUnsavedChanges();
+            renderTable(currentData);
+        }
+        
+        // Actualizar valor de capacitação
+        function updateTrainingValue(rowIndex, field, value) {
+            currentData[rowIndex][field] = value;
+            markUnsavedChanges();
+        }
+        
+        // Añadir nueva capacitação
+        function addNewTraining() {
+            const newId = currentData.length > 0 ? Math.max(...currentData.map(d => d.id)) + 1 : 1;
+            const newItem = (currentData.length + 1).toString();
+            
+            const newTraining = {
+                id: newId,
+                item: newItem,
+                actividad: "NOVA FORMAÇÃO",
+                semanas: [
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false},
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false},
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false},
+                    {L: false, M: false, X: false, J: false, V: false, S: false, D: false}
+                ],
+                completada: false
+            };
+            
+            currentData.push(newTraining);
+            markUnsavedChanges();
+            renderTable(currentData);
+            
+            // Desplazar hacia la nueva capacitação
+            setTimeout(() => {
+                const rows = document.querySelectorAll('#tableBody tr');
+                if (rows.length > 0) {
+                    rows[rows.length - 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }, 100);
+        }
+        
+        // Alternar modo edición
+        function toggleEditMode() {
+            isEditMode = !isEditMode;
+            const tableWrapper = document.getElementById('tableWrapper');
+            const editIndicator = document.getElementById('editIndicator');
+            const editModeBtn = document.getElementById('editModeBtn');
+            const saveBtn = document.getElementById('saveBtn');
+            
+            // Habilitar/deshabilitar edición en textos
+            const editableTexts = document.querySelectorAll('.editable-text');
+            editableTexts.forEach(text => {
+                text.contentEditable = isEditMode;
+                if (isEditMode) {
+                    text.classList.add('editable-cell');
+                    text.addEventListener('input', markUnsavedChanges);
+                } else {
+                    text.classList.remove('editable-cell');
+                    text.removeEventListener('input', markUnsavedChanges);
+                }
+            });
+            
+            if (isEditMode) {
+                tableWrapper.classList.add('edit-mode-active');
+                editIndicator.style.display = 'inline-flex';
+                editModeBtn.innerHTML = '<span>🚫</span> Sair da Edição';
+                saveBtn.style.display = 'flex';
+            } else {
+                tableWrapper.classList.remove('edit-mode-active');
+                editIndicator.style.display = 'none';
+                editModeBtn.innerHTML = '<span>✏️</span> Modo de Edição';
+                saveBtn.style.display = 'none';
+            }
+            
+            renderTable(currentData);
+        }
+        
+        // Actualizar resúmenes
+        function updateSummaries(totalTrainings, scheduledDays, completedTrainings, nextTrainingDate) {
+            const completionRate = totalTrainings > 0 ? Math.round((completedTrainings / totalTrainings) * 100) : 0;
+            
+            document.getElementById('totalTrainings').textContent = totalTrainings;
+            document.getElementById('scheduledDays').textContent = scheduledDays;
+            document.getElementById('completionRate').textContent = `${completionRate}%`;
+            
+            // Establecer color según tasa de cumplimiento
+            const completionElement = document.getElementById('completionRate');
+            completionElement.style.color = completionRate >= 80 ? '#27ae60' : 
+                                          completionRate >= 60 ? '#f39c12' : '#e74c3c';
+            
+            if (nextTrainingDate) {
+                const day = nextTrainingDate.getDate();
+                const month = nextTrainingDate.toLocaleString('pt-PT', { month: 'short' }).toUpperCase();
+                document.getElementById('nextTraining').textContent = `${day} ${month}`;
+            } else {
+                document.getElementById('nextTraining').textContent = '--';
+            }
+        }
+        
+        // Guardar datos
+        function saveData() {
+            // Guardar datos de capacitaçãoes
+            localStorage.setItem('form-021-data', JSON.stringify(currentData));
+            
+            // Guardar textos editables
+            localStorage.setItem('form-021-objective', document.getElementById('programObjective').innerHTML);
+            localStorage.setItem('form-021-observations', document.getElementById('observationsText').innerHTML);
+            
+            localStorage.setItem('form-021-last-save', new Date().toISOString());
+            
+            unsavedChanges = false;
+            updateSaveStatus();
+            
+            // Actualizar historial de versiones
+            document.getElementById('auto-save-version').style.display = 'table-row';
+            document.getElementById('save-date').textContent = new Date().toLocaleDateString('pt-PT');
+            document.getElementById('current-revision').textContent = '001';
+            
+            alert('Dados guardados com sucesso.');
+        }
+        
+        // Marcar cambios no guardados
+        function markUnsavedChanges() {
+            if (!unsavedChanges) {
+                unsavedChanges = true;
+                updateSaveStatus();
+            }
+            
+            // Auto-guardar después de 30 segundos de inactividad
+            if (editTimeout) clearTimeout(editTimeout);
+            editTimeout = setTimeout(autoSave, 30000);
+        }
+        
+        // Auto-guardar
+        function autoSave() {
+            if (unsavedChanges) {
+                localStorage.setItem('form-021-data', JSON.stringify(currentData));
+                localStorage.setItem('form-021-objective', document.getElementById('programObjective').innerHTML);
+                localStorage.setItem('form-021-observations', document.getElementById('observationsText').innerHTML);
+                localStorage.setItem('form-021-auto-save', new Date().toISOString());
+                unsavedChanges = false;
+                updateSaveStatus();
+                console.log('Auto-guardado realizado às', new Date().toLocaleTimeString());
+            }
+        }
+        
+        // Actualizar estado de guardado
+        function updateSaveStatus() {
+            const unsavedElement = document.getElementById('unsaved-changes');
+            const lastSavedElement = document.getElementById('last-saved');
+            
+            if (unsavedChanges) {
+                unsavedElement.style.display = 'inline';
+            } else {
+                unsavedElement.style.display = 'none';
+            }
+            
+            const lastSave = localStorage.getItem('form-021-last-save') || 
+                            localStorage.getItem('form-021-auto-save');
+            
+            if (lastSave) {
+                const lastSaveDate = new Date(lastSave);
+                lastSavedElement.textContent = `Último guardado: ${lastSaveDate.toLocaleTimeString('pt-PT')}`;
+            }
+        }
+        
+        // Filtrar tabla
+        function filterTable() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const monthFilter = document.getElementById('monthFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+            
+            const filteredData = currentData.filter(item => {
+                // Filtro de búsqueda
+                const matchesSearch = searchTerm === '' || 
+                    item.actividad.toLowerCase().includes(searchTerm);
+                
+                // Filtro de mes
+                const matchesMonth = monthFilter === '' || 
+                    item.semanas[parseInt(monthFilter) - 1]?.L ||
+                    item.semanas[parseInt(monthFilter) - 1]?.M ||
+                    item.semanas[parseInt(monthFilter) - 1]?.X ||
+                    item.semanas[parseInt(monthFilter) - 1]?.J ||
+                    item.semanas[parseInt(monthFilter) - 1]?.V ||
+                    item.semanas[parseInt(monthFilter) - 1]?.S ||
+                    item.semanas[parseInt(monthFilter) - 1]?.D;
+                
+                // Filtro de estado
+                let matchesStatus = true;
+                if (statusFilter === 'scheduled') {
+                    matchesStatus = item.semanas.some(semana => 
+                        semana.L || semana.M || semana.X || semana.J || semana.V || semana.S || semana.D
+                    );
+                } else if (statusFilter === 'completed') {
+                    matchesStatus = item.completada;
+                } else if (statusFilter === 'pending') {
+                    matchesStatus = !item.completada && item.semanas.some(semana => 
+                        semana.L || semana.M || semana.X || semana.J || semana.V || semana.S || semana.D
+                    );
+                }
+                
+                return matchesSearch && matchesMonth && matchesStatus;
+            });
+            
+            renderTable(filteredData);
+        }
+        
+        function exportData() {
+            // Crear un archivo CSV con los datos
+            let csvContent = "Item,Atividade,Semana 1,Semana 2,Semana 3,Semana 4,Concluída\n";
+            
+            currentData.forEach(item => {
+                const semana1 = item.semanas[0].L || item.semanas[0].M || item.semanas[0].X || 
+                               item.semanas[0].J || item.semanas[0].V || item.semanas[0].S || item.semanas[0].D ? "Programada" : "";
+                const semana2 = item.semanas[1].L || item.semanas[1].M || item.semanas[1].X || 
+                               item.semanas[1].J || item.semanas[1].V || item.semanas[1].S || item.semanas[1].D ? "Programada" : "";
+                const semana3 = item.semanas[2].L || item.semanas[2].M || item.semanas[2].X || 
+                               item.semanas[2].J || item.semanas[2].V || item.semanas[2].S || item.semanas[2].D ? "Programada" : "";
+                const semana4 = item.semanas[3].L || item.semanas[3].M || item.semanas[3].X || 
+                               item.semanas[3].J || item.semanas[3].V || item.semanas[3].S || item.semanas[3].D ? "Programada" : "";
+                
+                const row = [
+                    item.item,
+                    `"${item.actividad}"`,
+                    semana1,
+                    semana2,
+                    semana3,
+                    semana4,
+                    item.completada ? "Sim" : "Não"
+                ].join(',');
+                
+                csvContent += row + '\n';
+            });
+            
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", `FORM-021_Formacoes_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        // Inicializar cuando se cargue la página
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeData();
+            renderTable(currentData);
+            
+            // Configurar eventos de filtrado
+            document.getElementById('searchInput').addEventListener('input', filterTable);
+            document.getElementById('monthFilter').addEventListener('change', filterTable);
+            document.getElementById('statusFilter').addEventListener('change', filterTable);
+            
+            // Actualizar estado de guardado
+            updateSaveStatus();
+            
+            // Configurar eventos para textos editables
+            document.getElementById('programObjective').addEventListener('input', markUnsavedChanges);
+            document.getElementById('observationsText').addEventListener('input', markUnsavedChanges);
+            
+            // Verificar si el logo existe
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232c3e50" dy="5">LOGÓTIPO SGI</text></svg>';
+            };
+            
+            // Guardar antes de cerrar la página
+            window.addEventListener('beforeunload', function(e) {
+                if (unsavedChanges) {
+                    e.preventDefault();
+                    e.returnValue = 'Tem alterações por guardar. Tem a certeza de que quer sair?';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

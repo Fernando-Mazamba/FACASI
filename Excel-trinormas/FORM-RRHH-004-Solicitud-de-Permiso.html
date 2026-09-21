@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FOR-RRHH-004 Solicitação de Licença - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 180px;
+            height: 100px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 30px;
+        }
+        
+        .org-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 25px;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 26px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 25px 30px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 30px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 30px 25px;
+            margin: 0 30px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 25px 30px;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .form-row {
+            display: flex;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        
+        .form-label {
+            width: 200px;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        
+        .form-field {
+            flex-grow: 1;
+        }
+        
+        .form-field-wide {
+            flex-grow: 1;
+            display: flex;
+            gap: 20px;
+        }
+        
+        input[type="text"], input[type="date"], textarea, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+            background-color: white;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #3182ce;
+            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+        }
+        
+        .permission-details {
+            background-color: #edf2f7;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .details-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .details-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+            text-align: left;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }
+        
+        .details-table td {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            background-color: white;
+        }
+        
+        .signatures-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #4a5568;
+        }
+        
+        .signatures {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .signature-box {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+        }
+        
+        .signature-line {
+            border-top: 1px solid #000;
+            margin: 40px 0 10px;
+            height: 1px;
+        }
+        
+        .signature-label {
+            font-weight: bold;
+            margin-top: 10px;
+            color: #2d3748;
+        }
+        
+        .signature-info {
+            margin-top: 15px;
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .signature-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+        
+        .permission-types {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .permission-type {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 15px;
+            border: 2px solid #cbd5e0;
+            border-radius: 5px;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .permission-type:hover {
+            border-color: #718096;
+        }
+        
+        .permission-type.selected {
+            border-color: #3182ce;
+            background-color: #ebf8ff;
+        }
+        
+        .permission-type input[type="radio"] {
+            width: auto;
+        }
+        
+        .replacement-section {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 25px;
+        }
+        
+        .replacement-title {
+            color: #276749;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #718096;
+        }
+        
+        .btn-primary {
+            background-color: #3182ce;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2c5282;
+        }
+        
+        .btn-success {
+            background-color: #38a169;
+        }
+        
+        .btn-success:hover {
+            background-color: #2f855a;
+        }
+        
+        .btn-danger {
+            background-color: #e53e3e;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c53030;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: flex-end;
+        }
+        
+        .version-history {
+            margin-top: 40px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 30px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .instructions {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #276749;
+        }
+        
+        .instructions-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .days-calc {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        .days-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2b6cb0;
+            margin: 10px 0;
+        }
+        
+        .days-label {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .btn, .button-group {
+                display: none;
+            }
+            
+            .permission-type {
+                border: 1px solid #000;
+            }
+            
+            .signature-input {
+                border: none;
+                border-bottom: 1px solid #000;
+                background: transparent;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 15px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .doc-title {
+                font-size: 22px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: 15px;
+            }
+            
+            .form-label {
+                width: 100%;
+                margin-bottom: 8px;
+            }
+            
+            .form-field-wide {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .signatures {
+                flex-direction: column;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .permission-types {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabeçalho com logo e informações da organização -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logotipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elaborado por:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprovado por:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título do documento -->
+<div class="doc-title">FORMULÁRIO DE SOLICITAÇÃO DE LICENÇA</div>
+<div class="doc-code">Código: FOR-RRHH-004 | Revisão: 00</div>
+<!-- Conteúdo principal -->
+<div class="content">
+<!-- Instrucciones -->
+<div class="instructions">
+<div class="instructions-title">Instruções para preencher o formulário:</div>
+<p>1. Preencha todos os campos de informação do solicitante. 2. Especifique as datas e o motivo da licença. 3. Selecione o tipo de licença. 4. Forneça a informação de contacto do substituto. 5. Obtenha as assinaturas correspondentes.</p>
+</div>
+<!-- Sección 1: Información del solicitante -->
+<div class="form-section">
+<div class="section-title">INFORMAÇÃO DO SOLICITANTE</div>
+<div class="form-row">
+<div class="form-label">Data da Solicitação:</div>
+<div class="form-field">
+<input id="fecha-solicitud" type="date" value="2024-12-01"/>
+</div>
+</div>
+<div class="form-row">
+<div class="form-label">Colaborador:</div>
+<div class="form-field-wide">
+<input id="nombre-colaborador" placeholder="Nome e apelido do colaborador" style="flex: 2;" type="text"/>
+<input id="gerente-jefe" placeholder="Gerente ou Chefe" style="flex: 1;" type="text"/>
+</div>
+</div>
+<div class="form-row">
+<div class="form-label">Área:</div>
+<div class="form-field">
+<input id="area-colaborador" placeholder="Área ou departamento" type="text"/>
+</div>
+</div>
+</div>
+<!-- Sección 2: Detalles del permiso -->
+<div class="form-section">
+<div class="section-title">DETALHES DA LICENÇA</div>
+<div class="permission-details">
+<table class="details-table">
+<thead>
+<tr>
+<th style="width: 25%;">Data de Início</th>
+<th style="width: 25%;">Data de Finalização</th>
+<th style="width: 50%;">Motivo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><input id="fecha-inicio" onchange="calculateDays()" type="date"/></td>
+<td><input id="fecha-fin" onchange="calculateDays()" type="date"/></td>
+<td><textarea id="motivo-permiso" placeholder="Descreva o motivo da licença..."></textarea></td>
+</tr>
+</tbody>
+</table>
+<div class="days-calc" id="days-calc" style="display: none;">
+<div class="days-label">DIAS DE LICENÇA SOLICITADOS:</div>
+<div class="days-value" id="dias-totales">0</div>
+<div class="days-label">dias</div>
+</div>
+</div>
+<div class="form-row">
+<div class="form-label">Tipo de Licença:</div>
+<div class="form-field">
+<div class="permission-types">
+<div class="permission-type" onclick="selectPermissionType('vacaciones')">
+<input id="vacaciones" name="tipo-permiso" type="radio" value="vacaciones"/>
+<label for="vacaciones">Férias</label>
+</div>
+<div class="permission-type" onclick="selectPermissionType('enfermedad')">
+<input id="enfermedad" name="tipo-permiso" type="radio" value="enfermedad"/>
+<label for="enfermedad">Doença</label>
+</div>
+<div class="permission-type" onclick="selectPermissionType('personal')">
+<input id="personal" name="tipo-permiso" type="radio" value="personal"/>
+<label for="personal">Assuntos Pessoais</label>
+</div>
+<div class="permission-type" onclick="selectPermissionType('maternidad')">
+<input id="maternidad" name="tipo-permiso" type="radio" value="maternidad"/>
+<label for="maternidad">Maternidade/Paternidade</label>
+</div>
+<div class="permission-type" onclick="selectPermissionType('otro')">
+<input id="otro" name="tipo-permiso" type="radio" value="otro"/>
+<label for="otro">Outro</label>
+</div>
+</div>
+<div id="otro-tipo-container" style="margin-top: 15px; display: none;">
+<input id="otro-tipo-especificar" placeholder="Especifique outro tipo de licença..." type="text"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Sección 3: Contacto de reemplazo -->
+<div class="replacement-section">
+<div class="replacement-title">CONTACTO DE TRABALHO DO SUBSTITUTO:</div>
+<div class="form-row">
+<div class="form-label">Colaborador Substituto:</div>
+<div class="form-field">
+<input id="reemplazo-colaborador" placeholder="Nome do colaborador que irá cobrir as funções" type="text"/>
+</div>
+</div>
+<div class="form-row">
+<div class="form-label">Contacto do Substituto:</div>
+<div class="form-field">
+<input id="contacto-reemplazo" placeholder="Telefone ou e-mail de contacto" type="text"/>
+</div>
+</div>
+<div class="form-row">
+<div class="form-label">Responsabilidades a Cobrir:</div>
+<div class="form-field">
+<textarea id="responsabilidades-reemplazo" placeholder="Descreva as responsabilidades que serão cobertas..."></textarea>
+</div>
+</div>
+</div>
+<!-- Sección 4: Firmas y aprobaciones -->
+<div class="signatures-section">
+<div class="section-title">ASSINATURAS E APROVAÇÕES</div>
+<div class="signatures">
+<!-- Firma del Colaborador -->
+<div class="signature-box">
+<div class="signature-label">COLABORADOR SOLICITANTE</div>
+<div class="signature-info">
+<div>Nome: <span id="nombre-firma-colaborador">___________________</span></div>
+<div style="margin-top: 10px;">Data:</div>
+<input class="signature-input" id="fecha-firma-colaborador" type="date" value="2024-12-01"/>
+</div>
+<div class="signature-line"></div>
+<div class="signature-label">ASSINATURA</div>
+</div>
+<!-- Firma del Jefe Inmediato -->
+<div class="signature-box">
+<div class="signature-label">CHEFE IMEDIATO / GERENTE</div>
+<div class="signature-info">
+<div>Nome: <span id="nombre-firma-jefe">___________________</span></div>
+<div style="margin-top: 10px;">Data:</div>
+<input class="signature-input" id="fecha-firma-jefe" type="date"/>
+</div>
+<div class="signature-line"></div>
+<div class="signature-label">ASSINATURA E APROVAÇÃO</div>
+<div class="permission-types" style="margin-top: 20px; justify-content: center;">
+<div class="permission-type" onclick="selectApproval('aprobado')" style="padding: 5px 10px;">
+<input id="aprobado-jefe" name="aprobacion-jefe" type="radio" value="aprobado"/>
+<label for="aprobado-jefe">Aprovado</label>
+</div>
+<div class="permission-type" onclick="selectApproval('rechazado')" style="padding: 5px 10px;">
+<input id="rechazado-jefe" name="aprobacion-jefe" type="radio" value="rechazado"/>
+<label for="rechazado-jefe">Rejeitado</label>
+</div>
+</div>
+</div>
+<!-- Firma de RRHH -->
+<div class="signature-box">
+<div class="signature-label">RECURSOS HUMANOS</div>
+<div class="signature-info">
+<div>Nome: <span id="nombre-firma-rrhh">___________________</span></div>
+<div style="margin-top: 10px;">Data:</div>
+<input class="signature-input" id="fecha-firma-rrhh" type="date"/>
+</div>
+<div class="signature-line"></div>
+<div class="signature-label">ASSINATURA E REGISTO</div>
+<div class="permission-types" style="margin-top: 20px; justify-content: center;">
+<div class="permission-type" onclick="selectHRApproval('aprobado')" style="padding: 5px 10px;">
+<input id="aprobado-rrhh" name="aprobacion-rrhh" type="radio" value="aprobado"/>
+<label for="aprobado-rrhh">Aprovado</label>
+</div>
+<div class="permission-type" onclick="selectHRApproval('rechazado')" style="padding: 5px 10px;">
+<input id="rechazado-rrhh" name="aprobacion-rrhh" type="radio" value="rechazado"/>
+<label for="rechazado-rrhh">Rejeitado</label>
+</div>
+</div>
+</div>
+</div>
+<div class="form-row" style="margin-top: 30px;">
+<div class="form-label">Observações:</div>
+<div class="form-field">
+<textarea id="observaciones-generales" placeholder="Insira observações adicionais..."></textarea>
+</div>
+</div>
+</div>
+<!-- Botones de acción -->
+<div class="button-group">
+<button class="btn btn-success" onclick="savePermissionRequest()">💾 Guardar Solicitação</button>
+<button class="btn btn-primary" onclick="printPermissionRequest()">📄 Imprimir Solicitação</button>
+<button class="btn" onclick="clearPermissionRequest()">🗑️ Limpar Solicitação</button>
+<button class="btn btn-danger" onclick="exportPermissionRequest()">📤 Exportar Solicitação</button>
+</div>
+<!-- Histórico de versiones -->
+<div class="version-history">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Rodapé -->
+<div class="footer">
+<p>Código: FOR-RRHH-004 | Revisão: 00 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        // Configuração inicial quando o documento é carregado
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verifica se o logo existe, caso contrário mostra um placeholder
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGOTIPO DA EMPRESA</text></svg>';
+                    console.log("Logotipo não encontrado em logo/logo.png. Por favor, adicione o logotipo na pasta especificada.");
+                };
+            }
+            
+            // Carregar dados guardados, se existirem
+            loadPermissionData();
+            
+            // Configurar a data atual
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('fecha-solicitud').value = today;
+            document.getElementById('fecha-firma-colaborador').value = today;
+            
+            // Configurar eventos para atualizar nomes nas assinaturas
+            document.getElementById('nombre-colaborador').addEventListener('input', function() {
+                document.getElementById('nombre-firma-colaborador').textContent = this.value || '___________________';
+            });
+            
+            document.getElementById('gerente-jefe').addEventListener('input', function() {
+                document.getElementById('nombre-firma-jefe').textContent = this.value || '___________________';
+            });
+            
+            // Configurar opción "Outro" para tipo de permiso
+            const permissionTypeRadios = document.querySelectorAll('input[name="tipo-permiso"]');
+            permissionTypeRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const otroContainer = document.getElementById('otro-tipo-container');
+                    if (this.value === 'otro') {
+                        otroContainer.style.display = 'block';
+                    } else {
+                        otroContainer.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Configurar aprovações por defeito
+            document.getElementById('nombre-firma-rrhh').textContent = 'Recursos Humanos';
+        });
+        
+        // Função para selecionar tipo de licença
+        function selectPermissionType(type) {
+            // Remover a classe selected de todos
+            const allTypes = document.querySelectorAll('.permission-type');
+            allTypes.forEach(element => {
+                element.classList.remove('selected');
+            });
+            
+            // Adicionar a classe selected ao selecionado
+            const selectedType = document.querySelector(`.permission-type input[value="${type}"]`).parentNode;
+            selectedType.classList.add('selected');
+            
+            // Marcar o botão de opção correspondente
+            document.getElementById(type).checked = true;
+            
+            // Mostrar/ocultar campo "Outro"
+            const otroContainer = document.getElementById('otro-tipo-container');
+            if (type === 'otro') {
+                otroContainer.style.display = 'block';
+            } else {
+                otroContainer.style.display = 'none';
+            }
+        }
+        
+        // Função para selecionar aprovação do chefe
+        function selectApproval(status) {
+            // Remover a classe selected de todos
+            const jefeOptions = document.querySelectorAll('.signature-box:nth-child(2) .permission-type');
+            jefeOptions.forEach(element => {
+                element.classList.remove('selected');
+            });
+            
+            // Adicionar a classe selected ao selecionado
+            const selectedOption = document.querySelector(`.signature-box:nth-child(2) .permission-type input[value="${status}"]`).parentNode;
+            selectedOption.classList.add('selected');
+            
+            // Marcar o botão de opção correspondente
+            document.getElementById(`${status}-jefe`).checked = true;
+        }
+        
+        // Função para selecionar aprovação de RRHH
+        function selectHRApproval(status) {
+            // Remover a classe selected de todos
+            const rrhhOptions = document.querySelectorAll('.signature-box:nth-child(3) .permission-type');
+            rrhhOptions.forEach(element => {
+                element.classList.remove('selected');
+            });
+            
+            // Adicionar a classe selected ao selecionado
+            const selectedOption = document.querySelector(`.signature-box:nth-child(3) .permission-type input[value="${status}"]`).parentNode;
+            selectedOption.classList.add('selected');
+            
+            // Marcar o botão de opção correspondente
+            document.getElementById(`${status}-rrhh`).checked = true;
+        }
+        
+        // Função para calcular dias de licença
+        function calculateDays() {
+            const fechaInício = document.getElementById('fecha-inicio').value;
+            const fechaFin = document.getElementById('fecha-fin').value;
+            
+            if (fechaInício && fechaFin) {
+                const start = new Date(fechaInício);
+                const end = new Date(fechaFin);
+                
+                // Validar que a data de início seja anterior à data de fim
+                if (start > end) {
+                    alert('A data de início deve ser anterior à data de finalização.');
+                    document.getElementById('fecha-fin').value = '';
+                    document.getElementById('days-calc').style.display = 'none';
+                    return;
+                }
+                
+                // Calcular diferencia en dias
+                const diffTime = Math.abs(end - start);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // +1 para incluir o dia de início
+                
+                // Mostrar resultado
+                document.getElementById('dias-totales').textContent = diffDays;
+                document.getElementById('days-calc').style.display = 'block';
+            } else {
+                document.getElementById('days-calc').style.display = 'none';
+            }
+        }
+        
+        // Função para guardar a solicitação
+        function savePermissionRequest() {
+            const permissionData = collectPermissionData();
+            localStorage.setItem('permission_rrhh_004', JSON.stringify(permissionData));
+            alert('Solicitação de licença guardada correctamente no armazenamento local.');
+        }
+        
+        // Função para carregar dados guardados
+        function loadPermissionData() {
+            const savedData = localStorage.getItem('permission_rrhh_004');
+            if (savedData) {
+                const permissionData = JSON.parse(savedData);
+                
+                // Preencher campos de informação
+                document.getElementById('fecha-solicitud').value = permissionData.fechaSolicitud || new Date().toISOString().split('T')[0];
+                document.getElementById('nombre-colaborador').value = permissionData.nombreColaborador || '';
+                document.getElementById('gerente-jefe').value = permissionData.gerenteJefe || '';
+                document.getElementById('area-colaborador').value = permissionData.areaColaborador || '';
+                document.getElementById('fecha-inicio').value = permissionData.fechaInício || '';
+                document.getElementById('fecha-fin').value = permissionData.fechaFin || '';
+                document.getElementById('motivo-permiso').value = permissionData.motivoPermiso || '';
+                document.getElementById('reemplazo-colaborador').value = permissionData.reemplazoColaborador || '';
+                document.getElementById('contacto-reemplazo').value = permissionData.contactoReemplazo || '';
+                document.getElementById('responsabilidades-reemplazo').value = permissionData.responsabilidadesReemplazo || '';
+                document.getElementById('observaciones-generales').value = permissionData.observacionesGenerales || '';
+                document.getElementById('fecha-firma-colaborador').value = permissionData.fechaFirmaColaborador || new Date().toISOString().split('T')[0];
+                document.getElementById('fecha-firma-jefe').value = permissionData.fechaFirmaJefe || '';
+                document.getElementById('fecha-firma-rrhh').value = permissionData.fechaFirmaRrhh || '';
+                
+                // Preencher tipo de licença
+                if (permissionData.tipoPermiso) {
+                    selectPermissionType(permissionData.tipoPermiso);
+                    if (permissionData.tipoPermiso === 'otro' && permissionData.otroTipoEspecificar) {
+                        document.getElementById('otro-tipo-especificar').value = permissionData.otroTipoEspecificar;
+                    }
+                }
+                
+                // Preencher aprovações
+                if (permissionData.aprobacionJefe) {
+                    selectApproval(permissionData.aprobacionJefe);
+                }
+                
+                if (permissionData.aprobacionRrhh) {
+                    selectHRApproval(permissionData.aprobacionRrhh);
+                }
+                
+                // Atualizar assinaturas
+                document.getElementById('nombre-firma-colaborador').textContent = permissionData.nombreColaborador || '___________________';
+                document.getElementById('nombre-firma-jefe').textContent = permissionData.gerenteJefe || '___________________';
+                
+                // Recalcular dias se houver datas
+                if (permissionData.fechaInício && permissionData.fechaFin) {
+                    calculateDays();
+                }
+                
+                console.log('Solicitação de licença carregada a partir do armazenamento local.');
+            }
+        }
+        
+        // Função para recolher dados da solicitação
+        function collectPermissionData() {
+            const permissionData = {
+                fechaSolicitud: document.getElementById('fecha-solicitud').value,
+                nombreColaborador: document.getElementById('nombre-colaborador').value,
+                gerenteJefe: document.getElementById('gerente-jefe').value,
+                areaColaborador: document.getElementById('area-colaborador').value,
+                fechaInício: document.getElementById('fecha-inicio').value,
+                fechaFin: document.getElementById('fecha-fin').value,
+                motivoPermiso: document.getElementById('motivo-permiso').value,
+                reemplazoColaborador: document.getElementById('reemplazo-colaborador').value,
+                contactoReemplazo: document.getElementById('contacto-reemplazo').value,
+                responsabilidadesReemplazo: document.getElementById('responsabilidades-reemplazo').value,
+                observacionesGenerales: document.getElementById('observaciones-generales').value,
+                fechaFirmaColaborador: document.getElementById('fecha-firma-colaborador').value,
+                fechaFirmaJefe: document.getElementById('fecha-firma-jefe').value,
+                fechaFirmaRrhh: document.getElementById('fecha-firma-rrhh').value
+            };
+            
+            // Tipo de licença
+            const selectedType = document.querySelector('input[name="tipo-permiso"]:checked');
+            permissionData.tipoPermiso = selectedType ? selectedType.value : '';
+            
+            if (permissionData.tipoPermiso === 'otro') {
+                permissionData.otroTipoEspecificar = document.getElementById('otro-tipo-especificar').value;
+            }
+            
+            // Aprobaciones
+            const aprobacionJefe = document.querySelector('input[name="aprobacion-jefe"]:checked');
+            permissionData.aprobacionJefe = aprobacionJefe ? aprobacionJefe.value : '';
+            
+            const aprobacionRrhh = document.querySelector('input[name="aprobacion-rrhh"]:checked');
+            permissionData.aprobacionRrhh = aprobacionRrhh ? aprobacionRrhh.value : '';
+            
+            // Cálculo de dias
+            if (permissionData.fechaInício && permissionData.fechaFin) {
+                const start = new Date(permissionData.fechaInício);
+                const end = new Date(permissionData.fechaFin);
+                const diffTime = Math.abs(end - start);
+                permissionData.diasTotales = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+            }
+            
+            return permissionData;
+        }
+        
+        // Função para imprimir solicitação
+        function printPermissionRequest() {
+            // Recalcular dias antes de imprimir
+            calculateDays();
+            window.print();
+        }
+        
+        // Função para limpar solicitação
+        function clearPermissionRequest() {
+            if (confirm('Tem a certeza de que deseja limpar toda a solicitação? Todos os dados não guardados serão perdidos.')) {
+                // Limpar campos de entrada
+                document.querySelectorAll('input[type="text"], input[type="date"], textarea').forEach(field => {
+                    field.value = '';
+                });
+                
+                // Restaurar valores predefinidos
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('fecha-solicitud').value = today;
+                document.getElementById('fecha-firma-colaborador').value = today;
+                
+                // Limpar seleções
+                document.querySelectorAll('.permission-type, .permission-type input[type="radio"]').forEach(element => {
+                    if (element.classList) element.classList.remove('selected');
+                    if (element.checked) element.checked = false;
+                });
+                
+                // Ocultar campo "Outro"
+                document.getElementById('otro-tipo-container').style.display = 'none';
+                
+                // Ocultar cálculo de dias
+                document.getElementById('days-calc').style.display = 'none';
+                
+                // Restaurar assinaturas
+                document.getElementById('nombre-firma-colaborador').textContent = '___________________';
+                document.getElementById('nombre-firma-jefe').textContent = '___________________';
+                document.getElementById('nombre-firma-rrhh').textContent = 'Recursos Humanos';
+                
+                // Limpar localStorage
+                localStorage.removeItem('permission_rrhh_004');
+                
+                alert('Solicitação limpa correctamente.');
+            }
+        }
+        
+        // Função para exportar solicitação
+        function exportPermissionRequest() {
+            // Recolher dados
+            const permissionData = collectPermissionData();
+            
+            // Criar relatório
+            let report = `SOLICITAÇÃO DE LICENÇA - RELATÓRIO\n`;
+            report += `========================================\n\n`;
+            report += `Código: FOR-RRHH-004 | Data da Solicitação: ${permissionData.fechaSolicitud}\n\n`;
+            
+            report += `INFORMAÇÃO DO SOLICITANTE:\n`;
+            report += `Colaborador: ${permissionData.nombreColaborador || 'Não especificado'}\n`;
+            report += `Gerente/Jefe: ${permissionData.gerenteJefe || 'Não especificado'}\n`;
+            report += `Área: ${permissionData.areaColaborador || 'Não especificada'}\n\n`;
+            
+            report += `DETALHES DA LICENÇA:\n`;
+            report += `Data de Início: ${permissionData.fechaInício || 'Não especificada'}\n`;
+            report += `Data de Fim: ${permissionData.fechaFin || 'Não especificada'}\n`;
+            report += `Dias Totais: ${permissionData.diasTotales || '0'} dias\n`;
+            report += `Tipo de Licença: ${permissionData.tipoPermiso || 'Não especificado'}\n`;
+            if (permissionData.tipoPermiso === 'otro' && permissionData.otroTipoEspecificar) {
+                report += `Especificação: ${permissionData.otroTipoEspecificar}\n`;
+            }
+            report += `Motivo: ${permissionData.motivoPermiso || 'Não especificado'}\n\n`;
+            
+            report += `INFORMAÇÃO DO SUBSTITUTO:\n`;
+            report += `Colaborador Substituto: ${permissionData.reemplazoColaborador || 'Não especificado'}\n`;
+            report += `Contacto: ${permissionData.contactoReemplazo || 'Não especificado'}\n`;
+            report += `Responsabilidades: ${permissionData.responsabilidadesReemplazo || 'Não especificadas'}\n\n`;
+            
+            report += `APROVAÇÕES:\n`;
+            report += `Chefe/Gerente: ${permissionData.aprobacionJefe ? permissionData.aprobacionJefe.toUpperCase() : 'PENDENTE'}\n`;
+            report += `Data: ${permissionData.fechaFirmaJefe || 'Não assinado'}\n`;
+            report += `RRHH: ${permissionData.aprobacionRrhh ? permissionData.aprobacionRrhh.toUpperCase() : 'PENDENTE'}\n`;
+            report += `Data: ${permissionData.fechaFirmaRrhh || 'Não assinado'}\n\n`;
+            
+            report += `OBSERVAÇÕES:\n`;
+            report += `${permissionData.observacionesGenerales || 'Não há observações.'}\n`;
+            
+            // Criar ficheiro para transferência
+            const dataStr = 'data:text/plain;charset=utf-8,' + encodeURIComponent(report);
+            const exportFileDefaultName = `FOR-RRHH-004_Permiso_${permissionData.nombreColaborador || 'solicitud'}_${new Date().toISOString().split('T')[0]}.txt`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataStr);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            
+            alert('Relatório de solicitação de licença gerado correctamente.');
+        }
+        
+        // Inicializar fecha actual en campos relevantes
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('fecha-solicitud').value = today;
+        document.getElementById('fecha-firma-colaborador').value = today;
+    </script>
+</body>
+</html>

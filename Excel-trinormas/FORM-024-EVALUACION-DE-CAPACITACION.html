@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FORM-024 Avaliação de Formação - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .form-section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .training-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .info-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        
+        .info-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .info-input:focus {
+            outline: none;
+            border-color: #4a5568;
+            box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+        }
+        
+        .evaluation-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .evaluation-column {
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .evaluation-header {
+            background-color: #4a5568;
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            font-size: 18px;
+            text-align: center;
+        }
+        
+        .instructores .evaluation-header {
+            background-color: #3182ce;
+        }
+        
+        .curso .evaluation-header {
+            background-color: #38a169;
+        }
+        
+        .grupo .evaluation-header {
+            background-color: #d69e2e;
+        }
+        
+        .lugar .evaluation-header {
+            background-color: #805ad5;
+        }
+        
+        .evaluation-content {
+            padding: 20px;
+        }
+        
+        .evaluation-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .evaluation-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .evaluation-question {
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+        
+        .rating-scale {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        
+        .rating-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 60px;
+        }
+        
+        .rating-input {
+            transform: scale(1.5);
+            margin-bottom: 5px;
+        }
+        
+        .rating-label {
+            font-size: 12px;
+            color: #4a5568;
+            text-align: center;
+        }
+        
+        .scale-note {
+            font-size: 12px;
+            color: #718096;
+            text-align: center;
+            margin-top: 5px;
+        }
+        
+        .general-evaluation {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .general-title {
+            color: #4a5568;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .general-question {
+            margin-bottom: 25px;
+        }
+        
+        .general-label {
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .general-textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-size: 16px;
+            font-family: inherit;
+            resize: vertical;
+        }
+        
+        .results-section {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .result-item {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .result-label {
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .result-input {
+            width: 100px;
+            padding: 10px;
+            border: 2px solid #4a5568;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            margin: 0 auto;
+        }
+        
+        .scale-info {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        
+        .scale-title {
+            color: #276749;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .scale-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            text-align: center;
+        }
+        
+        .scale-item {
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .scale-excelente {
+            background-color: #38a169;
+            color: white;
+        }
+        
+        .scale-bueno {
+            background-color: #68d391;
+            color: #1a202c;
+        }
+        
+        .scale-regular {
+            background-color: #f6e05e;
+            color: #1a202c;
+        }
+        
+        .scale-deficiente {
+            background-color: #fc8181;
+            color: white;
+        }
+        
+        .signature-section {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 30px;
+        }
+        
+        .signature-field {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .signature-line {
+            width: 300px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 auto 10px;
+            padding-top: 40px;
+        }
+        
+        .signature-label {
+            font-weight: bold;
+            color: #2d3748;
+            font-size: 16px;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .submit-btn {
+            background-color: #38a169;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .submit-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        .reset-btn {
+            background-color: #e53e3e;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .reset-btn:hover {
+            background-color: #c53030;
+        }
+        
+        .score-display {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn, .submit-btn, .reset-btn {
+                display: none;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .evaluation-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .scale-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .training-info, .evaluation-container, .results-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .rating-scale {
+                flex-wrap: wrap;
+            }
+            
+            .rating-option {
+                width: 45px;
+                margin-bottom: 10px;
+            }
+            
+            .signature-line {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabeçalho com logo e informações da organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título do documento -->
+<div class="doc-title">AVALIAÇÃO DE FORMAÇÃO</div>
+<div class="doc-code">Código: FORM-024</div>
+<!-- Conteúdo principal -->
+<div class="content">
+<!-- Información de la Capacitação -->
+<div class="form-section">
+<div class="section-title">Informação da Formação</div>
+<div class="training-info">
+<div class="info-group">
+<label class="info-label">Nome do Curso/Evento:</label>
+<input class="info-input" placeholder="Nome da formação" type="text"/>
+</div>
+<div class="info-group">
+<label class="info-label">Data do Curso:</label>
+<input class="info-input" type="date"/>
+</div>
+<div class="info-group">
+<label class="info-label">Nome do Participante:</label>
+<input class="info-input" placeholder="Nome completo" type="text"/>
+</div>
+<div class="info-group">
+<label class="info-label">Área/Departamento:</label>
+<input class="info-input" placeholder="Departamento a que pertence" type="text"/>
+</div>
+<div class="info-group">
+<label class="info-label">Nome do Instrutor/Facilitador:</label>
+<input class="info-input" placeholder="Nome do instrutor" type="text"/>
+</div>
+<div class="info-group">
+<label class="info-label">Local da Formação:</label>
+<input class="info-input" placeholder="Local onde se realizou" type="text"/>
+</div>
+</div>
+</div>
+<!-- Escala de Evaluación -->
+<div class="scale-info">
+<div class="scale-title">ESCALA DE AVALIAÇÃO</div>
+<div class="scale-grid">
+<div class="scale-item scale-excelente">5 - Excelente<br/>(Superou as expectativas)</div>
+<div class="scale-item scale-bueno">4 - Bom<br/>(Dentro das expectativas)</div>
+<div class="scale-item scale-regular">3 - Razoável<br/>(Cobriu o básico)</div>
+<div class="scale-item scale-deficiente">2 - Deficiente<br/>(Não cobriu as expectativas)</div>
+</div>
+<p style="text-align: center; margin-top: 15px; font-size: 14px; color: #666;">
+<strong>Nota:</strong> Classifique cada aspeto conforme a sua experiência (5 = Excelente, 1 = Muito Deficiente)
+                </p>
+</div>
+<!-- Evaluación por Áreas -->
+<div class="form-section">
+<div class="section-title">Avaliação por Áreas</div>
+<div class="evaluation-container">
+<!-- 1. DE LOS INSTRUCTORES -->
+<div class="evaluation-column instructores">
+<div class="evaluation-header">1. DOS INSTRUTORES</div>
+<div class="evaluation-content">
+<div class="evaluation-item">
+<div class="evaluation-question">1.1. Dominaram o tema que apresentaram</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="instr-1-1" name="instr-1" type="radio" value="1"/>
+<label class="rating-label" for="instr-1-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-1-2" name="instr-1" type="radio" value="2"/>
+<label class="rating-label" for="instr-1-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-1-3" name="instr-1" type="radio" value="3"/>
+<label class="rating-label" for="instr-1-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-1-4" name="instr-1" type="radio" value="4"/>
+<label class="rating-label" for="instr-1-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-1-5" name="instr-1" type="radio" value="5"/>
+<label class="rating-label" for="instr-1-5">5</label>
+</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-question">1.2. Prepararam as suas sessões</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="instr-2-1" name="instr-2" type="radio" value="1"/>
+<label class="rating-label" for="instr-2-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-2-2" name="instr-2" type="radio" value="2"/>
+<label class="rating-label" for="instr-2-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-2-3" name="instr-2" type="radio" value="3"/>
+<label class="rating-label" for="instr-2-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-2-4" name="instr-2" type="radio" value="4"/>
+<label class="rating-label" for="instr-2-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-2-5" name="instr-2" type="radio" value="5"/>
+<label class="rating-label" for="instr-2-5">5</label>
+</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-question">1.3. Fomentaram a participação do grupo</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="instr-3-1" name="instr-3" type="radio" value="1"/>
+<label class="rating-label" for="instr-3-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-3-2" name="instr-3" type="radio" value="2"/>
+<label class="rating-label" for="instr-3-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-3-3" name="instr-3" type="radio" value="3"/>
+<label class="rating-label" for="instr-3-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-3-4" name="instr-3" type="radio" value="4"/>
+<label class="rating-label" for="instr-3-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-3-5" name="instr-3" type="radio" value="5"/>
+<label class="rating-label" for="instr-3-5">5</label>
+</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-question">1.4. Comunicaram com clareza</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="instr-4-1" name="instr-4" type="radio" value="1"/>
+<label class="rating-label" for="instr-4-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-4-2" name="instr-4" type="radio" value="2"/>
+<label class="rating-label" for="instr-4-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-4-3" name="instr-4" type="radio" value="3"/>
+<label class="rating-label" for="instr-4-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-4-4" name="instr-4" type="radio" value="4"/>
+<label class="rating-label" for="instr-4-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-4-5" name="instr-4" type="radio" value="5"/>
+<label class="rating-label" for="instr-4-5">5</label>
+</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-question">1.5. Iniciaram e concluíram pontualmente</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="instr-5-1" name="instr-5" type="radio" value="1"/>
+<label class="rating-label" for="instr-5-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-5-2" name="instr-5" type="radio" value="2"/>
+<label class="rating-label" for="instr-5-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-5-3" name="instr-5" type="radio" value="3"/>
+<label class="rating-label" for="instr-5-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-5-4" name="instr-5" type="radio" value="4"/>
+<label class="rating-label" for="instr-5-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-5-5" name="instr-5" type="radio" value="5"/>
+<label class="rating-label" for="instr-5-5">5</label>
+</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-question">1.6. Ilustraram o tema com casos práticos</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="instr-6-1" name="instr-6" type="radio" value="1"/>
+<label class="rating-label" for="instr-6-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-6-2" name="instr-6" type="radio" value="2"/>
+<label class="rating-label" for="instr-6-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-6-3" name="instr-6" type="radio" value="3"/>
+<label class="rating-label" for="instr-6-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-6-4" name="instr-6" type="radio" value="4"/>
+<label class="rating-label" for="instr-6-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-6-5" name="instr-6" type="radio" value="5"/>
+<label class="rating-label" for="instr-6-5">5</label>
+</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-question">1.7. Deram a conhecer os objetivos do curso</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="instr-7-1" name="instr-7" type="radio" value="1"/>
+<label class="rating-label" for="instr-7-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-7-2" name="instr-7" type="radio" value="2"/>
+<label class="rating-label" for="instr-7-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-7-3" name="instr-7" type="radio" value="3"/>
+<label class="rating-label" for="instr-7-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-7-4" name="instr-7" type="radio" value="4"/>
+<label class="rating-label" for="instr-7-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-7-5" name="instr-7" type="radio" value="5"/>
+<label class="rating-label" for="instr-7-5">5</label>
+</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-question">1.8. Alcançaram os objetivos do curso</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="instr-8-1" name="instr-8" type="radio" value="1"/>
+<label class="rating-label" for="instr-8-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-8-2" name="instr-8" type="radio" value="2"/>
+<label class="rating-label" for="instr-8-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-8-3" name="instr-8" type="radio" value="3"/>
+<label class="rating-label" for="instr-8-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-8-4" name="instr-8" type="radio" value="4"/>
+<label class="rating-label" for="instr-8-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-8-5" name="instr-8" type="radio" value="5"/>
+<label class="rating-label" for="instr-8-5">5</label>
+</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-question">1.9. Esclareceram dúvidas</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="instr-9-1" name="instr-9" type="radio" value="1"/>
+<label class="rating-label" for="instr-9-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-9-2" name="instr-9" type="radio" value="2"/>
+<label class="rating-label" for="instr-9-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-9-3" name="instr-9" type="radio" value="3"/>
+<label class="rating-label" for="instr-9-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-9-4" name="instr-9" type="radio" value="4"/>
+<label class="rating-label" for="instr-9-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="instr-9-5" name="instr-9" type="radio" value="5"/>
+<label class="rating-label" for="instr-9-5">5</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 2. DEL CURSO -->
+<div class="evaluation-column curso">
+<div class="evaluation-header">2. DO CURSO</div>
+<div class="evaluation-content">
+<div class="evaluation-item">
+<div class="evaluation-question">2.1. As minhas expectativas foram satisfeitas</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="curso-1-1" name="curso-1" type="radio" value="1"/>
+<label class="rating-label" for="curso-1-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="curso-1-2" name="curso-1" type="radio" value="2"/>
+<label class="rating-label" for="curso-1-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="curso-1-3" name="curso-1" type="radio" value="3"/>
+<label class="rating-label" for="curso-1-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="curso-1-4" name="curso-1" type="radio" value="4"/>
+<label class="rating-label" for="curso-1-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="curso-1-5" name="curso-1" type="radio" value="5"/>
+<label class="rating-label" for="curso-1-5">5</label>
+</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-question">2.2. Conhecimento aplicável ao posto de trabalho</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="curso-2-1" name="curso-2" type="radio" value="1"/>
+<label class="rating-label" for="curso-2-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="curso-2-2" name="curso-2" type="radio" value="2"/>
+<label class="rating-label" for="curso-2-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="curso-2-3" name="curso-2" type="radio" value="3"/>
+<label class="rating-label" for="curso-2-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="curso-2-4" name="curso-2" type="radio" value="4"/>
+<label class="rating-label" for="curso-2-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="curso-2-5" name="curso-2" type="radio" value="5"/>
+<label class="rating-label" for="curso-2-5">5</label>
+</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-question">2.3. Temas com sequência lógica</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="curso-3-1" name="curso-3" type="radio" value="1"/>
+<label class="rating-label" for="curso-3-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="curso-3-2" name="curso-3" type="radio" value="2"/>
+<label class="rating-label" for="curso-3-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="curso-3-3" name="curso-3" type="radio" value="3"/>
+<label class="rating-label" for="curso-3-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="curso-3-4" name="curso-3" type="radio" value="4"/>
+<label class="rating-label" for="curso-3-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="curso-3-5" name="curso-3" type="radio" value="5"/>
+<label class="rating-label" for="curso-3-5">5</label>
+</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-question">2.4. Melhorará o meu desempenho</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="curso-4-1" name="curso-4" type="radio" value="1"/>
+<label class="rating-label" for="curso-4-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="curso-4-2" name="curso-4" type="radio" value="2"/>
+<label class="rating-label" for="curso-4-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="curso-4-3" name="curso-4" type="radio" value="3"/>
+<label class="rating-label" for="curso-4-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="curso-4-4" name="curso-4" type="radio" value="4"/>
+<label class="rating-label" for="curso-4-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="curso-4-5" name="curso-4" type="radio" value="5"/>
+<label class="rating-label" for="curso-4-5">5</label>
+</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-question">2.5. Recursos para aplicação</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="curso-5-1" name="curso-5" type="radio" value="1"/>
+<label class="rating-label" for="curso-5-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="curso-5-2" name="curso-5" type="radio" value="2"/>
+<label class="rating-label" for="curso-5-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="curso-5-3" name="curso-5" type="radio" value="3"/>
+<label class="rating-label" for="curso-5-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="curso-5-4" name="curso-5" type="radio" value="4"/>
+<label class="rating-label" for="curso-5-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="curso-5-5" name="curso-5" type="radio" value="5"/>
+<label class="rating-label" for="curso-5-5">5</label>
+</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-question">2.6. Poderei sugerir melhorias</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="curso-6-1" name="curso-6" type="radio" value="1"/>
+<label class="rating-label" for="curso-6-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="curso-6-2" name="curso-6" type="radio" value="2"/>
+<label class="rating-label" for="curso-6-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="curso-6-3" name="curso-6" type="radio" value="3"/>
+<label class="rating-label" for="curso-6-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="curso-6-4" name="curso-6" type="radio" value="4"/>
+<label class="rating-label" for="curso-6-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="curso-6-5" name="curso-6" type="radio" value="5"/>
+<label class="rating-label" for="curso-6-5">5</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 3. DEL GRUPO -->
+<div class="evaluation-column grupo">
+<div class="evaluation-header">3. DO GRUPO</div>
+<div class="evaluation-content">
+<div class="evaluation-item">
+<div class="evaluation-question">3.1. Participantes interessados</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="grupo-1-1" name="grupo-1" type="radio" value="1"/>
+<label class="rating-label" for="grupo-1-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="grupo-1-2" name="grupo-1" type="radio" value="2"/>
+<label class="rating-label" for="grupo-1-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="grupo-1-3" name="grupo-1" type="radio" value="3"/>
+<label class="rating-label" for="grupo-1-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="grupo-1-4" name="grupo-1" type="radio" value="4"/>
+<label class="rating-label" for="grupo-1-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="grupo-1-5" name="grupo-1" type="radio" value="5"/>
+<label class="rating-label" for="grupo-1-5">5</label>
+</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-question">3.2. Partilharam conhecimentos</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="grupo-2-1" name="grupo-2" type="radio" value="1"/>
+<label class="rating-label" for="grupo-2-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="grupo-2-2" name="grupo-2" type="radio" value="2"/>
+<label class="rating-label" for="grupo-2-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="grupo-2-3" name="grupo-2" type="radio" value="3"/>
+<label class="rating-label" for="grupo-2-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="grupo-2-4" name="grupo-2" type="radio" value="4"/>
+<label class="rating-label" for="grupo-2-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="grupo-2-5" name="grupo-2" type="radio" value="5"/>
+<label class="rating-label" for="grupo-2-5">5</label>
+</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-question">3.3. Atitude positiva do grupo</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="grupo-3-1" name="grupo-3" type="radio" value="1"/>
+<label class="rating-label" for="grupo-3-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="grupo-3-2" name="grupo-3" type="radio" value="2"/>
+<label class="rating-label" for="grupo-3-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="grupo-3-3" name="grupo-3" type="radio" value="3"/>
+<label class="rating-label" for="grupo-3-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="grupo-3-4" name="grupo-3" type="radio" value="4"/>
+<label class="rating-label" for="grupo-3-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="grupo-3-5" name="grupo-3" type="radio" value="5"/>
+<label class="rating-label" for="grupo-3-5">5</label>
+</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-question">3.4. Impressão geral positiva</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="grupo-4-1" name="grupo-4" type="radio" value="1"/>
+<label class="rating-label" for="grupo-4-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="grupo-4-2" name="grupo-4" type="radio" value="2"/>
+<label class="rating-label" for="grupo-4-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="grupo-4-3" name="grupo-4" type="radio" value="3"/>
+<label class="rating-label" for="grupo-4-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="grupo-4-4" name="grupo-4" type="radio" value="4"/>
+<label class="rating-label" for="grupo-4-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="grupo-4-5" name="grupo-4" type="radio" value="5"/>
+<label class="rating-label" for="grupo-4-5">5</label>
+</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-question">3.5. Igualdade de nível entre participantes</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="grupo-5-1" name="grupo-5" type="radio" value="1"/>
+<label class="rating-label" for="grupo-5-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="grupo-5-2" name="grupo-5" type="radio" value="2"/>
+<label class="rating-label" for="grupo-5-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="grupo-5-3" name="grupo-5" type="radio" value="3"/>
+<label class="rating-label" for="grupo-5-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="grupo-5-4" name="grupo-5" type="radio" value="4"/>
+<label class="rating-label" for="grupo-5-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="grupo-5-5" name="grupo-5" type="radio" value="5"/>
+<label class="rating-label" for="grupo-5-5">5</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 4. DEL LUGAR -->
+<div class="evaluation-column lugar">
+<div class="evaluation-header">4. DO LOCAL</div>
+<div class="evaluation-content">
+<div class="evaluation-item">
+<div class="evaluation-question">4.1. Organização e logística</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="lugar-1-1" name="lugar-1" type="radio" value="1"/>
+<label class="rating-label" for="lugar-1-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-1-2" name="lugar-1" type="radio" value="2"/>
+<label class="rating-label" for="lugar-1-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-1-3" name="lugar-1" type="radio" value="3"/>
+<label class="rating-label" for="lugar-1-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-1-4" name="lugar-1" type="radio" value="4"/>
+<label class="rating-label" for="lugar-1-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-1-5" name="lugar-1" type="radio" value="5"/>
+<label class="rating-label" for="lugar-1-5">5</label>
+</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-question">4.2. Local adequado e confortável</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="lugar-2-1" name="lugar-2" type="radio" value="1"/>
+<label class="rating-label" for="lugar-2-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-2-2" name="lugar-2" type="radio" value="2"/>
+<label class="rating-label" for="lugar-2-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-2-3" name="lugar-2" type="radio" value="3"/>
+<label class="rating-label" for="lugar-2-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-2-4" name="lugar-2" type="radio" value="4"/>
+<label class="rating-label" for="lugar-2-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-2-5" name="lugar-2" type="radio" value="5"/>
+<label class="rating-label" for="lugar-2-5">5</label>
+</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-question">4.3. Informação necessária recebida</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="lugar-3-1" name="lugar-3" type="radio" value="1"/>
+<label class="rating-label" for="lugar-3-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-3-2" name="lugar-3" type="radio" value="2"/>
+<label class="rating-label" for="lugar-3-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-3-3" name="lugar-3" type="radio" value="3"/>
+<label class="rating-label" for="lugar-3-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-3-4" name="lugar-3" type="radio" value="4"/>
+<label class="rating-label" for="lugar-3-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-3-5" name="lugar-3" type="radio" value="5"/>
+<label class="rating-label" for="lugar-3-5">5</label>
+</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-question">4.4. Lanche satisfatório</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="lugar-4-1" name="lugar-4" type="radio" value="1"/>
+<label class="rating-label" for="lugar-4-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-4-2" name="lugar-4" type="radio" value="2"/>
+<label class="rating-label" for="lugar-4-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-4-3" name="lugar-4" type="radio" value="3"/>
+<label class="rating-label" for="lugar-4-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-4-4" name="lugar-4" type="radio" value="4"/>
+<label class="rating-label" for="lugar-4-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-4-5" name="lugar-4" type="radio" value="5"/>
+<label class="rating-label" for="lugar-4-5">5</label>
+</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-question">4.5. Lanches suficientes</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="lugar-5-1" name="lugar-5" type="radio" value="1"/>
+<label class="rating-label" for="lugar-5-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-5-2" name="lugar-5" type="radio" value="2"/>
+<label class="rating-label" for="lugar-5-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-5-3" name="lugar-5" type="radio" value="3"/>
+<label class="rating-label" for="lugar-5-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-5-4" name="lugar-5" type="radio" value="4"/>
+<label class="rating-label" for="lugar-5-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-5-5" name="lugar-5" type="radio" value="5"/>
+<label class="rating-label" for="lugar-5-5">5</label>
+</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-question">4.6. Iluminação suficiente</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="lugar-6-1" name="lugar-6" type="radio" value="1"/>
+<label class="rating-label" for="lugar-6-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-6-2" name="lugar-6" type="radio" value="2"/>
+<label class="rating-label" for="lugar-6-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-6-3" name="lugar-6" type="radio" value="3"/>
+<label class="rating-label" for="lugar-6-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-6-4" name="lugar-6" type="radio" value="4"/>
+<label class="rating-label" for="lugar-6-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-6-5" name="lugar-6" type="radio" value="5"/>
+<label class="rating-label" for="lugar-6-5">5</label>
+</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-question">4.7. Som de qualidade</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="lugar-7-1" name="lugar-7" type="radio" value="1"/>
+<label class="rating-label" for="lugar-7-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-7-2" name="lugar-7" type="radio" value="2"/>
+<label class="rating-label" for="lugar-7-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-7-3" name="lugar-7" type="radio" value="3"/>
+<label class="rating-label" for="lugar-7-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-7-4" name="lugar-7" type="radio" value="4"/>
+<label class="rating-label" for="lugar-7-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-7-5" name="lugar-7" type="radio" value="5"/>
+<label class="rating-label" for="lugar-7-5">5</label>
+</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-question">4.8. Fácil acesso</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="lugar-8-1" name="lugar-8" type="radio" value="1"/>
+<label class="rating-label" for="lugar-8-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-8-2" name="lugar-8" type="radio" value="2"/>
+<label class="rating-label" for="lugar-8-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-8-3" name="lugar-8" type="radio" value="3"/>
+<label class="rating-label" for="lugar-8-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-8-4" name="lugar-8" type="radio" value="4"/>
+<label class="rating-label" for="lugar-8-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-8-5" name="lugar-8" type="radio" value="5"/>
+<label class="rating-label" for="lugar-8-5">5</label>
+</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-question">4.9. Materiais e equipamentos suficientes</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="lugar-9-1" name="lugar-9" type="radio" value="1"/>
+<label class="rating-label" for="lugar-9-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-9-2" name="lugar-9" type="radio" value="2"/>
+<label class="rating-label" for="lugar-9-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-9-3" name="lugar-9" type="radio" value="3"/>
+<label class="rating-label" for="lugar-9-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-9-4" name="lugar-9" type="radio" value="4"/>
+<label class="rating-label" for="lugar-9-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-9-5" name="lugar-9" type="radio" value="5"/>
+<label class="rating-label" for="lugar-9-5">5</label>
+</div>
+</div>
+</div>
+<div class="evaluation-item">
+<div class="evaluation-question">4.10. Material de apoio útil</div>
+<div class="rating-scale">
+<div class="rating-option">
+<input class="rating-input" id="lugar-10-1" name="lugar-10" type="radio" value="1"/>
+<label class="rating-label" for="lugar-10-1">1</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-10-2" name="lugar-10" type="radio" value="2"/>
+<label class="rating-label" for="lugar-10-2">2</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-10-3" name="lugar-10" type="radio" value="3"/>
+<label class="rating-label" for="lugar-10-3">3</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-10-4" name="lugar-10" type="radio" value="4"/>
+<label class="rating-label" for="lugar-10-4">4</label>
+</div>
+<div class="rating-option">
+<input class="rating-input" id="lugar-10-5" name="lugar-10" type="radio" value="5"/>
+<label class="rating-label" for="lugar-10-5">5</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Resultados Totales -->
+<div class="results-section">
+<div class="result-item">
+<div class="result-label">Pontuação Total Obtida:</div>
+<input class="result-input" id="total-score" readonly="" type="text"/>
+</div>
+<div class="result-item">
+<div class="result-label">Nível de Satisfação:</div>
+<div class="score-display" id="satisfaction-level">Não calculado</div>
+</div>
+</div>
+<!-- Evaluación General -->
+<div class="general-evaluation">
+<div class="general-title">APRECIAÇÃO GERAL DO CURSO/EVENTO</div>
+<div class="general-question">
+<div class="general-label">1. O que mais gostou no curso/evento foi:</div>
+<textarea class="general-textarea" placeholder="Descreva os aspetos mais positivos da formação..."></textarea>
+</div>
+<div class="general-question">
+<div class="general-label">2. O que menos gostou no curso/evento foi:</div>
+<textarea class="general-textarea" placeholder="Descreva os aspetos que poderiam ser melhorados..."></textarea>
+</div>
+<div class="general-question">
+<div class="general-label">3. Sugestões ou Recomendações:</div>
+<textarea class="general-textarea" placeholder="Inclua as suas sugestões para futuras formações..."></textarea>
+</div>
+</div>
+<!-- Escala de Interpretación -->
+<div class="scale-info">
+<div class="scale-title">ESCALA DE INTERPRETAÇÃO DE RESULTADOS</div>
+<div class="scale-grid">
+<div class="scale-item scale-excelente">75-70: Superou as expectativas</div>
+<div class="scale-item scale-bueno">69-50: Dentro das expectativas</div>
+<div class="scale-item scale-regular">49-30: Não cobriu as expectativas</div>
+<div class="scale-item scale-deficiente">29-15: Requer revisão</div>
+</div>
+<p style="text-align: center; margin-top: 15px; font-size: 14px; color: #666;">
+<strong>Nota:</strong> A pontuação máxima possível é 75 pontos (15 itens × 5 pontos)
+                </p>
+</div>
+<!-- Firma -->
+<div class="signature-section">
+<div class="signature-field">
+<div class="signature-line"></div>
+<div class="signature-label">Assinatura do Participante</div>
+</div>
+</div>
+<!-- Botón de impresión -->
+<button class="print-btn" onclick="window.print()">📄 Imprimir Avaliação</button>
+<!-- Botones de acción -->
+<div class="form-actions">
+<button class="reset-btn" onclick="resetForm()">🔄 Reiniciar Avaliação</button>
+<button class="submit-btn" onclick="calculateScore()">📊 Calcular Pontuação</button>
+</div>
+<!-- Histórico de versiones -->
+<div class="version-history">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Rodapé -->
+<div class="footer">
+<p>Código: FORM-024 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        // Configurar verificación del logo
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+            };
+            
+            // Establecer fecha actual como predeterminada
+            const today = new Date().toISOString().split('T')[0];
+            const dateInput = document.querySelector('input[type="date"]');
+            if (dateInput && !dateInput.value) {
+                dateInput.value = today;
+            }
+        });
+        
+        // Función para calcular la puntuación
+        function calculateScore() {
+            let totalScore = 0;
+            let answeredQuestions = 0;
+            const totalQuestions = 30; // Total de preguntas en el formulario
+            
+            // Calcular puntuación de instructores (9 preguntas)
+            for (let i = 1; i <= 9; i++) {
+                const selected = document.querySelector(`input[name="instr-${i}"]:checked`);
+                if (selected) {
+                    totalScore += parseInt(selected.value);
+                    answeredQuestions++;
+                }
+            }
+            
+            // Calcular puntuación del curso (6 preguntas)
+            for (let i = 1; i <= 6; i++) {
+                const selected = document.querySelector(`input[name="curso-${i}"]:checked`);
+                if (selected) {
+                    totalScore += parseInt(selected.value);
+                    answeredQuestions++;
+                }
+            }
+            
+            // Calcular puntuación del grupo (5 preguntas)
+            for (let i = 1; i <= 5; i++) {
+                const selected = document.querySelector(`input[name="grupo-${i}"]:checked`);
+                if (selected) {
+                    totalScore += parseInt(selected.value);
+                    answeredQuestions++;
+                }
+            }
+            
+            // Calcular puntuación del lugar (10 preguntas)
+            for (let i = 1; i <= 10; i++) {
+                const selected = document.querySelector(`input[name="lugar-${i}"]:checked`);
+                if (selected) {
+                    totalScore += parseInt(selected.value);
+                    answeredQuestions++;
+                }
+            }
+            
+            // Verificar si se respondieron todas las preguntas
+            if (answeredQuestions === 0) {
+                alert("Por favor, responda a pelo menos algumas perguntas antes de calcular a pontuação.");
+                return;
+            }
+            
+            // Calcular puntuación máxima posible (respondidas × 5)
+            const maxPossibleScore = answeredQuestions * 5;
+            
+            // Mostrar resultados
+            document.getElementById('total-score').value = totalScore;
+            
+            // Determinar nivel de satisfacción
+            let satisfactionLevel = '';
+            let satisfactionClass = '';
+            
+            if (answeredQuestions < totalQuestions * 0.5) {
+                satisfactionLevel = 'Avaliação incompleta';
+                satisfactionClass = 'scale-regular';
+            } else {
+                const percentage = (totalScore / maxPossibleScore) * 100;
+                
+                if (percentage >= 90) {
+                    satisfactionLevel = 'Excelente - Superou as expectativas';
+                    satisfactionClass = 'scale-excelente';
+                } else if (percentage >= 70) {
+                    satisfactionLevel = 'Bom - Dentro das expectativas';
+                    satisfactionClass = 'scale-bueno';
+                } else if (percentage >= 50) {
+                    satisfactionLevel = 'Razoável - Cobriu o básico';
+                    satisfactionClass = 'scale-regular';
+                } else {
+                    satisfactionLevel = 'Deficiente - Não cobriu as expectativas';
+                    satisfactionClass = 'scale-deficiente';
+                }
+                
+                satisfactionLevel += ` (${percentage.toFixed(1)}%)`;
+            }
+            
+            const satisfactionElement = document.getElementById('satisfaction-level');
+            satisfactionElement.textContent = satisfactionLevel;
+            satisfactionElement.className = 'score-display ' + satisfactionClass;
+            
+            // Mostrar resumen
+            const summary = `
+            ===== RESUMO DA AVALIAÇÃO =====
+            Perguntas respondidas: ${answeredQuestions} de ${totalQuestions}
+            Pontuação obtida: ${totalScore} pontos
+            Pontuação máxima possível: ${maxPossibleScore} pontos
+            Nível de satisfação: ${satisfactionLevel}
+            =================================
+            `;
+            
+            console.log(summary);
+            alert(`Avaliação calculada:\n\nPontuação: ${totalScore} pontos\nNível: ${satisfactionLevel}\n\nPode imprimir a avaliação utilizando o botão 'Imprimir Avaliação'.`);
+        }
+        
+        // Función para reiniciar el formulario
+        function resetForm() {
+            if (confirm("Tem a certeza de que deseja reiniciar a avaliação? Perder-se-ão todas as respostas.")) {
+                document.querySelectorAll('input[type="text"]').forEach(input => input.value = '');
+                document.querySelectorAll('input[type="date"]').forEach(input => {
+                    const today = new Date().toISOString().split('T')[0];
+                    input.value = today;
+                });
+                document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+                document.querySelectorAll('textarea').forEach(textarea => textarea.value = '');
+                document.getElementById('total-score').value = '';
+                document.getElementById('satisfaction-level').textContent = 'Não calculado';
+                document.getElementById('satisfaction-level').className = 'score-display';
+                alert("Avaliação reiniciada corretamente.");
+            }
+        }
+        
+        // Actualizar puntuación automáticamente al cambiar respuestas
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Opcional: calcular automáticamente después de cada respuesta
+                // calculateScore();
+            });
+        });
+        
+        // Función para guardar la evaluación
+        function saveEvaluation() {
+            // Verificar campos obligatorios
+            const curso = document.querySelector('input[placeholder="Nome da formação"]').value;
+            const participante = document.querySelector('input[placeholder="Nome completo"]').value;
+            
+            if (!curso || !participante) {
+                alert("Por favor, preencha pelo menos os campos: Nome do Curso e Nome do Participante.");
+                return;
+            }
+            
+            // Recolectar datos
+            const evaluationData = {
+                curso: curso,
+                fecha: document.querySelector('input[type="date"]').value,
+                participante: participante,
+                area: document.querySelector('input[placeholder="Departamento a que pertence"]').value,
+                instructor: document.querySelector('input[placeholder="Nome do instrutor"]').value,
+                lugar: document.querySelector('input[placeholder="Local onde se realizou"]').value,
+                puntuacionTotal: document.getElementById('total-score').value || 'Não calculada',
+                nivelSatisfaccion: document.getElementById('satisfaction-level').textContent,
+                fechaEvaluacion: new Date().toLocaleDateString('pt-PT'),
+                horaEvaluacion: new Date().toLocaleTimeString('pt-PT')
+            };
+            
+            // Aquí normalmente enviarías los datos a un servidor
+            console.log('Dados da avaliação:', evaluationData);
+            alert("Avaliação guardada corretamente.\n\nFoi registada a avaliação de: " + participante + "\nPara o curso: " + curso);
+        }
+    </script>
+</body>
+</html>

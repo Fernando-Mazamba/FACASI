@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FORM-027 Inventário de Documentos Inativos - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .form-intro {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4a5568;
+            font-size: 16px;
+        }
+        
+        .form-table-container {
+            overflow-x: auto;
+            margin: 30px 0;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+        }
+        
+        .form-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1400px;
+        }
+        
+        .form-table th, .form-table td {
+            border: 1px solid #e2e8f0;
+            padding: 10px 8px;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 12px;
+        }
+        
+        .form-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .form-header-row {
+            background-color: #2d3748;
+            color: white;
+        }
+        
+        .form-header-cell {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .form-subheader-row {
+            background-color: #718096;
+            color: white;
+        }
+        
+        .form-info-cell {
+            text-align: left;
+            font-weight: bold;
+            background-color: #f7fafc;
+        }
+        
+        .form-process-row {
+            background-color: #e2e8f0;
+            font-weight: bold;
+        }
+        
+        .form-input-cell {
+            min-width: 100px;
+        }
+        
+        .form-wide-cell {
+            min-width: 150px;
+        }
+        
+        .form-narrow-cell {
+            min-width: 80px;
+        }
+        
+        .form-disposition-cell {
+            min-width: 120px;
+        }
+        
+        .form-instructions {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .instructions-title {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .instructions-list {
+            list-style-type: none;
+            margin-top: 10px;
+        }
+        
+        .instructions-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .instructions-list li:before {
+            content: "•";
+            color: #3182ce;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .disposition-options {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0fff4;
+            border-radius: 5px;
+            border: 1px solid #9ae6b4;
+        }
+        
+        .disposition-title {
+            color: #276749;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .signature-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .signature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .signature-field {
+            border-bottom: 1px solid #cbd5e0;
+            padding: 10px 0 30px;
+            text-align: center;
+        }
+        
+        .signature-label {
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 5px;
+        }
+        
+        .signature-name {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn {
+                display: none;
+            }
+            
+            .form-table-container {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .signature-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabeçalho com logo e informações da organização -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título do documento -->
+<div class="doc-title">Inventário de Documentos Inativos</div>
+<div class="doc-code">Código: FORM-027</div>
+<!-- Conteúdo principal -->
+<div class="content">
+<!-- Introducción -->
+<div class="form-intro">
+<p><strong>Este formulário tem como objetivo registar e controlar o inventário de documentos inativos do Sistema de Gestão Integrado (SGI)</strong>. Permite gerir o armazenamento, o acompanhamento e a eliminação final de documentos que cumpriram o seu ciclo de vida ativo mas devem ser conservados conforme os prazos estabelecidos.</p>
+</div>
+<!-- Sección del formulario -->
+<div class="section">
+<div class="section-title">Inventário de Documentos Inativos - Formulário de Controlo</div>
+<div class="form-table-container">
+<table class="form-table">
+<thead>
+<!-- Fila de encabezado principal -->
+<tr class="form-header-row">
+<th class="form-header-cell" colspan="13">INVENTÁRIO DE DOCUMENTOS INATIVOS</th>
+</tr>
+<!-- Fila de información del formulario -->
+<tr class="form-subheader-row">
+<td colspan="12"></td>
+<td class="form-info-cell">
+                                    CÓDIGO: FORM-027<br/>
+                                    REVISÃO: 0<br/>
+                                    DATA: 01.12.2024
+                                </td>
+</tr>
+<!-- Fila para especificar el proceso -->
+<tr class="form-process-row">
+<td colspan="13">
+<div style="display: flex; align-items: center;">
+<span style="margin-right: 10px; font-weight: bold;">Processo:</span>
+<input placeholder="Introduza o nome do processo relacionado com os documentos" style="flex-grow: 1; border: 1px solid #cbd5e0; padding: 5px 10px; border-radius: 3px;" type="text"/>
+</div>
+</td>
+</tr>
+<!-- Encabezados de columnas principales -->
+<tr>
+<td class="form-info-cell" colspan="6">Informação para o Armazenamento</td>
+<td colspan="2"></td>
+<td class="form-info-cell" colspan="2">PRAZO DE ARMAZENAMENTO VENCIDO</td>
+<td colspan="3"></td>
+</tr>
+<!-- Encabezados detallados -->
+<tr>
+<th class="form-narrow-cell" rowspan="2">CAIXA N.º</th>
+<th class="form-wide-cell" rowspan="2">Descrição</th>
+<th class="form-wide-cell" colspan="2">NÚMERO SEQUENCIAL</th>
+<th class="form-input-cell" rowspan="2">DATA DE ENTRADA</th>
+<th class="form-input-cell" rowspan="2">DATA DE EXPIRAÇÃO</th>
+<th class="form-wide-cell" rowspan="2">ENTREGUE POR<br/>(Pessoa que entrega ao SGI)</th>
+<th class="form-wide-cell" rowspan="2">RECEBIDO POR<br/>(SGC)</th>
+<th class="form-wide-cell" rowspan="2">ENTREGUE POR<br/>(SGC)</th>
+<th class="form-wide-cell" rowspan="2">RECEBIDO E VERIFICADO<br/>(Pessoa responsável pelo processo)</th>
+<th class="form-disposition-cell" rowspan="2">Eliminação<br/>(dos documentos)</th>
+</tr>
+<tr>
+<th class="form-narrow-cell">DE</th>
+<th class="form-narrow-cell">ATÉ</th>
+</tr>
+</thead>
+<tbody>
+<!-- Filas para completar (8 filas vacías para registro) -->
+<tr>
+<td><input placeholder="001" style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><textarea placeholder="Descrição do conteúdo" style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><input placeholder="001" style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input placeholder="100" style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input placeholder="DD.MM.AAAA" style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input placeholder="DD.MM.AAAA" style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input placeholder="Nome e assinatura" style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input placeholder="Nome e assinatura" style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input placeholder="Nome e assinatura" style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input placeholder="Nome e assinatura" style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td>
+<select style="width: 100%; border: none; text-align: center;">
+<option value="">Selecionar</option>
+<option value="conservar">Conservar</option>
+<option value="destruir">Destruir</option>
+<option value="digitalizar">Digitalizar</option>
+<option value="transferir">Transferir</option>
+</select>
+</td>
+</tr>
+<!-- Repetir filas vacías -->
+<tr>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td>
+<select style="width: 100%; border: none; text-align: center;">
+<option value="">Selecionar</option>
+<option value="conservar">Conservar</option>
+<option value="destruir">Destruir</option>
+<option value="digitalizar">Digitalizar</option>
+<option value="transferir">Transferir</option>
+</select>
+</td>
+</tr>
+<tr>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td>
+<select style="width: 100%; border: none; text-align: center;">
+<option value="">Selecionar</option>
+<option value="conservar">Conservar</option>
+<option value="destruir">Destruir</option>
+<option value="digitalizar">Digitalizar</option>
+<option value="transferir">Transferir</option>
+</select>
+</td>
+</tr>
+<tr>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td>
+<select style="width: 100%; border: none; text-align: center;">
+<option value="">Selecionar</option>
+<option value="conservar">Conservar</option>
+<option value="destruir">Destruir</option>
+<option value="digitalizar">Digitalizar</option>
+<option value="transferir">Transferir</option>
+</select>
+</td>
+</tr>
+<tr>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td>
+<select style="width: 100%; border: none; text-align: center;">
+<option value="">Selecionar</option>
+<option value="conservar">Conservar</option>
+<option value="destruir">Destruir</option>
+<option value="digitalizar">Digitalizar</option>
+<option value="transferir">Transferir</option>
+</select>
+</td>
+</tr>
+<tr>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td>
+<select style="width: 100%; border: none; text-align: center;">
+<option value="">Selecionar</option>
+<option value="conservar">Conservar</option>
+<option value="destruir">Destruir</option>
+<option value="digitalizar">Digitalizar</option>
+<option value="transferir">Transferir</option>
+</select>
+</td>
+</tr>
+<tr>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td>
+<select style="width: 100%; border: none; text-align: center;">
+<option value="">Selecionar</option>
+<option value="conservar">Conservar</option>
+<option value="destruir">Destruir</option>
+<option value="digitalizar">Digitalizar</option>
+<option value="transferir">Transferir</option>
+</select>
+</td>
+</tr>
+<tr>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><textarea style="width: 100%; border: none; text-align: center; resize: none; min-height: 60px;"></textarea></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td><input style="width: 100%; border: none; text-align: center;" type="text"/></td>
+<td>
+<select style="width: 100%; border: none; text-align: center;">
+<option value="">Selecionar</option>
+<option value="conservar">Conservar</option>
+<option value="destruir">Destruir</option>
+<option value="digitalizar">Digitalizar</option>
+<option value="transferir">Transferir</option>
+</select>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Instrucciones de uso -->
+<div class="form-instructions">
+<div class="instructions-title">Instruções para preencher o formulário:</div>
+<ul class="instructions-list">
+<li><strong>CAIXA N.º:</strong> Número de identificação da caixa de armazenamento.</li>
+<li><strong>Descrição:</strong> Descrição detalhada do conteúdo da caixa/documentos.</li>
+<li><strong>NÚMERO SEQUENCIAL (DE/ATÉ):</strong> Intervalo numérico dos documentos contidos na caixa.</li>
+<li><strong>DATA DE ENTRADA:</strong> Data em que os documentos dão entrada no armazém de inativos.</li>
+<li><strong>DATA DE EXPIRAÇÃO:</strong> Data em que termina o prazo de armazenamento conforme a norma.</li>
+<li><strong>ENTREGUE POR (Pessoa que entrega ao SGI):</strong> Pessoa que entrega os documentos ao sistema.</li>
+<li><strong>RECEBIDO POR (SGC):</strong> Pessoa do Sistema de Gestão Integrado que recebe os documentos.</li>
+<li><strong>ENTREGUE POR (SGC):</strong> Pessoa do SGC que entrega documentos quando são requeridos.</li>
+<li><strong>RECEBIDO E VERIFICADO:</strong> Pessoa responsável pelo processo que recebe e verifica os documentos.</li>
+<li><strong>Eliminação:</strong> Decisão sobre o destino final dos documentos (ver opções abaixo).</li>
+</ul>
+<div class="disposition-options">
+<div class="disposition-title">Opções de Eliminação:</div>
+<ul class="instructions-list">
+<li><strong>Conservar:</strong> Manter os documentos por mais tempo conforme os requisitos.</li>
+<li><strong>Destruir:</strong> Eliminar os documentos de forma segura e documentada.</li>
+<li><strong>Digitalizar:</strong> Converter para formato digital e depois dispor dos originais.</li>
+<li><strong>Transferir:</strong> Enviar para outro departamento ou para o arquivo central.</li>
+</ul>
+</div>
+</div>
+<!-- Sección de firmas -->
+<div class="signature-section">
+<div class="section-title">Autorizações e Assinaturas</div>
+<div class="signature-grid">
+<div class="signature-field">
+<div class="signature-label">RESPONSÁVEL PELO ARQUIVO SGC</div>
+<div class="signature-name">Nome e Assinatura</div>
+</div>
+<div class="signature-field">
+<div class="signature-label">SUPERVISOR DE PROCESSOS</div>
+<div class="signature-name">Nome e Assinatura</div>
+</div>
+<div class="signature-field">
+<div class="signature-label">GERENTE DE QUALIDADE</div>
+<div class="signature-name">Nome e Assinatura</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Botón de impresión -->
+<button class="print-btn" onclick="window.print()">📄 Imprimir documento</button>
+<!-- Histórico de versiones -->
+<div class="version-history">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Rodapé -->
+<div class="footer">
+<p>Código: FORM-027 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        // Verifica se o logo existe, caso contrário mostra um placeholder
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+            };
+            
+            // Configurar campos de fecha con formato sugerido
+            document.querySelectorAll('input[type="text"][placeholder*="DD.MM.AAAA"]').forEach(input => {
+                input.addEventListener('focus', function() {
+                    if (!this.value) {
+                        this.value = '';
+                    }
+                });
+                
+                input.addEventListener('blur', function() {
+                    if (this.value && !this.value.match(/\d{2}\.\d{2}\.\d{4}/)) {
+                        this.style.border = '1px solid #e53e3e';
+                    } else {
+                        this.style.border = 'none';
+                    }
+                });
+            });
+            
+            // Auto-incrementar el número de caja
+            let cajaNumber = 1;
+            document.querySelectorAll('input[type="text"][placeholder="001"]').forEach(input => {
+                input.value = cajaNumber.toString().padStart(3, '0');
+                cajaNumber++;
+                
+                input.addEventListener('blur', function() {
+                    if (!this.value.match(/^\d+$/)) {
+                        this.style.border = '1px solid #e53e3e';
+                    } else {
+                        this.style.border = 'none';
+                    }
+                });
+            });
+            
+            // Validar que el correlativo DESDE sea menor que HASTA
+            document.querySelectorAll('tbody tr').forEach(row => {
+                const desdeInput = row.querySelector('td:nth-child(3) input');
+                const hastaInput = row.querySelector('td:nth-child(4) input');
+                
+                if (desdeInput && hastaInput) {
+                    const validateCorrelative = () => {
+                        if (desdeInput.value && hastaInput.value) {
+                            const desde = parseInt(desdeInput.value);
+                            const hasta = parseInt(hastaInput.value);
+                            
+                            if (!isNaN(desde) && !isNaN(hasta) && desde > hasta) {
+                                desdeInput.style.border = '1px solid #e53e3e';
+                                hastaInput.style.border = '1px solid #e53e3e';
+                            } else {
+                                desdeInput.style.border = 'none';
+                                hastaInput.style.border = 'none';
+                            }
+                        }
+                    };
+                    
+                    desdeInput.addEventListener('blur', validateCorrelative);
+                    hastaInput.addEventListener('blur', validateCorrelative);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

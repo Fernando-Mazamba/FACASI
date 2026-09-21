@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FORM-011 Programa de Auditoria Interna - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .intro-text {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4a5568;
+            font-size: 16px;
+        }
+        
+        .program-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 14px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .program-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+            padding: 12px 8px;
+            text-align: center;
+            border: 1px solid #2d3748;
+            vertical-align: middle;
+        }
+        
+        .program-table td {
+            padding: 10px 8px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+        
+        .program-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .program-table tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 25px 0;
+        }
+        
+        .approval-section {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            border-top: 2px solid #4a5568;
+        }
+        
+        .approval-box {
+            text-align: center;
+            width: 45%;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+        
+        .approval-title {
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #4a5568;
+            border-bottom: 1px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        
+        .signature-line {
+            margin-top: 60px;
+            border-top: 1px solid #333;
+            padding-top: 5px;
+            font-size: 12px;
+        }
+        
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn {
+                display: none;
+            }
+            
+            .program-table {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1200px) {
+            .program-table {
+                font-size: 12px;
+            }
+            
+            .program-table th, .program-table td {
+                padding: 8px 5px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .approval-section {
+                flex-direction: column;
+            }
+            
+            .approval-box {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabecera con logo e informaciones de la organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título del documento -->
+<div class="doc-title">PROGRAMA DE AUDITORIA INTERNA</div>
+<div class="doc-code">Código: FORM-011</div>
+<!-- Contenido principal -->
+<div class="content">
+<!-- Introducción -->
+<div class="intro-text">
+<p><strong>Este documento estabelece o Programa de Auditorias Internas do Sistema de Gestão Integrado (SGI)</strong>, de acordo com os requisitos das normas ISO 9001:2015 e ISO 45001:2018. O programa garante que as auditorias internas se realizem de forma planeada, sistemática e independente para avaliar a eficácia do SGI e a sua melhoria contínua.</p>
+</div>
+<!-- Tabla del Programa de Auditoria -->
+<div class="table-container">
+<table class="program-table">
+<thead>
+<tr>
+<th rowspan="2">CICLO</th>
+<th rowspan="2">N.º</th>
+<th colspan="3">ÂMBITO</th>
+<th rowspan="2">PROJETO A AUDITAR</th>
+<th rowspan="2">PROCESSOS A AUDITAR</th>
+<th colspan="3">RISCOS E/OU ASPETOS AMBIENTAIS MAIS IMPORTANTES</th>
+<th colspan="6">DATA</th>
+<th rowspan="2">AUDITORES</th>
+</tr>
+<tr>
+<th colspan="3">(Descrição detalhada)</th>
+<th colspan="3">(Identificação principal)</th>
+<th colspan="3">Início</th>
+<th colspan="3">Fim</th>
+</tr>
+<tr>
+<th></th>
+<th></th>
+<th colspan="3"></th>
+<th></th>
+<th></th>
+<th colspan="3"></th>
+<th>Dia</th>
+<th>Mês</th>
+<th>Ano</th>
+<th>Dia</th>
+<th>Mês</th>
+<th>Ano</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td colspan="3">
+<p><strong>Auditoria Interna sob o enfoque das normas:</strong></p>
+<ul style="margin-left: 20px; margin-top: 5px;">
+<li>ISO 9001:2015 (qualidade)</li>
+<li>:2015 (meio ambiente)</li>
+<li>ISO 45001:2018 (Segurança e Saúde no Trabalho)</li>
+</ul>
+<p style="margin-top: 10px;"><strong>Âmbito:</strong> Projeto, todos os processos do sistema de gestão, todos os riscos e impactos da área administrativa e operacional, incluindo os requisitos legais e regulamentares vigentes aplicáveis à empresa.</p>
+</td>
+<td><strong>SGI</strong><br/>(Sistema de Gestão Integrado)</td>
+<td>Todos os processos do SGI</td>
+<td colspan="3">
+<p><strong>Riscos de SST:</strong></p>
+<ul style="margin-left: 20px; margin-top: 5px;">
+<li>Lesões osteomusculares</li>
+<li>Perda auditiva</li>
+<li>Afeções respiratórias</li>
+<li>Feridas abertas</li>
+<li>Fraturas</li>
+</ul>
+<p style="margin-top: 10px;"><strong>Aspetos ambientais:</strong></p>
+<ul style="margin-left: 20px; margin-top: 5px;">
+<li>Redução de recursos naturais</li>
+<li>Contaminação do solo e da água</li>
+</ul>
+</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><span class="highlight">QUEM FOR DESIGNADO</span></td>
+</tr>
+<!-- Fila adicional en blanco para futuras auditorías -->
+<tr>
+<td></td>
+<td></td>
+<td colspan="3"></td>
+<td></td>
+<td></td>
+<td colspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td colspan="3"></td>
+<td></td>
+<td></td>
+<td colspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td colspan="3"></td>
+<td></td>
+<td></td>
+<td colspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Sección de aprobaciones -->
+<div class="approval-section">
+<div class="approval-box">
+<div class="approval-title">COORDENADOR HSEQ</div>
+<p>Responsável pelo planeamento e coordenação do Programa de Auditorias Internas.</p>
+<div class="signature-line">
+                        Assinatura e carimbo
+                    </div>
+</div>
+<div class="approval-box">
+<div class="approval-title">GERENTE GERAL</div>
+<p>Aprova o Programa de Auditorias Internas e atribui os recursos necessários.</p>
+<div class="signature-line">
+                        Assinatura e carimbo
+                    </div>
+</div>
+</div>
+<!-- Botón de impresión -->
+<button class="print-btn" onclick="window.print()">📄 Imprimir documento</button>
+<!-- Historial de versiones -->
+<div class="version-history">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Pie de página -->
+<div class="footer">
+<p>Código: FORM-011 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        // Configuración básica del documento
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verifica si el logo existe, caso contrario muestra un placeholder
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+            };
+            
+            // Configuración para la impresión
+            const printBtn = document.querySelector('.print-btn');
+            printBtn.addEventListener('click', function() {
+                window.print();
+            });
+            
+            // Añade efectos de hover a las filas de la tabla
+            const tableRows = document.querySelectorAll('.program-table tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = '#e8f4fd';
+                });
+                
+                row.addEventListener('mouseleave', function() {
+                    if (Array.from(tableRows).indexOf(this) % 2 === 0) {
+                        this.style.backgroundColor = '#f9f9f9';
+                    } else {
+                        this.style.backgroundColor = 'white';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

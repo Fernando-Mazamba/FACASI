@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FOR-RRHH-001 Plano de Formação - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #2d3748;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 180px;
+            height: 100px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2d3748;
+            text-align: center;
+            padding: 25px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 25px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+            overflow-x: auto;
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px double #4a5568;
+        }
+        
+        .form-main-title {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+        
+        .form-metadata {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding: 15px 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .year-input-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .year-label {
+            font-weight: bold;
+            color: #4a5568;
+            font-size: 16px;
+        }
+        
+        .year-input {
+            padding: 8px 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            width: 120px;
+            text-align: center;
+        }
+        
+        .year-input:focus {
+            outline: none;
+            border-color: #4a5568;
+        }
+        
+        .document-info {
+            font-weight: bold;
+            color: #2d3748;
+            font-size: 16px;
+        }
+        
+        .training-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 40px 0;
+            font-size: 13px;
+            table-layout: fixed;
+            min-width: 1400px;
+        }
+        
+        .training-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+            padding: 15px 5px;
+            text-align: center;
+            border: 1px solid #2d3748;
+            vertical-align: middle;
+        }
+        
+        .training-table td {
+            padding: 12px 5px;
+            text-align: center;
+            border: 1px solid #ddd;
+            vertical-align: middle;
+            overflow: hidden;
+        }
+        
+        .activity-column {
+            width: 250px;
+            min-width: 250px;
+        }
+        
+        .area-column {
+            width: 180px;
+            min-width: 180px;
+        }
+        
+        .speaker-column {
+            width: 180px;
+            min-width: 180px;
+        }
+        
+        .month-column {
+            width: 55px;
+            min-width: 55px;
+        }
+        
+        .activity-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            font-size: 13px;
+            background-color: #f8f9fa;
+            min-height: 50px;
+            resize: vertical;
+        }
+        
+        .activity-input:focus {
+            outline: none;
+            border-color: #4a5568;
+            background-color: white;
+        }
+        
+        .area-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            font-size: 13px;
+            background-color: #f8f9fa;
+        }
+        
+        .area-input:focus {
+            outline: none;
+            border-color: #4a5568;
+            background-color: white;
+        }
+        
+        .speaker-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            font-size: 13px;
+            background-color: #f8f9fa;
+        }
+        
+        .speaker-input:focus {
+            outline: none;
+            border-color: #4a5568;
+            background-color: white;
+        }
+        
+        .month-checkbox {
+            width: 35px;
+            height: 35px;
+            margin: 0 auto;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: all 0.3s;
+            background-color: #f8f9fa;
+            border: 2px solid #e2e8f0;
+            color: #718096;
+            font-size: 12px;
+        }
+        
+        .month-checkbox.checked {
+            background-color: #38a169;
+            color: white;
+            border-color: #2f855a;
+        }
+        
+        .month-checkbox:hover {
+            transform: scale(1.1);
+            border-color: #cbd5e0;
+        }
+        
+        .controls-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #edf2f7;
+            border-radius: 5px;
+        }
+        
+        .add-row-btn {
+            background-color: #38a169;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .add-row-btn:hover {
+            background-color: #48bb78;
+        }
+        
+        .summary-stats {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            background-color: white;
+            padding: 12px 15px;
+            border-radius: 5px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+            min-width: 140px;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #718096;
+            margin-top: 5px;
+        }
+        
+        .instructions-section {
+            background-color: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid #3182ce;
+        }
+        
+        .instructions-title {
+            font-weight: bold;
+            color: #2c5282;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .instructions-list {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .instructions-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+            break-inside: avoid;
+        }
+        
+        .instructions-list li:before {
+            content: "•";
+            color: #3182ce;
+            font-weight: bold;
+            font-size: 20px;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+        
+        .approval-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 40px 0;
+            padding: 30px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .approval-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .approval-title {
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 20px;
+            font-size: 16px;
+            text-align: center;
+        }
+        
+        .signature-box {
+            height: 100px;
+            border-bottom: 2px solid #cbd5e0;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 10px;
+        }
+        
+        .signature-name {
+            text-align: center;
+            font-style: italic;
+            color: #718096;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin: 40px 0 30px;
+            flex-wrap: wrap;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .save-btn {
+            background-color: #38a169;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .reset-btn {
+            background-color: #e53e3e;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .export-btn {
+            background-color: #d69e2e;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        .save-btn:hover {
+            background-color: #48bb78;
+        }
+        
+        .reset-btn:hover {
+            background-color: #f56565;
+        }
+        
+        .export-btn:hover {
+            background-color: #ed8936;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .action-buttons,
+            .add-row-btn,
+            .controls-section {
+                display: none;
+            }
+            
+            .month-checkbox.checked {
+                background-color: #e2e8f0 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                color: #000;
+                font-weight: bold;
+                content: "✓";
+            }
+            
+            .training-table {
+                min-width: 100%;
+            }
+        }
+        
+        @media screen and (max-width: 1200px) {
+            .training-table {
+                font-size: 12px;
+            }
+            
+            .activity-column {
+                width: 220px;
+                min-width: 220px;
+            }
+            
+            .area-column, .speaker-column {
+                width: 150px;
+                min-width: 150px;
+            }
+            
+            .month-column {
+                width: 50px;
+                min-width: 50px;
+            }
+            
+            .month-checkbox {
+                width: 30px;
+                height: 30px;
+                font-size: 11px;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .content {
+                padding: 20px;
+            }
+            
+            .instructions-list {
+                columns: 1;
+            }
+            
+            .controls-section {
+                flex-direction: column;
+                gap: 20px;
+                align-items: stretch;
+            }
+            
+            .summary-stats {
+                justify-content: center;
+            }
+            
+            .approval-section {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 15px;
+            }
+            
+            .form-main-title {
+                font-size: 28px;
+            }
+            
+            .form-metadata {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .month-checkbox {
+                width: 28px;
+                height: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabeçalho com logo e informações da organización -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título do documento -->
+<div class="doc-title">Plano de Formação - Recursos Humanos</div>
+<div class="doc-code">Código: FOR-RRHH-001</div>
+<!-- Conteúdo principal -->
+<div class="content">
+<!-- Cabeçalho do formulário -->
+<div class="form-header">
+<h1 class="form-main-title">PLANO DE FORMAÇÃO</h1>
+<div class="form-metadata">
+<div class="year-input-container">
+<div class="year-label">ANO:</div>
+<input class="year-input" id="year-input" max="2030" min="2024" type="number" value="2024"/>
+</div>
+<div class="document-info">
+<strong>Código:</strong> FOR-RRHH-001     
+                        <strong>Revisão:</strong> 00
+                    </div>
+</div>
+</div>
+<!-- Instrucciones -->
+<div class="instructions-section">
+<div class="instructions-title">📋 INSTRUÇÕES PARA PREENCHER O PLANO:</div>
+<ul class="instructions-list">
+<li>Preencha o ano correspondente na parte superior.</li>
+<li>Indique as formações a desenvolver (apenas título).</li>
+<li>Especifique a área ou setor participante.</li>
+<li>Assinale se o orador será interno ou externo.</li>
+<li>Marque com ✓ os meses em que se realizará cada formação.</li>
+<li>Utilize o botão "+ Adicionar Formação" para acrescentar novas linhas.</li>
+<li>Reveja as estatísticas de planeamento na parte inferior.</li>
+<li>Não se esqueça de guardar o plano depois de completo.</li>
+</ul>
+</div>
+<!-- Tabla de capacitaçãoes -->
+<div style="overflow-x: auto;">
+<table class="training-table" id="training-table">
+<thead>
+<tr>
+<th class="activity-column">ATIVIDADES A DESENVOLVER<br/><small>(Indicar as formações - apenas título)</small></th>
+<th class="area-column">ÁREA OU SETOR PARTICIPANTE</th>
+<th class="speaker-column">ORADOR<br/><small>(INTERNO OU EXTERNO)</small></th>
+<th class="month-column">Jan</th>
+<th class="month-column">Fev</th>
+<th class="month-column">Mar</th>
+<th class="month-column">Abr</th>
+<th class="month-column">Mai</th>
+<th class="month-column">Jun</th>
+<th class="month-column">Jul</th>
+<th class="month-column">Ago</th>
+<th class="month-column">Set</th>
+<th class="month-column">Out</th>
+<th class="month-column">Nov</th>
+<th class="month-column">Dez</th>
+</tr>
+</thead>
+<tbody id="training-body">
+<!-- Fila 1 -->
+<tr>
+<td>
+<textarea class="activity-input" placeholder="Ex.: Formação em Segurança no Trabalho ISO 45001"></textarea>
+</td>
+<td>
+<input class="area-input" placeholder="Ex.: Produção, Administração" type="text"/>
+</td>
+<td>
+<input class="speaker-input" placeholder="Ex.: Juan Pérez (Interno)" type="text"/>
+</td>
+<td><div class="month-checkbox" data-month="enero" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="febrero" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="marzo" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="abril" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="mayo" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="junio" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="julio" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="agosto" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="setiembre" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="octubre" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="noviembre" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="diciembre" onclick="toggleMonth(this)"></div></td>
+</tr>
+<!-- Fila 2 -->
+<tr>
+<td>
+<textarea class="activity-input" placeholder="Ex.: Manuseamento de Ferramentas Digitais"></textarea>
+</td>
+<td>
+<input class="area-input" placeholder="Ex.: Todos os departamentos" type="text"/>
+</td>
+<td>
+<input class="speaker-input" placeholder="Ex.: Consultora Externa S.A." type="text"/>
+</td>
+<td><div class="month-checkbox" data-month="enero" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="febrero" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="marzo" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="abril" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="mayo" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="junio" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="julio" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="agosto" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="setiembre" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="octubre" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="noviembre" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="diciembre" onclick="toggleMonth(this)"></div></td>
+</tr>
+<!-- Fila 3 -->
+<tr>
+<td>
+<textarea class="activity-input" placeholder="Ex.: Gestão Ambiental"></textarea>
+</td>
+<td>
+<input class="area-input" placeholder="Ex.: Ambiente" type="text"/>
+</td>
+<td>
+<input class="speaker-input" placeholder="Ex.: María González (Interna)" type="text"/>
+</td>
+<td><div class="month-checkbox" data-month="enero" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="febrero" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="marzo" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="abril" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="mayo" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="junio" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="julio" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="agosto" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="setiembre" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="octubre" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="noviembre" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="diciembre" onclick="toggleMonth(this)"></div></td>
+</tr>
+<!-- Fila 4 -->
+<tr>
+<td>
+<textarea class="activity-input" placeholder="Ex.: Primeiros Socorros Básicos"></textarea>
+</td>
+<td>
+<input class="area-input" placeholder="Ex.: Brigada de Emergência" type="text"/>
+</td>
+<td>
+<input class="speaker-input" placeholder="Ex.: Cruz Vermelha (Externo)" type="text"/>
+</td>
+<td><div class="month-checkbox" data-month="enero" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="febrero" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="marzo" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="abril" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="mayo" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="junio" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="julio" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="agosto" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="setiembre" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="octubre" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="noviembre" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="diciembre" onclick="toggleMonth(this)"></div></td>
+</tr>
+<!-- Fila 5 -->
+<tr>
+<td>
+<textarea class="activity-input" placeholder="Ex.: Qualidade Total ISO 9001"></textarea>
+</td>
+<td>
+<input class="area-input" placeholder="Ex.: Controlo de Qualidade" type="text"/>
+</td>
+<td>
+<input class="speaker-input" placeholder="Ex.: Consultor Certificado (Externo)" type="text"/>
+</td>
+<td><div class="month-checkbox" data-month="enero" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="febrero" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="marzo" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="abril" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="mayo" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="junio" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="julio" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="agosto" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="setiembre" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="octubre" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="noviembre" onclick="toggleMonth(this)"></div></td>
+<td><div class="month-checkbox" data-month="diciembre" onclick="toggleMonth(this)"></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Controles y estadísticas -->
+<div class="controls-section">
+<button class="add-row-btn" onclick="addNewTraining()">
+                    ➕ Adicionar Formação
+                </button>
+<div class="summary-stats">
+<div class="stat-item">
+<div class="stat-value" id="total-trainings">5</div>
+<div class="stat-label">TOTAL DE FORMAÇÕES</div>
+</div>
+<div class="stat-item">
+<div class="stat-value" id="scheduled-months">0</div>
+<div class="stat-label">MESES PROGRAMADOS</div>
+</div>
+<div class="stat-item">
+<div class="stat-value" id="internal-speakers">0</div>
+<div class="stat-label">ORADORES INTERNOS</div>
+</div>
+<div class="stat-item">
+<div class="stat-value" id="external-speakers">0</div>
+<div class="stat-label">ORADORES EXTERNOS</div>
+</div>
+</div>
+</div>
+<!-- Sección de aprobación -->
+<div class="approval-section">
+<div class="approval-group">
+<div class="approval-title">ELABORADO POR:</div>
+<div class="signature-box" id="elaborated-signature">
+<div style="color: #a0aec0; font-style: italic;">Assinatura do elaborador</div>
+</div>
+<div class="signature-name" id="elaborated-name"></div>
+</div>
+<div class="approval-group">
+<div class="approval-title">APROVADO POR:</div>
+<div class="signature-box" id="approved-signature">
+<div style="color: #a0aec0; font-style: italic;">Assinatura do aprovador</div>
+</div>
+<div class="signature-name" id="approved-name"></div>
+</div>
+</div>
+<!-- Botones de acción -->
+<div class="action-buttons">
+<button class="reset-btn" onclick="resetPlan()">
+                    🔄 Reiniciar Plano
+                </button>
+<button class="export-btn" onclick="exportToExcel()">
+                    📊 Exportar para Excel
+                </button>
+<button class="save-btn" onclick="savePlan()">
+                    💾 Guardar Plano
+                </button>
+<button class="print-btn" onclick="window.print()">
+                    📄 Imprimir Plano
+                </button>
+</div>
+<!-- Historial de versiones -->
+<div class="version-history">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Rodapé -->
+<div class="footer">
+<p>Código: FOR-RRHH-001 | Revisão: 00 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verifica se o logo existe
+            const logoImg = document.querySelector('.logo');
+            logoImg.onerror = function() {
+                this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%232d3748" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                console.log("Logótipo não encontrado. Por favor, adicione o logótipo na pasta especificada.");
+            };
+            
+            // Configurar año actual por defecto
+            const currentYear = new Date().getFullYear();
+            document.getElementById('year-input').value = currentYear;
+            
+            // Hacer las firmas editables
+            document.querySelectorAll('.signature-box').forEach(box => {
+                box.addEventListener('click', function() {
+                    const isElaborated = this.id === 'elaborated-signature';
+                    const title = isElaborated ? "Nome do Elaborador" : "Nome do Aprovador";
+                    const name = prompt(`Introduza o nome para ${title}:`, "");
+                    
+                    if (name) {
+                        this.innerHTML = `<div style="font-weight: bold; color: #2d3748;">${name}</div>`;
+                        const nameField = isElaborated ? document.getElementById('elaborated-name') : document.getElementById('approved-name');
+                        nameField.textContent = name;
+                        nameField.style.color = "#4a5568";
+                        nameField.style.fontStyle = "normal";
+                    }
+                });
+            });
+            
+            // Agregar event listeners para actualizar estadísticas
+            document.querySelectorAll('.activity-input, .area-input, .speaker-input').forEach(input => {
+                input.addEventListener('input', updateStats);
+            });
+            
+            // Actualizar estadísticas iniciales
+            updateStats();
+        });
+        
+        function toggleMonth(element) {
+            element.classList.toggle('checked');
+            if (element.classList.contains('checked')) {
+                element.textContent = '✓';
+            } else {
+                element.textContent = '';
+            }
+            updateStats();
+        }
+        
+        function updateStats() {
+            const rows = document.querySelectorAll('#training-body tr');
+            let totalTrainings = 0;
+            let scheduledMonths = 0;
+            let internalSpeakers = 0;
+            let externalSpeakers = 0;
+            
+            rows.forEach(row => {
+                const activity = row.querySelector('.activity-input').value;
+                const speaker = row.querySelector('.speaker-input').value.toLowerCase();
+                
+                // Contar capacitaçãoes definidas
+                if (activity.trim()) {
+                    totalTrainings++;
+                }
+                
+                // Contar disertantes internos/externos
+                if (speaker.includes('interno') || speaker.includes('(interno)')) {
+                    internalSpeakers++;
+                } else if (speaker.includes('externo') || speaker.includes('(externo)') || speaker.includes('consultor')) {
+                    externalSpeakers++;
+                }
+                
+                // Contar meses programados en esta fila
+                const checkboxes = row.querySelectorAll('.month-checkbox.checked');
+                scheduledMonths += checkboxes.length;
+            });
+            
+            // Actualizar estadísticas
+            document.getElementById('total-trainings').textContent = totalTrainings;
+            document.getElementById('scheduled-months').textContent = scheduledMonths;
+            document.getElementById('internal-speakers').textContent = internalSpeakers;
+            document.getElementById('external-speakers').textContent = externalSpeakers;
+        }
+        
+        function addNewTraining() {
+            const tbody = document.getElementById('training-body');
+            const newRow = document.createElement('tr');
+            
+            newRow.innerHTML = `
+                <td>
+                    <textarea class="activity-input" placeholder="Ex.: Nova formação"></textarea>
+                </td>
+                <td>
+                    <input type="text" class="area-input" placeholder="Ex.: Área participante">
+                </td>
+                <td>
+                    <input type="text" class="speaker-input" placeholder="Ex.: Orador (Interno/Externo)">
+                </td>
+                <td><div class="month-checkbox" data-month="enero" onclick="toggleMonth(this)"></div></td>
+                <td><div class="month-checkbox" data-month="febrero" onclick="toggleMonth(this)"></div></td>
+                <td><div class="month-checkbox" data-month="marzo" onclick="toggleMonth(this)"></div></td>
+                <td><div class="month-checkbox" data-month="abril" onclick="toggleMonth(this)"></div></td>
+                <td><div class="month-checkbox" data-month="mayo" onclick="toggleMonth(this)"></div></td>
+                <td><div class="month-checkbox" data-month="junio" onclick="toggleMonth(this)"></div></td>
+                <td><div class="month-checkbox" data-month="julio" onclick="toggleMonth(this)"></div></td>
+                <td><div class="month-checkbox" data-month="agosto" onclick="toggleMonth(this)"></div></td>
+                <td><div class="month-checkbox" data-month="setiembre" onclick="toggleMonth(this)"></div></td>
+                <td><div class="month-checkbox" data-month="octubre" onclick="toggleMonth(this)"></div></td>
+                <td><div class="month-checkbox" data-month="noviembre" onclick="toggleMonth(this)"></div></td>
+                <td><div class="month-checkbox" data-month="diciembre" onclick="toggleMonth(this)"></div></td>
+            `;
+            
+            tbody.appendChild(newRow);
+            
+            // Agregar event listeners a los nuevos inputs
+            newRow.querySelectorAll('.activity-input, .area-input, .speaker-input').forEach(input => {
+                input.addEventListener('input', updateStats);
+            });
+            
+            updateStats();
+            
+            // Scroll a la nueva fila
+            newRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        function savePlan() {
+            const year = document.getElementById('year-input').value;
+            
+            if (!year || year < 2024 || year > 2030) {
+                alert('Por favor, introduza um ano válido entre 2024 e 2030.');
+                return;
+            }
+            
+            // Validar que haya al menos una capacitação definida
+            let hasTrainings = false;
+            document.querySelectorAll('.activity-input').forEach(input => {
+                if (input.value.trim()) hasTrainings = true;
+            });
+            
+            if (!hasTrainings) {
+                alert('Por favor, defina pelo menos uma formação.');
+                return;
+            }
+            
+            // Aquí normalmente se enviaría a un servidor
+            // Por ahora solo mostramos un mensaje
+            alert(`Plano de formação para o ano ${year} guardado com sucesso.\n\nTotal de formações: ${document.getElementById('total-trainings').textContent}\nMeses programados: ${document.getElementById('scheduled-months').textContent}\n\nOs dados foram registados no sistema.`);
+            
+            console.log('Plano de formação guardado:', {
+                year: year,
+                timestamp: new Date().toISOString(),
+                stats: {
+                    totalTrainings: document.getElementById('total-trainings').textContent,
+                    scheduledMonths: document.getElementById('scheduled-months').textContent,
+                    internalSpeakers: document.getElementById('internal-speakers').textContent,
+                    externalSpeakers: document.getElementById('external-speakers').textContent
+                }
+            });
+        }
+        
+        function resetPlan() {
+            if (confirm('Tem a certeza de que deseja reiniciar todo o plano de formação? Perder-se-ão todos os dados introduzidos.')) {
+                // Restablecer año
+                document.getElementById('year-input').value = new Date().getFullYear();
+                
+                // Limpiar todas las capacitaçãoes existentes (mantener 5 filas)
+                document.querySelectorAll('.activity-input').forEach(input => {
+                    input.value = '';
+                });
+                
+                document.querySelectorAll('.area-input').forEach(input => {
+                    input.value = '';
+                });
+                
+                document.querySelectorAll('.speaker-input').forEach(input => {
+                    input.value = '';
+                });
+                
+                // Limpiar checkboxes
+                document.querySelectorAll('.month-checkbox').forEach(cb => {
+                    cb.classList.remove('checked');
+                    cb.textContent = '';
+                });
+                
+                // Limpiar firmas
+                document.querySelectorAll('.signature-box').forEach(box => {
+                    box.innerHTML = '<div style="color: #a0aec0; font-style: italic;">' + 
+                                   (box.id === 'elaborated-signature' ? 'Assinatura do elaborador' : 'Assinatura do aprovador') + 
+                                   '</div>';
+                });
+                
+                document.getElementById('elaborated-name').textContent = '';
+                document.getElementById('approved-name').textContent = '';
+                
+                // Eliminar filas adicionales (mantener solo las 5 originales)
+                const tbody = document.getElementById('training-body');
+                while (tbody.children.length > 5) {
+                    tbody.removeChild(tbody.lastChild);
+                }
+                
+                // Actualizar estadísticas
+                updateStats();
+                
+                alert('Plano de formação reiniciado com sucesso.');
+            }
+        }
+        
+        function exportToExcel() {
+            const year = document.getElementById('year-input').value;
+            
+            // Crear datos para exportación
+            const data = [];
+            const headers = [
+                'ATIVIDADES A DESENVOLVER',
+                'ÁREA OU SETOR PARTICIPANTE',
+                'ORADOR',
+                'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+                'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+            ];
+            
+            // Agregar cada capacitação
+            document.querySelectorAll('#training-body tr').forEach(row => {
+                const activity = row.querySelector('.activity-input').value.trim();
+                const area = row.querySelector('.area-input').value.trim();
+                const speaker = row.querySelector('.speaker-input').value.trim();
+                
+                // Solo agregar si tiene actividad
+                if (activity) {
+                    const rowData = [activity, area, speaker];
+                    
+                    // Agregar estado de cada mes
+                    const months = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 
+                                   'julio', 'agosto', 'setiembre', 'octubre', 'noviembre', 'diciembre'];
+                    
+                    months.forEach(month => {
+                        const checkbox = row.querySelector(`.month-checkbox[data-month="${month}"]`);
+                        rowData.push(checkbox.classList.contains('checked') ? '✓' : '');
+                    });
+                    
+                    data.push(rowData);
+                }
+            });
+            
+            // Crear contenido CSV
+            let csvContent = "data:text/csv;charset=utf-8,";
+            
+            // Agregar encabezados
+            csvContent += headers.join(",") + "\n";
+            
+            // Agregar datos
+            data.forEach(row => {
+                csvContent += row.map(cell => `"${cell}"`).join(",") + "\n";
+            });
+            
+            // Crear enlace de descarga
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `Plano_Formacao_${year}.csv`);
+            document.body.appendChild(link);
+            
+            // Descargar archivo
+            link.click();
+            document.body.removeChild(link);
+            
+            alert(`Plano de formação exportado com sucesso como Plano_Formacao_${year}.csv`);
+        }
+    </script>
+</body>
+</html>

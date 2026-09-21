@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FOR-RRHH-002 Necessidades de Formação - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 180px;
+            height: 100px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 30px;
+        }
+        
+        .org-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 25px;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 26px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 25px 30px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 30px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 30px 25px;
+            margin: 0 30px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 25px 30px;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .form-row {
+            display: flex;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+        
+        .form-label {
+            width: 250px;
+            font-weight: bold;
+            color: #2d3748;
+            padding-top: 8px;
+        }
+        
+        .form-field {
+            flex-grow: 1;
+        }
+        
+        input[type="text"], input[type="date"], textarea, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+            background-color: white;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #3182ce;
+            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+        }
+        
+        .needs-list {
+            width: 100%;
+        }
+        
+        .needs-item {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #cbd5e0;
+        }
+        
+        .needs-number {
+            font-weight: bold;
+            margin-right: 10px;
+            color: #4a5568;
+            min-width: 25px;
+            padding-top: 8px;
+        }
+        
+        .needs-textarea {
+            flex-grow: 1;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        
+        .radio-option input[type="radio"] {
+            width: auto;
+        }
+        
+        .personnel-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .personnel-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+            text-align: left;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }
+        
+        .personnel-table td {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            background-color: white;
+        }
+        
+        .personnel-table tr:nth-child(even) td {
+            background-color: #f9f9f9;
+        }
+        
+        .status-section {
+            background-color: #edf2f7;
+            border: 2px solid #cbd5e0;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .status-title {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .status-options {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .status-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            border: 2px solid #cbd5e0;
+            border-radius: 5px;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .status-option:hover {
+            border-color: #718096;
+        }
+        
+        .status-option.selected {
+            border-color: #3182ce;
+            background-color: #ebf8ff;
+        }
+        
+        .status-option input[type="radio"] {
+            width: auto;
+        }
+        
+        .btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #718096;
+        }
+        
+        .btn-primary {
+            background-color: #3182ce;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2c5282;
+        }
+        
+        .btn-success {
+            background-color: #38a169;
+        }
+        
+        .btn-success:hover {
+            background-color: #2f855a;
+        }
+        
+        .btn-danger {
+            background-color: #e53e3e;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c53030;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: flex-end;
+        }
+        
+        .version-history {
+            margin-top: 40px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 30px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .instructions {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #276749;
+        }
+        
+        .instructions-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .btn, .button-group {
+                display: none;
+            }
+            
+            .status-option {
+                border: 1px solid #000;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 15px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .doc-title {
+                font-size: 22px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                margin-bottom: 15px;
+            }
+            
+            .form-label {
+                width: 100%;
+                margin-bottom: 8px;
+            }
+            
+            .status-options {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabeçalho com logo e informações da organização -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título do documento -->
+<div class="doc-title">FORMULÁRIO DE NECESSIDADES DE FORMAÇÃO</div>
+<div class="doc-code">Código: FOR-RRHH-002 | Revisão: 00</div>
+<!-- Conteúdo principal -->
+<div class="content">
+<!-- Instrucciones -->
+<div class="instructions">
+<div class="instructions-title">Instruções para preencher o formulário:</div>
+<p>1. Preencha todos os campos solicitados. 2. Descreva detalhadamente a necessidade de formação e a sua justificação. 3. Especifique o pessoal a formar. 4. Selecione o estado do pedido. 5. Guarde ou imprima o formulário depois de completo.</p>
+</div>
+<!-- Sección 1: Datos del solicitante -->
+<div class="form-section">
+<div class="section-title">DADOS DO SOLICITANTE</div>
+<div class="form-row">
+<div class="form-label">Nome do solicitante:</div>
+<div class="form-field">
+<input id="nombre-solicitante" placeholder="Introduza o nome completo" type="text"/>
+</div>
+</div>
+<div class="form-row">
+<div class="form-label">Cargo do solicitante:</div>
+<div class="form-field">
+<input id="cargo-solicitante" placeholder="Introduza o cargo ou posição" type="text"/>
+</div>
+</div>
+<div class="form-row">
+<div class="form-label">Área:</div>
+<div class="form-field">
+<input id="area-solicitante" placeholder="Introduza a área ou departamento" type="text"/>
+</div>
+</div>
+<div class="form-row">
+<div class="form-label">Data do pedido:</div>
+<div class="form-field">
+<input id="fecha-solicitud" type="date" value="2024-12-01"/>
+</div>
+</div>
+</div>
+<!-- Sección 2: Datos de la capacitação -->
+<div class="form-section">
+<div class="section-title">DADOS DA FORMAÇÃO</div>
+<div class="form-row">
+<div class="form-label">Identificação da necessidade de formação e sua justificação:</div>
+<div class="form-field">
+<div class="needs-list" id="needs-list">
+<div class="needs-item">
+<div class="needs-number">1.</div>
+<div class="needs-textarea">
+<textarea class="need-item" placeholder="Descreva a primeira necessidade de formação e a sua justificação..."></textarea>
+</div>
+</div>
+<div class="needs-item">
+<div class="needs-number">2.</div>
+<div class="needs-textarea">
+<textarea class="need-item" placeholder="Descreva a segunda necessidade de formação e a sua justificação..."></textarea>
+</div>
+</div>
+<div class="needs-item">
+<div class="needs-number">3.</div>
+<div class="needs-textarea">
+<textarea class="need-item" placeholder="Descreva a terceira necessidade de formação e a sua justificação..."></textarea>
+</div>
+</div>
+<div class="needs-item">
+<div class="needs-number">4.</div>
+<div class="needs-textarea">
+<textarea class="need-item" placeholder="Descreva a quarta necessidade de formação e a sua justificação..."></textarea>
+</div>
+</div>
+<div class="needs-item">
+<div class="needs-number">5.</div>
+<div class="needs-textarea">
+<textarea class="need-item" placeholder="Descreva a quinta necessidade de formação e a sua justificação..."></textarea>
+</div>
+</div>
+<div class="needs-item">
+<div class="needs-number">6.</div>
+<div class="needs-textarea">
+<textarea class="need-item" placeholder="Descreva a sexta necessidade de formação e a sua justificação..."></textarea>
+</div>
+</div>
+</div>
+<button class="btn" onclick="addNeedItem()" style="margin-top: 10px;">+ Adicionar outra necessidade</button>
+</div>
+</div>
+<div class="form-row">
+<div class="form-label">Pessoal a formar:</div>
+<div class="form-field">
+<div class="radio-group">
+<label class="radio-option">
+<input checked="" name="tipo-capacitação" type="radio" value="individual"/>
+<span>Individual</span>
+</label>
+<label class="radio-option">
+<input name="tipo-capacitação" type="radio" value="grupal"/>
+<span>Em grupo</span>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- Sección 3: Personal a capacitar - Individual -->
+<div class="form-section" id="individual-section">
+<div class="section-title">FORMAÇÕES INDIVIDUAIS</div>
+<table class="personnel-table" id="individual-table">
+<thead>
+<tr>
+<th style="width: 50px;">N.º</th>
+<th>Nome e Apelido</th>
+<th>Cargo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><input class="person-name" placeholder="Introduza o nome completo" type="text"/></td>
+<td><input class="person-position" placeholder="Introduza o cargo" type="text"/></td>
+</tr>
+<tr>
+<td>2</td>
+<td><input class="person-name" placeholder="Introduza o nome completo" type="text"/></td>
+<td><input class="person-position" placeholder="Introduza o cargo" type="text"/></td>
+</tr>
+<tr>
+<td>3</td>
+<td><input class="person-name" placeholder="Introduza o nome completo" type="text"/></td>
+<td><input class="person-position" placeholder="Introduza o cargo" type="text"/></td>
+</tr>
+<tr>
+<td>4</td>
+<td><input class="person-name" placeholder="Introduza o nome completo" type="text"/></td>
+<td><input class="person-position" placeholder="Introduza o cargo" type="text"/></td>
+</tr>
+<tr>
+<td>5</td>
+<td><input class="person-name" placeholder="Introduza o nome completo" type="text"/></td>
+<td><input class="person-position" placeholder="Introduza o cargo" type="text"/></td>
+</tr>
+</tbody>
+</table>
+<button class="btn" onclick="addIndividualRow()" style="margin-top: 15px;">+ Adicionar outra pessoa</button>
+</div>
+<!-- Sección 4: Personal a capacitar - Grupal -->
+<div class="form-section" id="grupal-section" style="display: none;">
+<div class="section-title">FORMAÇÕES EM GRUPO</div>
+<table class="personnel-table" id="grupal-table">
+<thead>
+<tr>
+<th style="width: 50px;">N.º</th>
+<th>Nome e Apelido</th>
+<th>Cargo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><input class="person-name" placeholder="Introduza o nome completo" type="text"/></td>
+<td><input class="person-position" placeholder="Introduza o cargo" type="text"/></td>
+</tr>
+<tr>
+<td>2</td>
+<td><input class="person-name" placeholder="Introduza o nome completo" type="text"/></td>
+<td><input class="person-position" placeholder="Introduza o cargo" type="text"/></td>
+</tr>
+<tr>
+<td>3</td>
+<td><input class="person-name" placeholder="Introduza o nome completo" type="text"/></td>
+<td><input class="person-position" placeholder="Introduza o cargo" type="text"/></td>
+</tr>
+<tr>
+<td>4</td>
+<td><input class="person-name" placeholder="Introduza o nome completo" type="text"/></td>
+<td><input class="person-position" placeholder="Introduza o cargo" type="text"/></td>
+</tr>
+<tr>
+<td>5</td>
+<td><input class="person-name" placeholder="Introduza o nome completo" type="text"/></td>
+<td><input class="person-position" placeholder="Introduza o cargo" type="text"/></td>
+</tr>
+</tbody>
+</table>
+<button class="btn" onclick="addGrupalRow()" style="margin-top: 15px;">+ Adicionar outra pessoa</button>
+</div>
+<!-- Sección 5: Estado de la solicitud -->
+<div class="status-section">
+<div class="status-title">ESTADO DO PEDIDO</div>
+<div class="status-options">
+<div class="status-option" onclick="selectStatus('aprobado')">
+<input id="aprobado" name="status" type="radio" value="aprobado"/>
+<label for="aprobado">APROVADO</label>
+</div>
+<div class="status-option" onclick="selectStatus('rechazado')">
+<input id="rechazado" name="status" type="radio" value="rechazado"/>
+<label for="rechazado">REJEITADO</label>
+</div>
+<div class="status-option" onclick="selectStatus('pendiente')">
+<input checked="" id="pendiente" name="status" type="radio" value="pendiente"/>
+<label for="pendiente">PENDENTE</label>
+</div>
+<div class="status-option" onclick="selectStatus('modificado')">
+<input id="modificado" name="status" type="radio" value="modificado"/>
+<label for="modificado">MODIFICADO</label>
+</div>
+</div>
+<div class="form-row">
+<div class="form-label">Observações:</div>
+<div class="form-field">
+<textarea id="observaciones" placeholder="Introduza observações adicionais..."></textarea>
+</div>
+</div>
+</div>
+<!-- Botones de acción -->
+<div class="button-group">
+<button class="btn btn-success" onclick="saveForm()">💾 Guardar Formulário</button>
+<button class="btn btn-primary" onclick="printForm()">📄 Imprimir Formulário</button>
+<button class="btn" onclick="clearForm()">🗑️ Limpar Formulário</button>
+<button class="btn btn-danger" onclick="exportForm()">📤 Exportar como PDF</button>
+</div>
+<!-- Histórico de versiones -->
+<div class="version-history">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Rodapé -->
+<div class="footer">
+<p>Código: FOR-RRHH-002 | Revisão: 00 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        // Configuração inicial quando o documento é carregado
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verifica se o logo existe, caso contrário mostra um placeholder
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                    console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+                };
+            }
+            
+            // Carregar dados salvos, se existirem
+            loadFormData();
+            
+            // Configurar rádio buttons de tipo de capacitação
+            const tipoCapacitaçãoRadios = document.querySelectorAll('input[name="tipo-capacitação"]');
+            tipoCapacitaçãoRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.value === 'individual') {
+                        document.getElementById('individual-section').style.display = 'block';
+                        document.getElementById('grupal-section').style.display = 'none';
+                    } else {
+                        document.getElementById('individual-section').style.display = 'none';
+                        document.getElementById('grupal-section').style.display = 'block';
+                    }
+                });
+            });
+            
+            // Configurar seleção de status
+            const statusOptions = document.querySelectorAll('.status-option');
+            statusOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    selectStatus(this.querySelector('input').value);
+                });
+            });
+            
+            // Configurar data atual
+            document.getElementById('fecha-solicitud').valueAsDate = new Date('2024-12-01');
+        });
+        
+        // Função para adicionar nova necessidade
+        function addNeedItem() {
+            const needsList = document.getElementById('needs-list');
+            const currentItems = needsList.querySelectorAll('.needs-item');
+            const newNumber = currentItems.length + 1;
+            
+            const newItem = document.createElement('div');
+            newItem.className = 'needs-item';
+            newItem.innerHTML = `
+                <div class="needs-number">${newNumber}.</div>
+                <div class="needs-textarea">
+                    <textarea class="need-item" placeholder="Descreva a necessidade de formação e a sua justificação..."></textarea>
+                </div>
+            `;
+            
+            needsList.appendChild(newItem);
+            
+            // Rolar para a nova item
+            newItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            
+            // Focar no textarea
+            const textarea = newItem.querySelector('textarea');
+            textarea.focus();
+        }
+        
+        // Função para adicionar linha na tabela individual
+        function addIndividualRow() {
+            const table = document.getElementById('individual-table').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+            const rowNumber = table.rows.length;
+            
+            newRow.innerHTML = `
+                <td>${rowNumber}</td>
+                <td><input type="text" class="person-name" placeholder="Introduza o nome completo"></td>
+                <td><input type="text" class="person-position" placeholder="Introduza o cargo"></td>
+            `;
+        }
+        
+        // Função para adicionar linha na tabela grupal
+        function addGrupalRow() {
+            const table = document.getElementById('grupal-table').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+            const rowNumber = table.rows.length;
+            
+            newRow.innerHTML = `
+                <td>${rowNumber}</td>
+                <td><input type="text" class="person-name" placeholder="Introduza o nome completo"></td>
+                <td><input type="text" class="person-position" placeholder="Introduza o cargo"></td>
+            `;
+        }
+        
+        // Função para selecionar status
+        function selectStatus(status) {
+            // Remover classe selected de todos
+            const statusOptions = document.querySelectorAll('.status-option');
+            statusOptions.forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Adicionar classe selected ao selecionado
+            const selectedOption = document.querySelector(`.status-option input[value="${status}"]`).parentNode;
+            selectedOption.classList.add('selected');
+            
+            // Marcar o radio button correspondente
+            document.querySelector(`#${status}`).checked = true;
+        }
+        
+        // Função para salvar o formulário
+        function saveForm() {
+            const formData = collectFormData();
+            localStorage.setItem('form_rrhh_002', JSON.stringify(formData));
+            alert('Formulário guardado corretamente no armazenamento local.');
+        }
+        
+        // Função para carregar dados salvos
+        function loadFormData() {
+            const savedData = localStorage.getItem('form_rrhh_002');
+            if (savedData) {
+                const formData = JSON.parse(savedData);
+                
+                // Preencher campos simples
+                document.getElementById('nombre-solicitante').value = formData.nombreSolicitante || '';
+                document.getElementById('cargo-solicitante').value = formData.cargoSolicitante || '';
+                document.getElementById('area-solicitante').value = formData.areaSolicitante || '';
+                document.getElementById('fecha-solicitud').value = formData.fechaSolicitud || '2024-12-01';
+                document.getElementById('observaciones').value = formData.observaciones || '';
+                
+                // Preencher necessidades
+                const needItems = document.querySelectorAll('.need-item');
+                if (formData.necesidades && formData.necesidades.length > 0) {
+                    formData.necesidades.forEach((need, index) => {
+                        if (needItems[index]) {
+                            needItems[index].value = need;
+                        }
+                    });
+                }
+                
+                // Preencher tipo de capacitação
+                if (formData.tipoCapacitação) {
+                    document.querySelector(`input[name="tipo-capacitação"][value="${formData.tipoCapacitação}"]`).checked = true;
+                    if (formData.tipoCapacitação === 'grupal') {
+                        document.getElementById('individual-section').style.display = 'none';
+                        document.getElementById('grupal-section').style.display = 'block';
+                    }
+                }
+                
+                // Preencher tabela individual
+                if (formData.personasIndividual && formData.personasIndividual.length > 0) {
+                    const individualInputs = document.querySelectorAll('#individual-table .person-name, #individual-table .person-position');
+                    formData.personasIndividual.forEach((person, index) => {
+                        if (individualInputs[index * 2]) individualInputs[index * 2].value = person.nombre || '';
+                        if (individualInputs[index * 2 + 1]) individualInputs[index * 2 + 1].value = person.cargo || '';
+                    });
+                }
+                
+                // Preencher tabela grupal
+                if (formData.personasGrupal && formData.personasGrupal.length > 0) {
+                    const grupalInputs = document.querySelectorAll('#grupal-table .person-name, #grupal-table .person-position');
+                    formData.personasGrupal.forEach((person, index) => {
+                        if (grupalInputs[index * 2]) grupalInputs[index * 2].value = person.nombre || '';
+                        if (grupalInputs[index * 2 + 1]) grupalInputs[index * 2 + 1].value = person.cargo || '';
+                    });
+                }
+                
+                // Preencher status
+                if (formData.status) {
+                    selectStatus(formData.status);
+                }
+                
+                console.log('Formulário carregado do armazenamento local.');
+            }
+        }
+        
+        // Função para coletar dados do formulário
+        function collectFormData() {
+            const formData = {
+                nombreSolicitante: document.getElementById('nombre-solicitante').value,
+                cargoSolicitante: document.getElementById('cargo-solicitante').value,
+                areaSolicitante: document.getElementById('area-solicitante').value,
+                fechaSolicitud: document.getElementById('fecha-solicitud').value,
+                observaciones: document.getElementById('observaciones').value,
+                tipoCapacitação: document.querySelector('input[name="tipo-capacitação"]:checked').value,
+                status: document.querySelector('input[name="status"]:checked').value
+            };
+            
+            // Coletar necessidades
+            const necesidades = [];
+            document.querySelectorAll('.need-item').forEach(textarea => {
+                if (textarea.value.trim() !== '') {
+                    necesidades.push(textarea.value);
+                }
+            });
+            formData.necesidades = necesidades;
+            
+            // Coletar pessoas da tabela individual
+            const personasIndividual = [];
+            const individualRows = document.querySelectorAll('#individual-table tbody tr');
+            individualRows.forEach(row => {
+                const nombre = row.querySelector('.person-name').value;
+                const cargo = row.querySelector('.person-position').value;
+                if (nombre.trim() !== '' || cargo.trim() !== '') {
+                    personasIndividual.push({ nombre, cargo });
+                }
+            });
+            formData.personasIndividual = personasIndividual;
+            
+            // Coletar pessoas da tabela grupal
+            const personasGrupal = [];
+            const grupalRows = document.querySelectorAll('#grupal-table tbody tr');
+            grupalRows.forEach(row => {
+                const nombre = row.querySelector('.person-name').value;
+                const cargo = row.querySelector('.person-position').value;
+                if (nombre.trim() !== '' || cargo.trim() !== '') {
+                    personasGrupal.push({ nombre, cargo });
+                }
+            });
+            formData.personasGrupal = personasGrupal;
+            
+            return formData;
+        }
+        
+        // Função para imprimir formulário
+        function printForm() {
+            window.print();
+        }
+        
+        // Função para limpar formulário
+        function clearForm() {
+            if (confirm('Tem a certeza de que deseja limpar todo o formulário? Perder-se-ão todos os dados não guardados.')) {
+                // Limpar todos os campos de entrada
+                document.querySelectorAll('input[type="text"], textarea').forEach(field => {
+                    field.value = '';
+                });
+                
+                // Restaurar data padrão
+                document.getElementById('fecha-solicitud').value = '2024-12-01';
+                
+                // Restaurar rádio buttons
+                document.querySelector('input[name="tipo-capacitação"][value="individual"]').checked = true;
+                document.getElementById('individual-section').style.display = 'block';
+                document.getElementById('grupal-section').style.display = 'none';
+                
+                // Restaurar status
+                selectStatus('pendiente');
+                
+                // Limpar localStorage
+                localStorage.removeItem('form_rrhh_002');
+                
+                alert('Formulário limpo corretamente.');
+            }
+        }
+        
+        // Função para exportar como PDF (simulação)
+        function exportForm() {
+            // Em um ambiente real, isso chamaria uma API para gerar PDF
+            // Aqui vamos apenas simular e baixar como JSON
+            const formData = collectFormData();
+            const dataStr = JSON.stringify(formData, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = `FOR-RRHH-002_${formData.nombreSolicitante || 'pedido'}_${new Date().toISOString().split('T')[0]}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            
+            alert('Dados exportados corretamente como JSON. Num ambiente real, isto geraria um PDF.');
+        }
+        
+        // Inicializar status como pendiente
+        selectStatus('pendiente');
+    </script>
+</body>
+</html>

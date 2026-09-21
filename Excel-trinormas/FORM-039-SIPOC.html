@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FORM-036 SIPOC - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .sipoc-header {
+            background-color: #2c5282;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+        
+        .sipoc-title {
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .sipoc-subtitle {
+            font-size: 16px;
+            font-style: italic;
+        }
+        
+        .instructions {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .instructions-title {
+            color: #4a5568;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .sipoc-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .sipoc-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            padding: 15px;
+            border: 1px solid #ddd;
+            vertical-align: middle;
+        }
+        
+        .sipoc-table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+            min-height: 60px;
+        }
+        
+        .sipoc-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .sipoc-table tr:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .sipoc-table .process-cell {
+            background-color: #ebf8ff;
+            font-weight: bold;
+            text-align: center;
+            font-size: 16px;
+        }
+        
+        .sipoc-table .column-header {
+            background-color: #2d3748;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            padding: 15px;
+        }
+        
+        .sipoc-table .spanish-header {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        
+        .sipoc-table .english-header {
+            font-size: 14px;
+            color: #666;
+            font-style: italic;
+            margin-top: 5px;
+        }
+        
+        .editable-cell {
+            min-height: 60px;
+            width: 100%;
+            border: none;
+            background: transparent;
+            font-family: inherit;
+            font-size: inherit;
+            color: inherit;
+            resize: vertical;
+            outline: none;
+            padding: 5px;
+        }
+        
+        .editable-cell:focus {
+            background-color: #ffffcc;
+            border: 1px dashed #3182ce;
+        }
+        
+        .section-title {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .guidelines {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .guidelines-title {
+            color: #276749;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .guidelines-list {
+            list-style-type: none;
+            margin-left: 20px;
+        }
+        
+        .guidelines-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .guidelines-list li:before {
+            content: "✓";
+            color: #38a169;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .version-history {
+            margin-top: 50px;
+            border-top: 2px solid #4a5568;
+            padding-top: 20px;
+        }
+        
+        .version-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .version-table th, .version-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .version-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+            float: right;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        .add-row-btn {
+            background-color: #38a169;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 10px 0;
+        }
+        
+        .add-row-btn:hover {
+            background-color: #2f855a;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn, .add-row-btn {
+                display: none;
+            }
+            
+            .sipoc-table {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            .sipoc-table {
+                font-size: 14px;
+            }
+            
+            .sipoc-table th, .sipoc-table td {
+                padding: 8px 10px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .sipoc-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .sipoc-title {
+                font-size: 24px;
+                letter-spacing: 3px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabeçalho com logo e informações da organização -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título do documento -->
+<div class="doc-title">Formulário SIPOC - Processo</div>
+<div class="doc-code">Código: FORM-036</div>
+<!-- Conteúdo principal -->
+<div class="content">
+<!-- Cabeçalho SIPOC -->
+<div class="sipoc-header">
+<div class="sipoc-title">S I P O C</div>
+<div class="sipoc-subtitle">Proporciona uma visão inicial dos processos envolvidos / é uma boa base para a elaboração do(s) mapa(s) de processo</div>
+</div>
+<!-- Instrucciones -->
+<div class="instructions">
+<div class="instructions-title">Instruções de uso:</div>
+<p>Preencha todas as células editáveis (áreas de texto) do formulário SIPOC abaixo. Clique em qualquer célula para começar a editar. Pode adicionar linhas adicionais conforme seja necessário utilizando o botão "Adicionar Linha".</p>
+</div>
+<!-- Tabela SIPOC -->
+<div class="section-title">Tabela SIPOC</div>
+<button class="add-row-btn" onclick="addSipocRow()">+ Adicionar Linha</button>
+<table class="sipoc-table" id="sipoc-table">
+<thead>
+<tr>
+<th class="column-header" colspan="2">
+<div class="spanish-header">FORNECEDORES</div>
+<div class="english-header">Suppliers</div>
+</th>
+<th class="column-header" colspan="2">
+<div class="spanish-header">ENTRADAS</div>
+<div class="english-header">Inputs</div>
+</th>
+<th class="process-cell" rowspan="2">
+                            Processo<br/>
+                            (iniciar o nome com um verbo de ação)
+                        </th>
+<th class="column-header" colspan="2">
+<div class="spanish-header">SAÍDAS</div>
+<div class="english-header">Outputs</div>
+</th>
+<th class="column-header" colspan="2">
+<div class="spanish-header">CLIENTES</div>
+<div class="english-header">Customers</div>
+</th>
+</tr>
+<tr>
+<th style="width: 15%">
+<div style="font-size: 14px; font-weight: normal;">
+                                Quem está envolvido no fornecimento?
+                            </div>
+</th>
+<th style="width: 10%; text-align: center;">
+                            Há controlo?
+                        </th>
+<th style="width: 15%">
+<div style="font-size: 14px; font-weight: normal;">
+                                Quais são as informações/serviços/produtos de entrada no processo?
+                            </div>
+</th>
+<th style="width: 10%; text-align: center;">
+                            Há controlo?
+                        </th>
+<th style="width: 15%">
+<div style="font-size: 14px; font-weight: normal;">
+                                Quais são as informações/serviços/produtos de saída do processo?
+                            </div>
+</th>
+<th style="width: 10%; text-align: center;">
+                            Há controlo?
+                        </th>
+<th style="width: 15%">
+<div style="font-size: 14px; font-weight: normal;">
+                                Quem são os respetivos clientes?
+                            </div>
+</th>
+<th style="width: 10%; text-align: center;">
+                            Está satisfeito?
+                        </th>
+</tr>
+</thead>
+<tbody id="sipoc-body">
+<!-- Linhas serão adicionadas dinamicamente -->
+<tr>
+<td><textarea class="editable-cell" placeholder="Ex.: Departamento de Compras" rows="3"></textarea></td>
+<td style="text-align: center;">
+<select class="editable-cell" style="width: 100%;">
+<option value="">Selecionar</option>
+<option value="si">Sim</option>
+<option value="no">Não</option>
+<option value="parcial">Parcial</option>
+</select>
+</td>
+<td><textarea class="editable-cell" placeholder="Ex.: Requisições de material" rows="3"></textarea></td>
+<td style="text-align: center;">
+<select class="editable-cell" style="width: 100%;">
+<option value="">Selecionar</option>
+<option value="si">Sim</option>
+<option value="no">Não</option>
+<option value="parcial">Parcial</option>
+</select>
+</td>
+<td class="process-cell"><textarea class="editable-cell" placeholder="Ex.: Gerir pedidos de compra" rows="3"></textarea></td>
+<td><textarea class="editable-cell" placeholder="Ex.: Pedidos de compra aprovados" rows="3"></textarea></td>
+<td style="text-align: center;">
+<select class="editable-cell" style="width: 100%;">
+<option value="">Selecionar</option>
+<option value="si">Sim</option>
+<option value="no">Não</option>
+<option value="parcial">Parcial</option>
+</select>
+</td>
+<td><textarea class="editable-cell" placeholder="Ex.: Departamento de Produção" rows="3"></textarea></td>
+<td style="text-align: center;">
+<select class="editable-cell" style="width: 100%;">
+<option value="">Selecionar</option>
+<option value="si">Sim</option>
+<option value="no">Não</option>
+<option value="parcial">Parcial</option>
+<option value="na">N/A</option>
+</select>
+</td>
+</tr>
+<!-- Adicionando mais 4 linhas de exemplo -->
+<tr>
+<td><textarea class="editable-cell" rows="3"></textarea></td>
+<td style="text-align: center;">
+<select class="editable-cell" style="width: 100%;">
+<option value="">Selecionar</option>
+<option value="si">Sim</option>
+<option value="no">Não</option>
+<option value="parcial">Parcial</option>
+</select>
+</td>
+<td><textarea class="editable-cell" rows="3"></textarea></td>
+<td style="text-align: center;">
+<select class="editable-cell" style="width: 100%;">
+<option value="">Selecionar</option>
+<option value="si">Sim</option>
+<option value="no">Não</option>
+<option value="parcial">Parcial</option>
+</select>
+</td>
+<td class="process-cell"><textarea class="editable-cell" rows="3"></textarea></td>
+<td><textarea class="editable-cell" rows="3"></textarea></td>
+<td style="text-align: center;">
+<select class="editable-cell" style="width: 100%;">
+<option value="">Selecionar</option>
+<option value="si">Sim</option>
+<option value="no">Não</option>
+<option value="parcial">Parcial</option>
+</select>
+</td>
+<td><textarea class="editable-cell" rows="3"></textarea></td>
+<td style="text-align: center;">
+<select class="editable-cell" style="width: 100%;">
+<option value="">Selecionar</option>
+<option value="si">Sim</option>
+<option value="no">Não</option>
+<option value="parcial">Parcial</option>
+<option value="na">N/A</option>
+</select>
+</td>
+</tr>
+<tr>
+<td><textarea class="editable-cell" rows="3"></textarea></td>
+<td style="text-align: center;">
+<select class="editable-cell" style="width: 100%;">
+<option value="">Selecionar</option>
+<option value="si">Sim</option>
+<option value="no">Não</option>
+<option value="parcial">Parcial</option>
+</select>
+</td>
+<td><textarea class="editable-cell" rows="3"></textarea></td>
+<td style="text-align: center;">
+<select class="editable-cell" style="width: 100%;">
+<option value="">Selecionar</option>
+<option value="si">Sim</option>
+<option value="no">Não</option>
+<option value="parcial">Parcial</option>
+</select>
+</td>
+<td class="process-cell"><textarea class="editable-cell" rows="3"></textarea></td>
+<td><textarea class="editable-cell" rows="3"></textarea></td>
+<td style="text-align: center;">
+<select class="editable-cell" style="width: 100%;">
+<option value="">Selecionar</option>
+<option value="si">Sim</option>
+<option value="no">Não</option>
+<option value="parcial">Parcial</option>
+</select>
+</td>
+<td><textarea class="editable-cell" rows="3"></textarea></td>
+<td style="text-align: center;">
+<select class="editable-cell" style="width: 100%;">
+<option value="">Selecionar</option>
+<option value="si">Sim</option>
+<option value="no">Não</option>
+<option value="parcial">Parcial</option>
+<option value="na">N/A</option>
+</select>
+</td>
+</tr>
+<tr>
+<td><textarea class="editable-cell" rows="3"></textarea></td>
+<td style="text-align: center;">
+<select class="editable-cell" style="width: 100%;">
+<option value="">Selecionar</option>
+<option value="si">Sim</option>
+<option value="no">Não</option>
+<option value="parcial">Parcial</option>
+</select>
+</td>
+<td><textarea class="editable-cell" rows="3"></textarea></td>
+<td style="text-align: center;">
+<select class="editable-cell" style="width: 100%;">
+<option value="">Selecionar</option>
+<option value="si">Sim</option>
+<option value="no">Não</option>
+<option value="parcial">Parcial</option>
+</select>
+</td>
+<td class="process-cell"><textarea class="editable-cell" rows="3"></textarea></td>
+<td><textarea class="editable-cell" rows="3"></textarea></td>
+<td style="text-align: center;">
+<select class="editable-cell" style="width: 100%;">
+<option value="">Selecionar</option>
+<option value="si">Sim</option>
+<option value="no">Não</option>
+<option value="parcial">Parcial</option>
+</select>
+</td>
+<td><textarea class="editable-cell" rows="3"></textarea></td>
+<td style="text-align: center;">
+<select class="editable-cell" style="width: 100%;">
+<option value="">Selecionar</option>
+<option value="si">Sim</option>
+<option value="no">Não</option>
+<option value="parcial">Parcial</option>
+<option value="na">N/A</option>
+</select>
+</td>
+</tr>
+<tr>
+<td><textarea class="editable-cell" rows="3"></textarea></td>
+<td style="text-align: center;">
+<select class="editable-cell" style="width: 100%;">
+<option value="">Selecionar</option>
+<option value="si">Sim</option>
+<option value="no">Não</option>
+<option value="parcial">Parcial</option>
+</select>
+</td>
+<td><textarea class="editable-cell" rows="3"></textarea></td>
+<td style="text-align: center;">
+<select class="editable-cell" style="width: 100%;">
+<option value="">Selecionar</option>
+<option value="si">Sim</option>
+<option value="no">Não</option>
+<option value="parcial">Parcial</option>
+</select>
+</td>
+<td class="process-cell"><textarea class="editable-cell" rows="3"></textarea></td>
+<td><textarea class="editable-cell" rows="3"></textarea></td>
+<td style="text-align: center;">
+<select class="editable-cell" style="width: 100%;">
+<option value="">Selecionar</option>
+<option value="si">Sim</option>
+<option value="no">Não</option>
+<option value="parcial">Parcial</option>
+</select>
+</td>
+<td><textarea class="editable-cell" rows="3"></textarea></td>
+<td style="text-align: center;">
+<select class="editable-cell" style="width: 100%;">
+<option value="">Selecionar</option>
+<option value="si">Sim</option>
+<option value="no">Não</option>
+<option value="parcial">Parcial</option>
+<option value="na">N/A</option>
+</select>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Guías para completar el SIPOC -->
+<div class="guidelines">
+<div class="guidelines-title">Guia para preencher o formulário SIPOC:</div>
+<ul class="guidelines-list">
+<li><strong>Fornecedores:</strong> Identifique quem fornece as entradas ao processo.</li>
+<li><strong>Entradas:</strong> Liste todos os recursos necessários para executar o processo.</li>
+<li><strong>Processo:</strong> Nomeie o processo começando com um verbo de ação (ex.: "Gerir", "Processar", "Avaliar").</li>
+<li><strong>Saídas:</strong> Especifique os resultados tangíveis ou intangíveis do processo.</li>
+<li><strong>Clientes:</strong> Identifique quem recebe e utiliza as saídas do processo.</li>
+<li><strong>Controlo:</strong> Indique se existe controlo sobre as entradas/saídas (Sim/Não/Parcial).</li>
+<li><strong>Satisfação:</strong> Avalie se o cliente está satisfeito com a saída recebida.</li>
+</ul>
+</div>
+<!-- Botón de impresión -->
+<button class="print-btn" onclick="window.print()">📄 Imprimir documento</button>
+<!-- Histórico de versiones -->
+<div class="version-history">
+<div class="section-title">Histórico de Versões</div>
+<div class="table-container">
+<table class="version-table">
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Aprova</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>01.12.2024</td>
+<td>Original</td>
+<td>CEO</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Rodapé -->
+<div class="footer">
+<p>Código: FORM-036 | Revisão: 000 | Página 1 de 1</p>
+</div>
+</div>
+<script>
+        // Função para adicionar novas linhas na tabela SIPOC
+        function addSipocRow() {
+            const tbody = document.getElementById('sipoc-body');
+            const newRow = document.createElement('tr');
+            
+            newRow.innerHTML = `
+                <td><textarea class="editable-cell" rows="3"></textarea></td>
+                <td style="text-align: center;">
+                    <select class="editable-cell" style="width: 100%;">
+                        <option value="">Selecionar</option>
+                        <option value="si">Sim</option>
+                        <option value="no">No</option>
+                        <option value="parcial">Parcial</option>
+                    </select>
+                </td>
+                <td><textarea class="editable-cell" rows="3"></textarea></td>
+                <td style="text-align: center;">
+                    <select class="editable-cell" style="width: 100%;">
+                        <option value="">Selecionar</option>
+                        <option value="si">Sim</option>
+                        <option value="no">No</option>
+                        <option value="parcial">Parcial</option>
+                    </select>
+                </td>
+                <td class="process-cell"><textarea class="editable-cell" rows="3"></textarea></td>
+                <td><textarea class="editable-cell" rows="3"></textarea></td>
+                <td style="text-align: center;">
+                    <select class="editable-cell" style="width: 100%;">
+                        <option value="">Selecionar</option>
+                        <option value="si">Sim</option>
+                        <option value="no">No</option>
+                        <option value="parcial">Parcial</option>
+                    </select>
+                </td>
+                <td><textarea class="editable-cell" rows="3"></textarea></td>
+                <td style="text-align: center;">
+                    <select class="editable-cell" style="width: 100%;">
+                        <option value="">Selecionar</option>
+                        <option value="si">Sim</option>
+                        <option value="no">No</option>
+                        <option value="parcial">Parcial</option>
+                        <option value="na">N/A</option>
+                    </select>
+                </td>
+            `;
+            
+            tbody.appendChild(newRow);
+            
+            // Rolar para a nova linha
+            newRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            
+            // Focar no primeiro campo editável da nova linha
+            const firstTextarea = newRow.querySelector('.editable-cell');
+            if (firstTextarea && firstTextarea.tagName === 'TEXTAREA') {
+                firstTextarea.focus();
+            }
+        }
+        
+        // Configuração inicial quando o documento é carregado
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verifica se o logo existe, caso contrário mostra um placeholder
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                    console.log("Logótipo não encontrado em logo/logo.png. Por favor, adicione o logótipo na pasta especificada.");
+                };
+            }
+            
+            // Permitir que as células editáveis sejam salvas localmente
+            const editableCells = document.querySelectorAll('.editable-cell');
+            editableCells.forEach(cell => {
+                // Carregar dados salvos, se existirem
+                const cellId = generateCellId(cell);
+                const savedValue = localStorage.getItem(cellId);
+                if (savedValue !== null) {
+                    if (cell.tagName === 'TEXTAREA') {
+                        cell.value = savedValue;
+                    } else if (cell.tagName === 'SELECT') {
+                        cell.value = savedValue;
+                    }
+                }
+                
+                // Salvar dados quando alterados
+                cell.addEventListener('input', function() {
+                    const cellId = generateCellId(this);
+                    localStorage.setItem(cellId, this.value);
+                });
+                
+                cell.addEventListener('change', function() {
+                    const cellId = generateCellId(this);
+                    localStorage.setItem(cellId, this.value);
+                });
+            });
+            
+            // Função para limpar todos os dados salvos
+            window.clearFormData = function() {
+                if (confirm('Tem a certeza de que deseja apagar todos os dados do formulário?')) {
+                    localStorage.clear();
+                    location.reload();
+                }
+            };
+        });
+        
+        // Gerar um ID único para cada célula editável
+        function generateCellId(cell) {
+            const row = cell.closest('tr');
+            const cellIndex = Array.from(cell.parentNode.children).indexOf(cell);
+            const rowIndex = Array.from(row.parentNode.children).indexOf(row);
+            
+            return `form036_cell_${rowIndex}_${cellIndex}`;
+        }
+        
+        // Função para exportar os dados como JSON
+        window.exportFormData = function() {
+            const formData = {};
+            const editableCells = document.querySelectorAll('.editable-cell');
+            
+            editableCells.forEach((cell, index) => {
+                const cellId = generateCellId(cell);
+                formData[cellId] = cell.value;
+            });
+            
+            const dataStr = JSON.stringify(formData, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = 'FORM-036_SIPOC_Data.json';
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            
+            alert('Dados exportados corretamente como JSON.');
+        };
+    </script>
+</body>
+</html>

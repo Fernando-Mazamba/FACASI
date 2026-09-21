@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FORM-002 Comunicação Interna e Externa - SGI</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .document-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background-color: #4a5568;
+            color: white;
+        }
+        
+        .logo-container {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .org-info {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 40px;
+        }
+        
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .doc-info {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .doc-info-item {
+            text-align: left;
+        }
+        
+        .doc-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a5568;
+            text-align: center;
+            padding: 30px 40px 10px;
+            border-bottom: 2px solid #4a5568;
+            margin: 0 40px;
+        }
+        
+        .doc-code {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 10px 40px 30px;
+            margin: 0 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .form-header {
+            text-align: center;
+            margin: 20px 0 40px;
+        }
+        
+        .form-main-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+        
+        .form-subtitle {
+            font-size: 18px;
+            color: #4a5568;
+            margin-bottom: 20px;
+        }
+        
+        .form-code-info {
+            text-align: right;
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 30px;
+            padding-right: 20px;
+        }
+        
+        .excel-table-container {
+            overflow-x: auto;
+            margin: 30px 0 50px;
+        }
+        
+        .excel-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1200px;
+        }
+        
+        .excel-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+            padding: 20px 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+        
+        .excel-table td {
+            padding: 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+            vertical-align: top;
+            height: 120px;
+            background-color: #fff;
+        }
+        
+        .excel-table input,
+        .excel-table select,
+        .excel-table textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        
+        .excel-table input:focus,
+        .excel-table select:focus,
+        .excel-table textarea:focus {
+            outline: none;
+            border-color: #4a5568;
+            box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+        }
+        
+        .excel-table textarea {
+            resize: vertical;
+            min-height: 100px;
+            line-height: 1.5;
+        }
+        
+        .excel-table select {
+            cursor: pointer;
+            background-color: white;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%234a5568' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 12px;
+            padding-right: 35px;
+        }
+        
+        .excel-table option {
+            padding: 8px;
+        }
+        
+        .empty-row td {
+            background-color: #f8f9fa;
+        }
+        
+        .empty-row:hover td {
+            background-color: #f1f5f9;
+        }
+        
+        .form-instructions {
+            background-color: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #38a169;
+        }
+        
+        .instructions-title {
+            color: #276749;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .instructions-list {
+            list-style-type: none;
+            margin-top: 10px;
+        }
+        
+        .instructions-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .instructions-list li:before {
+            content: "•";
+            color: #38a169;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .print-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            margin-top: 20px;
+            float: right;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+        
+        .print-btn:hover {
+            background-color: #718096;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+            clear: both;
+        }
+        
+        .form-btn {
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+        
+        .form-btn:hover {
+            background-color: #2c5282;
+        }
+        
+        .form-btn.secondary {
+            background-color: #38a169;
+        }
+        
+        .form-btn.secondary:hover {
+            background-color: #2f855a;
+        }
+        
+        .form-btn.tertiary {
+            background-color: #718096;
+        }
+        
+        .form-btn.tertiary:hover {
+            background-color: #4a5568;
+        }
+        
+        .communication-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .communication-card {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .communication-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .document-container {
+                box-shadow: none;
+            }
+            
+            .print-btn,
+            .form-actions {
+                display: none;
+            }
+            
+            .excel-table input,
+            .excel-table select,
+            .excel-table textarea {
+                border: 1px solid #ddd;
+                background-color: transparent;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .org-info {
+                margin-left: 0;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .doc-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .doc-title {
+                font-size: 24px;
+                padding: 20px 20px 10px;
+                margin: 0 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .form-main-title {
+                font-size: 24px;
+            }
+            
+            .communication-types {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+<!-- Cabeçalho com logo e informações da organização -->
+<div class="header">
+<div class="logo-container">
+<img alt="Logótipo da Organização" class="logo" src="../Logotipo/logo.png"/>
+</div>
+<div class="org-info">
+<div class="org-name">Sistema de Gestão Integrado (SGI)</div>
+<div class="doc-info">
+<div class="doc-info-item">
+<strong>Data de emissão:</strong><br/>
+                        01.12.2024
+                    </div>
+<div class="doc-info-item">
+<strong>Elabora:</strong><br/>
+                        ESGI
+                    </div>
+<div class="doc-info-item">
+<strong>Aprova:</strong><br/>
+                        CEO
+                    </div>
+<div class="doc-info-item">
+<strong>Versão:</strong><br/>
+                        000
+                    </div>
+</div>
+</div>
+</div>
+<!-- Título do documento -->
+<div class="doc-title">Folha de Comunicação Interna e Externa</div>
+<div class="doc-code">Código: FORM-002</div>
+<!-- Conteúdo principal -->
+<div class="content">
+<!-- Título del formulario -->
+<div class="form-header">
+<div class="form-main-title">Comunicação INTERNA e EXTERNA</div>
+<div class="form-subtitle">Sistema de Gestão Integrado (SGI)</div>
+<div class="form-code-info">
+<strong>Código:</strong> FORM-002 | <strong>Revisão:</strong> 000
+                </div>
+</div>
+<!-- Instrucciones -->
+<div class="form-instructions">
+<div class="instructions-title">📋 Instruções para o uso desta folha:</div>
+<ul class="instructions-list">
+<li>Complete todos os campos para cada comunicação relevante do SGI.</li>
+<li>Inclua comunicações tanto internas (colaboradores, departamentos) como externas (clientes, fornecedores, autoridades).</li>
+<li>Mantenha um registo atualizado de todas as comunicações importantes.</li>
+<li>Arquive este formulário como evidência do sistema de comunicação do SGI.</li>
+</ul>
+</div>
+<!-- Tipos de comunicación comunes -->
+<div class="communication-types">
+<div class="communication-card">
+<div class="card-title">📢 Comunicações Internas Comuns</div>
+<ul class="instructions-list">
+<li>Alterações em procedimentos</li>
+<li>Resultados de auditorias internas</li>
+<li>Atualizações do sistema de gestão</li>
+<li>Informação sobre não conformidades</li>
+<li>Comunicados da direção</li>
+</ul>
+</div>
+<div class="communication-card">
+<div class="card-title">🌐 Comunicações Externas Comuns</div>
+<ul class="instructions-list">
+<li>Comunicação com clientes</li>
+<li>Relatórios a autoridades reguladoras</li>
+<li>Comunicação com fornecedores</li>
+<li>Resposta a queixas e sugestões</li>
+<li>Informação pública exigida</li>
+</ul>
+</div>
+<div class="communication-card">
+<div class="card-title">📄 Meios de Comunicação</div>
+<ul class="instructions-list">
+<li>Correio eletrónico</li>
+<li>Reuniões formais</li>
+<li>Intranet/Portal interno</li>
+<li>Cartazes/Quadros de avisos</li>
+<li>Comunicados escritos</li>
+<li>Plataformas digitais</li>
+</ul>
+</div>
+</div>
+<!-- Tabla principal -->
+<div class="excel-table-container">
+<table class="excel-table">
+<thead>
+<tr>
+<th width="20%">O QUE COMUNICAR<br/><small style="font-weight: normal; font-size: 14px;">Conteúdo da mensagem</small></th>
+<th width="15%">QUANDO COMUNICAR<br/><small style="font-weight: normal; font-size: 14px;">Data e frequência</small></th>
+<th width="20%">A QUEM COMUNICAR<br/><small style="font-weight: normal; font-size: 14px;">Destinatário(s)</small></th>
+<th width="15%">COMO COMUNICAR<br/><small style="font-weight: normal; font-size: 14px;">Meio/canal</small></th>
+<th width="15%">QUEM COMUNICA<br/><small style="font-weight: normal; font-size: 14px;">Responsável</small></th>
+<th width="15%">OBSERVAÇÕES<br/><small style="font-weight: normal; font-size: 14px;">Notas adicionais</small></th>
+</tr>
+</thead>
+<tbody>
+<!-- Fila 1 (ejemplo) -->
+<tr>
+<td>
+<textarea placeholder="Descreva o que se vai comunicar...">Atualização do procedimento de gestão de reclamações conforme os requisitos do SGI</textarea>
+</td>
+<td>
+<input type="date" value="2024-12-01"/>
+<div style="margin-top: 10px;">
+<select style="width: 100%; margin-top: 5px;">
+<option selected="" value="unica">Comunicação única</option>
+<option value="diaria">Diariamente</option>
+<option value="semanal">Semanalmente</option>
+<option value="mensual">Mensualmente</option>
+<option value="trimestral">Trimestralmente</option>
+<option value="anual">Anualmente</option>
+</select>
+</div>
+</td>
+<td>
+<select style="margin-bottom: 10px;">
+<option selected="" value="interno">Interno</option>
+<option value="externo">Externo</option>
+</select>
+<textarea placeholder="Especifique destinatários..." style="min-height: 60px;">Todo o pessoal da organização, especialmente os responsáveis pelo atendimento ao cliente</textarea>
+</td>
+<td>
+<select>
+<option value="">Selecione o meio...</option>
+<option selected="" value="email">Correio eletrónico</option>
+<option value="reunion">Reunião formal</option>
+<option value="intranet">Intranet/Portal</option>
+<option value="cartelera">Cartaz/Avisos</option>
+<option value="comunicado">Comunicado escrito</option>
+<option value="plataforma">Plataforma digital</option>
+<option value="videoconferencia">Videoconferência</option>
+</select>
+</td>
+<td>
+<input placeholder="Nome do responsável" type="text" value="Coordenador do SGI"/>
+</td>
+<td>
+<textarea placeholder="Observações adicionais...">Será incluída cópia do novo procedimento anexa ao correio eletrónico</textarea>
+</td>
+</tr>
+<!-- Fila 2 (ejemplo) -->
+<tr>
+<td>
+<textarea placeholder="Descreva o que se vai comunicar...">Resultados da auditoria interna do sistema de gestão integrado</textarea>
+</td>
+<td>
+<input type="date" value="2024-11-28"/>
+<div style="margin-top: 10px;">
+<select style="width: 100%; margin-top: 5px;">
+<option selected="" value="unica">Comunicação única</option>
+<option value="diaria">Diariamente</option>
+<option value="semanal">Semanalmente</option>
+<option value="mensual">Mensualmente</option>
+<option value="trimestral">Trimestralmente</option>
+<option value="anual">Anualmente</option>
+</select>
+</div>
+</td>
+<td>
+<select style="margin-bottom: 10px;">
+<option selected="" value="interno">Interno</option>
+<option value="externo">Externo</option>
+</select>
+<textarea placeholder="Especifique destinatários..." style="min-height: 60px;">Alta direção e responsáveis das áreas auditadas</textarea>
+</td>
+<td>
+<select>
+<option value="">Selecione o meio...</option>
+<option selected="" value="reunion">Reunião formal</option>
+<option value="email">Correio eletrónico</option>
+<option value="intranet">Intranet/Portal</option>
+<option value="cartelera">Cartaz/Avisos</option>
+<option value="comunicado">Comunicado escrito</option>
+</select>
+</td>
+<td>
+<input placeholder="Nome do responsável" type="text" value="Auditor Líder"/>
+</td>
+<td>
+<textarea placeholder="Observações adicionais...">Será apresentado um plano de ações corretivas resultante das constatações</textarea>
+</td>
+</tr>
+<!-- Fila 3 (ejemplo) -->
+<tr>
+<td>
+<textarea placeholder="Descreva o que se vai comunicar...">Resposta formal à queixa do cliente ABC-2024-001</textarea>
+</td>
+<td>
+<input type="date" value="2024-11-25"/>
+<div style="margin-top: 10px;">
+<select style="width: 100%; margin-top: 5px;">
+<option selected="" value="unica">Comunicação única</option>
+<option value="diaria">Diariamente</option>
+<option value="semanal">Semanalmente</option>
+<option value="mensual">Mensualmente</option>
+<option value="trimestral">Trimestralmente</option>
+<option value="anual">Anualmente</option>
+</select>
+</div>
+</td>
+<td>
+<select style="margin-bottom: 10px;">
+<option value="interno">Interno</option>
+<option selected="" value="externo">Externo</option>
+</select>
+<textarea placeholder="Especifique destinatários..." style="min-height: 60px;">Cliente: empresa ABC S.A., contacto: Juan Pérez</textarea>
+</td>
+<td>
+<select>
+<option value="">Selecione o meio...</option>
+<option selected="" value="email">Correio eletrónico</option>
+<option value="llamada">Chamada telefónica</option>
+<option value="carta">Carta formal</option>
+<option value="reunion">Reunião presencial</option>
+<option value="videoconferencia">Videoconferência</option>
+</select>
+</td>
+<td>
+<input placeholder="Nome do responsável" type="text" value="Gerente de Serviço ao Cliente"/>
+</td>
+<td>
+<textarea placeholder="Observações adicionais...">Anexa-se cópia da ação corretiva implementada</textarea>
+</td>
+</tr>
+<!-- Filas vacías para nuevos registros (5 filas) -->
+<tr class="empty-row">
+<td>
+<textarea placeholder="Ex.: Comunicação sobre alterações nas políticas de segurança, relatório de desempenho ambiental, etc."></textarea>
+</td>
+<td>
+<input type="date"/>
+<div style="margin-top: 10px;">
+<select style="width: 100%; margin-top: 5px;">
+<option disabled="" selected="" value="">Frequência</option>
+<option value="unica">Comunicação única</option>
+<option value="diaria">Diariamente</option>
+<option value="semanal">Semanalmente</option>
+<option value="mensual">Mensualmente</option>
+<option value="trimestral">Trimestralmente</option>
+<option value="anual">Anualmente</option>
+</select>
+</div>
+</td>
+<td>
+<select style="margin-bottom: 10px;">
+<option disabled="" selected="" value="">Tipo</option>
+<option value="interno">Interno</option>
+<option value="externo">Externo</option>
+</select>
+<textarea placeholder="Ex.: Todo o pessoal, fornecedores específicos, autoridades reguladoras, etc." style="min-height: 60px;"></textarea>
+</td>
+<td>
+<select>
+<option disabled="" selected="" value="">Selecione o meio...</option>
+<option value="email">Correio eletrónico</option>
+<option value="reunion">Reunião formal</option>
+<option value="intranet">Intranet/Portal</option>
+<option value="cartelera">Cartaz/Avisos</option>
+<option value="comunicado">Comunicado escrito</option>
+<option value="plataforma">Plataforma digital</option>
+<option value="videoconferencia">Videoconferência</option>
+<option value="llamada">Chamada telefónica</option>
+<option value="carta">Carta formal</option>
+</select>
+</td>
+<td>
+<input placeholder="Nome do responsável" type="text"/>
+</td>
+<td>
+<textarea placeholder="Observações, evidência anexa, etc."></textarea>
+</td>
+</tr>
+<tr class="empty-row">
+<td>
+<textarea placeholder="Descreva o que se vai comunicar..."></textarea>
+</td>
+<td>
+<input type="date"/>
+<div style="margin-top: 10px;">
+<select style="width: 100%; margin-top: 5px;">
+<option disabled="" selected="" value="">Frequência</option>
+<option value="unica">Comunicação única</option>
+<option value="diaria">Diariamente</option>
+<option value="semanal">Semanalmente</option>
+<option value="mensual">Mensualmente</option>
+<option value="trimestral">Trimestralmente</option>
+<option value="anual">Anualmente</option>
+</select>
+</div>
+</td>
+<td>
+<select style="margin-bottom: 10px;">
+<option disabled="" selected="" value="">Tipo</option>
+<option value="interno">Interno</option>
+<option value="externo">Externo</option>
+</select>
+<textarea placeholder="Especifique destinatários..." style="min-height: 60px;"></textarea>
+</td>
+<td>
+<select>
+<option disabled="" selected="" value="">Selecione o meio...</option>
+<option value="email">Correio eletrónico</option>
+<option value="reunion">Reunião formal</option>
+<option value="intranet">Intranet/Portal</option>
+<option value="cartelera">Cartaz/Avisos</option>
+<option value="comunicado">Comunicado escrito</option>
+</select>
+</td>
+<td>
+<input placeholder="Nome do responsável" type="text"/>
+</td>
+<td>
+<textarea placeholder="Observações adicionais..."></textarea>
+</td>
+</tr>
+<tr class="empty-row">
+<td>
+<textarea placeholder="Descreva o que se vai comunicar..."></textarea>
+</td>
+<td>
+<input type="date"/>
+<div style="margin-top: 10px;">
+<select style="width: 100%; margin-top: 5px;">
+<option disabled="" selected="" value="">Frequência</option>
+<option value="unica">Comunicação única</option>
+<option value="diaria">Diariamente</option>
+<option value="semanal">Semanalmente</option>
+<option value="mensual">Mensualmente</option>
+<option value="trimestral">Trimestralmente</option>
+<option value="anual">Anualmente</option>
+</select>
+</div>
+</td>
+<td>
+<select style="margin-bottom: 10px;">
+<option disabled="" selected="" value="">Tipo</option>
+<option value="interno">Interno</option>
+<option value="externo">Externo</option>
+</select>
+<textarea placeholder="Especifique destinatários..." style="min-height: 60px;"></textarea>
+</td>
+<td>
+<select>
+<option disabled="" selected="" value="">Selecione o meio...</option>
+<option value="email">Correio eletrónico</option>
+<option value="reunion">Reunião formal</option>
+<option value="intranet">Intranet/Portal</option>
+</select>
+</td>
+<td>
+<input placeholder="Nome do responsável" type="text"/>
+</td>
+<td>
+<textarea placeholder="Observações adicionais..."></textarea>
+</td>
+</tr>
+<tr class="empty-row">
+<td>
+<textarea placeholder="Descreva o que se vai comunicar..."></textarea>
+</td>
+<td>
+<input type="date"/>
+<div style="margin-top: 10px;">
+<select style="width: 100%; margin-top: 5px;">
+<option disabled="" selected="" value="">Frequência</option>
+<option value="unica">Comunicação única</option>
+<option value="diaria">Diariamente</option>
+<option value="semanal">Semanalmente</option>
+<option value="mensual">Mensualmente</option>
+<option value="trimestral">Trimestralmente</option>
+<option value="anual">Anualmente</option>
+</select>
+</div>
+</td>
+<td>
+<select style="margin-bottom: 10px;">
+<option disabled="" selected="" value="">Tipo</option>
+<option value="interno">Interno</option>
+<option value="externo">Externo</option>
+</select>
+<textarea placeholder="Especifique destinatários..." style="min-height: 60px;"></textarea>
+</td>
+<td>
+<select>
+<option disabled="" selected="" value="">Selecione o meio...</option>
+<option value="email">Correio eletrónico</option>
+<option value="reunion">Reunião formal</option>
+</select>
+</td>
+<td>
+<input placeholder="Nome do responsável" type="text"/>
+</td>
+<td>
+<textarea placeholder="Observações adicionais..."></textarea>
+</td>
+</tr>
+<tr class="empty-row">
+<td>
+<textarea placeholder="Descreva o que se vai comunicar..."></textarea>
+</td>
+<td>
+<input type="date"/>
+<div style="margin-top: 10px;">
+<select style="width: 100%; margin-top: 5px;">
+<option disabled="" selected="" value="">Frequência</option>
+<option value="unica">Comunicação única</option>
+<option value="diaria">Diariamente</option>
+<option value="semanal">Semanalmente</option>
+<option value="mensual">Mensualmente</option>
+<option value="trimestral">Trimestralmente</option>
+<option value="anual">Anualmente</option>
+</select>
+</div>
+</td>
+<td>
+<select style="margin-bottom: 10px;">
+<option disabled="" selected="" value="">Tipo</option>
+<option value="interno">Interno</option>
+<option value="externo">Externo</option>
+</select>
+<textarea placeholder="Especifique destinatários..." style="min-height: 60px;"></textarea>
+</td>
+<td>
+<select>
+<option disabled="" selected="" value="">Selecione o meio...</option>
+<option value="email">Correio eletrónico</option>
+</select>
+</td>
+<td>
+<input placeholder="Nome do responsável" type="text"/>
+</td>
+<td>
+<textarea placeholder="Observações adicionais..."></textarea>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Botones de acción -->
+<div class="form-actions">
+<button class="form-btn tertiary" onclick="addNewRow()">
+<span style="font-size: 18px;">+</span> Adicionar Nova Linha
+                </button>
+<button class="form-btn secondary" onclick="generateReport()">
+                    📊 Gerar Relatório
+                </button>
+<button class="form-btn" onclick="saveForm()">
+                    💾 Guardar Comunicações
+                </button>
+</div>
+<!-- Botón de impresión -->
+<button class="print-btn" onclick="window.print()">
+                🖨️ Imprimir Formulário
+            </button>
+</div>
+<!-- Rodapé -->
+<div class="footer">
+<p>Código: FORM-002 | Revisão: 000 | Página 1 de 1</p>
+<p><em>Documento controlado. Este registo faz parte do sistema de comunicação do SGI e deve manter-se atualizado.</em></p>
+</div>
+</div>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verifica si el logo existe, caso contrário muestra un placeholder
+            const logoImg = document.querySelector('.logo');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="80" viewBox="0 0 180 80"><rect width="180" height="80" fill="white"/><text x="90" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="%234a5568" dy="5">LOGÓTIPO DA EMPRESA</text></svg>';
+                };
+            }
+            
+            // Establecer fecha actual por defecto en campos de fecha vacíos
+            const today = new Date().toISOString().split('T')[0];
+            const dateInputs = document.querySelectorAll('.empty-row input[type="date"]:not([value])');
+            dateInputs.forEach(input => {
+                if (!input.value) {
+                    input.value = today;
+                }
+            });
+        });
+        
+        function addNewRow() {
+            const table = document.querySelector('.excel-table tbody');
+            const lastRow = table.lastElementChild.cloneNode(true);
+            
+            // Limpiar los valores de la nueva fila
+            const inputs = lastRow.querySelectorAll('input, textarea, select');
+            inputs.forEach(input => {
+                if (input.tagName === 'INPUT') {
+                    if (input.type === 'date') {
+                        input.value = new Date().toISOString().split('T')[0];
+                    } else if (input.type === 'text') {
+                        input.value = '';
+                    }
+                } else if (input.tagName === 'TEXTAREA') {
+                    input.value = '';
+                } else if (input.tagName === 'SELECT') {
+                    input.selectedIndex = 0;
+                }
+            });
+            
+            table.appendChild(lastRow);
+            
+            // Desplazar la vista hacia la nueva fila
+            lastRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            
+            // Mostrar mensaje de confirmación
+            showNotification('Nova linha adicionada corretamente', 'success');
+        }
+        
+        function saveForm() {
+            const rows = document.querySelectorAll('.excel-table tbody tr');
+            const data = [];
+            
+            rows.forEach((row, index) => {
+                const cells = row.querySelectorAll('td');
+                if (cells.length >= 6) {
+                    const rowData = {
+                        que_comunicar: cells[0].querySelector('textarea')?.value || '',
+                        cuando_comunicar: cells[1].querySelector('input[type="date"]')?.value || '',
+                        frecuencia: cells[1].querySelector('select')?.value || '',
+                        tipo_comunicacion: cells[2].querySelector('select')?.value || '',
+                        a_quien_comunicar: cells[2].querySelector('textarea')?.value || '',
+                        como_comunicar: cells[3].querySelector('select')?.value || '',
+                        quien_comunica: cells[4].querySelector('input')?.value || '',
+                        observaciones: cells[5].querySelector('textarea')?.value || '',
+                        numero_fila: index + 1
+                    };
+                    
+                    // Solo agregar si hay algún dato
+                    if (Object.values(rowData).some(value => value && value.toString().trim() !== '')) {
+                        data.push(rowData);
+                    }
+                }
+            });
+            
+            // Aquí normalmente se enviarían los datos a un servidor
+            // Por ahora, mostramos un mensaje de confirmación
+            const totalComms = data.length;
+            const internas = data.filter(d => d.tipo_comunicacion === 'interno').length;
+            const externas = data.filter(d => d.tipo_comunicacion === 'externo').length;
+            
+            alert(`✅ Comunicações guardadas com sucesso\n\n📈 Resumo:\n• Total de comunicações: ${totalComms}\n• Comunicações internas: ${internas}\n• Comunicações externas: ${externas}\n\nOs dados foram registados no sistema.`);
+            
+            // Generar reporte en formato JSON
+            const jsonData = JSON.stringify(data, null, 2);
+            const blob = new Blob([jsonData], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'comunicaciones-sgi-' + new Date().toISOString().split('T')[0] + '.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification('Dados guardados e descarregados corretamente', 'success');
+        }
+        
+        function generateReport() {
+            const rows = document.querySelectorAll('.excel-table tbody tr');
+            let report = '📋 RELATÓRIO DE COMUNICAÇÕES - SGI\n';
+            report += '========================================\n';
+            report += `Data de geração: ${new Date().toLocaleDateString('pt-PT')}\n`;
+            report += `Total de registos: ${rows.length}\n\n`;
+            
+            rows.forEach((row, index) => {
+                const cells = row.querySelectorAll('td');
+                if (cells.length >= 6) {
+                    const que = cells[0].querySelector('textarea')?.value || '';
+                    const cuando = cells[1].querySelector('input[type="date"]')?.value || '';
+                    const quien = cells[4].querySelector('input')?.value || '';
+                    
+                    if (que.trim() || cuando.trim() || quien.trim()) {
+                        report += `\n🔹 Comunicação #${index + 1}:\n`;
+                        report += `   • O quê: ${que.substring(0, 100)}${que.length > 100 ? '...' : ''}\n`;
+                        report += `   • Quando: ${cuando || 'Não especificado'}\n`;
+                        report += `   • Responsável: ${quien || 'Não especificado'}\n`;
+                    }
+                }
+            });
+            
+            // Crear y descargar reporte
+            const blob = new Blob([report], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'reporte-comunicaciones-' + new Date().toISOString().split('T')[0] + '.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification('Relatório gerado e descarregado', 'info');
+        }
+        
+        function showNotification(message, type) {
+            // Crear elemento de notificación
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                background-color: ${type === 'success' ? '#38a169' : '#3182ce'};
+                color: white;
+                border-radius: 5px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 1000;
+                font-weight: bold;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            // Remover después de 3 segundos
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+            
+            // Agregar estilos de animación si no existen
+            if (!document.querySelector('#notification-styles')) {
+                const style = document.createElement('style');
+                style.id = 'notification-styles';
+                style.textContent = `
+                    @keyframes slideIn {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                    @keyframes slideOut {
+                        from { transform: translateX(0); opacity: 1; }
+                        to { transform: translateX(100%); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+    </script>
+</body>
+</html>
