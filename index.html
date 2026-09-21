@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Início - SGI - FACASI</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        sgi: {
+                            green: '#2e8b57',
+                            blue: '#1e40af',
+                            gold: '#d4af37'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Transições suaves para tema escuro */
+        body, .sidebar, header, .frame-wrapper, .menu-item, .feature-card, .stats-card {
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .sidebar { transition: all 0.3s ease; }
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                position: fixed; z-index: 50; height: 100vh;
+            }
+            .sidebar.open { transform: translateX(0); }
+            .overlay {
+                display: none; position: fixed; inset: 0;
+                background-color: rgba(0,0,0,0.5); z-index: 40;
+            }
+            .overlay.open { display: block; }
+        }
+        .menu-item { transition: all 0.2s ease; }
+        .menu-item:hover { background-color: rgba(243, 244, 246, 0.5); border-left: 4px solid #3b82f6; }
+        .menu-item.active { background-color: rgba(239, 246, 255, 0.5); border-left: 4px solid #2563eb; font-weight: 600; }
+        .feature-card { transition: all 0.3s ease; }
+        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .stats-card { transition: all 0.3s ease; }
+        .stats-card:hover { transform: translateY(-3px); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .logo-container { background: linear-gradient(135deg, #1e40af 0%, #2e8b57 100%); box-shadow: 0 4px 6px rgba(37,99,235,0.3); }
+        .logo-img {
+            width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
+            background: linear-gradient(135deg, #1e40af 0%, #2e8b57 100%);
+            display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 14px; text-align: center;
+        }
+        @keyframes pulse { 0%{transform:scale(1)} 50%{transform:scale(1.05)} 100%{transform:scale(1)} }
+        .pulse { animation: pulse 2s infinite; }
+
+        /* Contenedor del iframe sem barras de rolagem */
+        .frame-wrapper {
+            background: #fff; border: 1px solid #e5e7eb; border-radius: 0.75rem; overflow: hidden;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+        
+        /* Tema escuro para o frame-wrapper */
+        .dark .frame-wrapper {
+            background: #1f2937; border-color: #374151;
+        }
+        
+        /* O iframe ocupa todo o espaço sem barras */
+        #contentFrame {
+            width: 100%;
+            height: calc(100vh - 120px);
+            border: 0;
+            overflow: hidden;
+        }
+        
+        /* Remover barras de rolagem em todos os elementos */
+        body, html {
+            overflow: hidden;
+        }
+        
+        /* Ajustar contenedores para evitar overflow */
+        .flex-1.flex.flex-col {
+            overflow: hidden;
+        }
+        
+        /* Assegurar que o main não tenha scroll */
+        main {
+            overflow: hidden !important;
+        }
+        
+        /* Ajustar sidebar para que o logo se vea completo */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+        
+        .logo-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
+        /* Íconos con colores vivos */
+        .icon-home { color: #3b82f6 !important; }
+        .icon-doc { color: #10b981 !important; }
+        .icon-building { color: #f59e0b !important; }
+        .icon-book { color: #8b5cf6 !important; }
+        .icon-list { color: #ec4899 !important; }
+        .icon-globe { color: #06b6d4 !important; }
+        .icon-award { color: #f97316 !important; }
+        .icon-teacher { color: #0ea5e9 !important; }
+        .icon-contract { color: #84cc16 !important; }
+        .icon-cogs { color: #ef4444 !important; }
+        .icon-archive { color: #6366f1 !important; }
+        .icon-users { color: #2e8b57 !important; }
+        .icon-calendar { color: #f43f5e !important; }
+        .icon-audit { color: #8b5cf6 !important; }
+        .icon-checklist { color: #10b981 !important; }
+
+        /* Estilos para tema escuro */
+        .dark body {
+            background-color: #111827;
+            color: #f9fafb;
+        }
+        
+        .dark .sidebar {
+            background-color: #1f2937;
+            border-color: #374151;
+        }
+        
+        .dark header {
+            background-color: #1f2937;
+            border-color: #374151;
+        }
+        
+        .dark .menu-item {
+            color: #d1d5db;
+        }
+        
+        .dark .menu-item:hover {
+            background-color: rgba(55, 65, 81, 0.5);
+        }
+        
+        .dark .menu-item.active {
+            background-color: rgba(59, 130, 246, 0.2);
+        }
+        
+        .dark .text-gray-800 {
+            color: #f9fafb;
+        }
+        
+        .dark .text-gray-600 {
+            color: #9ca3af;
+        }
+        
+        .dark .text-gray-500 {
+            color: #6b7280;
+        }
+        
+        .dark .border-gray-200 {
+            border-color: #374151;
+        }
+        
+        .dark .bg-gray-50 {
+            background-color: #111827;
+        }
+        
+        .dark .bg-white {
+            background-color: #1f2937;
+        }
+        
+        /* Botão de tema */
+        .theme-toggle {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Animação de transição para iframes */
+        iframe {
+            transition: filter 0.5s ease;
+        }
+        
+        .dark iframe {
+            filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.9);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex h-screen overflow-hidden dark:bg-gray-900">
+<!-- Overlay para mobile -->
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+<!-- SIDEBAR -->
+<div class="sidebar bg-white w-64 border-r border-gray-200 flex flex-col dark:bg-gray-800 dark:border-gray-700" id="sidebar">
+<div class="p-5 border-b border-gray-200 flex flex-col items-center dark:border-gray-700">
+<div class="logo-container w-20 h-20 rounded-full flex items-center justify-center mb-3 overflow-hidden pulse">
+<div class="logo-img">
+<img alt="Logo FACASI" src="Logotipo/logo.png" style="width: 100%; height: 100%; object-fit: cover;"/>
+</div>
+</div>
+<h1 class="text-xl font-bold text-gray-800 dark:text-white">SGI</h1>
+<p class="text-sm text-gray-500 text-center dark:text-gray-400">FACASI</p>
+</div>
+<!-- MENÚ -->
+<nav class="flex-1 overflow-y-auto py-4 px-3" id="sideMenu">
+<!-- Principal -->
+<div class="mb-6">
+<h2 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 px-3">Menu Principal</h2>
+<ul>
+<li class="mb-1">
+<!-- Cargar página de bienvenida dentro del frame -->
+<a class="menu-item active flex items-center p-3 text-gray-700 rounded-lg dark:text-gray-300" data-menu="inicio" href="html/Iniciooriginal.html" target="contentFrame">
+<i class="fas fa-home w-5 icon-home mr-3"></i> <span>Início</span>
+</a>
+</li>
+<li class="mb-1"> <a class="menu-item flex items-center p-3 text-gray-700 rounded-lg dark:text-gray-300" data-menu="documentacion" href="html/indice_documental_moderno.html" target="contentFrame">
+<i class="fas fa-file-alt w-5 icon-doc mr-3"></i> <span>Documentação</span>
+</a> </li>
+</ul>
+</div>
+<!-- Normas -->
+<div class="mb-6"></div>
+<!-- Empresa -->
+<div class="mb-6">
+<h2 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 px-3">empresa</h2>
+<ul>
+<li class="mb-1">
+<a class="menu-item flex items-center p-3 text-gray-700 rounded-lg dark:text-gray-300" data-menu="nosotros" href="html/apresentacao.html" target="contentFrame">
+<i class="fas fa-building w-5 icon-building mr-3"></i> <span>Sobre Nós</span>
+</a>
+</li>
+<li class="mb-1">
+<a class="menu-item flex items-center p-3 text-gray-700 rounded-lg dark:text-gray-300" data-menu="manual" href="html/comousarmanual.html" target="contentFrame">
+<i class="fas fa-book w-5 icon-book mr-3"></i> <span>como Usar o SGI</span>
+</a>
+</li>
+<li class="mb-1">
+<a class="menu-item flex items-center p-3 text-gray-700 rounded-lg dark:text-gray-300" data-menu="indice" href="html/indice_documental_moderno.html" target="contentFrame">
+<i class="fas fa-list-ol w-5 icon-list mr-3"></i> <span>Índice de documentos</span>
+</a>
+</li>
+<li class="mb-1">
+<a class="menu-item flex items-center p-3 text-gray-700 rounded-lg dark:text-gray-300" data-menu="clima" href="html/ADMCambioClimatico.html" target="contentFrame">
+<i class="fas fa-globe-americas w-5 icon-globe mr-3"></i> <span>Mudanças Climáticas</span>
+</a>
+</li>
+<li class="mb-1">
+<a class="menu-item flex items-center p-3 text-gray-700 rounded-lg dark:text-gray-300" data-menu="certificados" href="html/certificados.html" target="contentFrame">
+<i class="fas fa-award w-5 icon-award mr-3"></i> <span>Certificados</span>
+</a>
+</li>
+<li class="mb-1">
+<a class="menu-item flex items-center p-3 text-gray-700 rounded-lg dark:text-gray-300" data-menu="capacitaçãoes" href="html/cursos.html" target="contentFrame">
+<i class="fas fa-chalkboard-teacher w-5 icon-teacher mr-3"></i> <span>Capacitaçãoes</span>
+</a>
+</li>
+</ul>
+<!-- Gestão -->
+<div class="mb-6">
+<h2 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 px-3">Gestão</h2>
+<ul>
+<li class="mb-1">
+<a class="menu-item flex items-center p-3 text-gray-700 rounded-lg dark:text-gray-300" data-menu="clausulas" href="html/Clausulas.html" target="contentFrame">
+<i class="fas fa-file-contract w-5 icon-contract mr-3"></i> <span>Cláusulas</span>
+</a>
+</li>
+<li class="mb-1">
+<a class="menu-item flex items-center p-3 text-gray-700 rounded-lg dark:text-gray-300" data-menu="procesos" href="html/poes.html" target="contentFrame">
+<i class="fas fa-cogs w-5 icon-cogs mr-3"></i> POE 
+                            </a>
+</li>
+<li class="mb-1">
+<a class="menu-item flex items-center p-3 text-gray-700 rounded-lg dark:text-gray-300" data-menu="registros" href="html/Sistema-de-Registros.html" target="contentFrame">
+<i class="fas fa-archive w-5 icon-archive mr-3"></i> <span>Registos</span>
+</a>
+</li>
+<li class="mb-1">
+<a class="menu-item flex items-center p-3 text-gray-700 rounded-lg dark:text-gray-300" data-menu="auditoria" href="html/auditoria-interna.html" target="contentFrame">
+<i class="fas fa-clipboard-check w-5 icon-audit mr-3"></i> <span>Auditoria Interna</span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+<!-- Sistema -->
+<div class="mb-6">
+<h2 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 px-3">Sistema</h2>
+<ul>
+<li class="mb-1">
+<a class="menu-item flex items-center p-3 text-gray-700 rounded-lg dark:text-gray-300" data-menu="administradores" href="html/indice_documental_moderno.html" target="contentFrame">
+<i class="fas fa-users-cog w-5 icon-users mr-3"></i> Manuais e Documentação
+                        </a>
+</li>
+<li class="mb-1">
+<a class="menu-item flex items-center p-3 text-gray-700 rounded-lg dark:text-gray-300" data-menu="calendario" href="html/Calendario.html" target="contentFrame">
+<i class="fas fa-calendar-alt w-5 icon-calendar mr-3"></i> <span>Calendário</span>
+</a>
+</li>
+<li class="mb-1">
+<a class="menu-item flex items-center p-3 text-gray-700 rounded-lg dark:text-gray-300" data-menu="matriz" href="matriz-correlacao-iso.html" target="contentFrame">
+<i class="fas fa-table-cells w-5 icon-list mr-3"></i> <span>Matriz de Correlação ISO</span>
+</a>
+</li>
+<li class="mb-1">
+<a class="menu-item flex items-center p-3 text-gray-700 rounded-lg dark:text-gray-300" data-menu="inventario" href="inventario-documental.html" target="contentFrame">
+<i class="fas fa-boxes-stacked w-5 icon-archive mr-3"></i> <span>Inventário Documental</span>
+</a>
+</li>
+<li class="mb-1">
+<a class="menu-item flex items-center p-3 text-gray-700 rounded-lg dark:text-gray-300" data-menu="validacao" href="relatorio-validacao.html" target="contentFrame">
+<i class="fas fa-clipboard-check w-5 icon-audit mr-3"></i> <span>Relatório de Validação</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Footer del Sidebar -->
+<div class="p-4 border-t border-gray-200 text-center dark:border-gray-700">
+<p class="text-xs text-gray-500 dark:text-gray-400">
+<i class="fa-solid fa-envelope mr-1 text-primary-600"></i> admin@facasi.com
+            </p>
+<p class="text-xs text-gray-500 dark:text-gray-400">
+<i class="fa-solid fa-phone mr-1 text-primary-600"></i> +244 938 566 188
+            </p>
+</div>
+</div>
+<!-- CONTENEDOR PRINCIPAL -->
+<div class="flex-1 flex flex-col overflow-hidden">
+<!-- Topbar -->
+<header class="bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+<div class="flex items-center justify-between p-4">
+<div class="flex items-center">
+<button class="md:hidden mr-3 text-gray-600 dark:text-gray-300" onclick="toggleSidebar()">
+<i class="fas fa-bars text-xl"></i>
+</button>
+<div class="flex items-center">
+<div class="logo-container w-10 h-10 rounded-full flex items-center justify-center mr-3 md:hidden overflow-hidden">
+<div class="logo-img" style="font-size: 10px;">
+<img alt="FACASI" src="Logotipo/logo.png" style="width: 100%; height: 100%; object-fit: cover;"/>
+</div>
+</div>
+<h1 class="text-xl font-bold text-gray-800 dark:text-white">Sistema de Gestão Integrado</h1>
+</div>
+</div>
+<div class="flex items-center space-x-4">
+<!-- Botão de tema claro/escuro -->
+<button aria-label="Alternar tema claro/escuro" class="theme-toggle" id="themeToggle">
+<i class="fas fa-moon" id="themeIcon"></i>
+</button>
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center border dark:border-gray-600">
+<img alt="ISO 9001" class="w-full h-full object-contain" height="320" src="Logotipo/9001.png" width="320"/>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center border dark:border-gray-600">
+<img alt="ISO 45001" class="w-full h-full object-contain" height="320" src="Logotipo/45001.png" width="320"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- ÁREA QUE SOLO CAMBIA (IFRAME) -->
+<main class="flex-1 overflow-hidden p-5 bg-gray-50 dark:bg-gray-900">
+<div class="frame-wrapper h-full dark:bg-gray-800">
+<iframe id="contentFrame" name="contentFrame" src="html/Iniciooriginal.html" title="Contenido SGI - FACASI"></iframe>
+</div>
+</main>
+</div>
+<script>
+        // Toggle sidebar (mobile)
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('open');
+        }
+
+        // Marcar activo en el sidebar al hacer click
+        const sideMenu = document.getElementById('sideMenu');
+        sideMenu.addEventListener('click', function(e) {
+            const link = e.target.closest('a.menu-item');
+            if (!link) return;
+
+            if (link.getAttribute('target') === 'contentFrame') {
+                sideMenu.querySelectorAll('.menu-item').forEach(a => a.classList.remove('active'));
+                link.classList.add('active');
+
+                if (window.innerWidth <= 768) {
+                    toggleSidebar();
+                }
+            }
+        });
+
+        // Sincronizar título
+        const contentFrame = document.getElementById('contentFrame');
+        contentFrame.addEventListener('load', () => {
+            try {
+                const innerTitle = contentFrame.contentDocument?.title;
+                if (innerTitle) {
+                    document.title = `${innerTitle} — SGI FACASI`;
+                }
+            } catch (err) {
+                // Ignorar si es cross-origin
+            }
+        });
+
+        // Sistema de tema claro/escuro
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const html = document.documentElement;
+        
+        // Verificar preferência salva ou do sistema
+        const savedTheme = localStorage.getItem('theme') || 
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        // Aplicar tema inicial
+        if (savedTheme === 'dark') {
+            html.classList.add('dark');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        } else {
+            html.classList.remove('dark');
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+        }
+        
+        // Alternar tema
+        themeToggle.addEventListener('click', () => {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        });
+        
+        // Aplicar tema escuro aos iframes também
+        function applyDarkModeToIframes() {
+            const iframes = document.querySelectorAll('iframe');
+            iframes.forEach(iframe => {
+                try {
+                    if (html.classList.contains('dark')) {
+                        iframe.style.filter = 'invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.9)';
+                    } else {
+                        iframe.style.filter = 'none';
+                    }
+                } catch (e) {
+                    // Ignorar erros de cross-origin
+                }
+            });
+        }
+        
+        // Observar mudanças no iframe principal
+        const observer = new MutationObserver(() => {
+            applyDarkModeToIframes();
+        });
+        
+        observer.observe(html, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+        
+        // Aplicar inicialmente
+        applyDarkModeToIframes();
+        
+        // Aplicar também quando o iframe carrega
+        contentFrame.addEventListener('load', () => {
+            applyDarkModeToIframes();
+        });
+    </script>
+</body>
+</html>

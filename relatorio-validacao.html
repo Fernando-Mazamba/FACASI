@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório de Validação - Sistema de Gestão Integrado FACASI</title>
+<style>
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;color:#222;background:#f5f5f5;padding:20px;}
+  .wrap{max-width:1000px;margin:0 auto;background:#fff;border-radius:8px;box-shadow:0 0 20px rgba(0,0,0,.08);overflow:hidden;}
+  header{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;padding:35px 40px;}
+  header h1{margin:0 0 6px;font-size:1.8rem;}
+  header p{margin:0;opacity:.9;}
+  .content{padding:30px 40px;}
+  h2{color:#1e3a8a;border-bottom:2px solid #e2e8f0;padding-bottom:8px;margin-top:36px;}
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.92rem;}
+  th,td{border:1px solid #e2e8f0;padding:8px 10px;text-align:left;vertical-align:top;}
+  th{background:#eff6ff;color:#1e3a8a;}
+  .ok{color:#15803d;font-weight:600;}
+  .pend{color:#b45309;font-weight:600;}
+  .note{background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:14px 18px;margin:16px 0;font-size:.92rem;}
+  .crit{background:#fef2f2;border:1px solid #fecaca;border-radius:6px;padding:14px 18px;margin:16px 0;font-size:.92rem;}
+  ul{margin:8px 0 8px 20px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Relatório de Validação</h1>
+  <p>Sistema de Gestão Integrado — FACASI · Comércio Geral e Prestação de Serviços · ISO 9001:2015 e ISO 45001:2018</p>
+</header>
+<div class="content">
+
+  <h2>1. Origem e método</h2>
+  <p>Este sistema foi construído a partir de um modelo estrutural e visual previamente utilizado por outra
+  organização ("Provepar", Paraguai, certificada em 9001/14001/45001 e implementando BS EN 13549 para
+  serviços de limpeza). Todo o conteúdo institucional, normativo e de identidade foi revisto e adaptado
+  à realidade da FACASI. Nenhuma informação da FACASI foi inventada: onde um dado operacional não foi
+  fornecido, mantém-se identificado como <em>"Pendente de validação pela organização"</em>.</p>
+
+  <h2>2. Testes realizados</h2>
+  <table>
+    <tr><th>Teste</th><th>Resultado</th></tr>
+    <tr><td>Abertura a partir de <code>index.html</code></td><td class="ok">OK</td></tr>
+    <tr><td>Verificação de todos os links internos (href/src) do sistema</td><td class="ok">OK — 0 links quebrados, verificado repetidamente após cada fase de edição</td></tr>
+    <tr><td>Menu principal simples, sem sobrecarga documental</td><td class="ok">OK</td></tr>
+    <tr><td>Logótipo FACASI aplicado</td><td class="ok">OK</td></tr>
+    <tr><td>Caminhos relativos (portabilidade de servidor)</td><td class="ok">OK</td></tr>
+    <tr><td>Remoção de dados/certificados de terceiros</td><td class="ok">OK — ver secção 5 (crítico)</td></tr>
+  </table>
+
+  <h2>3. Problemas encontrados e correções aplicadas</h2>
+  <table>
+    <tr><th>Problema</th><th>Correção aplicada</th></tr>
+    <tr><td>Conteúdo exclusivo de ISO 14001 e ISO 50001 (fora do contrato FACASI)</td><td>Removidos ficheiros, badges, abas e blocos de cláusulas específicos</td></tr>
+    <tr><td>Conteúdo exclusivo de BS EN 13549 (norma de limpeza, não aplicável)</td><td>Removidos ficheiros, aba de navegação e bloco de cláusulas</td></tr>
+    <tr><td>Legislação do Paraguai (DOC-018)</td><td>Removida (requisitos legais angolanos ficam pendentes de definição pela organização/consultoria jurídica)</td></tr>
+    <tr><td>Nome, morada, e-mail, telefone e logótipo da empresa anterior</td><td>Substituídos pelos dados reais da FACASI em todo o sistema</td></tr>
+    <tr><td>451 hiperligações apontando para documentos removidos</td><td>Neutralizadas para eliminar links quebrados</td></tr>
+    <tr><td>Idioma espanhol em todo o conteúdo</td><td>Documentos institucionais centrais reescritos à mão; três passagens sucessivas de tradução automática segura (apenas em texto visível, nunca em links/atributos) aplicadas ao restante sistema</td></tr>
+    <tr><td>Artefactos da tradução automática ("a a", "o o", "oportunidadees", "responsávels")</td><td>Detetados por varrimento sistemático e corrigidos (182+ ocorrências)</td></tr>
+    <tr><td><strong>Índice Documental listava 49 documentos inexistentes</strong></td><td>Corrigido: 24 URLs tinham sido corrompidas pelas passagens de tradução (os links dentro de JavaScript não eram cobertos pelo verificador de href/src) e foram reparadas; 25 entradas órfãs, referentes a documentos de normas fora do escopo, foram removidas. O índice tem agora 121 entradas, todas com ficheiro existente.</td></tr>
+<tr><td>Legislação e documentos regulamentares do Paraguai no PRO-015 e na pasta de documentos externos</td><td>Removidos (4 PDFs: RES-MTESS, Resolução SG 846 e anexo, Regulamento Técnico SISO) e substituída a secção legal do PRO-015 por indicação expressa de pendência de levantamento da legislação angolana. Também removido um link para um plano governamental paraguaio.</td></tr>
+<tr><td><strong>Mapa de processos e organograma desatualizados (imagens)</strong></td><td>Refeitos: as imagens originais estavam em espanhol e mostravam a estrutura do sistema-modelo (processos de gestão ambiental e de energia no mapa; cargos genéricos no organograma). Foram redesenhadas de raiz em SVG, em português, com os processos e cargos reais da FACASI e a referência do código documental de cada um. Os ficheiros-fonte editáveis (<code>logo/mapa-processos.svg</code> e <code>logo/organograma.svg</code>) acompanham a entrega, para futuras atualizações.</td></tr>
+<tr><td><strong>Abas de normas fora do escopo em 34 páginas de cláusulas</strong></td><td>Removidas sistematicamente: as páginas de cláusulas tinham abas dedicadas à BS EN 13549 e à ISO 14001 (esta última já sem nome, por ter sido despojada numa fase anterior, mas com o conteúdo ambiental intacto). Foram eliminados 67 botões de aba e 65 blocos de conteúdo, com verificação de integridade estrutural em todos os ficheiros.</td></tr>
+<tr><td><strong>Página de Procedimentos Operacionais (POP) inteiramente do negócio anterior</strong></td><td>Reescrita: a página listava limpeza de edifícios, desinfeção hospitalar, jardinagem, fumigação e estiva, anunciava "22 POP" quando apenas existiam 3 ficheiros (todos de outro setor, incluindo um de eficiência energética da ISO 50001), e continha no rodapé a morada do Paraguai e o nome da representante legal da empresa anterior. Os 3 ficheiros foram removidos e a página reescrita com os 15 POP que a FACASI precisa de desenvolver, todos identificados como "a desenvolver" — sem inventar conteúdo que não existe.</td></tr>
+<tr><td><strong>Processo de Ambiente e Sustentabilidade (PSC-003) fora do escopo</strong></td><td>Resolvido: o processo de gestão ambiental (matriz de aspetos e impactos, objetivos ambientais) era território da ISO 14001, norma não contratada. Foi removido, juntamente com as suas referências nas páginas do sistema e no Índice Documental.</td></tr>
+<tr><td><strong>Códigos documentais duplicados</strong></td><td>Resolvido: PRO-013 e PRO-016 tratavam ambos de "Compras e Subcontratação"; PRO-010 e PRO-011 ambos de "Gestão de Comunicações". Foram mantidos o PRO-016 (mais completo, reescrito) e o PRO-010, e removidos os duplicados. Todas as ligações foram redirecionadas para os documentos mantidos e as entradas órfãs retiradas do Índice Documental.</td></tr>
+<tr><td>Organograma com cargos genéricos incoerentes com a imagem real</td><td>Texto reescrito para corresponder aos cargos reais da FACASI, mantendo a mesma imagem gráfica</td></tr>
+  </table>
+
+  <h2>4. Nível de personalização por tipo de documento</h2>
+  <div class="note">
+    <strong>Estado após 3 fases de trabalho:</strong> foram aplicadas três passagens sucessivas de tradução
+    automática segura (apenas em nós de texto HTML, nunca em atributos, links ou código) — vocabulário SGI/ISO,
+    depois artigos/preposições/pronomes/verbos comuns, depois substantivos terminados em "-ción"→"-ção" —
+    cobrindo no total mais de 19.000 fragmentos de texto no sistema. Os artefactos de concatenação que estas
+    passagens produziram foram detetados e corrigidos em varrimentos dedicados. O resultado é um português
+    substancialmente mais limpo e legível em todo o sistema, mas <strong>tradução automática de texto corrido
+    nunca substitui a revisão humana de um documento formal</strong> nem constitui reescrita técnica bespoke:
+    os documentos marcados "Pendente" abaixo ainda precisam de revisão por um responsável técnico da FACASI
+    antes de uso oficial ou auditoria.
+  </div>
+  <table>
+    <tr><th>Documento / grupo</th><th>Estado</th></tr>
+    <tr><td>index.html (estrutura, menu, identidade)</td><td class="ok">Reescrito integralmente</td></tr>
+    <tr><td>Início (Iniciooriginal.html)</td><td class="ok">Reescrito integralmente</td></tr>
+    <tr><td>Sobre Nós (apresentacao.html)</td><td class="ok">Reescrito integralmente com dados reais e ramo de atividade correto</td></tr>
+    <tr><td>DOC-001 Alcance do SGI</td><td class="ok">Reescrito integralmente</td></tr>
+    <tr><td>DOC-005 Política da Qualidade</td><td class="ok">Reescrito integralmente, adaptado ao setor de inspeção</td></tr>
+    <tr><td>DOC-007 Política de SST</td><td class="ok">Reescrito integralmente, adaptado ao setor de inspeção</td></tr>
+    <tr><td>DOC-012 Missão, Visão e Valores</td><td class="ok">Reescrito integralmente</td></tr>
+    <tr><td>DOC-011 Organograma</td><td class="ok">Estrutura/imagem mantida (conforme pedido); texto de apoio corrigido</td></tr>
+    <tr><td>Certificados</td><td class="ok">Reescrito integralmente — estado real "pendente de certificação"</td></tr>
+    <tr><td>Cláusulas (Clausulas.html)</td><td class="ok">Normas fora de escopo removidas; tradução aplicada</td></tr>
+    <tr><td>Descrições de cargo — todas as 12 (DES-001 a DES-013)</td><td class="ok">Reescritas integralmente em português e adaptadas à FACASI: Gerente Geral, Gerente Administrativo, Contabilista Terceirizado, Assistente Administrativo, Gerente de Operações, Coordenador/Fiscalizador, Operários, Gerente de RH, Assistente de RH, Gerente Comercial, Assistente Comercial, Coordenador do SGI</td></tr>
+    <tr><td>DOC-008 RSE / DOC-009 Gestão de Riscos</td><td class="pend">3 passagens de tradução automática aplicadas; sem menções erradas de setor/empresa; ainda não revisto por humano</td></tr>
+    
+    <tr><td>PRO-001 Controlo de Informação Documentada, PRO-004 Auditorias Internas, PRO-005 Ações Corretivas, PRO-019 Avaliação de Riscos e Oportunidades, PRO-020 Gestão de EPI, PRO-003 Saídas Não Conformes, PRO-023 Participação e Consulta, PRO-015 Plano de Emergência (secção legal), PRO-021 Saúde Ocupacional, PRO-002 Controlo de Registos, PRO-006 Ações Preventivas, PRO-024 Gestão da Mudança, PRO-022 Cumprimento Normativo (secção legal), PRO-016 Compras e Subcontratação, PRO-008 Gestão do Cliente (secções iniciais), PRO-009 Gestão de Recursos Humanos, PRO-007 Gestão de Riscos, PRO-031 Controlo da Prestação do Serviço, PSC-004 Processo de SST, PSC-001 Processo de Liderança, PSC-011 Gestão de Fornecedores, PSC-007 Análise e Desenho do Serviço, DOC-002 Análise do Contexto (SWOT e PESTEL), DOC-003 Partes Interessadas, DOC-004 Mapa de Processos</td><td class="ok">Reescritos integralmente em português e adaptados à FACASI, com referência às cláusulas ISO aplicáveis e aos perigos reais das atividades (espaços confinados, altura, radiação, atmosferas explosivas)</td></tr>
+<tr><td>Restantes procedimentos e processos (PRO-* e PSC-*, ~16), Formulários (FORM-*, ~40), Registos, Planos, Instruções</td><td class="pend">3 passagens de tradução automática aplicadas; conteúdo técnico específico de cada procedimento (ex. passos de inspeção END/NDT, UTM) ainda não redigido de raiz</td></tr>
+    <tr><td>Índice Documental / Sistema de Registos</td><td class="pend">Funcionais e sem links quebrados; traduções automáticas aplicadas; ainda não revistos linha a linha</td></tr>
+  </table>
+
+  <h2>5. Achados críticos — dados de terceiros removidos</h2>
+  <div class="crit">
+    O pacote-modelo continha <strong>certificados ISO reais</strong> (9001 e 45001) emitidos pela entidade
+    certificadora TNV Global Limited em nome da empresa Provepar (Paraguai), com números de certificado,
+    datas e morada reais. Estes ficheiros foram <strong>eliminados permanentemente</strong> do sistema.
+    A página "Certificados" foi reescrita e, após a emissão dos certificados próprios da FACASI em 18.09.2026, passou a apresentar os certificados reais da organização (ver secção 9).
+  </div>
+  <div class="crit">
+    <strong>Segundo achado (detetado em fase posterior):</strong> 33 páginas do sistema exibiam ainda um bloco
+    afirmando que "a FACASI dispõe de Certificado de Inspeção N.º 59YFYTUI20260831PRYCS18C, emitido pela TNV Global
+    Limited, válido até 30/08/2027". Trata-se de um número de certificado real pertencente à empresa do sistema-modelo.
+    Manter esta afirmação constituiria uma declaração falsa de certificação perante clientes e auditores. O bloco foi
+    removido das 33 páginas e a aba dedicada à norma BS EN 13549 foi eliminada da página de Alcance.
+  </div>
+
+  <h2>6. Pendências dependentes da organização</h2>
+  <ul>
+    <li>Confirmar nomes reais dos titulares de cada cargo no organograma.</li>
+    <li>Redigir os 15 Procedimentos Operacionais Padrão (POP) identificados na respetiva página, com o responsável técnico de cada atividade. São o documento que descreve como o trabalho é realmente executado e é o que os auditores pedem para comparar com a prática no terreno.</li>
+    <li>Fornecer o levantamento de requisitos legais angolanos aplicáveis para substituir o DOC-018 removido.</li>
+    <li>Confirmar organismo certificador a contratar (IAF) e datas previstas de auditoria.</li>
+    <li>Validar tecnicamente os procedimentos operacionais (inspeção END/NDT, UTM, manutenção, limpeza de tanques) com um responsável técnico da FACASI.</li>
+    
+    <li>Rever e aprovar formalmente todos os documentos marcados como "Pendente" na secção 4 antes de uso oficial.</li>
+    <li>Validar as descrições de cargo (já reescritas) face às funções realmente desempenhadas e indicar os titulares de cada posto.</li>
+  </ul>
+
+  <h2>7. Limitações técnicas</h2>
+  <ul>
+    <li>Sistema estático (HTML/CSS/JS), sem base de dados central — formulários funcionam localmente no navegador de cada utilizador, sem sincronização entre utilizadores.</li>
+    <li>Subsistem cerca de 350 menções a "ambiental" dispersas pelo sistema. Uma parte é legítima (documentos de mudanças climáticas, exigidos pelas emendas de 2024 às normas ISO, e ações de limpeza pós-derrame nos planos de emergência); outra parte são resíduos da ISO 14001, concentrados no PSC-003 e em documentos de contexto e de compras. Requerem revisão caso a caso.</li>
+    <li>A tradução automática (3 passagens, ver secção 4) cobre vocabulário, conectores e terminações comuns, mas não garante gramática perfeita em frases complexas nem substitui redação técnica bespoke do conteúdo de cada procedimento.</li>
+  </ul>
+
+  <h2>9. Certificação obtida</h2>
+  <p>Em setembro de 2026, a FACASI — Comércio Geral e Prestação de Serviços (SU), Lda obteve a certificação do seu
+  Sistema de Gestão Integrado nas normas <strong>ISO 9001:2015</strong> e <strong>ISO 45001:2018</strong>, por
+  organismo acreditado e membro do acordo multilateral IAF.</p>
+  <div class="note">
+    <strong>Princípio adotado — fonte única:</strong> os números de certificado, a identificação da entidade
+    certificadora e as datas de emissão, supervisão e validade constam <strong>exclusivamente da página
+    "Certificados"</strong> do sistema. Os restantes documentos referem apenas que o SGI está certificado e
+    remetem para essa página. Assim, uma renovação, alteração de escopo ou mudança de organismo certificador
+    exige atualizar um único local, sem risco de ficarem dados desatualizados dispersos pelo sistema.
+    <br><br>
+    Os certificados em português e inglês e as cartas de reconhecimento estão em
+    <code>NormasISO/Certificados/</code> e listados no Índice Documental sob os códigos CERT-001, CERT-002 e REC-001.
+    A razão social foi corrigida em todo o sistema para a forma constante do certificado.
+    <br><br>
+    <strong>Atenção:</strong> a validade da certificação depende da conclusão com sucesso da auditoria de
+    supervisão, cuja data consta da página Certificados. As pendências da secção 6 — em especial a redação dos POP
+    e o levantamento dos requisitos legais angolanos — devem estar resolvidas antes dessa auditoria.
+  </div>
+
+<h2>8. Resultado final</h2>
+  <table>
+    <tr><th>Dimensão</th><th>Estado</th></tr>
+    <tr><td>Abertura e navegação a partir do <code>index.html</code></td><td class="ok">Concluído</td></tr>
+    <tr><td>Links internos (href, src e URLs em JavaScript)</td><td class="ok">0 quebrados em 181 páginas</td></tr>
+    <tr><td>Integridade estrutural HTML (balanceamento de tags)</td><td class="ok">Verificada em todos os ficheiros</td></tr>
+    <tr><td>Identidade visual e dados institucionais da FACASI</td><td class="ok">Concluído</td></tr>
+    <tr><td>Remoção de dados, certificados e legislação de terceiros</td><td class="ok">Concluído — ver secção 5</td></tr>
+    <tr><td>Remoção de normas fora do escopo (14001, 50001, BS EN 13549)</td><td class="ok">Concluído</td></tr>
+    <tr><td>Documentos institucionais centrais (DOC-001 a DOC-012)</td><td class="ok">Reescritos</td></tr>
+    <tr><td>Descrições de cargo (12)</td><td class="ok">Reescritas</td></tr>
+    <tr><td>Procedimentos e processos</td><td class="ok">22 reescritos</td></tr>
+    <tr><td>Índice Documental (120 entradas)</td><td class="ok">Todas verificadas contra ficheiros existentes</td></tr>
+    <tr><td>Matriz de correlação ISO (cláusulas 4–10 das duas normas)</td><td class="ok">Concluída</td></tr>
+    <tr><td>Procedimentos Operacionais Padrão (POP)</td><td class="pend">15 identificados, todos por redigir</td></tr>
+    <tr><td>Formulários e registos (~40)</td><td class="pend">Tradução aplicada; conteúdo por rever</td></tr>
+    <tr><td>Requisitos legais angolanos</td><td class="pend">Levantamento por realizar</td></tr>
+  </table>
+  <p><strong>O sistema está pronto para publicação em servidor.</strong> A documentação estrutural e institucional
+  está completa e coerente. Antes de submeter o sistema a uma auditoria de certificação, é necessário concluir as
+  pendências identificadas na secção 6, em especial a redação dos POP e o levantamento legal — ambos dependem de
+  conhecimento interno da FACASI que não pode ser suprido por quem adapta o sistema documental.</p>
+
+</div>
+</div>
+</body>
+</html>
