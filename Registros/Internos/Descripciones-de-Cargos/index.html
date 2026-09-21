@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Descriçãoes de Cargos</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --primary:#2563eb;
+  --accent:#38bdf8;
+  --surface:#1e293b;
+  --surface-light:#334155;
+  --text:#f1f5f9;
+  --text-secondary:#94a3b8;
+  --success:#10b981;
+  --border-radius:12px;
+  --shadow:0 10px 25px -5px rgba(0,0,0,0.3);
+  --transition:all .3s ease;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);
+  color:var(--text);
+  min-height:100vh;
+  padding:30px;
+}
+
+.container{max-width:1200px;margin:auto;}
+
+.main-title{
+  font-size:32px;
+  font-weight:700;
+  margin-bottom:40px;
+  position:relative;
+}
+
+.main-title::after{
+  content:'';
+  position:absolute;
+  bottom:-10px;
+  left:0;
+  width:80px;
+  height:4px;
+  background:linear-gradient(to right,var(--primary),var(--accent));
+  border-radius:2px;
+}
+
+.records-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:24px;
+}
+
+.record-item{
+  background:var(--surface);
+  border-radius:var(--border-radius);
+  padding:22px;
+  text-decoration:none;
+  color:inherit;
+  display:block;
+  transition:var(--transition);
+  border-left:4px solid var(--success);
+}
+
+.record-item.folder{
+  border-left:4px solid var(--accent);
+}
+
+.record-item:hover{
+  transform:translateY(-5px);
+  box-shadow:var(--shadow);
+  background:rgba(37,99,235,0.05);
+}
+
+.item-icon{
+  font-size:28px;
+  margin-bottom:12px;
+}
+
+.file .item-icon::before{content:"📄";}
+.folder .item-icon::before{content:"📁";}
+
+.item-title{
+  font-size:16px;
+  font-weight:600;
+  margin-bottom:6px;
+}
+
+.back-button{
+  display:inline-block;
+  margin-top:50px;
+  padding:14px 28px;
+  background:var(--surface);
+  border-radius:var(--border-radius);
+  text-decoration:none;
+  color:var(--text);
+  border:1px solid var(--surface-light);
+  transition:var(--transition);
+}
+
+.back-button:hover{
+  background:var(--primary);
+  border-color:var(--primary);
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<h1 class="main-title">Descriçãoes de Cargos</h1>
+
+<div class="records-grid">
+
+<!-- ARCHIVOS PDF -->
+
+<a href="DC-GEN-02Asesor-Comercial.pdf" target="_blank" class="record-item file">
+<div class="item-icon"></div>
+<div class="item-title">DC-GEN-02 Asesor Comercial</div>
+</a>
+
+<a href="DC-GEN-03-Enlace-Legislativo-Gubernamental.pdf" target="_blank" class="record-item file">
+<div class="item-icon"></div>
+<div class="item-title">DC-GEN-03 Enlace Legislativo Gubernamental</div>
+</a>
+
+<a href="DC-GEN-04-Recepcionista.pdf" target="_blank" class="record-item file">
+<div class="item-icon"></div>
+<div class="item-title">DC-GEN-04 Recepcionista</div>
+</a>
+
+<a href="DC-GEN-05-Public-Relations-Specialist.pdf" target="_blank" class="record-item file">
+<div class="item-icon"></div>
+<div class="item-title">DC-GEN-05 Public Relations Specialist</div>
+</a>
+
+<a href="DC-GEN-06-Gestor.pdf" target="_blank" class="record-item file">
+<div class="item-icon"></div>
+<div class="item-title">DC-GEN-06 Gestor</div>
+</a>
+
+<a href="DC-OPE-01-Coordinador-Operativo.pdf" target="_blank" class="record-item file">
+<div class="item-icon"></div>
+<div class="item-title">DC-OPE-01 Coordinador Operativo</div>
+</a>
+
+<a href="DC-TEC-01-Jefe-Tecnico.pdf" target="_blank" class="record-item file">
+<div class="item-icon"></div>
+<div class="item-title">DC-TEC-01 Jefe Técnico</div>
+</a>
+
+<a href="DC-TEC-02-Encargado-Tecnico.pdf" target="_blank" class="record-item file">
+<div class="item-icon"></div>
+<div class="item-title">DC-TEC-02 Encargado Técnico</div>
+</a>
+
+<a href="DC-TEC-03-Auxiliar-Tecnico.pdf" target="_blank" class="record-item file">
+<div class="item-icon"></div>
+<div class="item-title">DC-TEC-03 Auxiliar Técnico</div>
+</a>
+
+<a href="DC-TEC-04-Coordinador-Tecnico-Comercial.pdf" target="_blank" class="record-item file">
+<div class="item-icon"></div>
+<div class="item-title">DC-TEC-04 Coordinador Técnico Comercial</div>
+</a>
+
+</div>
+
+<a href="../index.html" class="back-button">← Volver a Registos Internos</a>
+
+</div>
+</body>
+</html>

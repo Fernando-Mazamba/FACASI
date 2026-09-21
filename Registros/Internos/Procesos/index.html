@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>processos</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --primary:#2563eb;
+  --accent:#38bdf8;
+  --surface:#1e293b;
+  --surface-light:#334155;
+  --text:#f1f5f9;
+  --success:#10b981;
+  --border-radius:12px;
+  --shadow:0 10px 25px -5px rgba(0,0,0,.3);
+  --transition:all .3s ease;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);
+  color:var(--text);
+  min-height:100vh;
+  padding:30px;
+}
+
+.container{max-width:1000px;margin:auto;}
+
+.main-title{
+  font-size:32px;
+  font-weight:700;
+  margin-bottom:40px;
+  position:relative;
+}
+
+.main-title::after{
+  content:'';
+  position:absolute;
+  bottom:-10px;
+  left:0;
+  width:80px;
+  height:4px;
+  background:linear-gradient(to right,var(--primary),var(--accent));
+  border-radius:2px;
+}
+
+.records-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:24px;
+}
+
+.record-item{
+  background:var(--surface);
+  border-radius:var(--border-radius);
+  padding:22px;
+  text-decoration:none;
+  color:inherit;
+  display:block;
+  transition:var(--transition);
+  border-left:4px solid var(--success);
+}
+
+.record-item:hover{
+  transform:translateY(-5px);
+  box-shadow:var(--shadow);
+  background:rgba(37,99,235,.05);
+}
+
+.item-icon{
+  font-size:28px;
+  margin-bottom:12px;
+}
+
+.item-icon::before{content:"📄";}
+
+.item-title{
+  font-size:16px;
+  font-weight:600;
+  word-break:break-word;
+}
+
+.back-button{
+  display:inline-block;
+  margin-top:50px;
+  padding:14px 28px;
+  background:var(--surface);
+  border-radius:var(--border-radius);
+  text-decoration:none;
+  color:var(--text);
+  border:1px solid var(--surface-light);
+  transition:var(--transition);
+}
+
+.back-button:hover{
+  background:var(--primary);
+  border-color:var(--primary);
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1 class="main-title">processos</h1>
+<div class="records-grid">
+<a class="record-item" href="Mapa-de-Procesos.pdf" target="_blank">
+<div class="item-icon"></div>
+<div class="item-title">Mapa-de-processos.pdf</div>
+</a>
+</div>
+<a class="back-button" href="../index.html">← Volver a Registos Internos</a>
+</div>
+</body>
+</html>

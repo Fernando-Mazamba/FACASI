@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 620" width="1180" height="620" font-family="Segoe UI, Tahoma, sans-serif">
+  <rect width="1180" height="620" fill="#f8fafc"/>
+
+  <!-- Gerente Geral -->
+  <rect x="470" y="30" width="240" height="60" rx="10" fill="#93b4e0" stroke="#33415c" stroke-width="2"/>
+  <text x="590" y="56" text-anchor="middle" font-size="15" font-weight="700" fill="#1e293b">GERENTE GERAL</text>
+  <text x="590" y="76" text-anchor="middle" font-size="12" fill="#334155">CEO</text>
+
+  <!-- Serviço externo: contabilista -->
+  <rect x="880" y="20" width="280" height="76" rx="10" fill="#fef3c7" stroke="#a855f7" stroke-width="2" stroke-dasharray="7,4"/>
+  <text x="1020" y="44" text-anchor="middle" font-size="11.5" font-weight="600" fill="#6b21a8">SERVIÇO EXTERNO</text>
+  <text x="1020" y="66" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1e293b">CONTABILISTA TERCEIRIZADO</text>
+  <text x="1020" y="84" text-anchor="middle" font-size="11" fill="#64748b">DES-003</text>
+  <path d="M876 58 L722 58" stroke="#a855f7" stroke-width="2.2" stroke-dasharray="7,4" marker-end="url(#seta-roxa)"/>
+  <text x="799" y="48" text-anchor="middle" font-size="10.5" font-weight="600" fill="#6b21a8">assessoria externa</text>
+
+  <!-- linha horizontal de distribuição -->
+  <path d="M590 90 L590 130" stroke="#33415c" stroke-width="2.2" fill="none"/>
+  <path d="M132 130 L1048 130" stroke="#33415c" stroke-width="2.2" fill="none"/>
+
+  <!-- ramos verticais -->
+  <path d="M132 130 L132 166" stroke="#33415c" stroke-width="2.2"/>
+  <path d="M361 130 L361 166" stroke="#33415c" stroke-width="2.2"/>
+  <path d="M590 130 L590 166" stroke="#33415c" stroke-width="2.2"/>
+  <path d="M819 130 L819 166" stroke="#33415c" stroke-width="2.2"/>
+  <path d="M1048 130 L1048 166" stroke="#33415c" stroke-width="2.2"/>
+
+  <!-- Nível gerências -->
+  <rect x="24" y="166" width="216" height="62" rx="10" fill="#b8c9e3" stroke="#33415c" stroke-width="2"/>
+  <text x="132" y="192" text-anchor="middle" font-size="13" font-weight="700" fill="#1e293b">GERENTE</text>
+  <text x="132" y="209" text-anchor="middle" font-size="13" font-weight="700" fill="#1e293b">ADMINISTRATIVO</text>
+  <text x="132" y="223" text-anchor="middle" font-size="10.5" fill="#64748b">DES-002</text>
+
+  <rect x="253" y="166" width="216" height="62" rx="10" fill="#e2c9e8" stroke="#33415c" stroke-width="2"/>
+  <text x="361" y="196" text-anchor="middle" font-size="13" font-weight="700" fill="#1e293b">GERENTE DE RH</text>
+  <text x="361" y="216" text-anchor="middle" font-size="10.5" fill="#64748b">DES-008</text>
+
+  <rect x="482" y="166" width="216" height="62" rx="10" fill="#e2c9e8" stroke="#33415c" stroke-width="2"/>
+  <text x="590" y="196" text-anchor="middle" font-size="13" font-weight="700" fill="#1e293b">GERENTE COMERCIAL</text>
+  <text x="590" y="216" text-anchor="middle" font-size="10.5" fill="#64748b">DES-010</text>
+
+  <rect x="711" y="166" width="216" height="62" rx="10" fill="#b8c9e3" stroke="#33415c" stroke-width="2"/>
+  <text x="819" y="192" text-anchor="middle" font-size="13" font-weight="700" fill="#1e293b">GERENTE DE</text>
+  <text x="819" y="209" text-anchor="middle" font-size="13" font-weight="700" fill="#1e293b">OPERAÇÕES</text>
+  <text x="819" y="223" text-anchor="middle" font-size="10.5" fill="#64748b">DES-005</text>
+
+  <rect x="940" y="166" width="216" height="62" rx="10" fill="#f3d5f7" stroke="#7c3aed" stroke-width="2"/>
+  <text x="1048" y="192" text-anchor="middle" font-size="13" font-weight="700" fill="#4c1d95">COORDENADOR</text>
+  <text x="1048" y="209" text-anchor="middle" font-size="13" font-weight="700" fill="#4c1d95">DO SGI</text>
+  <text x="1048" y="223" text-anchor="middle" font-size="10.5" fill="#64748b">DES-013</text>
+
+  <!-- Nível assistentes -->
+  <path d="M132 228 L132 292" stroke="#33415c" stroke-width="2.2"/>
+  <path d="M361 228 L361 292" stroke="#33415c" stroke-width="2.2"/>
+  <path d="M590 228 L590 292" stroke="#33415c" stroke-width="2.2"/>
+  <path d="M819 228 L819 292" stroke="#33415c" stroke-width="2.2"/>
+
+  <rect x="24" y="292" width="216" height="58" rx="10" fill="#ffffff" stroke="#33415c" stroke-width="2"/>
+  <text x="132" y="316" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1e293b">ASSISTENTE</text>
+  <text x="132" y="332" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1e293b">ADMINISTRATIVO</text>
+  <text x="132" y="345" text-anchor="middle" font-size="10" fill="#64748b">DES-004</text>
+
+  <rect x="253" y="292" width="216" height="58" rx="10" fill="#f6ecf9" stroke="#33415c" stroke-width="2"/>
+  <text x="361" y="322" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1e293b">ASSISTENTE DE RH</text>
+  <text x="361" y="340" text-anchor="middle" font-size="10" fill="#64748b">DES-009</text>
+
+  <rect x="482" y="292" width="216" height="58" rx="10" fill="#f6ecf9" stroke="#33415c" stroke-width="2"/>
+  <text x="590" y="322" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1e293b">ASSISTENTE COMERCIAL</text>
+  <text x="590" y="340" text-anchor="middle" font-size="10" fill="#64748b">DES-011</text>
+
+  <rect x="711" y="292" width="216" height="58" rx="10" fill="#c9d9ee" stroke="#33415c" stroke-width="2"/>
+  <text x="819" y="316" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1e293b">COORDENADOR /</text>
+  <text x="819" y="332" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1e293b">FISCALIZADOR</text>
+  <text x="819" y="345" text-anchor="middle" font-size="10" fill="#64748b">DES-006</text>
+
+  <!-- Operários -->
+  <path d="M819 350 L819 410" stroke="#33415c" stroke-width="2.2"/>
+  <rect x="711" y="410" width="216" height="58" rx="10" fill="#d8c4ea" stroke="#33415c" stroke-width="2"/>
+  <text x="819" y="436" text-anchor="middle" font-size="13" font-weight="700" fill="#1e293b">OPERÁRIOS</text>
+  <text x="819" y="453" text-anchor="middle" font-size="9.5" fill="#64748b">DES-007 · técnicos de inspeção</text>
+
+  <!-- Legenda -->
+  <rect x="180" y="496" width="820" height="98" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.6"/>
+  <path d="M215 528 L285 528" stroke="#33415c" stroke-width="2.4"/>
+  <text x="300" y="533" font-size="12.5" fill="#334155">Relação hierárquica interna</text>
+  <path d="M560 528 L630 528" stroke="#a855f7" stroke-width="2.4" stroke-dasharray="7,4" marker-end="url(#seta-roxa)"/>
+  <text x="648" y="533" font-size="12.5" fill="#6b21a8">Assessoria externa</text>
+  <text x="590" y="560" text-anchor="middle" font-size="11.5" fill="#64748b">O Contabilista Terceirizado está fora da estrutura hierárquica da organização.</text>
+  <text x="590" y="579" text-anchor="middle" font-size="11.5" fill="#64748b">O Coordenador do SGI reporta diretamente ao Gerente Geral em matérias do Sistema de Gestão Integrado.</text>
+
+  <!-- Rodapé -->
+  <text x="24" y="612" font-size="11" fill="#94a3b8">FACASI — Comércio Geral e Prestação de Serviços · DOC-011 Organograma · Aprox. 20 colaboradores</text>
+
+  <defs>
+    <marker id="seta-roxa" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+      <path d="M0 0 L9 4.5 L0 9 z" fill="#a855f7"/>
+    </marker>
+  </defs>
+</svg>

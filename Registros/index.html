@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Registos - Sistema de Gestão</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --secondary: #0f172a;
+  --accent: #38bdf8;
+  --surface: #1e293b;
+  --surface-light: #334155;
+  --text: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --border-radius: 12px;
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  --transition: all 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 20px;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header Styles */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--surface-light);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  background-color: white;
+  padding: 5px;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.company-name {
+  font-size: 28px;
+  font-weight: 700;
+  background: linear-gradient(to right, var(--accent), var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 5px;
+}
+
+.company-subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+/* Main Content */
+.main-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: white;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.main-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  border-radius: 2px;
+}
+
+/* Grid Layout for Items */
+.records-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 50px;
+}
+
+.record-item {
+  background: var(--surface);
+  border-radius: var(--border-radius);
+  padding: 25px;
+  transition: var(--transition);
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  color: inherit;
+}
+
+.record-item:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary);
+  box-shadow: var(--shadow);
+  background: rgba(37, 99, 235, 0.05);
+}
+
+.record-item.folder {
+  border-left: 4px solid var(--accent);
+}
+
+.record-item.file {
+  border-left: 4px solid var(--success);
+}
+
+.item-icon {
+  font-size: 32px;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.folder .item-icon::before {
+  content: "📁";
+}
+
+.file .item-icon::before {
+  content: "📄";
+}
+
+.item-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: white;
+}
+
+.item-description {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 40px 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid var(--surface-light);
+}
+
+.divider::before {
+  margin-right: 15px;
+}
+
+.divider::after {
+  margin-left: 15px;
+}
+
+/* Back Button */
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface);
+  color: var(--text);
+  text-decoration: none;
+  padding: 14px 28px;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  transition: var(--transition);
+  border: 1px solid var(--surface-light);
+  margin-top: 40px;
+}
+
+.back-button:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.back-button::before {
+  content: "←";
+  font-size: 18px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  
+  .logo-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .main-title {
+    font-size: 28px;
+  }
+  
+  .records-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 15px;
+  }
+  
+  .logo {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .company-name {
+    font-size: 24px;
+  }
+  
+  .main-title {
+    font-size: 24px;
+  }
+}
+
+/* Fallback para logo não encontrado */
+.logo::after {
+  content: "KE";
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--primary);
+  display: none;
+}
+
+.logo:empty::after {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  color: white;
+  border-radius: 12px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<!-- Header with Logo -->
+<header class="header">
+<div class="logo-container">
+<div class="logo">
+<img alt="Logo FACASI" onerror="this.style.display='none'; this.parentElement.innerHTML='KE';" src="Logotipo/logo.png"/>
+</div>
+<div>
+<h1 class="company-name">FACASI</h1>
+<p class="company-subtitle">Sistema de Gestão Integrado</p>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main>
+<h1 class="main-title">Registos do Sistema</h1>
+<div class="records-grid"> <a class="record-item folder" href="Internos/index.html">
+<span class="item-icon"></span>
+<h3 class="item-title">Registos Internos</h3>
+<p class="item-description">Documentação e registos generados internamente por a organização.</p>
+</a>
+<a class="record-item folder" href="Externos/">
+<span class="item-icon"></span>
+<h3 class="item-title">Registos Externos</h3>
+<p class="item-description">Documentação recibida de fornecedores, clientes e entidades externas.</p>
+</a>
+<a class="record-item folder" href="Auditorias/">
+<span class="item-icon"></span>
+<h3 class="item-title">Auditorías</h3>
+<p class="item-description">Informes, planes e seguimientos de auditorías do sistema.</p>
+</a>
+<a class="record-item folder" href="Legales/">
+<span class="item-icon"></span>
+<h3 class="item-title">Registos Legales</h3>
+<p class="item-description">Documentação com requerimientos legales e normativos aplicáveis.</p>
+</a>
+</div>
+<div class="divider"></div>
+<a class="back-button" href="../html/Iniciooriginal.html">Volver ao inicio</a>
+</main>
+</div>
+<script>
+// Adiciona efeito de clique aos itens
+document.querySelectorAll('.record-item').forEach(item => {
+  item.addEventListener('click', function(e) {
+    // Adiciona efeito visual de clique
+    this.style.transform = 'scale(0.98)';
+    setTimeout(() => {
+      this.style.transform = '';
+    }, 150);
+  });
+});
+
+// Adiciona data de acesso (opcional)
+document.addEventListener('DOMContentLoaded', function() {
+  const today = new Date();
+  const dateStr = today.toLocaleDateString('es-ES', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+  
+  // Adiciona data atual ao rodapé (opcional)
+  const footer = document.createElement('div');
+  footer.style.marginTop = '40px';
+  footer.style.paddingTop = '20px';
+  footer.style.borderTop = '1px solid var(--surface-light)';
+  footer.style.color = 'var(--text-secondary)';
+  footer.style.fontSize = '14px';
+  footer.innerHTML = `
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>Último acceso: ${dateStr}</div>
+      <div style="font-size: 12px; opacity: 0.7;">SGI v2.0</div>
+    </div>
+  `;
+  
+  document.querySelector('main').appendChild(footer);
+});
+
+// Fallback para logo não carregado
+document.addEventListener('DOMContentLoaded', function() {
+  const logoImg = document.querySelector('.logo img');
+  if (logoImg) {
+    logoImg.onerror = function() {
+      this.style.display = 'none';
+      const logoDiv = this.parentElement;
+      logoDiv.innerHTML = 'KE';
+      logoDiv.style.background = 'linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%)';
+      logoDiv.style.color = 'white';
+      logoDiv.style.fontWeight = '700';
+      logoDiv.style.fontSize = '24px';
+      logoDiv.style.display = 'flex';
+      logoDiv.style.alignItems = 'center';
+      logoDiv.style.justifyContent = 'center';
+    };
+  }
+});
+</script>
+</body>
+</html>

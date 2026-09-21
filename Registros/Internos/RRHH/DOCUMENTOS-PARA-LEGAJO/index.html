@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>documentoS-para-LEGAJO</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --primary:#2563eb;
+  --accent:#38bdf8;
+  --surface:#1e293b;
+  --surface-light:#334155;
+  --text:#f1f5f9;
+  --success:#10b981;
+  --border-radius:12px;
+  --shadow:0 10px 25px -5px rgba(0,0,0,.3);
+  --transition:all .3s ease;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);
+  color:var(--text);
+  min-height:100vh;
+  padding:30px;
+}
+
+.container{max-width:1200px;margin:auto;}
+
+.main-title{
+  font-size:28px;
+  font-weight:700;
+  margin-bottom:40px;
+}
+
+.records-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:20px;
+}
+
+.record-item{
+  background:var(--surface);
+  border-radius:var(--border-radius);
+  padding:20px;
+  text-decoration:none;
+  color:inherit;
+  display:block;
+  transition:var(--transition);
+  border-left:4px solid var(--success);
+}
+
+.record-item.folder{
+  border-left:4px solid var(--accent);
+}
+
+.record-item:hover{
+  transform:translateY(-5px);
+  box-shadow:var(--shadow);
+}
+
+.item-icon{
+  font-size:22px;
+  margin-bottom:8px;
+}
+
+.file .item-icon::before{content:"📄";}
+.folder .item-icon::before{content:"📁";}
+
+.item-title{
+  font-size:14px;
+  font-weight:600;
+  word-break:break-word;
+}
+
+.back-button{
+  display:inline-block;
+  margin-top:40px;
+  padding:12px 24px;
+  background:var(--surface);
+  border-radius:var(--border-radius);
+  text-decoration:none;
+  color:var(--text);
+  border:1px solid var(--surface-light);
+}
+
+.back-button:hover{
+  background:var(--primary);
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1 class="main-title">documentoS-para-LEGAJO</h1>
+<div class="records-grid">
+<!-- WORD -->
+<a class="record-item file" href="5-Planillade-Asistencia.doc" target="_blank">
+<div class="item-icon"></div>
+<div class="item-title">5-Planillade-Asistencia-Rev.00.docx</div>
+</a>
+<a class="record-item file" href="7-EvaluaciondelPerfilRequeridoydelPersonal.docx" target="_blank">
+<div class="item-icon"></div>
+<div class="item-title">7-EvaluaciondelPerfilRequeridoydelPersonal.docx</div>
+</a> <a class="record-item file" href="8-Registro-de-Entrevista.doc" target="_blank">
+<div class="item-icon"></div>
+<div class="item-title">8-Registo-de-Entrevista.docx</div>
+</a> <span class="text-gray-400 italic" title="Documento não aplicável ao escopo FACASI (9001/45001)">
+<div class="item-icon"></div>
+<div class="item-title">FP 02-7-eficácia-de-la-Capacitação-Rev.docx</div>
+</span> <a class="record-item file" href="FP-02 - Recursos-Humanos-Rev.doc" target="_blank">
+<div class="item-icon"></div>
+<div class="item-title">FP-02 - Recursos-Humanos-Rev.docx</div>
+</a> <span class="text-gray-400 italic" title="Documento não aplicável ao escopo FACASI (9001/45001)">
+<div class="item-icon"></div>
+<div class="item-title">FP-02-2-Registo-de-Indução-Rev.docx</div>
+</span> <a class="record-item file" href="FP-02-6-Evaluacion-del-Periodo-de-Prueba.docx" target="_blank">
+<div class="item-icon"></div>
+<div class="item-title">FP-02-6-Evaluacion-do-Periodo-de-Prueba Rev.docx</div>
+</a> <a class="record-item file" href="FP-02-Ficha de-Colaboradores.docx" target="_blank">
+<div class="item-icon"></div>
+<div class="item-title">FP-02-Ficha de colaboradores-Rev.00.docx</div>
+</a>
+<!-- PDF -->
+<a class="record-item file" href="induccion-colaboradores.pptx" target="_blank">
+<div class="item-icon"></div>
+<div class="item-title">induccion-colaboradores.pdf</div>
+</a>
+<!-- CARPETAS -->
+<a class="record-item folder" href="RECEPCION-DE-MANUALES.docx">
+<div class="item-icon"></div>
+<div class="item-title">RECEPCION-DE-MANUALES</div>
+</a> <a class="record-item folder" href="REGISTRO-DE-INDUCCION.docx">
+<div class="item-icon"></div>
+<div class="item-title">registo-DE-INDUCCION</div>
+</a>
+</div>
+<a class="back-button" href="../index.html">← Volver a RRHH</a>
+</div>
+</body>
+</html>
