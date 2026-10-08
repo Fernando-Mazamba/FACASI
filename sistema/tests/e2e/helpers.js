@@ -65,6 +65,9 @@ export async function entrarUI(page, conta, url = URL_BASE) {
   await page.locator('input[type=password]').fill(conta.password);
   await page.getByRole('button', { name: 'Entrar' }).click();
   await expect(page.locator('#topo')).toBeVisible();
+  // espera que o primeiro ecrã esteja desenhado (evita corrida com a navegação seguinte)
+  await expect(page.locator('form.login')).toHaveCount(0);
+  await expect(page.locator('#conteudo .pagina-cabecalho, #conteudo .cartao').first()).toBeVisible({ timeout: 20000 });
 }
 
 export async function esperarEditor(page) {

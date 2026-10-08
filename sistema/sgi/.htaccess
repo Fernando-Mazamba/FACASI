@@ -30,7 +30,7 @@ DirectoryIndex index.php index.html
 </IfModule>
 
 <IfModule mod_headers.c>
-  Header always set X-Content-Type-Options "nosniff"
+  Header set X-Content-Type-Options "nosniff"
   <FilesMatch "^sw\.js$">
     Header set Cache-Control "no-cache"
     Header set Service-Worker-Allowed "./"

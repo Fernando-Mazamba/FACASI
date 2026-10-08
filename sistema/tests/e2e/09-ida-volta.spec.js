@@ -74,6 +74,7 @@ for (const largura of LARGURAS) {
       await page.locator('input[type=password]').fill(CONTAS.coordenador.password);
       await page.getByRole('button', { name: 'Entrar' }).click();
       await expect(page.locator('#topo')).toBeVisible();
+      await expect(page.locator('form.login')).toHaveCount(0);
       const res = [];
       for (const t of meus) {
         if (t.missing) { res.push({ code: t.code, largura, ok: false, detalhe: 'modelo não existe no SGI' }); continue; }

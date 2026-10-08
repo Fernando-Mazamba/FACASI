@@ -78,6 +78,7 @@ async function render() {
     toast('Defina uma nova palavra-passe antes de continuar.', 'aviso');
     return;
   }
+  if (can('platform') && (hash === '#/inicio' || hash === '#/')) { history.replaceState(null, '', '#/plataforma'); return render(); }
   const m = matchRoute(hash);
   menuAtivo(hash);
   if (!m) { mount(el('h1', null, 'Página não encontrada'), el('a', { href: '#/inicio', class: 'btn' }, 'Voltar ao início')); return; }
@@ -113,10 +114,11 @@ function ecraLogin() {
     btn.textContent = 'A entrar…';
     try {
       await login(email.value, pw.value, modo);
-      const dest = sessionStorage.getItem('sgi_destino');
+      const dest = sessionStorage.getItem('sgi_destino') || (can('platform') ? '#/plataforma' : '#/inicio');
       sessionStorage.removeItem('sgi_destino');
+      // define o destino ANTES de mostrar o menu (sem disparar hashchange), depois desenha uma única vez
+      history.replaceState(null, '', dest);
       await arrancar();
-      location.hash = dest || '#/inicio';
       render();
     } catch (e) {
       msg.textContent = e.offline ? 'Sem ligação ao servidor. Para iniciar sessão é necessária ligação.' : e.message;
