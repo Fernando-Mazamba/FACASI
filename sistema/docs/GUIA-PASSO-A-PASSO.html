@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guia passo a passo</title>
+<link rel="stylesheet" href="estilo.css">
+<style>
+ol.passos > li { padding: 6px 0; }
+.clique { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 6px; padding: 1px 6px; font-weight: 600; white-space: nowrap; }
+.dica { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 10px 14px; margin: 10px 0; }
+</style>
+</head>
+<body>
+<div class="pagina">
+<header class="capa"><h1>Guia passo a passo</h1><p>Para quem não sabe programar — só cliques</p></header>
+<nav class="voltar"><a href="index.html">← Documentação</a></nav>
+<main>
+<p>Neste guia, as palavras <span class="clique">assim</span> são botões ou menus onde deve clicar. Onde aparecer <strong>SEU-DOMINIO</strong>, use o endereço do seu site (por exemplo, <code>textesgi.sistemaiso.net</code>).</p>
+
+<h2>A. Atualizar o SGI no cPanel</h2>
+<p>Tempo: cerca de 15 minutos. Ninguém precisa de sair do sistema, mas durante 1 a 2 minutos o SGI mostra «Sistema em atualização».</p>
+<ol class="passos">
+<li>Descarregue para o seu computador as partes da nova versão (ficheiros <code>…-parte1de3.zip</code>, <code>…-parte2de3.zip</code>, <code>…-parte3de3.zip</code>).</li>
+<li><strong>Faça primeiro uma cópia de segurança</strong> (secção D, abaixo) e guarde-a no computador.</li>
+<li>Entre no cPanel da sua hospedagem (o endereço e a palavra-passe são os que a empresa de alojamento lhe deu).</li>
+<li>Na secção «Ficheiros», clique em <span class="clique">Gestor de ficheiros</span>.</li>
+<li>À esquerda, abra a pasta onde está a pasta <code>sgi</code> (normalmente <span class="clique">public_html</span> ou a pasta com o nome do subdomínio). Não entre na pasta <code>sgi</code>: fique na pasta que a contém.</li>
+<li>Clique em <span class="clique">Carregar</span> (no topo), depois em <span class="clique">Selecionar ficheiro</span>, escolha a parte 1 e espere chegar a 100%. Repita para as partes 2 e 3. Volte ao Gestor de ficheiros (<span class="clique">Voltar para …</span>).</li>
+<li>Clique uma vez na parte 1 (fica selecionada) → <span class="clique">Extrair</span> (no topo) → confirme a pasta mostrada → <span class="clique">Extrair ficheiros</span>. Se perguntar se quer substituir ficheiros, responda que sim.</li>
+<li>Repita o passo anterior para a parte 2 e para a parte 3.</li>
+<li>(Opcional) Selecione os três ZIP e clique em <span class="clique">Eliminar</span> para libertar espaço.</li>
+<li>No navegador, abra <code>https://SEU-DOMINIO/sgi/atualizar/</code>.</li>
+<li>Entre com o <strong>correio e a palavra-passe do administrador da plataforma</strong>.</li>
+<li>Confira que todos os requisitos têm ✅ (incluindo «Pacote completo»). Se aparecer ❌ em «Pacote completo», volte ao passo 7: falta extrair uma parte.</li>
+<li>Clique em <span class="clique">Atualizar agora</span> e <strong>não feche a página</strong>.</li>
+<li>Deve aparecer, em verde, <strong>«Atualização concluída sem perda de dados»</strong>, com uma tabela em que todas as linhas dizem «igual». Clique em <span class="clique">Descarregar relatório</span> e guarde-o.</li>
+<li>Clique em <span class="clique">Abrir o SGI</span>. Os telemóveis atualizam-se sozinhos da próxima vez que abrirem o SGI com internet.</li>
+</ol>
+<div class="dica">Se aparecer «Atualização com problemas»: não faça mais nada e contacte o suporte com o relatório. No mesmo ecrã existe a opção de restaurar a cópia feita automaticamente antes da atualização.</div>
+
+<h2>B. Instalar a aplicação num telemóvel Android</h2>
+<ol class="passos">
+<li>No telemóvel, abra o <strong>Chrome</strong>.</li>
+<li>Escreva o endereço <code>https://SEU-DOMINIO/sgi/</code> e entre com o seu correio e palavra-passe.</li>
+<li>Toque nos <span class="clique">⋮</span> (três pontos, canto superior direito).</li>
+<li>Toque em <span class="clique">Instalar aplicação</span> (em alguns telemóveis: <span class="clique">Adicionar ao ecrã principal</span>) e depois em <span class="clique">Instalar</span>.</li>
+<li>O ícone <strong>SGI</strong> aparece no ecrã inicial. A partir de agora, abra sempre o SGI por esse ícone.</li>
+<li>Abra a aplicação e entre de novo com o seu correio e palavra-passe (a aplicação tem a sua própria sessão, ligada a este telemóvel).</li>
+<li>Para trabalhar sem internet: em <span class="clique">Docs</span>, abra cada formulário que usa no terreno e toque em <span class="clique">📥 Disponível offline</span>.</li>
+<li>Para receber avisos: <span class="clique">☰</span> → <span class="clique">Perfil e dispositivos</span> → <span class="clique">Ativar neste dispositivo</span> → <span class="clique">Permitir</span>.</li>
+</ol>
+
+<h2>C. Instalar a aplicação num iPhone ou iPad</h2>
+<ol class="passos">
+<li>Abra o <strong>Safari</strong> (tem de ser o Safari; noutros navegadores do iPhone a opção pode não aparecer).</li>
+<li>Escreva <code>https://SEU-DOMINIO/sgi/</code>.</li>
+<li>Toque no botão <span class="clique">Partilhar</span> (quadrado com uma seta para cima, na barra de baixo).</li>
+<li>Deslize a lista para baixo e toque em <span class="clique">Adicionar ao ecrã principal</span>, depois em <span class="clique">Adicionar</span>.</li>
+<li>Abra o SGI pelo novo ícone no ecrã principal e entre com o seu correio e palavra-passe.</li>
+<li>Marque os formulários de terreno como <span class="clique">📥 Disponível offline</span>.</li>
+<li>Avisos no iPhone (iOS 16.4 ou superior): <span class="clique">☰</span> → <span class="clique">Perfil e dispositivos</span> → <span class="clique">Ativar neste dispositivo</span> → <span class="clique">Permitir</span>.</li>
+</ol>
+<div class="dica">Perdeu o telemóvel? Num computador, entre no SGI → <span class="clique">Perfil e dispositivos</span> → na lista «Dispositivos ligados», clique em <span class="clique">Encerrar</span> no telemóvel perdido. O acesso desse telemóvel termina de imediato. O administrador também o pode fazer em <span class="clique">Utilizadores</span>.</div>
+
+<h2>D. Fazer e descarregar uma cópia de segurança</h2>
+<ol class="passos">
+<li>No computador, abra <code>https://SEU-DOMINIO/sgi/</code> e entre com a conta de <strong>administrador da plataforma</strong>.</li>
+<li>No menu da esquerda, clique em <span class="clique">Cópias de segurança</span>.</li>
+<li>Clique em <span class="clique">💾 Criar cópia de segurança agora</span> e espere a mensagem verde «Cópia criada».</li>
+<li>Na primeira linha da tabela, clique em <span class="clique">⬇ Descarregar</span>. O ficheiro <code>sgi-copia-….zip</code> vai para a pasta «Transferências» do computador.</li>
+<li>Copie esse ficheiro para um local seguro fora do servidor (disco externo, pasta partilhada da empresa). Faça isto pelo menos <strong>uma vez por semana</strong>.</li>
+</ol>
+<div class="dica">A cópia tem todos os dados de todas as organizações. Trate-a como um documento confidencial.</div>
+
+<h2>E. Primeira instalação</h2>
+<p>Se ainda não instalou o SGI, siga a <a href="INSTALACAO.html">Instalação</a> (secção 3: tudo por cliques no cPanel).</p>
+</main>
+<footer>SGI 1.1.0 · Guia passo a passo</footer>
+</div>
+</body>
+</html>

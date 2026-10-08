@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pendências e validações</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<div class="pagina">
+<header class="capa"><h1>Pendências e validações</h1><p>O que depende da FACASI e o que não foi possível fazer neste ambiente</p></header>
+<nav class="voltar"><a href="index.html">← Documentação</a></nav>
+<main>
+<h2>1. Dados e decisões que só a FACASI pode dar</h2>
+<table>
+<tr><th>#</th><th>Pendência</th><th>Porque é necessária</th><th>Onde se resolve no SGI</th></tr>
+<tr><td>1</td><td>Endereço definitivo de produção (domínio/subdomínio + <code>/sgi/</code>) com HTTPS</td><td>A aplicação instalável, a câmara e a localização exigem HTTPS; o endereço também vai na aplicação nativa.</td><td>Instalação; <code>capacitor.config.json</code> (<code>npm run configurar</code>)</td></tr>
+<tr><td>2</td><td>Lista real de utilizadores (nome, correio, perfil)</td><td>O SGI não cria pessoas fictícias.</td><td>Utilizadores, ou importação de trabalhadores/cargos por folha</td></tr>
+<tr><td>3</td><td>NIF, denominação legal e morada da FACASI</td><td>Aparecem nos documentos e relatórios. Os modelos originais têm um NIF numa página do contexto; deve ser confirmado.</td><td>Organização</td></tr>
+<tr><td>4</td><td>Validar o âmbito normativo (ISO 9001 + ISO 45001)</td><td>Fornecido pelo relatório de validação do SGI original; a ISO 14001 ficou «não aplicável». Se a FACASI quiser incluir a ISO 14001, faltam os documentos de aspetos ambientais (6.1.2) e de ciclo de vida (8.1).</td><td>Organização → Âmbito</td></tr>
+<tr><td>5</td><td>Validar a matriz de cobertura (cláusula → documento)</td><td>É uma <em>proposta para validação</em>.</td><td><a href="MATRIZ-COBERTURA.html">Matriz de cobertura</a>, Relatórios → Cobertura</td></tr>
+<tr><td>6</td><td>Que formulários exigem aprovação prévia e por que perfil; campos obrigatórios de cada formulário</td><td>Nenhum modelo vem com aprovação obrigatória (não foi indicado).</td><td>Documento → Gestão do documento</td></tr>
+<tr><td>7</td><td>Requisitos legais angolanos aplicáveis (PRO-022) e respetivos vencimentos</td><td>O relatório original já indicava esta pendência; o SGI não inventa legislação.</td><td>Calendário (vencimento legal), documento PRO-022</td></tr>
+<tr><td>8</td><td>Indicadores, metas e medições reais</td><td>Nenhuma medição é estimada.</td><td>Indicadores</td></tr>
+<tr><td>9</td><td>Equipamentos, extintores e locais reais (com datas de verificação)</td><td>Para gerar as etiquetas QR.</td><td>Equipamentos (ou importação por folha)</td></tr>
+<tr><td>10</td><td>Confirmar os documentos em falta na numeração</td><td>Há saltos de numeração (ex.: DES-012, DOC-006, DOC-018, FORM-003/005/006/009/016/019): confirmar se existem ou se foram retirados.</td><td><a href="INVENTARIO-DOCUMENTAL.html">Inventário</a></td></tr>
+<tr><td>11</td><td>Autorização expressa para usar os modelos da FACASI (neutralizados) com outras organizações</td><td>Sem ela, a biblioteca fica vazia para outras organizações.</td><td>Plataforma → Biblioteca</td></tr>
+<tr><td>12</td><td>Servidor de correio (SMTP)</td><td>Notificações por correio e recuperação de palavra-passe por ligação.</td><td>Plataforma → Correio e push</td></tr>
+<tr><td>13</td><td>Certificados ISO</td><td>Os ficheiros de certificados ISO 9001 e ISO 45001 fornecidos estão no SGI como documentos da FACASI; a validade deve ser confirmada com o organismo certificador. Não há certificado ISO 14001 e o SGI não declara essa certificação.</td><td>Manual do SGI → Certificados</td></tr>
+</table>
+
+<h2>2. Contas e meios que exigem a empresa</h2>
+<ul>
+<li><strong>Google Play Console</strong> (conta de programador, verificação da organização) — para publicar o AAB.</li>
+<li><strong>Apple Developer Program</strong> (anual, D-U-N-S) e um <strong>Mac com Xcode</strong> — para a App Store/TestFlight.</li>
+<li>Para push nativo na app de loja (opcional): projeto Firebase (Android) e chave APNs (iOS).</li>
+</ul>
+
+<h2>3. O que não pôde ser feito ou testado neste ambiente</h2>
+<table>
+<tr><th>Item</th><th>Situação</th></tr>
+<tr><td>APK e AAB Android</td><td class="falha">Não gerados: o repositório Google (dl.google.com) está bloqueado neste ambiente (403). O projeto está pronto para compilar no Android Studio (ver <a href="APP-NATIVA-CAPACITOR.html">guia</a>).</td></tr>
+<tr><td>App iOS</td><td class="falha">Não gerada: exige Mac/Xcode e conta Apple.</td></tr>
+<tr><td>Publicação nas lojas</td><td class="falha">Não feita: exige contas da empresa.</td></tr>
+<tr><td>Telemóveis reais (Android/iPhone)</td><td class="pend">Não testado. Testes feitos em Chromium com emulação móvel (Pixel 7, 390 px), incluindo instalabilidade da PWA, sem ligação, câmara simulada por ficheiro, GPS simulado.</td></tr>
+<tr><td>Safari / iOS (PWA)</td><td class="pend">Não testado (sem dispositivo Apple). Implementação segue as regras do Safari (meta apple-touch, Partilhar → Adicionar ao ecrã principal).</td></tr>
+<tr><td>Entrega real de push (FCM/Apple)</td><td class="pend">Não testada: o ambiente não acede aos serviços de push. Testados: geração VAPID, subscrição, notificações internas.</td></tr>
+<tr><td>PHP 8.2</td><td class="pend">Testado em PHP 8.3 (servidor embutido e Apache + mod_php 8.3). O PHP 8.2 não está disponível nos repositórios deste sistema; o código não usa funcionalidades exclusivas de 8.3 e é compatível com 7.4–8.4.</td></tr>
+<tr><td>LiteSpeed / cPanel real</td><td class="pend">Testado em Apache 2.4 com <code>.htaccess</code> em subpasta (equivalente). Recomenda-se um primeiro teste no servidor real com o assistente.</td></tr>
+<tr><td>Envio real de correio</td><td class="pend">Testado com servidor SMTP de teste local (envio, recuperação de palavra-passe). Não testado com um fornecedor real nem com TLS.</td></tr>
+</table>
+</main>
+<footer>SGI 1.1.0 · Pendências</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cópias de segurança e restauro</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<div class="pagina">
+<header class="capa"><h1>Cópias de segurança e restauro</h1><p>Tudo pelo navegador, sem Terminal</p></header>
+<nav class="voltar"><a href="index.html">← Documentação</a></nav>
+<main>
+<h2>1. Cópia completa (administrador da plataforma)</h2>
+<ol class="passos">
+<li>Entre como administrador da plataforma → menu <strong>Cópias de segurança</strong>.</li>
+<li>«💾 Criar cópia de segurança agora». Espere a mensagem «Cópia criada».</li>
+<li>Na linha da cópia → «⬇ Descarregar». Guarde o ZIP fora do servidor (computador, disco externo, nuvem da empresa).</li>
+</ol>
+<p>O ZIP contém:</p>
+<ul>
+<li><code>bd.sql</code> — toda a base de dados (estrutura + dados);</li>
+<li><code>ficheiros/…</code> — registos finais, anexos, versões de documentos, logótipos;</li>
+<li><code>manifesto.json</code> — versão, contagem de linhas e hash por tabela, SHA-256 de cada ficheiro e da base de dados.</li>
+</ul>
+<p>São criadas cópias automáticas antes de cada atualização e antes de cada restauro.</p>
+<h2>2. Restaurar</h2>
+<ol class="passos">
+<li>Cópias de segurança → «Restaurar» na cópia desejada, ou «Restaurar a partir de um ficheiro» (ZIP descarregado antes).</li>
+<li>Escreva <kbd>RESTAURAR</kbd> e confirme.</li>
+<li>O sistema verifica o SHA-256 da base de dados e de cada ficheiro da cópia <strong>antes</strong> de mexer em qualquer coisa (cópia corrompida ou incompleta é recusada), cria uma cópia do estado atual e só então substitui os dados.</li>
+</ol>
+<p>Também é possível restaurar a partir do <a href="ATUALIZACAO.html">assistente de atualização</a> (útil se a aplicação estiver em manutenção).</p>
+<h2>3. Exportação de uma organização (administrador da organização)</h2>
+<p>Organização → «Exportar (ZIP)»: dados da organização em JSON e os seus ficheiros, sem palavras-passe. Serve para arquivo próprio da organização; não é uma cópia restaurável da plataforma.</p>
+<h2>4. Boas práticas</h2>
+<ul>
+<li>Cópia semanal descarregada e guardada fora do servidor; mensal guardada durante 12 meses.</li>
+<li>Uma vez por trimestre, restaure uma cópia num ambiente de teste para confirmar que funciona.</li>
+<li>As cópias contêm dados de todas as organizações: guarde-as com acesso restrito (ZIP cifrado ou disco cifrado).</li>
+<li>Apague cópias antigas do servidor para poupar espaço (o «Estado do sistema» mostra o espaço usado).</li>
+</ul>
+<h2>5. Testado</h2>
+<p>T12 (cópia pelo navegador, descarga, manifesto, restauro com verificação e confirmação), T23 (cópia automática antes da atualização e comparação de contagens e hashes). Ver <a href="RELATORIO-TESTES.html">Relatório de testes</a>.</p>
+</main>
+<footer>SGI 1.1.0 · Cópias de segurança</footer>
+</div>
+</body>
+</html>

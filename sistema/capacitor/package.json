@@ -1,0 +1,20 @@
+{
+  "name": "sgi-facasi-app",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Aplicação nativa (Android/iOS) do SGI — empacota a PWA servida pelo servidor do SGI com Capacitor.",
+  "scripts": {
+    "configurar": "node scripts/configurar.mjs",
+    "sincronizar": "npx cap sync",
+    "android": "npx cap open android",
+    "ios": "npx cap open ios"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.5.3",
+    "@capacitor/core": "8.5.3",
+    "@capacitor/ios": "8.5.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.5.3"
+  }
+}

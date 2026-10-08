@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>API do SGI</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<div class="pagina">
+<header class="capa"><h1>API REST</h1><p>JSON sobre HTTPS · <code>/sgi/api.php/&lt;rota&gt;</code> (funciona sem mod_rewrite)</p></header>
+<nav class="voltar"><a href="index.html">← Documentação</a></nav>
+<main>
+<h2>1. Autenticação</h2>
+<h3>Navegador: sessão + CSRF</h3>
+<pre><code>POST /api.php/auth/login        {"email","password"}  → {user, org, csrf, …}  (cookie SGISESS: HttpOnly, SameSite=Lax, Secure em HTTPS)
+POST|PUT|DELETE …               cabeçalho X-CSRF-Token: &lt;csrf&gt;   (sem ele: 403 {"code":"csrf"})
+POST /api.php/auth/logout</code></pre>
+<h3>Aplicação: tokens de curta duração + renovação</h3>
+<pre><code>POST /api.php/auth/token     {"email","password","device_name"}
+  → {"access_token","refresh_token","token_type":"Bearer","expires_in":900,"device_id"}
+GET  /api.php/…              Authorization: Bearer &lt;access_token&gt;      (não precisa de CSRF)
+POST /api.php/auth/refresh   {"refresh_token"} → novo par (o token de renovação roda a cada uso)
+POST /api.php/auth/token/revoke                → encerra este dispositivo
+GET  /api.php/auth/devices[?user_id=]          → dispositivos (o admin vê os de outros utilizadores da organização)
+DELETE /api.php/auth/devices/{id}              → revoga imediatamente todos os tokens desse dispositivo</code></pre>
+<ul>
+<li>Acesso: 15 minutos. Renovação: 30 dias, rotativa. Guardados na BD apenas como SHA-256.</li>
+<li>Reutilizar um token de renovação já substituído revoga o dispositivo inteiro (deteção de roubo).</li>
+<li>Cada pedido consulta a BD: revogação, desativação do utilizador, suspensão da organização e mudança de palavra-passe têm efeito imediato.</li>
+<li>Bloqueios: 5 falhas → conta bloqueada 15 min (423); 30 falhas em contas da mesma organização → organização bloqueada 15 min (429); 50 falhas do mesmo IP → IP bloqueado 15 min (429). Iguais para sessão e tokens.</li>
+<li>Se o servidor remover o cabeçalho <code>Authorization</code> (alguns CGI), o <code>.htaccess</code> repõe-no; em alternativa aceita-se <code>X-SGI-Token</code>.</li>
+</ul>
+
+<h2>2. Erros</h2>
+<pre><code>{"error": "mensagem em português", "code": "codigo_maquina", …dados extra}</code></pre>
+<table>
+<tr><th>HTTP</th><th>code (exemplos)</th></tr>
+<tr><td>401</td><td>nao_autenticado, token_invalido, refresh_invalido, credenciais</td></tr>
+<tr><td>403</td><td>sem_permissao, csrf, plataforma_sem_acesso, auto_aprovacao</td></tr>
+<tr><td>404</td><td>nao_encontrado (também para recursos de <em>outra</em> organização), qr_desconhecido</td></tr>
+<tr><td>409</td><td><strong>conflito</strong> (inclui <code>servidor</code> com a versão atual), registo_final_bloqueado, registo_em_aprovacao, correcao_existente</td></tr>
+<tr><td>413/415/422</td><td>ficheiro_grande, tipo_invalido, obrigatorios (inclui <code>campos</code>), motivo_obrigatorio, palavra_passe_fraca</td></tr>
+<tr><td>423/429</td><td>conta_bloqueada, bloqueio_org, bloqueio_ip</td></tr>
+<tr><td>503</td><td>nao_instalado, atualizacao_pendente</td></tr>
+</table>
+
+<h2>3. Sincronização sem duplicar e sem sobrescrever</h2>
+<ul>
+<li><strong>Idempotency-Key</strong> (8–100 caracteres) em POST/PUT/DELETE: a mesma chave devolve a mesma resposta guardada (cabeçalho <code>Idempotent-Replay: true</code>) sem repetir a operação. Chave reutilizada noutra rota → 422.</li>
+<li><strong>client_uuid</strong> em <code>POST /records</code>: identifica o rascunho criado no telemóvel; um segundo envio devolve o registo existente com <code>"duplicado": true</code>.</li>
+<li><strong>lock_version</strong> em <code>PUT /records/{id}</code> e <code>POST /records/{id}/finalize</code>: tem de ser igual à do servidor; se não for → 409 <code>conflito</code> com a versão do servidor, para o ecrã de resolução.</li>
+</ul>
+
+<h2>4. Rotas</h2>
+<div class="tw"><table>
+<tr><th>Método e rota</th><th>Descrição</th><th>Perfil</th></tr>
+<tr><td>GET /auth/me</td><td>Utilizador, organização, modo (sessão/token), chave push pública, versão</td><td>público</td></tr>
+<tr><td>POST /auth/password · /auth/forgot · /auth/reset</td><td>Alterar, pedir ligação por correio, redefinir</td><td>—</td></tr>
+<tr><td>GET|PUT /me/prefs</td><td>Notificações por correio/push</td><td>todos</td></tr>
+<tr><td>GET /templates?q&amp;category&amp;forms&amp;status</td><td>Documentos vigentes (+ leitura confirmada)</td><td>todos</td></tr>
+<tr><td>GET /templates/{id} · /templates/{id}/render[?version_id]</td><td>Detalhe e versões · HTML pronto (imagens embutidas, funciona offline)</td><td>todos</td></tr>
+<tr><td>PUT /templates/{id}</td><td>Aprovação prévia, aprovador, campos obrigatórios, estado</td><td>coordenador</td></tr>
+<tr><td>POST /templates/{id}/versions</td><td>Nova versão (multipart <code>file</code> ou <code>html</code> + <code>reason</code>)</td><td>coordenador</td></tr>
+<tr><td>POST /templates/{id}/read · GET /templates/{id}/reads</td><td>Confirmar leitura · lista de confirmações</td><td>todos · coordenador</td></tr>
+<tr><td>GET /records?status&amp;mine&amp;q&amp;categoria&amp;tipo&amp;ano&amp;mes&amp;template_id&amp;asset_id</td><td>Lista (operário vê só os seus)</td><td>todos</td></tr>
+<tr><td>POST /records</td><td><code>{template_id, title, data:{fields,count,labels,required,dom}, client_uuid, geo:{lat,lng,accuracy}, asset_id}</code></td><td>todos</td></tr>
+<tr><td>GET|PUT|DELETE /records/{id}</td><td>Ler · guardar rascunho (lock_version) · eliminar rascunho</td><td>autor/coordenador</td></tr>
+<tr><td>POST /records/{id}/finalize</td><td><code>{final_html, lock_version, confirm:true}</code> → final + SHA-256, ou pendente de aprovação</td><td>autor/coordenador</td></tr>
+<tr><td>POST /records/{id}/correct</td><td><code>{reason}</code> → nova versão vinculada (rascunho)</td><td>todos</td></tr>
+<tr><td>GET /records/{id}/final[?download=1] · /verify · /versions</td><td>HTML final (CSP sandbox) · verificação do SHA-256 · cadeia de versões</td><td>quem pode ver</td></tr>
+<tr><td>GET /archive</td><td>Árvore Categoria/Tipo/Ano/Mês com contagens</td><td>todos</td></tr>
+<tr><td>GET /approvals · POST /approvals/{id}</td><td>Pendentes · <code>{decision:"aprovar"|"rejeitar", comment}</code></td><td>supervisor+</td></tr>
+<tr><td>POST /attachments (multipart)</td><td><code>entity_type</code> (record, nc, action, asset, training, event), <code>entity_id</code>, <code>kind</code> (foto, assinatura, ficheiro), <code>file</code>, <code>caption</code>, <code>lat</code>, <code>lng</code>. JPEG/PNG/WebP/PDF ≤ 10 MB</td><td>conforme a entidade</td></tr>
+<tr><td>GET /attachments?entity_type&amp;entity_id · /attachments/{id}/file · DELETE /attachments/{id}</td><td>Listar · descarregar · remover (não em registos finais)</td><td>—</td></tr>
+<tr><td>GET|POST /{workers|positions|suppliers|assets|trainings|nonconformities|actions|events|indicators}<br>GET|PUT|DELETE /…/{id}</td><td>CRUD com isolamento por organização (filtros <code>q</code> e por campos de lista)</td><td>conforme o módulo</td></tr>
+<tr><td>GET /qr/{token}</td><td>Equipamento da <em>sua</em> organização (outra organização → 404)</td><td>todos</td></tr>
+<tr><td>POST /assets/{id}/regenerate-qr</td><td>Novo código (as etiquetas antigas deixam de funcionar)</td><td>supervisor+</td></tr>
+<tr><td>GET /calendar?from&amp;to · POST /calendar/import-legacy</td><td>Eventos expandidos (recorrência + prazos derivados) · importar JSON do calendário antigo</td><td>todos · supervisor+</td></tr>
+<tr><td>GET|PUT /trainings/{id}/participants · GET|POST /indicators/{id}/values</td><td>Participantes · medições</td><td>—</td></tr>
+<tr><td>GET /dashboard</td><td>Painel por perfil</td><td>todos</td></tr>
+<tr><td>GET /reports/{indicadores|nc-acoes|capacitacao|fornecedores|equipamentos|cobertura|registos}?format=html|csv|json&amp;from&amp;to</td><td>Relatórios</td><td>coordenador, direção, admin</td></tr>
+<tr><td>GET /import/template/{entity} · POST /import/preview · POST /import/{id}/apply|cancel</td><td>Importação CSV/XLSX com pré-visualização</td><td>coordenador, admin</td></tr>
+<tr><td>GET /notifications · POST /notifications/{id}/read · /notifications/read-all · POST /push/subscribe|unsubscribe|test</td><td>Notificações</td><td>todos</td></tr>
+<tr><td>GET|PUT /org · POST /org/logo · GET /org/logo · GET /org/ativo/{nome} · GET /org/export · GET /audit</td><td>Organização</td><td>admin (logo/ativos: todos)</td></tr>
+<tr><td>GET|POST /users · PUT /users/{id} · POST /users/{id}/reset-password</td><td>Utilizadores</td><td>admin</td></tr>
+<tr><td>/platform/*</td><td>status, integrity, cron, orgs, library, smtp, push, backups, audit</td><td>plataforma</td></tr>
+</table></div>
+<h2>5. Exemplo (aplicação)</h2>
+<pre><code>curl -s https://SEU-DOMINIO/sgi/api.php/auth/token -H 'Content-Type: application/json' \
+  -d '{"email":"operario@exemplo.ao","password":"…","device_name":"Telemóvel do armazém"}'
+curl -s https://SEU-DOMINIO/sgi/api.php/records -H "Authorization: Bearer $ACCESS" \
+  -H 'Content-Type: application/json' -H "Idempotency-Key: $(uuidgen)" \
+  -d '{"template_id":104,"title":"Inspeção","client_uuid":"…","data":{"fields":{"k0":"001"}}}'</code></pre>
+</main>
+<footer>SGI 1.1.0 · API</footer>
+</div>
+</body>
+</html>

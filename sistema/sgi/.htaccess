@@ -13,7 +13,7 @@ DirectoryIndex index.php index.html
 </IfModule>
 
 # Ficheiros que nunca podem ser servidos diretamente
-<FilesMatch "^(config\.php|VERSION|\.user\.ini|codigo\.hash|\.instalado|.*\.sql|.*\.md|catalogo\.json)$">
+<FilesMatch "^(config\.php|VERSION|PACOTE\.json|\.user\.ini|codigo\.hash|\.instalado|.*\.sql|.*\.md|catalogo\.json|dev-router\.php)$">
   <IfModule mod_authz_core.c>
     Require all denied
   </IfModule>

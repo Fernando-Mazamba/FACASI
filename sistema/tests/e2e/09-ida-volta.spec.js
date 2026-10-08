@@ -21,6 +21,7 @@ async function verificarModelo(page, base, t, largura) {
     await page.waitForFunction(() => window.__sgiEditor && window.__sgiEditor.host, null, { timeout: 60000 });
     const filled = await page.evaluate((seed) => window.__sgiEditor.host.fillTest(seed), `${t.code}-${largura}`);
     out.campos = filled.count;
+    if (filled.count === 0) { out.detalhe = 'classificado como formulário, mas sem campos em execução. '; }
     await page.locator('.titulo-registo').fill(`Ida e volta ${t.code} ${largura}px`);
     await page.getByRole('button', { name: '💾 Guardar' }).click();
     await expect(page.locator('.estado-guardado')).toHaveClass(/ok/, { timeout: 30000 });
@@ -31,7 +32,7 @@ async function verificarModelo(page, base, t, largura) {
     await page.waitForFunction((rid) => window.__sgiEditor && window.__sgiEditor.ctx.recordId === rid, id, { timeout: 60000 });
     const back = await page.evaluate(() => window.__sgiEditor.host.collect());
     const dif = Object.keys(filled.fields).filter((k) => (filled.fields[k] ?? '') !== (back.fields[k] ?? ''));
-    if (back.count !== filled.count) out.detalhe = `n.º de campos ${filled.count} → ${back.count}. `;
+    if (back.count !== filled.count) out.detalhe += `n.º de campos ${filled.count} → ${back.count}. `;
     if (dif.length) out.detalhe += `campos diferentes: ${dif.slice(0, 5).map((k) => `${k} «${String(filled.fields[k]).slice(0, 30)}» → «${String(back.fields[k]).slice(0, 30)}»`).join('; ')}`;
     out.ok = !out.detalhe;
   } else {
@@ -39,6 +40,8 @@ async function verificarModelo(page, base, t, largura) {
     await page.waitForFunction(() => window.__sgiVista && window.__sgiVista.info, null, { timeout: 60000 });
     out.campos_execucao = await page.evaluate(() => window.__sgiVista.info.count);
     out.ok = true;
+    // coerência: documento de consulta não pode ter campos (senão deveria ser preenchível)
+    if (out.campos_execucao > 0) { out.ok = false; out.detalhe = `classificado como consulta, mas tem ${out.campos_execucao} campo(s) em execução.`; }
   }
   // conteúdo dentro do ecrã: o documento não pode ultrapassar a largura (tabelas largas deslizam dentro do seu contentor)
   const frame = page.frames().find((f) => f !== page.mainFrame() && /quadro\.php/.test(f.url()));

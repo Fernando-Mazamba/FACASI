@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manual do administrador</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<div class="pagina">
+<header class="capa"><h1>Manual do administrador</h1><p>Administração da organização e administração da plataforma (papéis separados)</p></header>
+<nav class="voltar"><a href="index.html">← Documentação</a></nav>
+<main>
+
+<h2>A. Administrador da organização</h2>
+<h3>Utilizadores</h3>
+<ul>
+<li><em>Utilizadores → ＋ Novo utilizador</em>: nome, correio e perfil. O sistema gera uma palavra-passe temporária, mostrada <strong>uma única vez</strong>; o utilizador tem de a alterar no primeiro acesso.</li>
+<li>Editar: mudar perfil, desativar (o acesso e todos os tokens da aplicação deixam de funcionar de imediato), desbloquear após tentativas falhadas, gerar nova palavra-passe temporária, ver/encerrar os dispositivos do utilizador.</li>
+<li>Os nomes de trabalhadores, cargos e contactos são <strong>fornecidos pela organização</strong>. O SGI não inventa pessoas, assinaturas, números fiscais, licenças, medições, capacitações, acidentes nem auditorias.</li>
+</ul>
+<h3>Organização</h3>
+<ul>
+<li>Nome, denominação legal, NIF (só o real), morada, logótipo (usado nos documentos e no ícone da aplicação).</li>
+<li><strong>Âmbito normativo</strong>: normas do sistema de gestão (ISO 9001, 14001, 45001) e justificação das normas excluídas. Na FACASI vem preenchido como ISO 9001 + ISO 45001 (fornecido pelo relatório de validação original). A matriz de cobertura marca as cláusulas fora do âmbito como «Não aplicável (justificado)».</li>
+<li><strong>Exportar (ZIP)</strong>: todos os dados desta organização em JSON + ficheiros (registos finais, anexos, versões de documentos). Não inclui palavras-passe.</li>
+<li><strong>Auditoria</strong>: registo de quem fez o quê (entradas, rascunhos, finalizações, correções, aprovações, transferências, alterações de utilizadores…).</li>
+</ul>
+<h3>Documentos controlados (coordenador do SGI)</h3>
+<ul>
+<li>Na página de cada documento, «Gestão do documento»:
+  <ul>
+  <li><strong>Exigir aprovação prévia</strong> e o perfil mínimo do aprovador.</li>
+  <li><strong>Campos obrigatórios adicionais</strong> pela chave do campo (k0, k1, …). A ordem das chaves é a ordem dos campos no documento.</li>
+  <li><strong>Nova versão controlada</strong>: envie um HTML e o motivo. A versão anterior passa a obsoleta (fica no histórico com SHA-256); todos os utilizadores são avisados para confirmar a leitura. Scripts e conteúdo ativo do HTML enviado são removidos por segurança.</li>
+  <li><strong>Confirmações de leitura</strong> da versão vigente, por utilizador.</li>
+  </ul></li>
+<li>Os registos já criados mantêm a versão do modelo com que foram preenchidos.</li>
+<li>Documentos em Word/DOCX não são aceites como versão controlada: os entregáveis são em HTML.</li>
+</ul>
+
+<h2>B. Administrador da plataforma</h2>
+<div class="nota">Gere a infraestrutura; <strong>não abre documentos nem registos das organizações</strong>. A API recusa esses pedidos e o menu não os mostra. Ver os limites em <a href="SEGURANCA-E-LIMITES.html">Segurança e limites</a>.</div>
+<h3>Organizações</h3>
+<ul>
+<li><em>＋ Nova organização</em>: nome, administrador (palavra-passe temporária mostrada uma vez) e, opcionalmente, os modelos <strong>aprovados e neutralizados</strong> da biblioteca.</li>
+<li>Suspender/reativar (suspender encerra todos os tokens), entregar modelos, repor o acesso do administrador da organização.</li>
+</ul>
+<h3>Biblioteca de modelos (neutralizados)</h3>
+<ol class="passos">
+<li>Os modelos da FACASI só podem servir de biblioteca para outras organizações com <strong>autorização expressa</strong> registada (quem autoriza e referência do documento).</li>
+<li>«Gerar/atualizar biblioteca neutralizada»: o nome FACASI, o NIF e os correios @facasi são substituídos por marcadores (a organização destino recebe o seu próprio nome/NIF/logótipo). As páginas do manual da FACASI não entram na biblioteca.</li>
+<li>Cada modelo fica «pendente de revisão», com os achados da verificação automática (localizações, setor petróleo e gás, telefones, certificados, ficheiros próprios…).</li>
+<li>Reveja a pré-visualização e aprove. Modelos que ainda contenham «FACASI» ou ficheiros próprios (certificados, imagens) <strong>não podem</strong> ser aprovados.</li>
+<li>Novas organizações recebem apenas os modelos aprovados; os dados da FACASI (registos, ficheiros, logótipo) nunca são copiados.</li>
+</ol>
+<h3>Cópias de segurança</h3>
+<p>Ver <a href="BACKUP-RESTAURO.html">Cópias de segurança e restauro</a>.</p>
+<h3>Correio SMTP e notificações push</h3>
+<ul>
+<li><strong>SMTP (opcional)</strong>: servidor, porta, segurança (STARTTLS 587 / SSL 465), utilizador, palavra-passe (guardada cifrada com AES-256-GCM), remetente. «Enviar mensagem de teste» confirma a configuração. Com SMTP ativo: notificações por correio e recuperação de palavra-passe por ligação (válida 1 hora, uso único).</li>
+<li><strong>Push (opcional e desligável)</strong>: as chaves VAPID são geradas na instalação. O servidor envia apenas um «toque» sem conteúdo; o telemóvel vai buscar a notificação ao SGI (nenhum dado passa pelos serviços da Google/Apple/Mozilla). Se o servidor não suportar (sem OpenSSL P-256 ou cURL), mantêm-se as notificações internas.</li>
+</ul>
+<h3>Estado do sistema</h3>
+<p>Versão do sistema e do esquema, migrações pendentes, PHP, servidor web, MySQL, extensões, limites, espaço em disco, uso de armazenamento, HTTPS, última cópia, última execução das tarefas diárias e <strong>verificação de integridade das versões finais</strong> (recalcula o SHA-256 de cada ficheiro final e lista os que não conferem, sem mostrar o conteúdo). Botões: verificar integridade, executar tarefas diárias, abrir o assistente de atualização.</p>
+</main>
+<footer>SGI 1.1.0 · Manual do administrador</footer>
+</div>
+</body>
+</html>

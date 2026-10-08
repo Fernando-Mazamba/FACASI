@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Segurança e limites</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<div class="pagina">
+<header class="capa"><h1>Segurança e limites</h1><p>O que o SGI garante — e o que não garante</p></header>
+<nav class="voltar"><a href="index.html">← Documentação</a></nav>
+<main>
+<h2>1. Medidas implementadas</h2>
+<table>
+<tr><th>Área</th><th>Medida</th></tr>
+<tr><td>Instalação</td><td>Sem palavra-passe fixa. O assistente exige o código de instalação (o pacote só contém o hash bcrypt); 5 códigos errados bloqueiam 15 min; depois de instalado, o assistente fica bloqueado.</td></tr>
+<tr><td>Palavras-passe</td><td>bcrypt (<code>password_hash</code>), mínimo 10 caracteres com letras e números; palavras-passe temporárias obrigam a mudança; mudar a palavra-passe termina as outras sessões e dispositivos.</td></tr>
+<tr><td>Sessão (navegador)</td><td>Cookie HttpOnly, SameSite=Lax, Secure em HTTPS, ID regenerado ao entrar; token CSRF em todos os pedidos que alteram dados.</td></tr>
+<tr><td>Tokens (aplicação)</td><td>Acesso 15 min + renovação 30 dias rotativa, por dispositivo, guardados como SHA-256, revogáveis por utilizador/dispositivo com efeito imediato; reutilização de renovação antiga revoga o dispositivo.</td></tr>
+<tr><td>Tentativas</td><td>Bloqueio por conta (5), por organização (30) e por IP (50) em 15 minutos; mensagens genéricas (não revelam se a conta existe).</td></tr>
+<tr><td>Isolamento</td><td>Todas as consultas filtram pela organização do utilizador; recursos de outra organização respondem «não encontrado»; ficheiros em <code>storage/org_&lt;id&gt;/</code> verificados antes de servir; QR só resolve na própria organização; notificações nunca saem da organização.</td></tr>
+<tr><td>Plataforma</td><td>A conta de plataforma não tem organização: a API recusa documentos, registos e anexos (<code>plataforma_sem_acesso</code>).</td></tr>
+<tr><td>Ficheiros</td><td>Pasta de dados fora da pasta pública (recomendado) ou negada por <code>.htaccess</code>; tipo real verificado (finfo), imagens validadas e recodificadas (sem EXIF), PDF verificado, 10 MB máx.; nomes nunca usados como caminho.</td></tr>
+<tr><td>Modelos HTML</td><td>Mostrados numa moldura isolada (<em>sandbox</em> sem <code>allow-same-origin</code>): os scripts dos modelos não acedem à sessão, aos tokens nem à memória do dispositivo. Versões novas enviadas por utilizadores são sanitizadas (sem scripts, sem <code>on*</code>, sem <code>javascript:</code>). O <code>polyfill.io</code> (serviço comprometido em 2024) foi removido dos modelos.</td></tr>
+<tr><td>Versões finais</td><td>HTML sanitizado (sem scripts), servido com CSP <code>sandbox</code>; SHA-256 calculado sobre o ficheiro gravado; anexos listados com o seu SHA-256 dentro da versão final.</td></tr>
+<tr><td>Cabeçalhos</td><td>CSP estrita na aplicação (<code>script-src 'self'</code>), <code>X-Content-Type-Options</code>, <code>Referrer-Policy</code>, <code>X-Frame-Options</code>, <code>Permissions-Policy</code>.</td></tr>
+<tr><td>Relatórios CSV</td><td>Proteção contra injeção de fórmulas (valores começados por = + - @ são prefixados).</td></tr>
+<tr><td>Segredos</td><td>Palavra-passe SMTP e chave privada VAPID cifradas com AES-256-GCM (chave da aplicação em <code>config.php</code>).</td></tr>
+<tr><td>Auditoria</td><td>Registo de entradas, alterações, finalizações, aprovações, correções, transferências, cópias, restauros, atualizações e revogações.</td></tr>
+</table>
+
+<h2>2. Limites que deve conhecer</h2>
+<div class="alerta">
+<h3>SHA-256 não é assinatura digital certificada</h3>
+<p>O SHA-256 registado no momento da finalização permite <strong>detetar</strong> qualquer alteração ao ficheiro final (o SGI verifica-o a pedido e no «Estado do sistema»). Não identifica legalmente quem assinou e não tem validade de assinatura eletrónica qualificada. Para isso seria necessário um certificado digital emitido por entidade certificadora e um serviço de carimbo temporal.</p>
+</div>
+<div class="alerta">
+<h3>Quem controla a infraestrutura</h3>
+<p>O bloqueio de edição é aplicado pela aplicação (interface e API). Quem tem acesso direto ao servidor (cPanel, FTP, base de dados, cópias de segurança) consegue ler e alterar dados e ficheiros. O SGI <strong>deteta</strong> alterações aos ficheiros finais (SHA-256) e regista na auditoria tudo o que passa pela aplicação, mas não impede alterações feitas por fora. Recomendações: acesso ao cPanel só para quem é estritamente necessário, palavras-passe fortes com 2FA no cPanel, cópias descarregadas regularmente e guardadas fora do servidor, e verificação de integridade periódica. A tabela de registos finais e a sua auditoria também podem ser alteradas por quem controla a base de dados; uma cópia externa do manifesto/relatório permite comparar.</p>
+</div>
+<div class="alerta">
+<h3>Assinatura no ecrã</h3>
+<p>É uma imagem do traço com o nome escrito por quem assina: <strong>registo visual de conformidade</strong>, não assinatura digital certificada.</p>
+</div>
+<table>
+<tr><th>Tema</th><th>Limite</th></tr>
+<tr><td>Trabalho sem ligação</td><td>Rascunhos ficam no dispositivo (IndexedDB) até sincronizar: se o telemóvel for perdido/reposto antes, perdem-se. Finalizar e aprovar exigem servidor. Documentos offline são cópias com data visível e podem estar desatualizados até à próxima ligação. Ao terminar sessão com itens pendentes, eles ficam no dispositivo associados ao utilizador.</td></tr>
+<tr><td>Modelos com linhas dinâmicas</td><td>Se um modelo acrescenta linhas por script, o SGI guarda também a estrutura; ao reabrir, os valores são repostos mas os botões próprios do modelo podem não voltar a funcionar nessas linhas.</td></tr>
+<tr><td>Páginas do manual com Tailwind/Font Awesome</td><td>Usam CDN externo: sem internet aparecem sem estilos (o conteúdo continua legível).</td></tr>
+<tr><td>Push</td><td>Opcional. iPhone: só com a aplicação no ecrã principal (iOS 16.4+). Aplicação nativa (Capacitor): Web Push não funciona dentro da WebView; usa as notificações internas (o push nativo exigiria Firebase/APNs).</td></tr>
+<tr><td>Correio</td><td>Sem SMTP configurado, a recuperação de palavra-passe é feita pelo administrador.</td></tr>
+<tr><td>Cópias de segurança</td><td>Contêm todos os dados de todas as organizações: quem as descarrega pode lê-las. Guarde-as cifradas e em local seguro.</td></tr>
+<tr><td>Hospedagem partilhada</td><td>O SGI funciona sem cron e sem privilégios especiais, mas o desempenho depende do plano (memória, tempo máx. de execução para cópias grandes).</td></tr>
+</table>
+</main>
+<footer>SGI 1.1.0 · Segurança e limites</footer>
+</div>
+</body>
+</html>

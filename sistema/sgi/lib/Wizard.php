@@ -33,7 +33,51 @@ class Wizard
             $req[] = [$label, true, extension_loaded($ext) ? 'ativa' : 'não ativa (funcionalidade reduzida)'];
         }
         $req[] = ['Pasta do SGI com permissão de escrita (para config.php)', is_writable(SGI_ROOT), SGI_ROOT];
+        $pk = self::packageCheck();
+        if ($pk !== null) {
+            $req[] = ['Pacote completo (todas as partes ZIP extraídas, ficheiros íntegros)', $pk['ok'], $pk['mensagem']];
+        }
         return $req;
+    }
+
+    /**
+     * Verifica o manifesto PACOTE.json gerado no empacotamento: todos os ficheiros presentes e com o SHA-256 esperado.
+     * @return array{ok:bool,mensagem:string,em_falta:array<int,string>}|null  null numa cópia de desenvolvimento (sem manifesto)
+     */
+    public static function packageCheck(): ?array
+    {
+        $f = SGI_ROOT . '/PACOTE.json';
+        if (!is_file($f)) {
+            return null;
+        }
+        $m = json_decode((string)file_get_contents($f), true);
+        if (!is_array($m) || empty($m['ficheiros'])) {
+            return ['ok' => false, 'mensagem' => 'PACOTE.json inválido.', 'em_falta' => []];
+        }
+        $falta = [];
+        $alterados = [];
+        $partesEmFalta = [];
+        foreach ($m['ficheiros'] as $rel => $i) {
+            $abs = SGI_ROOT . '/' . $rel;
+            if (!is_file($abs)) {
+                $falta[] = $rel;
+                $partesEmFalta[(int)$i['parte']] = true;
+            } elseif (hash_file('sha256', $abs) !== $i['sha256']) {
+                $alterados[] = $rel;
+            }
+        }
+        if (!$falta && !$alterados) {
+            return ['ok' => true, 'mensagem' => 'versão ' . $m['versao'] . ' · ' . count($m['ficheiros']) . ' ficheiros verificados (' . (int)$m['total_partes'] . ' partes)', 'em_falta' => []];
+        }
+        $msg = [];
+        if ($partesEmFalta) {
+            ksort($partesEmFalta);
+            $msg[] = 'Falta extrair a(s) parte(s) ' . implode(', ', array_keys($partesEmFalta)) . ' de ' . (int)$m['total_partes'] . ' (' . count($falta) . ' ficheiros em falta).';
+        }
+        if ($alterados) {
+            $msg[] = count($alterados) . ' ficheiro(s) diferente(s) do pacote (extração incompleta ou ficheiro alterado): ' . implode(', ', array_slice($alterados, 0, 5));
+        }
+        return ['ok' => false, 'mensagem' => implode(' ', $msg), 'em_falta' => $falta];
     }
 
     public static function requirementsOk(): bool

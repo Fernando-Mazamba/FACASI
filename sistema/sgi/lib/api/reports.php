@@ -102,7 +102,7 @@ return function (Router $r) {
                 return report_output('Equipamentos, extintores e locais', 'Situação atual', ['kind' => 'Tipo', 'code' => 'Código', 'name' => 'Nome', 'location' => 'Localização', 'brand' => 'Marca', 'serial_no' => 'N.º série', 'next_check_date' => 'Próxima verificação', 'situacao' => 'Situação', 'registos' => 'Registos finais', 'status' => 'Estado'], $rows, $fmt, 'equipamentos');
             case 'cobertura':
                 $rows = Coverage::matrix($org);
-                $labels = ['pendente' => 'PENDENTE', 'documentado_sem_evidencia' => 'Documentado (sem evidência no SGI)', 'documentado_com_evidencia' => 'Documentado com evidência'];
+                $labels = ['pendente' => 'PENDENTE', 'nao_aplicavel' => 'Não aplicável (justificado)', 'documentado_sem_evidencia' => 'Documentado (sem evidência no SGI)', 'documentado_com_evidencia' => 'Documentado com evidência'];
                 foreach ($rows as &$x) {
                     $x['normas'] = implode(', ', array_map(function ($n) {
                         return 'ISO ' . $n;

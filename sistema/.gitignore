@@ -6,8 +6,12 @@ tests/node_modules/
 tests/results/
 dist/
 capacitor/node_modules/
-capacitor/android/
-capacitor/www/
 sgi/instalar/codigo.hash
 tests/.codigo
 sgi/instalar/.instalado
+capacitor/android/.gradle/
+capacitor/android/build/
+capacitor/android/app/build/
+capacitor/android/local.properties
+capacitor/ios/App/Pods/
+capacitor/ios/DerivedData/

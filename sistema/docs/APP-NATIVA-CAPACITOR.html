@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aplicação nativa (Capacitor)</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<div class="pagina">
+<header class="capa"><h1>Aplicação nativa Android e iOS (Capacitor)</h1><p>Opcional — a aplicação instalável pelo navegador (PWA) já funciona sem lojas</p></header>
+<nav class="voltar"><a href="index.html">← Documentação</a></nav>
+<main>
+<h2>1. Precisa mesmo da versão de loja?</h2>
+<p>A PWA instala-se a partir do navegador em Android e iPhone (ver <a href="GUIA-PASSO-A-PASSO.html">Guia passo a passo</a>), trabalha sem ligação, usa câmara, QR e localização, e atualiza-se sozinha. A versão de loja só é necessária se a empresa quiser distribuir pela Google Play / App Store ou gerir os telemóveis com MDM.</p>
+
+<h2>2. O que foi entregue</h2>
+<ul>
+<li><code>sgi-facasi-v1.1.0-app-capacitor.zip</code> com a pasta <code>capacitor/</code>: projeto Capacitor 8.5.3 com as plataformas <strong>android/</strong> e <strong>ios/</strong> já criadas.</li>
+<li>A aplicação abre o SGI do servidor (<code>server.url</code>, por omissão <code>https://textesgi.sistemaiso.net/sgi/</code>) e usa a mesma API e base de dados. Dentro da aplicação, o SGI usa <strong>tokens por dispositivo</strong> (revogáveis em Perfil → Dispositivos).</li>
+<li>Permissões já declaradas: câmara (fotografias e QR), localização (opcional), Internet. iOS: textos de pedido de permissão em português e domínio do SGI em <code>WKAppBoundDomains</code> (necessário para o funcionamento sem ligação no iPhone).</li>
+</ul>
+<h3>O que NÃO foi possível gerar neste ambiente</h3>
+<div class="alerta">
+<ul>
+<li><strong>APK de teste e AAB para a Play Store: não gerados.</strong> O ambiente de desenvolvimento não tem acesso ao repositório da Google (<code>dl.google.com</code> devolveu 403), de onde vêm o Android SDK e o plugin Gradle. A tentativa de compilação (<code>./gradlew assembleDebug</code>) falhou por esse motivo, não por erro no projeto.</li>
+<li><strong>iOS: não gerado.</strong> Requer um Mac com Xcode.</li>
+<li><strong>Testes num telemóvel real</strong> (Android ou iPhone) não foram feitos. Os testes automáticos usam Chromium com emulação móvel (Pixel 7, 390 px).</li>
+</ul>
+</div>
+
+<h2>3. Gerar o APK de teste (Windows, Mac ou Linux) — passo a passo</h2>
+<ol class="passos">
+<li><strong>Instalar o Node.js</strong> (versão 22 LTS) de nodejs.org e o <strong>Android Studio</strong> (developer.android.com/studio). Abra o Android Studio uma vez e aceite a instalação do SDK.</li>
+<li><strong>Extrair</strong> <code>sgi-facasi-v1.1.0-app-capacitor.zip</code> numa pasta (ex.: <code>Documentos\sgi-app</code>).</li>
+<li><strong>Abrir um terminal nessa pasta</strong> (Windows: na pasta, escreva <code>cmd</code> na barra de endereço e Enter).</li>
+<li><strong>Instalar as dependências:</strong> <code>npm install</code></li>
+<li><strong>Indicar o endereço do seu SGI</strong> (se não for o de omissão): <code>npm run configurar -- https://SEU-DOMINIO/sgi/</code></li>
+<li><strong>Sincronizar:</strong> <code>npx cap sync</code></li>
+<li><strong>Abrir no Android Studio:</strong> <code>npx cap open android</code>. Espere que termine o «Gradle sync» (barra inferior).</li>
+<li><strong>APK de teste:</strong> menu <em>Build → Build App Bundle(s) / APK(s) → Build APK(s)</em>. No fim, «locate» mostra <code>app-debug.apk</code>. Copie para o telemóvel e instale (é preciso permitir «instalar apps de origem desconhecida»).</li>
+</ol>
+
+<h2>4. Publicar na Google Play (AAB)</h2>
+<ol class="passos">
+<li><strong>Conta de programador Google Play</strong> (taxa única, paga pela empresa): play.google.com/console. Exige verificação de identidade da organização.</li>
+<li>Escolha o identificador definitivo da aplicação em <code>capacitor.config.json</code> → <code>appId</code> (por omissão <code>ao.facasi.sgi</code>; não pode mudar depois de publicado). Depois <code>npx cap sync</code>.</li>
+<li>Android Studio → <em>Build → Generate Signed Bundle / APK → Android App Bundle</em> → «Create new…» keystore. <strong>Guarde o ficheiro .jks e as palavras-passe em local seguro</strong>: sem eles não poderá publicar atualizações.</li>
+<li>Na Play Console: criar aplicação → ficha da loja (descrição, ícone 512×512, capturas de ecrã) → política de privacidade (URL) → classificação de conteúdo → «Segurança dos dados» (indique: fotografias e localização opcionais, guardadas no servidor da empresa) → carregar o <code>.aab</code> num teste interno → depois produção.</li>
+</ol>
+
+<h2>5. iPhone / iPad (App Store)</h2>
+<ol class="passos">
+<li>Precisa de um <strong>Mac</strong> com Xcode e de uma <strong>conta Apple Developer Program</strong> (anual, em nome da empresa — D-U-N-S).</li>
+<li>No Mac: <code>npm install</code> → <code>npx cap sync ios</code> → <code>npx cap open ios</code>.</li>
+<li>No Xcode: <em>Signing &amp; Capabilities</em> → escolher a equipa; confirmar o <em>Bundle Identifier</em>; se mudou o endereço do SGI, atualize <code>WKAppBoundDomains</code> em <code>Info.plist</code>.</li>
+<li><em>Product → Archive</em> → <em>Distribute App</em> → App Store Connect → TestFlight para testes → submissão para revisão.</li>
+</ol>
+
+<h2>6. Diferenças em relação à PWA</h2>
+<table>
+<tr><th>Recurso</th><th>PWA (navegador)</th><th>App nativa (Capacitor)</th></tr>
+<tr><td>Instalação</td><td>Pelo navegador, sem loja</td><td>Loja ou APK</td></tr>
+<tr><td>Trabalho sem ligação</td><td>Sim</td><td>Sim (Android: service worker na WebView; iOS: com WKAppBoundDomains)</td></tr>
+<tr><td>Câmara, QR, localização</td><td>Sim (HTTPS)</td><td>Sim (permissões nativas)</td></tr>
+<tr><td>Notificações push</td><td>Web Push (Android; iPhone com app no ecrã principal)</td><td><strong>Não incluído</strong>: exigiria Firebase (Android) e APNs (iOS) com contas próprias. Mantêm-se as notificações internas (sino).</td></tr>
+<tr><td>Sessão</td><td>Token por dispositivo</td><td>Token por dispositivo</td></tr>
+</table>
+</main>
+<footer>SGI 1.1.0 · Aplicação nativa</footer>
+</div>
+</body>
+</html>

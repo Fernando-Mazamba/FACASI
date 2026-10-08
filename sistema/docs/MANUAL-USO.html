@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manual de uso — web e aplicação</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<div class="pagina">
+<header class="capa"><h1>Manual de uso</h1><p>Navegador (computador) e aplicação (telemóvel e tablet) — o mesmo sistema, os mesmos dados</p></header>
+<nav class="voltar"><a href="index.html">← Documentação</a></nav>
+<main>
+
+<h2>1. Perfis</h2>
+<table>
+<tr><th>Perfil</th><th>Vê no painel</th><th>Pode</th></tr>
+<tr><td>Operário</td><td>Os seus rascunhos, as suas ações, leituras pendentes, próximos eventos, equipamentos a verificar.</td><td>Preencher, guardar e finalizar os seus registos; fotografar evidências; ler QR; confirmar leituras; concluir as ações que lhe estão atribuídas.</td></tr>
+<tr><td>Supervisor de campo</td><td>+ NC abertas, ações atrasadas, registos da equipa, aprovações pendentes.</td><td>+ gerir NC/ações, equipamentos e calendário; aprovar registos que exijam perfil de supervisor.</td></tr>
+<tr><td>Coordenador do SGI</td><td>+ indicadores, capacitações, fornecedores, documentos vigentes.</td><td>+ documentos controlados (novas versões, aprovação prévia, campos obrigatórios), catálogos, importação, relatórios, indicadores; editar rascunhos de outros.</td></tr>
+<tr><td>Direção</td><td>Visão global com indicadores.</td><td>Consultar tudo, aprovar, relatórios.</td></tr>
+<tr><td>Administrador da organização</td><td>Tudo o anterior.</td><td>+ utilizadores, organização (logótipo, NIF, âmbito normativo), exportação, auditoria.</td></tr>
+</table>
+
+<h2>2. Entrar</h2>
+<ul>
+<li><strong>Navegador:</strong> abra o endereço do SGI e entre com o seu correio e palavra-passe. A sessão termina ao fechar o navegador ou após 8 horas sem uso.</li>
+<li><strong>Aplicação instalada:</strong> ao entrar, o telemóvel recebe um <em>token</em> deste dispositivo (válido 15 minutos e renovado automaticamente). Pode ver e encerrar dispositivos em <em>Perfil → Dispositivos ligados</em>. Encerrar um dispositivo bloqueia-o de imediato.</li>
+<li>5 tentativas falhadas bloqueiam a conta durante 15 minutos. Esqueceu-se da palavra-passe? «Esqueci-me da palavra-passe» (se o correio estiver configurado) ou peça ao administrador uma palavra-passe temporária.</li>
+<li>No primeiro acesso com palavra-passe temporária, o sistema obriga a definir uma nova (mín. 10 caracteres, com letras e números).</li>
+</ul>
+
+<h2>3. Documentos</h2>
+<ul>
+<li><strong>Documentos</strong> mostra só as versões <em>vigentes</em>, com pesquisa e categorias. «Só formulários» filtra os que se preenchem.</li>
+<li><strong>Confirmar leitura</strong>: regista que leu a versão vigente (aparece no painel quando sai uma versão nova).</li>
+<li><strong>Disponível offline</strong>: guarda uma cópia neste dispositivo para consultar e preencher sem internet. A data da cópia aparece sempre; ao voltar a ligação, a cópia é atualizada para a versão vigente.</li>
+<li><strong>Baixar para o computador</strong>: descarrega o HTML. <strong>Não cria registo nem altera nada no SGI.</strong></li>
+<li>No telemóvel, tabelas largas deslizam para o lado dentro do documento; os campos têm tamanho tocável.</li>
+</ul>
+
+<h2>4. Preencher um registo</h2>
+<ol class="passos">
+<li>Escolha o formulário (Documentos → «Preencher novo registo», ou «＋ Novo» em Registos, ou a partir do QR de um equipamento).</li>
+<li>Escreva diretamente nos campos do documento. Pode alterar o título do registo.</li>
+<li><strong>💾 Guardar</strong> = rascunho na base de dados do servidor. A mensagem «Rascunho guardado no servidor às …» só aparece <em>depois</em> de o servidor confirmar. Sem ligação, aparece «guardado APENAS neste dispositivo — pendente de sincronizar».</li>
+<li><strong>📤 Descarregar (finalizar)</strong> = finalizar e arquivar no SGI: o sistema valida os campos obrigatórios (assinalados a vermelho), pede confirmação, aplica a aprovação prévia se o modelo a exigir, gera a versão final com SHA-256, <strong>bloqueia</strong> a edição e a eliminação e arquiva em <em>Registos / Categoria / Tipo / Ano / Mês</em>. Não descarrega ficheiro nenhum para o seu computador.</li>
+<li>Para ter o ficheiro no computador, abra o registo final e use <strong>⬇ Baixar para o computador</strong> (não altera o original).</li>
+</ol>
+<div class="nota">Os botões antigos dos modelos («GUARDAR no NAVEGADOR», «Guardar (Simular)», «EXPORTAR como HTML», «Imprimir») ficam ocultos dentro do SGI: no SGI, guardar é sempre no servidor.</div>
+
+<h3>Aprovação prévia</h3>
+<p>Se o coordenador configurou o modelo com aprovação prévia, «Descarregar» envia o registo ao aprovador. Enquanto aguarda, ninguém o pode alterar. O aprovador (perfil igual ou superior ao exigido, e diferente de quem pediu) aprova — e o registo é finalizado com a indicação «Aprovado por …» — ou devolve com motivo, voltando a rascunho. Aprovar exige ligação.</p>
+
+<h3>Corrigir um registo final</h3>
+<p>Num registo final, <strong>✎ Corrigir (nova versão)</strong> pede o motivo e cria um rascunho <em>vinculado</em> (versão 2, 3…), com o autor e a data. O registo original não muda e continua verificável; o modelo usado no original continua disponível. A cadeia de versões aparece em «Versões vinculadas».</p>
+
+<h2>5. Trabalhar sem ligação</h2>
+<ul>
+<li>Entre uma vez com ligação e marque como «Disponível offline» os formulários e documentos de que precisa no terreno.</li>
+<li>Sem ligação, a aplicação abre, mostra o último painel e permite preencher. Cada «Guardar» fica numa fila local (ícone ⟳ com contador no topo) como <strong>pendente de sincronizar</strong>. O único guardado oficial continua a ser o servidor.</li>
+<li>Quando a ligação volta, a fila é enviada sozinha. Cada envio leva uma chave de idempotência: repetir o envio nunca duplica registos.</li>
+<li><strong>Finalizar e aprovar exigem ligação.</strong> Sem ligação, o botão «Descarregar» fica desativado e explica porquê.</li>
+<li>Fotografias e assinaturas feitas sem ligação ficam no dispositivo e sobem com o rascunho.</li>
+</ul>
+<h3>Conflitos</h3>
+<p>Se outra pessoa alterou o mesmo rascunho no servidor enquanto o seu telemóvel estava sem ligação, nada é sobrescrito. O item aparece como «Conflito por resolver» em <em>Sincronização</em>. Em <strong>Resolver</strong> vê, campo a campo, a sua versão e a do servidor, e escolhe: manter a sua, usar a do servidor, ou guardar a sua como <em>novo rascunho</em> (as duas ficam). Nunca há perda silenciosa.</p>
+
+<h2>6. Recursos do telemóvel</h2>
+<table>
+<tr><th>Recurso</th><th>Como usar</th><th>Notas</th></tr>
+<tr><td>📷 Foto</td><td>No registo, «📷 Foto» abre a câmara. Escreva uma legenda (opcional).</td><td>A fotografia é reduzida no telemóvel (máx. 1600 px, JPEG) e o servidor volta a validá-la (tipo e conteúdo reais, sem metadados). Só pessoas da mesma organização a podem ver.</td></tr>
+<tr><td>✍ Assinatura</td><td>Desenhe com o dedo e escreva o nome de quem assina.</td><td><strong>Registo visual de conformidade. Não é assinatura digital certificada.</strong></td></tr>
+<tr><td>📍 Localização</td><td>Opcional. Na primeira vez pede o seu consentimento; depois o telemóvel pede a permissão.</td><td>Só é recolhida quando carrega no botão. Pode retirar o consentimento em Perfil.</td></tr>
+<tr><td>▣ QR</td><td>«Ler QR» → «Ativar câmara», ou «Ler de uma fotografia». Também pode ler a etiqueta com a câmara normal do telemóvel.</td><td>Abre a ficha do equipamento/extintor/local e o formulário de inspeção associado. Etiquetas de outra organização mostram «não reconhecido».</td></tr>
+<tr><td>🔔 Notificações</td><td>Sino no topo (sempre ativo). Push no telemóvel: Perfil → «Ativar neste dispositivo».</td><td>No iPhone, o push só funciona com a aplicação adicionada ao ecrã principal (iOS 16.4+).</td></tr>
+</table>
+
+<h2>7. Outros módulos</h2>
+<ul>
+<li><strong>Calendário</strong>: guardado no servidor e partilhado; auditorias, capacitações, manutenções, revisões, vencimentos legais, com repetição e lembretes. Mostra também prazos de ações, verificações de equipamentos e capacitações. O calendário antigo (que só guardava no navegador) pode ser importado: no calendário antigo use «Descarregar → Descarregar como JSON» e depois «⬆ Importar calendário antigo».</li>
+<li><strong>Não conformidades e ações</strong>: tipo (NC, observação, oportunidade, incidente, acidente), norma, gravidade, responsável, prazo, causa, eficácia. Prazos em atraso aparecem a vermelho e geram avisos diários.</li>
+<li><strong>Equipamentos e QR</strong>: ficha, próxima verificação, formulário associado e etiquetas QR para imprimir (papel autocolante A4).</li>
+<li><strong>Catálogos</strong>: trabalhadores, cargos, fornecedores, capacitações (com participantes e presenças).</li>
+<li><strong>Indicadores e relatórios</strong>: medições reais por período (nada é estimado); relatórios em HTML imprimível e CSV.</li>
+<li><strong>Importar folha</strong>: CSV ou Excel (.xlsx) com pré-visualização e validação antes de gravar.</li>
+</ul>
+
+<h2>8. Instalar a aplicação</h2>
+<p>Ver o <a href="GUIA-PASSO-A-PASSO.html">Guia passo a passo</a> (Android e iPhone) ou, no SGI, o menu «Instalar aplicação».</p>
+</main>
+<footer>SGI 1.1.0 · Manual de uso</footer>
+</div>
+</body>
+</html>

@@ -46,10 +46,21 @@ class Coverage
         ['10.3', 'Melhoria contínua', ['9001', '14001', '45001'], ['PCS-005', 'PRO-006']],
     ];
 
+    /** Normas do âmbito da organização (definidas pelo administrador). @return array{normas:array<int,string>,justificacao:string} */
+    public static function scope(int $orgId): array
+    {
+        $v = json_decode((string)setting_get('org_normas_' . $orgId, ''), true);
+        if (!is_array($v) || empty($v['normas'])) {
+            return ['normas' => ['9001', '14001', '45001'], 'justificacao' => ''];
+        }
+        return ['normas' => array_values(array_intersect(['9001', '14001', '45001'], (array)$v['normas'])), 'justificacao' => (string)($v['justificacao'] ?? '')];
+    }
+
     /** @return array<int,array<string,mixed>> */
     public static function matrix(int $orgId): array
     {
         $db = sgi_db();
+        $scope = self::scope($orgId);
         $templates = $db->all("SELECT t.id, t.code, t.title FROM templates t WHERE t.org_id = ? AND t.status = 'vigente'", [$orgId]);
         $since = date('Y-m-d', strtotime('-12 months'));
         $evid = [];
@@ -69,7 +80,10 @@ class Coverage
                     }
                 }
             }
-            if (!$docs) {
+            if (!array_intersect($norms, $scope['normas'])) {
+                $estado = 'nao_aplicavel';
+                $nota = 'Não aplicável: fora do âmbito definido pela organização (ISO ' . implode(', ISO ', $scope['normas']) . ').' . ($scope['justificacao'] !== '' ? ' Justificação: ' . $scope['justificacao'] : '');
+            } elseif (!$docs) {
                 $estado = 'pendente';
                 $nota = 'Sem documento vigente no SGI para esta cláusula. Necessário elaborar ou indicar o documento existente.';
             } elseif ($records > 0) {

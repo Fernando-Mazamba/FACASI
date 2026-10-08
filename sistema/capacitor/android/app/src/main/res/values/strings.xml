@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">SGI FACASI</string>
+    <string name="title_activity_main">SGI FACASI</string>
+    <string name="package_name">ao.facasi.sgi</string>
+    <string name="custom_url_scheme">ao.facasi.sgi</string>
+</resources>

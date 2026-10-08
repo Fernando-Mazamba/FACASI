@@ -9,7 +9,7 @@ export default defineConfig({
   workers: 1,
   retries: 0,
   reporter: [['list'], ['json', { outputFile: process.env.SGI_REPORT || 'results/resultado.json' }]],
-  outputDir: 'results/artefactos',
+  outputDir: process.env.SGI_ARTEFACTOS || 'results/artefactos',
   use: {
     baseURL: process.env.SGI_URL || 'http://127.0.0.1:8090/sgi/',
     trace: 'retain-on-failure',

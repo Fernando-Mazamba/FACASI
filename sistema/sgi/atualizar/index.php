@@ -45,6 +45,9 @@ try {
         Auth::logoutSession();
         $user = null;
     } elseif ($action === 'atualizar' && $user) {
+        if (!Wizard::requirementsOk()) {
+            throw new RuntimeException('O servidor ou o pacote não cumprem os requisitos (ver a lista de verificação). Extraia todas as partes do pacote antes de atualizar.');
+        }
         @set_time_limit(1200);
         @ignore_user_abort(true);
         $t0 = microtime(true);

@@ -17,6 +17,7 @@ return function (Router $r) {
         $o = sgi_db()->one('SELECT id, slug, name, legal_name, tax_id, address, logo_path, status, created_at FROM organizations WHERE id = ?', [$org]);
         $o['has_logo'] = !empty($o['logo_path']);
         unset($o['logo_path']);
+        $o['ambito'] = Coverage::scope($org);
         return ['org' => $o];
     });
 
@@ -30,6 +31,16 @@ return function (Router $r) {
             'tax_id' => opt_str($b, 'tax_id', 60),
             'address' => opt_str($b, 'address'),
         ], 'id = ?', [$org]);
+        if (isset($b['normas'])) {
+            $normas = array_values(array_intersect(['9001', '14001', '45001'], array_map('strval', (array)$b['normas'])));
+            if (!$normas) {
+                throw new HttpError(422, 'Escolha pelo menos uma norma do âmbito do sistema de gestão.', 'normas');
+            }
+            if (count($normas) < 3 && trim((string)($b['justificacao'] ?? '')) === '') {
+                throw new HttpError(422, 'Indique a justificação para as normas fora do âmbito.', 'justificacao');
+            }
+            setting_set('org_normas_' . $org, json_encode(['normas' => $normas, 'justificacao' => mb_substr(trim((string)($b['justificacao'] ?? '')), 0, 500)], JSON_UNESCAPED_UNICODE));
+        }
         audit($org, Auth::id(), 'organizacao_atualizada', 'organization', $org);
         return ['ok' => true];
     });

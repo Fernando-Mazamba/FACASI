@@ -141,7 +141,7 @@ test('T21 Token da aplicação revogado deixa de funcionar imediatamente', async
   const linha = page.locator('tr', { hasText: 'Telemóvel de teste T21' });
   await linha.getByRole('button', { name: 'Encerrar' }).click();
   await page.getByRole('button', { name: 'Encerrar', exact: true }).last().click();
-  await expect(page.locator('.toast.ok')).toContainText('Dispositivo encerrado');
+  await expect(page.locator('.toast.ok').filter({ hasText: 'Dispositivo encerrado' }).first()).toBeVisible();
   // imediatamente: acesso e renovação recusados
   expect((await cli.call('GET', '/records', undefined, novo.access_token)).status).toBe(401);
   const ref2 = await cli.ctx.post('api.php/auth/refresh', { data: { refresh_token: novo.refresh_token } });

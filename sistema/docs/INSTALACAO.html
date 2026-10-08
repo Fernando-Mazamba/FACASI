@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Instalação do SGI</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<div class="pagina">
+<header class="capa"><h1>Instalação</h1><p>SGI 1.1.0 · hospedagem partilhada cPanel (sem Terminal) e ambiente local de testes</p></header>
+<nav class="voltar"><a href="index.html">← Documentação</a></nav>
+<main>
+
+<h2>1. Requisitos do servidor</h2>
+<table>
+<tr><th>Componente</th><th>Requisito</th><th>Notas</th></tr>
+<tr><td>PHP</td><td>7.4 a 8.4 (recomendado <strong>8.2 ou 8.3</strong>)</td><td>Escolha em cPanel → <em>Selecionar versão do PHP</em>. Testado em PHP 8.3 (servidor embutido e Apache + mod_php).</td></tr>
+<tr><td>Extensões PHP obrigatórias</td><td>pdo_mysql, openssl, mbstring, json, fileinfo, dom, zip</td><td>O assistente verifica-as e indica as que faltam.</td></tr>
+<tr><td>Extensões opcionais</td><td>gd (recompressão de fotografias), curl (notificações push)</td><td>Sem elas, o sistema funciona com funcionalidade reduzida.</td></tr>
+<tr><td>Base de dados</td><td>MySQL 5.7+ / 8.x ou MariaDB 10.3+</td><td>Não precisa de privilégio SUPER (não há triggers nem procedimentos). Testado em MariaDB 10.11.</td></tr>
+<tr><td>Servidor web</td><td>Apache ou LiteSpeed com <code>.htaccess</code></td><td>Funciona numa subpasta (ex.: <code>https://textesgi.sistemaiso.net/sgi/</code>). Não precisa de mod_rewrite.</td></tr>
+<tr><td>HTTPS</td><td>Obrigatório em produção</td><td>A aplicação instalável (PWA), a câmara e a localização só funcionam com HTTPS. Ative o certificado gratuito em cPanel → <em>SSL/TLS Status</em> (AutoSSL).</td></tr>
+<tr><td>Node.js / Composer</td><td><strong>Não são necessários</strong> no servidor</td><td>Tudo é entregue pronto (sem passo de compilação no servidor).</td></tr>
+<tr><td>Cron</td><td>Opcional</td><td>Sem cron, as tarefas diárias correm sozinhas uma vez por dia no primeiro acesso.</td></tr>
+</table>
+
+<h2>2. O que recebe</h2>
+<ul>
+<li><code>sgi-facasi-v1.1.0-sistema-parte1de3.zip</code>, <code>…parte2de3.zip</code>, <code>…parte3de3.zip</code> — cada parte tem menos de 30 MB e contém a pasta raiz <code>sgi/</code>. <strong>Extraia todas as partes para o mesmo sítio</strong>; os ficheiros juntam-se dentro de <code>sgi/</code>.</li>
+<li><code>CODIGO-INSTALACAO.txt</code> — entregue <strong>em separado</strong>. O pacote contém apenas o hash do código.</li>
+<li><code>SHA256SUMS.txt</code> — para conferir os ficheiros descarregados (opcional).</li>
+</ul>
+<div class="nota">O assistente confirma que as 3 partes foram extraídas: cada ficheiro é verificado contra o manifesto <code>PACOTE.json</code> (SHA-256). Se faltar uma parte, a instalação não avança e indica qual falta.</div>
+
+<h2>3. Instalação no cPanel (passo a passo, sem Terminal)</h2>
+<ol class="passos">
+<li><strong>Criar a base de dados.</strong> cPanel → <em>Bases de dados MySQL</em> → «Criar nova base de dados» (ex.: <code>conta_sgi</code>).</li>
+<li><strong>Criar o utilizador da base.</strong> Na mesma página → «Adicionar novo utilizador» com uma palavra-passe forte (use o gerador). Anote-a.</li>
+<li><strong>Dar privilégios.</strong> «Adicionar utilizador à base de dados» → escolha o utilizador e a base → marque <em>TODOS OS PRIVILÉGIOS</em> → «Fazer alterações».</li>
+<li><strong>Escolher a versão do PHP.</strong> cPanel → <em>Selecionar versão do PHP</em> → 8.2 ou 8.3 → separador <em>Extensões</em>: confirme pdo_mysql, mbstring, fileinfo, zip, gd, curl, dom, openssl.</li>
+<li><strong>Enviar o pacote.</strong> cPanel → <em>Gestor de ficheiros</em> → abra a pasta do domínio/subdomínio (ex.: <code>public_html</code> ou a pasta do subdomínio <code>textesgi</code>) → <em>Carregar</em> → envie as 3 partes ZIP.</li>
+<li><strong>Extrair.</strong> Selecione cada ZIP → <em>Extrair</em> → confirme a pasta atual. Repita para as 3 partes. Deve ficar uma pasta <code>sgi/</code>. Pode apagar os ZIP depois.</li>
+<li><strong>(Recomendado) Pasta de dados fora da pasta pública.</strong> No Gestor de ficheiros, ao nível da pasta <em>home</em> (acima de <code>public_html</code>), crie <code>sgi-dados</code>. O assistente sugere este caminho automaticamente quando é possível.</li>
+<li><strong>Abrir o assistente.</strong> No navegador: <code>https://SEU-DOMINIO/sgi/instalar/</code>.</li>
+<li><strong>Preencher.</strong> Código de instalação (do ficheiro separado) · dados da base (servidor <code>localhost</code>, nome e utilizador com o prefixo da conta) · pasta de dados · administrador da plataforma · primeira organização (FACASI) e o seu administrador. Para a FACASI, deixe marcada a opção de importar os 165 documentos originais.</li>
+<li><strong>Instalar.</strong> No fim aparece «Instalação concluída». A partir daí o assistente fica bloqueado.</li>
+<li><strong>Primeiros passos.</strong> Entre como administrador da plataforma → <em>Cópias de segurança</em> → «Criar cópia de segurança agora». Depois entre como administrador da FACASI e crie os utilizadores.</li>
+</ol>
+<div class="nota">Não existe nenhuma palavra-passe fixa ou pública. O primeiro administrador é criado no assistente, protegido pelo código de instalação (5 tentativas falhadas bloqueiam o assistente durante 15 minutos).</div>
+
+<h2>4. Contas criadas na instalação</h2>
+<table>
+<tr><th>Conta</th><th>O que faz</th><th>O que não faz</th></tr>
+<tr><td>Administrador da plataforma</td><td>Organizações, biblioteca de modelos, cópias de segurança, atualização, correio SMTP, push, estado do sistema.</td><td>Não abre documentos nem registos das organizações (a API recusa: <code>plataforma_sem_acesso</code>).</td></tr>
+<tr><td>Administrador da organização</td><td>Utilizadores, dados e logótipo da organização, âmbito normativo, exportação, auditoria; tudo o que o coordenador faz.</td><td>Não gere a infraestrutura.</td></tr>
+</table>
+
+<h2>5. Tarefas diárias (opcional)</h2>
+<p>Lembretes do calendário, avisos de ações atrasadas e de verificações de equipamentos, limpeza de dados temporários. Sem configuração, correm uma vez por dia após o primeiro acesso. Para horário fixo: cPanel → <em>Tarefas Cron</em> → «Uma vez por dia» → comando:</p>
+<pre><code>php -q /home/CONTA/public_html/sgi/cron.php</code></pre>
+<p>Também pode executá-las em <em>Plataforma → Estado do sistema → Executar tarefas diárias</em>.</p>
+
+<h2>6. Limites de envio</h2>
+<p>O pacote inclui <code>sgi/.user.ini</code> (upload 20 MB, memória 256 MB, 300 s). Em alguns servidores estes valores levam até 5 minutos a aplicar ou são definidos em cPanel → <em>Selecionar versão do PHP → Opções</em>. As fotografias são comprimidas no telemóvel (máx. 1600 px) antes de serem enviadas.</p>
+
+<h2>7. Ambiente local de desenvolvimento e testes</h2>
+<p>Para programadores (não é necessário em produção):</p>
+<pre><code># MariaDB/MySQL local
+sudo service mariadb start
+mysql -uroot -e "CREATE DATABASE sgi_dev CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+  CREATE USER 'sgi'@'localhost' IDENTIFIED BY 'sgi_dev_pw'; GRANT ALL ON sgi_dev.* TO 'sgi'@'localhost';"
+
+# biblioteca de modelos da FACASI a partir deste repositório
+php sistema/tools/sync-modelos.php
+
+# código de instalação local (o hash vai para sgi/instalar/codigo.hash)
+php sistema/tools/gen-install-code.php
+
+# servidor embutido do PHP, com a mesma subpasta /sgi/ da produção
+php -S 127.0.0.1:8080 -t sistema sistema/sgi/dev-router.php
+# abrir http://127.0.0.1:8080/sgi/instalar/</code></pre>
+<p>O <code>dev-router.php</code> reproduz as proteções do <code>.htaccess</code> (o servidor embutido não lê <code>.htaccess</code>). Bateria completa de testes (php -S e Apache): <code>bash sistema/tests/run-all.sh</code> — ver <a href="RELATORIO-TESTES.html">Relatório de testes</a>.</p>
+
+<h2>8. Problemas comuns</h2>
+<table>
+<tr><th>Mensagem</th><th>Solução</th></tr>
+<tr><td>«Não foi possível ligar à base de dados»</td><td>Confirme o nome completo com prefixo (<code>conta_sgi</code>), o utilizador e que lhe deu «Todos os privilégios».</td></tr>
+<tr><td>«Falta extrair a(s) parte(s) …»</td><td>Extraia as partes indicadas para a mesma pasta.</td></tr>
+<tr><td>«EM FALTA — ative em cPanel…»</td><td>Ative a extensão indicada em <em>Selecionar versão do PHP → Extensões</em>.</td></tr>
+<tr><td>A aplicação não aparece para instalar no telemóvel</td><td>Confirme que o site abre com <code>https://</code> (cadeado) e não com <code>http://</code>.</td></tr>
+</table>
+</main>
+<footer>SGI 1.1.0 · Instalação</footer>
+</div>
+</body>
+</html>

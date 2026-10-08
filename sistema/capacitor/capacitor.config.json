@@ -1,0 +1,20 @@
+{
+  "appId": "ao.facasi.sgi",
+  "appName": "SGI FACASI",
+  "webDir": "www",
+  "server": {
+    "url": "https://textesgi.sistemaiso.net/sgi/",
+    "cleartext": false,
+    "errorPath": "erro.html",
+    "allowNavigation": ["textesgi.sistemaiso.net"]
+  },
+  "android": {
+    "allowMixedContent": false,
+    "captureInput": true,
+    "webContentsDebuggingEnabled": false
+  },
+  "ios": {
+    "contentInset": "automatic",
+    "limitsNavigationsToAppBoundDomains": true
+  }
+}

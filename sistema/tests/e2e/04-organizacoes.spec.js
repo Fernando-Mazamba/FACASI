@@ -91,7 +91,7 @@ test('T12 Cópia de segurança pelo navegador e restauro verificado', async ({ p
   await entrarUI(page, CONTAS.plataforma);
   await page.goto(URL_BASE + '#/plataforma/copias');
   await page.getByRole('button', { name: /Criar cópia de segurança agora/ }).click();
-  await expect(page.locator('.toast.ok')).toContainText('Cópia criada', { timeout: 120000 });
+  await expect(page.locator('.toast.ok').filter({ hasText: 'Cópia criada' }).first()).toBeVisible({ timeout: 120000 });
   const bk = (await plat.call('GET', '/platform/backups')).body.backups[0];
   const [dl] = await Promise.all([page.waitForEvent('download'), page.locator('tr', { hasText: bk.file_name }).getByRole('button', { name: /Descarregar/ }).click()]);
   const zipPath = await dl.path();
@@ -138,7 +138,7 @@ test('T13 Nova versão de documento controlado e confirmação de leitura', asyn
   await expect(page.locator('main')).toContainText('PRO-001');
   await page.goto(URL_BASE + '#/documentos/' + tpl.id);
   await page.getByRole('button', { name: /Confirmar leitura/ }).click();
-  await expect(page.locator('.toast.ok')).toContainText('Leitura confirmada');
+  await expect(page.locator('.toast.ok').filter({ hasText: 'Leitura confirmada' }).first()).toBeVisible();
   const reads = (await coord.call('GET', `/templates/${tpl.id}/reads`)).body.reads;
   expect(reads.find((x) => x.name.includes('operario')).confirmed_at).toBeTruthy();
   await coord.dispose();

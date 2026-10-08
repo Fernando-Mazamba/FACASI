@@ -25,14 +25,21 @@ Registo de progresso por etapas. Se a sessão for interrompida, continuar a part
 ## Etapas
 | # | Etapa | Estado |
 |---|-------|--------|
-| 1 | Núcleo 1.0.0 + ambiente local + testes base | em curso |
-| 2 | Assistente de atualização | pendente |
-| 3 | PWA + offline + tokens de app | pendente |
-| 4 | Recursos do telemóvel | pendente |
-| 5 | Melhorias web | pendente |
-| 6 | Capacitor | pendente |
-| 7 | Testes completos | pendente |
-| 8 | Pacote e guias | pendente |
+| 1 | Núcleo 1.0.0 + ambiente local + testes base | concluído |
+| 2 | Assistente de atualização | concluído (T23) |
+| 3 | PWA + offline + tokens de app | concluído (T15–T18, T21) |
+| 4 | Recursos do telemóvel | concluído (T19, T20) |
+| 5 | Melhorias web | concluído (T25–T30) |
+| 6 | Capacitor | projeto Android/iOS criado; APK/AAB não compilável neste ambiente (dl.google.com 403) |
+| 7 | Testes completos | em curso (php -S: aceitação + ida e volta 165×2; Apache: em curso) |
+| 8 | Pacote e guias | em curso (documentação HTML escrita; empacotamento por gerar) |
 
 ## Diário
 - 2026-10-08: ambiente local montado (MariaDB 10.11, PHP 8.3, Apache 2.4 + mod_php 8.3, Playwright 1.56 + Chromium).
+- Núcleo, API, SPA, ponte de modelos, service worker, instalador e atualizador escritos e testados.
+- Primeira bateria: 22/22 (T01–T21, T23) no php -S; ida e volta 330/330 (165 documentos × 390/1280 px).
+- Âmbito normativo por organização: FACASI = ISO 9001 + ISO 45001 (fornecido pelo relatório de validação original);
+  cláusulas exclusivas da ISO 14001 marcadas como "não aplicável" com justificação.
+- Estimativa de campos do catálogo corrigida (ignorava CSS/JS) e teste de coerência formulário/consulta acrescentado.
+- Projeto Capacitor 8.5.3 (android/ios) com permissões de câmara/localização e WKAppBoundDomains.
+- Push para o GitHub recusado (403: a app Claude não tem acesso de escrita ao repositório). Commits locais mantidos.

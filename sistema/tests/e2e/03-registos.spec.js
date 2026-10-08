@@ -118,7 +118,7 @@ test('T06 Aprovação prévia: exige aprovador com perfil suficiente, segregaç�
   const cartao = page.locator('.lista-cartoes li', { hasText: 'teste T06' });
   await cartao.getByRole('button', { name: 'Aprovar e finalizar' }).click();
   await page.getByRole('button', { name: 'Continuar' }).click();
-  await expect(page.locator('.toast.ok')).toContainText('Aprovado');
+  await expect(page.locator('.toast.ok').filter({ hasText: 'Aprovado' }).first()).toBeVisible();
   const rec = (await admin.call('GET', '/records/' + c.body.id)).body;
   expect(rec.status).toBe('final');
   expect(rec.approvals[0].status).toBe('aprovado');

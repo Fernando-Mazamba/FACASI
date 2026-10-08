@@ -57,7 +57,7 @@ test('T16 Rascunho preenchido sem internet fica "pendente de sincronizar" e sinc
   const { ctx, page } = await abrirApp(browser, CONTAS.operario);
   await page.goto(URL_BASE + '#/documentos/' + tpl.id);
   await page.getByRole('button', { name: /Disponível offline/ }).click();
-  await expect(page.locator('.toast.ok')).toContainText('Disponível offline');
+  await expect(page.locator('.toast.ok').filter({ hasText: 'Disponível offline' }).first()).toBeVisible();
   await ficarOffline(ctx, page, true);
   await page.goto(URL_BASE + '#/registos/novo/' + tpl.id);
   await esperarEditor(page);
@@ -125,7 +125,7 @@ test('T17 Conflito: duas pessoas editam o mesmo rascunho, uma sem ligação → 
   await expect(page.locator('main')).toContainText('VB-2');
   await page.screenshot({ path: 'results/T17-conflito-390.png', fullPage: true });
   await page.getByRole('button', { name: 'Guardar a minha como novo rascunho' }).click();
-  await expect(page.locator('.toast.ok')).toContainText('novo rascunho');
+  await expect(page.locator('.toast.ok').filter({ hasText: 'novo rascunho' }).first()).toBeVisible();
   const copia = (await admin.call('GET', '/records?q=' + encodeURIComponent('cópia do conflito'))).body.records[0];
   expect((await admin.call('GET', '/records/' + copia.id)).body.data.fields.k2).toBe('VB-2');
   expect((await admin.call('GET', '/records/' + c.body.id)).body.data.fields.k2).toBe('Versão do coordenador');

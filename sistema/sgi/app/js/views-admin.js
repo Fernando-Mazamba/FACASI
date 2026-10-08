@@ -49,9 +49,16 @@ export async function organizacao() {
   const { org } = await api('GET', '/org');
   const f = el('form', { class: 'cartao form-grelha', onsubmit: async (ev) => {
     ev.preventDefault();
-    try { await api('PUT', '/org', formData(f)); toast('Dados da organização guardados.', 'ok'); } catch (e) { toast(e.message, 'erro'); }
+    const dados = formData(f);
+    delete dados[''];
+    dados.normas = [...f.querySelectorAll('[data-norma]')].filter((c) => c.checked).map((c) => c.dataset.norma);
+    try { await api('PUT', '/org', dados); toast('Dados da organização guardados.', 'ok'); } catch (e) { toast(e.message, 'erro'); }
   } }, campo('Nome', input('name', org.name, { required: true })), campo('Denominação legal', input('legal_name', org.legal_name)),
-  campo('NIF', input('tax_id', org.tax_id), 'Apenas o NIF real fornecido pela organização.'), campo('Morada', input('address', org.address)), el('button', { class: 'btn' }, 'Guardar'));
+  campo('NIF', input('tax_id', org.tax_id), 'Apenas o NIF real fornecido pela organização.'), campo('Morada', input('address', org.address)),
+  el('fieldset', null, el('legend', null, 'Âmbito do sistema de gestão (normas)'),
+    ['9001', '14001', '45001'].map((n) => el('label', { class: 'chk' }, el('input', { type: 'checkbox', 'data-norma': n, checked: org.ambito.normas.includes(n) }), 'ISO ' + n)),
+    campo('Justificação das normas fora do âmbito', input('justificacao', org.ambito.justificacao))),
+  el('button', { class: 'btn' }, 'Guardar'));
   const logo = el('input', { type: 'file', accept: 'image/png,image/jpeg,image/webp' });
   mount(cabecalho('Organização'), f,
     el('section', { class: 'cartao' }, el('h2', null, 'Logótipo'), el('p', { class: 'nota' }, 'Usado nos documentos e no ícone da aplicação instalada.'), logo,

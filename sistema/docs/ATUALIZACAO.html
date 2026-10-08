@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atualização do SGI</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<div class="pagina">
+<header class="capa"><h1>Atualização</h1><p>Instalar uma versão nova sem Terminal e sem perder dados</p></header>
+<nav class="voltar"><a href="index.html">← Documentação</a></nav>
+<main>
+<h2>Como funciona</h2>
+<p>Cada versão traz os ficheiros do sistema e, quando necessário, <strong>migrações</strong> da base de dados (pasta <code>sgi/migrations/&lt;versão&gt;/</code>). Os seus dados nunca vêm no pacote: <code>config.php</code> e a pasta de dados não são tocados ao extrair.</p>
+<p>Enquanto houver migrações por aplicar, o SGI fica em <strong>modo de manutenção</strong>: a API responde «O sistema está a ser atualizado» e só o assistente de atualização funciona. Assim não se gravam dados num esquema incompleto.</p>
+
+<h2>Passo a passo</h2>
+<ol class="passos">
+<li><strong>Cópia de segurança prévia (recomendado).</strong> Plataforma → Cópias de segurança → «Criar cópia de segurança agora» → «Descarregar». O assistente faz outra cópia automaticamente, mas ter uma no seu computador é a garantia final.</li>
+<li><strong>Enviar as partes.</strong> cPanel → Gestor de ficheiros → pasta que <em>contém</em> <code>sgi/</code> → Carregar as partes ZIP da nova versão.</li>
+<li><strong>Extrair por cima.</strong> Extraia cada parte na mesma pasta e aceite substituir ficheiros. <code>config.php</code> e os dados mantêm-se.</li>
+<li><strong>Abrir o assistente.</strong> <code>https://SEU-DOMINIO/sgi/atualizar/</code> → entrar com a conta de <strong>administrador da plataforma</strong> (outras contas são recusadas).</li>
+<li><strong>Verificar.</strong> O ecrã mostra a versão dos ficheiros, a versão do esquema da base de dados, os requisitos (incluindo «Pacote completo») e a lista de migrações pendentes.</li>
+<li><strong>Atualizar agora.</strong> O assistente: (1) cria uma cópia completa (base de dados + ficheiros) com manifesto de contagens e SHA-256; (2) aplica as migrações; (3) gera chaves VAPID se faltarem; (4) <strong>compara</strong> o estado depois com o manifesto de antes.</li>
+<li><strong>Ler o relatório.</strong> «Atualização concluída sem perda de dados» significa: mesmas contagens de linhas e mesmos hashes (sobre as colunas que existiam antes) em todas as tabelas de dados, todos os ficheiros com o mesmo SHA-256 e todas as versões finais com SHA-256 confirmado. Pode descarregar o relatório (JSON).</li>
+<li><strong>Telemóveis.</strong> A aplicação instalada atualiza-se sozinha na próxima abertura com ligação (o service worker de cada versão tem um identificador novo).</li>
+</ol>
+
+<h2>Se algo correr mal</h2>
+<ul>
+<li>O relatório mostra «Atualização com problemas» e a lista de diferenças. Nada é apagado.</li>
+<li>No mesmo ecrã, em «Restaurar uma cópia», escolha a cópia <code>…antes-atualizacao…</code>, escreva <kbd>RESTAURAR</kbd> e confirme. Antes de restaurar é feita mais uma cópia do estado atual.</li>
+<li>As migrações são idempotentes (podem ser repetidas): corrigido o problema, carregue novamente em «Atualizar agora».</li>
+</ul>
+
+<h2>Atualização 1.0.0 → 1.1.0 (testada)</h2>
+<p>A versão 1.1.0 acrescenta: dispositivos e tokens da aplicação, chaves de idempotência, subscrições push, equipamentos/QR, calendário no servidor, indicadores, importações e colunas de campo nos registos (UUID do cliente, GPS, equipamento). O teste T23 instala uma base com o esquema 1.0.0 e dados de teste (24 registos, 12 finais com ficheiro e SHA-256, anexos, NC, ações, catálogos) e executa este assistente no navegador: todas as contagens e hashes ficam iguais e os 12 finais mantêm o SHA-256. Ver <a href="RELATORIO-TESTES.html">Relatório de testes</a>.</p>
+<div class="nota">Não existia uma instalação 1.0.0 real da FACASI. O núcleo foi escrito nesta etapa como esquema 1.0.0 e as funcionalidades móveis como 1.1.0, precisamente para que o assistente de atualização fosse exercitado de forma real.</div>
+</main>
+<footer>SGI 1.1.0 · Atualização</footer>
+</div>
+</body>
+</html>

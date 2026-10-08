@@ -134,6 +134,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $imported = 0;
             if ($isFacasi) {
                 $imported = Templates::importOriginals($orgId, $oaId);
+                // Âmbito fornecido pela FACASI (relatório de validação do SGI original): ISO 9001 e ISO 45001.
+                setting_set('org_normas_' . $orgId, json_encode(['normas' => ['9001', '45001'], 'justificacao' => 'Âmbito contratado pela FACASI: ISO 9001:2015 e ISO 45001:2018 (relatório de validação do SGI original; conteúdos exclusivos da ISO 14001 foram retirados). Alterável em Organização.'], JSON_UNESCAPED_UNICODE));
             }
             setting_set('installed_at', $now);
             setting_set('installed_version', SGI_VERSION);

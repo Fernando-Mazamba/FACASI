@@ -45,7 +45,7 @@ test('T26 Calendário do SGI no servidor (partilhado, recorrente, importação d
   await page.locator('.modal [name=recurrence]').selectOption('anual');
   await page.locator('.modal [name=reminder_days]').fill('5');
   await page.getByRole('button', { name: 'Guardar' }).click();
-  await expect(page.locator('.toast.ok')).toContainText('guardado no servidor');
+  await expect(page.locator('.toast.ok').filter({ hasText: 'guardado no servidor' })).toBeVisible();
   // outro utilizador, noutro navegador, vê o mesmo evento (não está guardado só no navegador)
   const ctx2 = await browser.newContext();
   const p2 = await ctx2.newPage();
@@ -64,7 +64,7 @@ test('T26 Calendário do SGI no servidor (partilhado, recorrente, importação d
   fs.writeFileSync(f, JSON.stringify(legado));
   const input = page.locator('input[type=file][accept*=json]');
   await input.setInputFiles(f);
-  await expect(page.locator('.toast.ok')).toContainText('Importados 1');
+  await expect(page.locator('.toast.ok').filter({ hasText: 'Importados 1' })).toBeVisible();
   // lembretes: as tarefas diárias criam notificações
   const plat = await sessao(CONTAS.plataforma);
   const cron = await plat.call('POST', '/platform/cron');
@@ -94,7 +94,9 @@ test('T27 Relatórios em HTML imprimível e CSV (indicadores, NC/ações, capaci
   expect(forn).toContain(`"'=HYPERLINK`);
   const cob = (await coord.call('GET', '/reports/cobertura?format=json')).body;
   const asp = cob.rows.find((r) => r.clausula.startsWith('6.1.2 (14001)'));
-  expect(asp.estado).toBe('pendente');
+  // âmbito fornecido pela FACASI: ISO 9001 e ISO 45001 ⇒ cláusulas só da ISO 14001 não aplicáveis, com justificação
+  expect(asp.estado).toBe('nao_aplicavel');
+  expect(asp.nota).toContain('Justificação');
   const ctx = cob.rows.find((r) => r.clausula === '4.1');
   expect(ctx.documentos).toContain('DOC-002');
   // o operário não acede a relatórios
@@ -127,7 +129,7 @@ test('T28 Importação por folha (CSV e Excel) com pré-visualização e valida�
   // nada foi gravado durante a pré-visualização
   expect((await coord.call('GET', '/workers')).body.items.length).toBe(antes);
   await page.getByRole('button', { name: /Gravar 1 linha/ }).click();
-  await expect(page.locator('.toast.ok')).toContainText('1 registo(s) importado(s)');
+  await expect(page.locator('.toast.ok').filter({ hasText: '1 registo(s) importado(s)' }).first()).toBeVisible();
   const ws = (await coord.call('GET', '/workers?q=IMP-001')).body.items;
   expect(ws.length).toBe(1);
   expect(ws[0].hired_at).toBe('2026-03-15');
@@ -179,10 +181,10 @@ test('T29 Correio SMTP configurável pela interface + recuperação de palavra-p
     await f.locator('[name=security]').selectOption('nenhuma');
     await f.locator('[name=from_email]').fill('sgi@facasi.teste');
     await f.getByRole('button', { name: 'Guardar' }).click();
-    await expect(page.locator('.toast.ok')).toContainText('correio guardada');
+    await expect(page.locator('.toast.ok').filter({ hasText: 'correio guardada' }).first()).toBeVisible();
     await page.locator('input[name=to]').fill('teste@facasi.teste');
     await page.getByRole('button', { name: 'Enviar mensagem de teste' }).click();
-    await expect(page.locator('.toast.ok')).toContainText('Mensagem enviada');
+    await expect(page.locator('.toast.ok').filter({ hasText: 'Mensagem enviada' }).first()).toBeVisible();
     expect(mensagens.length).toBe(1);
     // recuperação de palavra-passe pelo ecrã de entrada
     const ctx = await page.context().browser().newContext();
@@ -200,7 +202,7 @@ test('T29 Correio SMTP configurável pela interface + recuperação de palavra-p
     await p2.locator('input[type=password]').first().fill(nova);
     await p2.locator('input[type=password]').nth(1).fill(nova);
     await p2.getByRole('button', { name: 'Guardar' }).click();
-    await expect(p2.locator('.toast.ok')).toContainText('redefinida');
+    await expect(p2.locator('.toast.ok').filter({ hasText: 'redefinida' }).first()).toBeVisible();
     const s = await sessao({ email: CONTAS.supervisor.email, password: nova });
     await s.call('POST', '/auth/password', { current: nova, new: CONTAS.supervisor.password });
     await s.dispose();

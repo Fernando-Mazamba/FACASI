@@ -5,7 +5,7 @@
  * Reproduz as proteções do .htaccess (o servidor embutido não lê .htaccess).
  */
 $path = rawurldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?? '/');
-if (preg_match('#/(lib|migrations|modelos|storage)(/|$)|/config\.php$|/codigo\.hash$|/\.instalado$|/VERSION$|/\.user\.ini$|/\.htaccess$|/dev-router\.php$#', $path)) {
+if (preg_match('#/(lib|migrations|modelos|storage)(/|$)|/config\.php$|/codigo\.hash$|/\.instalado$|/VERSION$|/PACOTE\.json$|/\.user\.ini$|/\.htaccess$|/dev-router\.php$#', $path)) {
     http_response_code(403);
     header('Content-Type: text/plain; charset=utf-8');
     echo 'Acesso negado.';
