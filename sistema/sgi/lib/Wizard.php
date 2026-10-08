@@ -55,18 +55,33 @@ class Wizard
         echo '</tbody></table>';
     }
 
-    /** Limite simples de tentativas por IP, guardado em ficheiro (antes de existir BD). */
-    public static function throttle(string $name, int $max = 5, int $window = 900): void
+    /** Limite de tentativas FALHADAS por IP, guardado em ficheiro (antes de existir BD). */
+    private static function throttleFile(string $name): string
     {
-        $f = sys_get_temp_dir() . '/sgi-' . $name . '-' . md5(SGI_ROOT . client_ip());
-        $list = is_file($f) ? array_filter(array_map('intval', explode(',', (string)file_get_contents($f))), function ($t) use ($window) {
+        return sys_get_temp_dir() . '/sgi-' . $name . '-' . md5(SGI_ROOT . client_ip());
+    }
+
+    /** @return array<int,int> */
+    private static function throttleList(string $name, int $window): array
+    {
+        $f = self::throttleFile($name);
+        return is_file($f) ? array_values(array_filter(array_map('intval', explode(',', (string)file_get_contents($f))), function ($t) use ($window) {
             return $t > time() - $window;
-        }) : [];
-        if (count($list) >= $max) {
-            throw new RuntimeException('Demasiadas tentativas. Aguarde 15 minutos.');
+        })) : [];
+    }
+
+    public static function throttleCheck(string $name, int $max = 5, int $window = 900): void
+    {
+        if (count(self::throttleList($name, $window)) >= $max) {
+            throw new RuntimeException('Demasiadas tentativas falhadas. Aguarde 15 minutos.');
         }
+    }
+
+    public static function throttleFail(string $name, int $window = 900): void
+    {
+        $list = self::throttleList($name, $window);
         $list[] = time();
-        @file_put_contents($f, implode(',', $list));
+        @file_put_contents(self::throttleFile($name), implode(',', $list));
     }
 
     public static function csrf(): string

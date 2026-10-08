@@ -10,7 +10,7 @@ class Auth
 {
     public const ACCOUNT_MAX_FAILS = 5;
     public const LOCK_MINUTES = 15;
-    public const IP_MAX_FAILS = 20;
+    public const IP_MAX_FAILS = 50;
     public const ORG_MAX_FAILS = 30;
 
     /** @var array<string,mixed>|null */

@@ -39,12 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         Wizard::checkCsrf();
-        Wizard::throttle('install');
+        Wizard::throttleCheck('install');
         if (!is_file($hashFile)) {
             throw new RuntimeException('Pacote sem código de instalação (instalar/codigo.hash). Use o pacote oficial.');
         }
         $code = preg_replace('/\s+/', '', strtoupper((string)($_POST['install_code'] ?? '')));
         if (!password_verify($code, trim((string)file_get_contents($hashFile)))) {
+            Wizard::throttleFail('install');
             throw new RuntimeException('Código de instalação incorreto.');
         }
         if (!Wizard::requirementsOk()) {

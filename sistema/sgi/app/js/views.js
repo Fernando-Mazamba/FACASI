@@ -1,6 +1,6 @@
 // Ecrãs principais (uso em campo e no escritório).
 import { api, blob, state, can, BASE, ApiError, ping } from './api.js';
-import { el, mount, toast, modal, confirmar, pedirTexto, fmtData, fmtBytes, badge, cabecalho, vazio, tabela, uuid, clear, baixarBlob, campo, ESTADOS } from './ui.js';
+import { el, mount, toast, modal, confirmar, pedirTexto, fmtData, fmtBytes, badge, cabecalho, vazio, tabela, uuid, clear, baixarBlob, campo, ESTADOS, navegar } from './ui.js';
 import { outbox, docsOffline, versoes, cache } from './db.js';
 import { hostForm } from './form-host.js';
 import { saveLocal, syncAll, uploadAttachments, refreshSyncBadge } from './sync.js';
@@ -172,7 +172,7 @@ export async function documento(params) {
   const gestao = t && can('docs.manage') ? painelGestaoDocumento(t, versions, () => documento(params)) : null;
   const historico = versions.length ? el('details', { class: 'cartao' }, el('summary', null, `Histórico de versões (${versions.length})`),
     tabela([{ label: 'Versão', key: 'version_no' }, { label: 'Estado', key: 'status' }, { label: 'Data', render: (v) => fmtData(v.created_at, true) },
-      { label: 'Motivo', render: (v) => v.reason || '—' }, { label: 'Autor', render: (v) => v.author || 'Sistema' }, { label: 'Leituras', key: 'reads' },
+      { label: 'Motivo', render: (v) => v.reason || '—' }, { label: 'Autor', render: (v) => v.author || 'Sistema' }, { label: 'Leituras', key: 'n_reads' },
       { label: 'SHA-256', render: (v) => el('code', { class: 'hash' }, v.sha256.slice(0, 16) + '…') }], versions)) : null;
   mount(cabecalho(modelo.title), info, el('div', { class: 'acoes-barra' }, acoes), frameBox, historico, gestao);
   await hostForm(frameBox, { html: modelo.html, mode: 'view', title: modelo.title, onLink: abrirLigacao });
@@ -424,7 +424,7 @@ async function editorRegisto({ modelo, rec, local, assetId }) {
       const snap = await host.snapshot();
       const r = await api('POST', `/records/${ctx.recordId}/finalize`, { final_html: snap.html, lock_version: ctx.lock, confirm: true });
       toast(r.mensagem || 'Finalizado.', 'ok', 7000);
-      location.hash = '#/registos/' + r.id;
+      navegar('#/registos/' + r.id);
     } catch (e) {
       if (e.code === 'obrigatorios') {
         const keys = Object.entries(d.labels).filter(([, l]) => (e.data.campos || []).includes(l)).map(([k]) => k);
@@ -625,7 +625,7 @@ async function resolverConflito(loc) {
   } else {
     acoes.push(el('button', { class: 'btn', onclick: async () => {
       if (!await confirmar('Manter a minha versão?', 'A sua versão substitui a do servidor. A versão do servidor fica registada no histórico de auditoria.', 'Manter a minha')) return;
-      try { await api('PUT', '/records/' + recId, { data: loc.data, title: loc.title, lock_version: server.lock_version }, { idem: 'res-' + uuid() }); await outbox.del(loc.id); refreshSyncBadge(); toast('Conflito resolvido: a sua versão foi guardada.', 'ok'); location.hash = '#/registos/' + recId; }
+      try { await api('PUT', '/records/' + recId, { data: loc.data, title: loc.title, lock_version: server.lock_version }, { idem: 'res-' + uuid() }); await outbox.del(loc.id); refreshSyncBadge(); toast('Conflito resolvido: a sua versão foi guardada.', 'ok'); navegar('#/registos/' + recId); }
       catch (e) { toast(e.message, 'erro'); }
     } }, 'Manter a minha versão'));
     acoes.push(el('button', { class: 'btn sec', onclick: async () => {

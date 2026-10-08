@@ -169,3 +169,9 @@ export function baixarBlob(blob, nome) {
   a.click();
   setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 2000);
 }
+
+/** Navega para uma rota; se já estiver nela, volta a desenhar o ecrã. */
+export function navegar(hash) {
+  if (location.hash === hash) window.dispatchEvent(new HashChangeEvent('hashchange'));
+  else location.hash = hash;
+}

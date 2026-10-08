@@ -254,6 +254,8 @@ async function atualizarNotificacoes() {
 }
 
 async function arrancar() {
+  // perfil guardado no dispositivo para abrir a aplicação sem ligação (apenas dados locais)
+  if (state.me && state.me.user) { const { cache } = await import('./db.js'); await cache.set('me', state.me); }
   montarLayout();
   refreshSyncBadge();
   atualizarNotificacoes();
@@ -298,11 +300,7 @@ async function init() {
       return;
     }
   }
-  if (state.me && state.me.user) {
-    const { cache } = await import('./db.js');
-    await cache.set('me', state.me);
-    await arrancar();
-  }
+  if (state.me && state.me.user) await arrancar();
   window.addEventListener('hashchange', render);
   render();
   setInterval(() => { atualizarNotificacoes(); if (state.online) syncAll(); else ping(); }, 60000);

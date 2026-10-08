@@ -102,7 +102,7 @@ return function (Router $r) {
             throw new HttpError(404, 'Documento não encontrado.', 'nao_encontrado');
         }
         $versions = $db()->all('SELECT tv.id, tv.version_no, tv.sha256, tv.reason, tv.status, tv.created_at, u.name AS author,
-                (SELECT COUNT(*) FROM read_confirmations rc WHERE rc.template_version_id = tv.id) AS reads
+                (SELECT COUNT(*) FROM read_confirmations rc WHERE rc.template_version_id = tv.id) AS n_reads
             FROM template_versions tv LEFT JOIN users u ON u.id = tv.created_by WHERE tv.template_id = ? ORDER BY tv.version_no DESC', [$t['id']]);
         $myRead = $db()->val('SELECT confirmed_at FROM read_confirmations WHERE template_version_id = ? AND user_id = ?', [$t['current_version_id'], Auth::id()]);
         return ['template' => [

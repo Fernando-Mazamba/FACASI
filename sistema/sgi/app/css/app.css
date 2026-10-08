@@ -7,6 +7,7 @@
   --topo: 56px; --barra: 62px;
 }
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; font: 16px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color: var(--texto); background: var(--fundo); }
 a { color: var(--azul-2); }
@@ -227,4 +228,9 @@ body.offline .so-online { display: none; }
   main { margin: 0; padding: 0; }
   body { background: #fff; }
   .etiquetas { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .barra-registo .btn { min-height: 40px; padding: 6px 10px; font-size: .9rem; }
+  .acoes-barra .btn { flex: 1 1 auto; }
 }

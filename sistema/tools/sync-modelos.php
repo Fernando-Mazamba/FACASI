@@ -93,6 +93,10 @@ foreach ($groups as $srcDir => $group) {
     sort($files);
     foreach ($files as $file) {
         $base = basename($file);
+        if ($group === 'manual' && $base === 'Calendario.html') {
+            // Substituído pelo calendário do SGI no servidor (o antigo guardava só no navegador).
+            continue;
+        }
         $html = file_get_contents($file);
         $srcRel = "$srcDir/$base";
 
