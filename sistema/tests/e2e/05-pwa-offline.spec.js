@@ -58,6 +58,7 @@ test('T16 Rascunho preenchido sem internet fica "pendente de sincronizar" e sinc
   await page.goto(URL_BASE + '#/documentos/' + tpl.id);
   await page.getByRole('button', { name: /Disponível offline/ }).click();
   await expect(page.locator('.toast.ok').filter({ hasText: 'Disponível offline' }).first()).toBeVisible();
+  await expect(page.getByRole('button', { name: /Remover do modo offline/ })).toBeVisible();
   await ficarOffline(ctx, page, true);
   await page.goto(URL_BASE + '#/registos/novo/' + tpl.id);
   await esperarEditor(page);

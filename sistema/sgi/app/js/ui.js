@@ -170,6 +170,15 @@ export function baixarBlob(blob, nome) {
   setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 2000);
 }
 
+// Hash do último ecrã desenhado e se há uma navegação em curso (gerido por main.js).
+export const rota = { montada: null, emCurso: false };
+
+/** Volta a desenhar o ecrã atual — só se o utilizador não tiver entretanto navegado para outro. */
+export function recarregar() {
+  if (rota.emCurso || location.hash !== rota.montada) return;
+  window.dispatchEvent(new HashChangeEvent('hashchange'));
+}
+
 /** Navega para uma rota; se já estiver nela, volta a desenhar o ecrã. */
 export function navegar(hash) {
   if (location.hash === hash) window.dispatchEvent(new HashChangeEvent('hashchange'));

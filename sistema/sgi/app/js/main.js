@@ -1,6 +1,6 @@
 // Arranque da aplicação: sessão/tokens, rotas, menu, estado da ligação e sincronização.
 import { api, state, whoami, login, logout, preferredMode, loadTokens, onAuthChange, onOnlineChange, ping, can, BASE, ApiError } from './api.js';
-import { el, mount, toast, clear, modal } from './ui.js';
+import { el, mount, toast, clear, modal, rota } from './ui.js';
 import { syncAll, onSyncChange, pendingCount, refreshSyncBadge } from './sync.js';
 import * as V from './views.js';
 import * as G from './views-gestao.js';
@@ -65,9 +65,16 @@ let rendering = 0;
 let fila = Promise.resolve();
 let pendente = false;
 function render() {
+  rota.emCurso = true;
   if (pendente) return fila;
   pendente = true;
-  fila = fila.then(() => { pendente = false; document.querySelectorAll('.modal-fundo').forEach((m) => m.remove()); return renderAgora(); }).catch((e) => console.error(e));
+  fila = fila.then(async () => {
+    pendente = false;
+    document.querySelectorAll('.modal-fundo').forEach((m) => m.remove());
+    const h = location.hash;
+    await renderAgora();
+    rota.montada = h;
+  }).catch((e) => console.error(e)).finally(() => { if (!pendente) rota.emCurso = false; });
   return fila;
 }
 
