@@ -31,8 +31,8 @@ Registo de progresso por etapas. Se a sessão for interrompida, continuar a part
 | 4 | Recursos do telemóvel | concluído (T19, T20) |
 | 5 | Melhorias web | concluído (T25–T30) |
 | 6 | Capacitor | projeto Android/iOS criado; APK/AAB não compilável neste ambiente (dl.google.com 403) |
-| 7 | Testes completos | em curso (php -S: aceitação + ida e volta 165×2; Apache: em curso) |
-| 8 | Pacote e guias | em curso (documentação HTML escrita; empacotamento por gerar) |
+| 7 | Testes completos | concluído — php -S 28/28 (+T24 n/a), Apache 29/29, ida e volta 330/330 em cada |
+| 8 | Pacote e guias | concluído — dist/v1.1.0 (3 partes < 30 MB), documentação HTML, guia PT, Capacitor |
 
 ## Diário
 - 2026-10-08: ambiente local montado (MariaDB 10.11, PHP 8.3, Apache 2.4 + mod_php 8.3, Playwright 1.56 + Chromium).
@@ -43,3 +43,10 @@ Registo de progresso por etapas. Se a sessão for interrompida, continuar a part
 - Estimativa de campos do catálogo corrigida (ignorava CSS/JS) e teste de coerência formulário/consulta acrescentado.
 - Projeto Capacitor 8.5.3 (android/ios) com permissões de câmara/localização e WKAppBoundDomains.
 - Push para o GitHub recusado (403: a app Claude não tem acesso de escrita ao repositório). Commits locais mantidos.
+- Corrigidas corridas na interface encontradas pelos testes: navegação pós-login, redesenhos em série,
+  redesenho atrasado apenas se a ação veio do ecrã atual, cancelamento de moldura removida, diálogos fechados ao navegar.
+- Corrigido ciclo de redesenho no módulo de gestão e cabeçalho nosniff duplicado no Apache.
+- Bateria final (2026-10-08 17:00): php -S 28/28 (T24 só Apache), Apache 2.4 + mod_php 8.3 29/29;
+  ida e volta 165/165 a 390 px e 165/165 a 1280 px em cada servidor (73 formulários, 3746 campos; 92 documentos de consulta).
+- Pacote validado como no cPanel: com 2 partes o instalador recusa e indica a parte em falta; com 3 instala (165 documentos).
+- Pendente do lado da FACASI/infraestrutura: ver docs/PENDENCIAS.html.
