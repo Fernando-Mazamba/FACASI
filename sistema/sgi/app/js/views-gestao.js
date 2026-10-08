@@ -70,7 +70,7 @@ const NORMAS = [['ISO 9001', 'ISO 9001'], ['ISO 14001', 'ISO 14001'], ['ISO 4500
 
 // =================== NÃO CONFORMIDADES ===================
 export async function ncs() {
-  const users = await navegar(location.hash);
+  const users = await utilizadores();
   await crudPage({
     titulo: 'Não conformidades, incidentes e oportunidades', rota: 'nonconformities', gerir: can('nc.manage'),
     campos: [
@@ -91,7 +91,7 @@ export async function ncs() {
 
 // =================== AÇÕES ===================
 export async function acoes(params, query) {
-  const users = await navegar(location.hash);
+  const users = await utilizadores();
   const ncsList = (await api('GET', '/nonconformities')).items;
   const hoje = new Date().toISOString().slice(0, 10);
   const filtro = (query.get('nc') ? '&nc_id=' + query.get('nc') : '');
@@ -125,7 +125,7 @@ export async function calendario(params, query) {
   const to = new Date(ano, mes + 1, 0);
   const iso = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
   const r = await api('GET', `/calendar?from=${iso(from)}&to=${iso(to)}`);
-  const users = await navegar(location.hash);
+  const users = await utilizadores();
   const camposEv = [
     { name: 'title', label: 'Título', required: true }, { name: 'event_type', label: 'Tipo', type: 'select', options: TIPOS_EV, required: true },
     { name: 'start_date', label: 'Data', type: 'date', required: true }, { name: 'end_date', label: 'Data de fim', type: 'date' },
