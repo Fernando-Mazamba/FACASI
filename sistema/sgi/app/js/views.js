@@ -174,8 +174,9 @@ export async function documento(params) {
     tabela([{ label: 'Versão', key: 'version_no' }, { label: 'Estado', key: 'status' }, { label: 'Data', render: (v) => fmtData(v.created_at, true) },
       { label: 'Motivo', render: (v) => v.reason || '—' }, { label: 'Autor', render: (v) => v.author || 'Sistema' }, { label: 'Leituras', key: 'n_reads' },
       { label: 'SHA-256', render: (v) => el('code', { class: 'hash' }, v.sha256.slice(0, 16) + '…') }], versions)) : null;
+  window.__sgiVista = null;
   mount(cabecalho(modelo.title), info, el('div', { class: 'acoes-barra' }, acoes), frameBox, historico, gestao);
-  await hostForm(frameBox, { html: modelo.html, mode: 'view', title: modelo.title, onLink: abrirLigacao });
+  window.__sgiVista = await hostForm(frameBox, { html: modelo.html, mode: 'view', title: modelo.title, onLink: abrirLigacao });
 }
 
 async function abrirLigacao(file) {
@@ -285,6 +286,7 @@ export async function registoLocal(params) {
 
 /** Editor de rascunho: Guardar (servidor; sem ligação → fila local) e Descarregar (finalizar, só com ligação). */
 async function editorRegisto({ modelo, rec, local, assetId }) {
+  window.__sgiEditor = null;
   const ctx = {
     recordId: rec ? rec.id : (local ? local.recordId : null),
     lock: rec ? rec.lock_version : (local ? local.baseLockVersion : null),

@@ -47,7 +47,7 @@ correr() {
   rm -f "$RES/estado-$nome.json"
   local comum=(SGI_URL="$url" SGI_UPD_URL="$upd" SGI_DB="$db" SGI_DB_USER="$DB_USER" SGI_DB_PASS="$DB_PASS" SGI_STORAGE="$dados" SGI_INSTALL_CODE="$codigo" SGI_STATE="$RES/estado-$nome.json" SGI_SERVIDOR="$nome" SGI_RESULTS="$RES/$nome")
   log "[$nome] Testes de aceitação T01–T21, T23, T24"
-  (cd "$T" && env "${comum[@]}" SGI_REPORT="$RES/resultado-$nome-aceitacao.json" npx playwright test ${SGI_TESTES:-e2e/0[1-8]*.spec.js} --workers=1)
+  (cd "$T" && env "${comum[@]}" SGI_REPORT="$RES/resultado-$nome-aceitacao.json" npx playwright test ${SGI_TESTES:-e2e/0[1-8]*.spec.js e2e/1*.spec.js} --workers=1)
   local r1=$?
   local r2=0
   if [ -z "${SGI_SEM_IDA_VOLTA:-}" ]; then

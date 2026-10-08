@@ -38,8 +38,8 @@
     try { nativeAlert.call(window, m); } catch (e) {}
   };
 
-  var HIDE_RE = /guardar|salvar|carregar|exportar|descarregar|download|imprimir|limpar|reiniciar|editar conte|desativar edi|enviar inqu|gerar relat|guardar pdf/i;
-  var HIDE_IDS = ['editContentBtn', 'saveBtn', 'loadBtn', 'exportBtn', 'downloadBtn', 'printBtn', 'editStatus'];
+  var HIDE_RE = /guardar|salvar|carregar|exportar|descarregar|download|imprimir|limpar|reiniciar|editar|edi[çc][ãa]o|edi[çc][õo]es|enviar inqu|gerar relat|guardar pdf/i;
+  var HIDE_IDS = ['editContentBtn', 'editBtn', 'saveBtn', 'loadBtn', 'exportBtn', 'downloadBtn', 'printBtn', 'editStatus'];
 
   function isFieldInput(el) {
     if (el.tagName !== 'INPUT') return true;

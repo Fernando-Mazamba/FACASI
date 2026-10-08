@@ -161,9 +161,11 @@ foreach ($groups as $srcDir => $group) {
         }
         $usedCodes[$code] = true;
 
-        $inputs = preg_match_all('#<(input|select|textarea)\b#i', $html);
-        $buttonsInputs = preg_match_all('#<input[^>]+type=["\']?(button|submit|reset|hidden|file|image)#i', $html);
-        $editables = preg_match_all('#class=["\'][^"\']*\beditable\b|contenteditable=["\']?true#i', $html);
+        // contagem de campos no HTML (sem o código dos scripts, que não são campos)
+        $semScripts = preg_replace('#<script\b.*?</script>#is', '', $html) ?? $html;
+        $inputs = preg_match_all('#<(input|select|textarea)\b#i', $semScripts);
+        $buttonsInputs = preg_match_all('#<input[^>]+type=["\']?(button|submit|reset|hidden|file|image)#i', $semScripts);
+        $editables = preg_match_all('#class=["\'][^"\']*\beditable\b|contenteditable=["\']?true#i', $semScripts);
         $fields = max(0, $inputs - $buttonsInputs) + $editables;
         [$cat, $type] = category_for($code, $group);
 

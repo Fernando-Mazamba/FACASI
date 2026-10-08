@@ -14,6 +14,8 @@ test.describe.configure({ mode: 'parallel' });
 
 async function verificarModelo(page, base, t, largura) {
   const out = { code: t.code, largura, campos: 0, ok: false, detalhe: '' };
+  // carga limpa da aplicação para cada documento (sem reaproveitar o editor anterior)
+  await page.goto('about:blank');
   if (t.is_form) {
     await page.goto(base + '#/registos/novo/' + t.id);
     await page.waitForFunction(() => window.__sgiEditor && window.__sgiEditor.host, null, { timeout: 60000 });
@@ -34,7 +36,8 @@ async function verificarModelo(page, base, t, largura) {
     out.ok = !out.detalhe;
   } else {
     await page.goto(base + '#/documentos/' + t.id);
-    await page.waitForSelector('iframe.quadro-modelo');
+    await page.waitForFunction(() => window.__sgiVista && window.__sgiVista.info, null, { timeout: 60000 });
+    out.campos_execucao = await page.evaluate(() => window.__sgiVista.info.count);
     out.ok = true;
   }
   // conteúdo dentro do ecrã: o documento não pode ultrapassar a largura (tabelas largas deslizam dentro do seu contentor)
