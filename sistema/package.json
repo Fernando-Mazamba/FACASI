@@ -1,0 +1,12 @@
+{
+  "name": "sgi-facasi-dev",
+  "private": true,
+  "description": "Ferramentas de desenvolvimento e testes E2E do SGI (não vão para o servidor).",
+  "type": "module",
+  "scripts": {
+    "test": "bash tests/run-all.sh"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1"
+  }
+}

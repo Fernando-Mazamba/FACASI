@@ -1,0 +1,41 @@
+# SGI — regras para Apache/LiteSpeed (cPanel). Funciona em subpasta (ex.: /sgi/) sem alterações.
+Options -Indexes
+DirectoryIndex index.php index.html
+
+# O cabeçalho Authorization (tokens da aplicação) é removido por alguns servidores CGI/FastCGI: repor.
+<IfModule mod_setenvif.c>
+  SetEnvIf Authorization "(.+)" HTTP_AUTHORIZATION=$1
+</IfModule>
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP:Authorization} .
+  RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+</IfModule>
+
+# Ficheiros que nunca podem ser servidos diretamente
+<FilesMatch "^(config\.php|VERSION|\.user\.ini|codigo\.hash|\.instalado|.*\.sql|.*\.md|catalogo\.json)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+<IfModule mod_mime.c>
+  AddType application/manifest+json .webmanifest
+  AddType application/javascript .js .mjs
+  AddType image/svg+xml .svg
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  <FilesMatch "^sw\.js$">
+    Header set Cache-Control "no-cache"
+    Header set Service-Worker-Allowed "./"
+  </FilesMatch>
+  <FilesMatch "\.(css|js|svg|png|webmanifest)$">
+    Header set Cache-Control "public, max-age=3600"
+  </FilesMatch>
+</IfModule>

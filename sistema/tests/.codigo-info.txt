@@ -1,0 +1,7 @@
+CÓDIGO DE INSTALAÇÃO DO SGI
+
+    P8UJ-3MFY-HWGL-TZBB
+
+Gerado em 2026-10-08T15:25:18+00:00.
+Introduza-o no assistente de instalação (https://SEU-DOMINIO/sgi/instalar/).
+Guarde-o em local seguro e não o envie junto com o pacote.

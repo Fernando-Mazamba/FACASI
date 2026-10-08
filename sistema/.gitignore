@@ -1,0 +1,12 @@
+sgi/modelos/facasi/
+sgi/config.php
+sgi/storage/
+node_modules/
+tests/node_modules/
+tests/results/
+dist/
+capacitor/node_modules/
+capacitor/android/
+capacitor/www/
+sgi/instalar/codigo.hash
+tests/.codigo
