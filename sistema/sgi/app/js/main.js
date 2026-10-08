@@ -65,16 +65,14 @@ let rendering = 0;
 let fila = Promise.resolve();
 let pendente = false;
 function render() {
-  rota.emCurso = true;
   if (pendente) return fila;
   pendente = true;
-  fila = fila.then(async () => {
+  fila = fila.then(() => {
     pendente = false;
+    rota.seq++;
     document.querySelectorAll('.modal-fundo').forEach((m) => m.remove());
-    const h = location.hash;
-    await renderAgora();
-    rota.montada = h;
-  }).catch((e) => console.error(e)).finally(() => { if (!pendente) rota.emCurso = false; });
+    return renderAgora();
+  }).catch((e) => console.error(e));
   return fila;
 }
 
@@ -95,7 +93,7 @@ async function renderAgora() {
     toast('Defina uma nova palavra-passe antes de continuar.', 'aviso');
     return;
   }
-  if (can('platform') && (hash === '#/inicio' || hash === '#/')) { history.replaceState(null, '', '#/plataforma'); return render(); }
+  if (can('platform') && (hash === '#/inicio' || hash === '#/')) { history.replaceState(null, '', '#/plataforma'); return renderAgora(); }
   const m = matchRoute(hash);
   menuAtivo(hash);
   if (!m) { mount(el('h1', null, 'Página não encontrada'), el('a', { href: '#/inicio', class: 'btn' }, 'Voltar ao início')); return; }
@@ -325,5 +323,5 @@ async function init() {
   setInterval(() => { atualizarNotificacoes(); if (state.online) syncAll(); else ping(); }, 60000);
 }
 
-window.__sgi = { state, syncAll, render };
+window.__sgi = { state, syncAll, render, rota };
 init();
