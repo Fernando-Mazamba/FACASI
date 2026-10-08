@@ -165,9 +165,16 @@ foreach ($groups as $srcDir => $group) {
         $semScripts = preg_replace('#<(script|style)\b.*?</\1>#is', '', $html) ?? $html;
         $inputs = preg_match_all('#<(input|select|textarea)\b#i', $semScripts);
         $buttonsInputs = preg_match_all('#<input\b[^>]*\btype=["\']?(button|submit|reset|hidden|file|image)#i', $semScripts);
-        $editables = preg_match_all('#<[a-z][a-z0-9]*\b[^>]*(\sclass=["\'][^"\']*\beditable\b|\scontenteditable=["\']?(true|["\'\s>]))#i', $semScripts);
+        // contenteditable="true", contenteditable="" ou atributo sem valor (contenteditable="false" não conta)
+        $editables = preg_match_all('#<[a-z][a-z0-9]*\b[^>]*(\sclass=["\'][^"\']*\beditable\b|\scontenteditable(\s*=\s*("true"|\'true\'|true\b|""|\'\')|(?=[\s/>])))#i', $semScripts);
         $fields = max(0, $inputs - $buttonsInputs) + $editables;
         [$cat, $type] = category_for($code, $group);
+        // Exceções verificadas em execução (teste de ida e volta): campos que o próprio script do modelo
+        // remove ao carregar (modo de edição interno do documento) ⇒ documento de consulta.
+        $consultaVerificada = ['PRO-001' => 'cabeçalho só editável no modo de edição interno do modelo'];
+        if (isset($consultaVerificada[$code])) {
+            $fields = 0;
+        }
 
         file_put_contents("$dest/$group/$base", $html);
         $catalog[] = [

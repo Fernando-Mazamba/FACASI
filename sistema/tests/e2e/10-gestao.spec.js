@@ -194,6 +194,7 @@ test('T29 Correio SMTP configurável pela interface + recuperação de palavra-p
     await p2.locator('.modal input').fill(CONTAS.supervisor.email);
     await p2.getByRole('button', { name: 'Continuar' }).click();
     await expect(p2.locator('.modal')).toContainText('Se o endereço estiver registado');
+    await p2.getByRole('button', { name: 'OK' }).click();
     await expect.poll(() => mensagens.length).toBe(2);
     const corpo = Buffer.from(mensagens[1].split('\n\n').slice(1).join('').replace(/\s/g, ''), 'base64').toString('utf8');
     const link = corpo.match(/https?:\/\/\S+#\/redefinir\/[a-f0-9]{64}/)[0];

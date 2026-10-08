@@ -150,7 +150,7 @@ export async function documento(params) {
   if (t && !t.my_read_at) {
     acoes.push(el('button', { class: 'btn sec', onclick: async (ev) => {
       ev.target.disabled = true;
-      try { await api('POST', `/templates/${id}/read`); toast('Leitura confirmada.', 'ok'); documento(params); } catch (e) { toast(e.message, 'erro'); ev.target.disabled = false; }
+      try { await api('POST', `/templates/${id}/read`); toast('Leitura confirmada.', 'ok'); navegar(location.hash); } catch (e) { toast(e.message, 'erro'); ev.target.disabled = false; }
     } }, '✓ Confirmar leitura'));
   }
   const offBtn = el('button', { class: 'btn sec', onclick: async () => {
@@ -159,7 +159,7 @@ export async function documento(params) {
       if (modelo.origem !== 'servidor') { toast('Precisa de ligação para guardar a cópia atual.', 'aviso'); return; }
       await guardarOffline(modelo, isForm); toast('Disponível offline neste dispositivo (cópia de ' + fmtData(modelo.copied_at, true) + ').', 'ok');
     }
-    documento(params);
+    navegar(location.hash);
   } }, off ? '📥 Remover do modo offline' : '📥 Disponível offline');
   acoes.push(offBtn);
   acoes.push(el('button', { class: 'btn sec', onclick: () => {
@@ -169,7 +169,7 @@ export async function documento(params) {
     t ? ` · ${t.category} · ${t.status}` : '',
     modelo.origem === 'offline' ? el('strong', { class: 'aviso-inline' }, ` · Cópia offline de ${fmtData(modelo.copied_at, true)} — pode não ser a versão vigente atual`) : '',
     t && t.my_read_at ? ` · leitura confirmada em ${fmtData(t.my_read_at, true)}` : '');
-  const gestao = t && can('docs.manage') ? painelGestaoDocumento(t, versions, () => documento(params)) : null;
+  const gestao = t && can('docs.manage') ? painelGestaoDocumento(t, versions, () => navegar(location.hash)) : null;
   const historico = versions.length ? el('details', { class: 'cartao' }, el('summary', null, `Histórico de versões (${versions.length})`),
     tabela([{ label: 'Versão', key: 'version_no' }, { label: 'Estado', key: 'status' }, { label: 'Data', render: (v) => fmtData(v.created_at, true) },
       { label: 'Motivo', render: (v) => v.reason || '—' }, { label: 'Autor', render: (v) => v.author || 'Sistema' }, { label: 'Leituras', key: 'n_reads' },
@@ -584,7 +584,7 @@ async function decidir(a, decisao) {
   if (!state.online) { toast('Aprovar exige ligação ao servidor.', 'aviso'); return; }
   const comentario = await pedirTexto(decisao === 'aprovar' ? 'Aprovar registo' : 'Devolver para correção', decisao === 'aprovar' ? 'Comentário (opcional)' : 'Motivo (obrigatório)', { obrigatorio: decisao !== 'aprovar', multiline: true });
   if (comentario === null) return;
-  try { await api('POST', '/approvals/' + a.id, { decision: decisao, comment: comentario }); toast(decisao === 'aprovar' ? 'Aprovado: registo finalizado e arquivado.' : 'Devolvido ao autor.', 'ok'); aprovacoes(); }
+  try { await api('POST', '/approvals/' + a.id, { decision: decisao, comment: comentario }); toast(decisao === 'aprovar' ? 'Aprovado: registo finalizado e arquivado.' : 'Devolvido ao autor.', 'ok'); navegar(location.hash); }
   catch (e) { toast(e.message, 'erro'); }
 }
 
@@ -596,7 +596,7 @@ export async function sincronizar() {
     await ping();
     const r = await syncAll();
     toast(`Enviados: ${r.enviados} · conflitos: ${r.conflitos} · erros: ${r.erros}`, r.conflitos || r.erros ? 'aviso' : 'ok');
-    sincronizar();
+    navegar(location.hash);
   } }, '⟳ Sincronizar agora');
   btn.disabled = !state.online;
   mount(cabecalho('Sincronização', btn),
@@ -653,7 +653,7 @@ async function resolverConflito(loc) {
 // =================== NOTIFICAÇÕES ===================
 export async function notificacoes() {
   const r = await api('GET', '/notifications');
-  mount(cabecalho('Notificações', el('button', { class: 'btn sec', onclick: async () => { await api('POST', '/notifications/read-all'); notificacoes(); } }, 'Marcar todas como lidas')),
+  mount(cabecalho('Notificações', el('button', { class: 'btn sec', onclick: async () => { await api('POST', '/notifications/read-all'); navegar(location.hash); } }, 'Marcar todas como lidas')),
     r.notifications.length ? el('ul', { class: 'lista-cartoes' }, r.notifications.map((n) => el('li', { class: 'cartao' + (n.read_at ? '' : ' nao-lida') },
       el('strong', null, n.title), n.body ? el('p', null, n.body) : null, el('small', null, fmtData(n.created_at, true)),
       n.link ? el('a', { class: 'btn mini', href: n.link, onclick: () => api('POST', `/notifications/${n.id}/read`).catch(() => {}) }, 'Abrir') : null))) : vazio('Sem notificações.'));
@@ -738,7 +738,7 @@ export async function perfil() {
         if (!await confirmar('Encerrar dispositivo?', `Os tokens de «${x.name}» deixam de funcionar imediatamente.`, 'Encerrar', true)) return;
         await api('DELETE', '/auth/devices/' + x.id); toast('Dispositivo encerrado.', 'ok');
         if (x.current) { location.reload(); return; }
-        perfil();
+        navegar(location.hash);
       } }, 'Encerrar') : '' },
     ], d.devices) : vazio('Nenhuma aplicação ligada. As sessões de navegador não aparecem aqui.'));
   } catch (e) { devBox.appendChild(el('p', { class: 'aviso' }, e.message)); }
@@ -757,8 +757,8 @@ export async function perfil() {
       el('label', { class: 'chk' }, pu, 'Receber notificações push'),
       el('p', null, 'Push: ', el('strong', null, estTxt)),
       pushSuportado() && state.me.push_key ? el('div', { class: 'acoes' },
-        est !== 'ativo' ? el('button', { class: 'btn', onclick: async () => { try { await ativarPush(); toast('Notificações ativadas neste dispositivo.', 'ok'); perfil(); } catch (e) { toast(e.message, 'erro', 8000); } } }, 'Ativar neste dispositivo')
-          : el('button', { class: 'btn sec', onclick: async () => { await desativarPush(); perfil(); } }, 'Desativar neste dispositivo'),
+        est !== 'ativo' ? el('button', { class: 'btn', onclick: async () => { try { await ativarPush(); toast('Notificações ativadas neste dispositivo.', 'ok'); navegar(location.hash); } catch (e) { toast(e.message, 'erro', 8000); } } }, 'Ativar neste dispositivo')
+          : el('button', { class: 'btn sec', onclick: async () => { await desativarPush(); navegar(location.hash); } }, 'Desativar neste dispositivo'),
         el('button', { class: 'btn sec', onclick: async () => { await api('POST', '/push/test'); toast('Notificação de teste enviada.', 'ok'); } }, 'Enviar teste')) : null,
       el('p', { class: 'nota' }, 'As notificações internas (sino 🔔) funcionam sempre, mesmo sem push.'));
   } catch (e) { prefsBox.appendChild(el('p', { class: 'aviso' }, e.message)); }
@@ -767,7 +767,7 @@ export async function perfil() {
   localBox.append(
     el('p', null, `Documentos disponíveis offline: ${off.length}`),
     el('div', { class: 'acoes' },
-      el('button', { class: 'btn sec', onclick: async () => { for (const d of off) await docsOffline.del(orgId(), d.templateId); toast('Cópias offline removidas.', 'ok'); perfil(); } }, 'Remover cópias offline'),
+      el('button', { class: 'btn sec', onclick: async () => { for (const d of off) await docsOffline.del(orgId(), d.templateId); toast('Cópias offline removidas.', 'ok'); navegar(location.hash); } }, 'Remover cópias offline'),
       el('button', { class: 'btn sec', onclick: () => { retirarConsentimentoGeo(); toast('Consentimento de localização retirado neste dispositivo.', 'ok'); } }, 'Retirar consentimento de localização')));
 }
 

@@ -70,7 +70,21 @@ export async function hostForm(container, opts) {
     });
   }
 
-  const info = await Promise.race([ready, new Promise((_, rej) => setTimeout(() => rej(new Error('O documento demorou demasiado a carregar.')), 25000))]);
+  // se o ecrã mudar entretanto (moldura removida), cancela de imediato em vez de esperar
+  let vigia;
+  let limite;
+  const cancelado = new Promise((_, rej) => { vigia = setInterval(() => { if (!frame.isConnected) rej(Object.assign(new Error('Documento fechado.'), { cancelado: true })); }, 300); });
+  const demorado = new Promise((_, rej) => { limite = setTimeout(() => rej(new Error('O documento demorou demasiado a carregar.')), 25000); });
+  let info;
+  try {
+    info = await Promise.race([ready, cancelado, demorado]);
+  } catch (e) {
+    window.removeEventListener('message', onMsg);
+    throw e;
+  } finally {
+    clearInterval(vigia);
+    clearTimeout(limite);
+  }
   return {
     frame,
     info,

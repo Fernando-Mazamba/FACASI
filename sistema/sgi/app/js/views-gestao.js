@@ -1,6 +1,6 @@
 // Ecrãs de gestão do SGI: NC/ações, calendário, equipamentos e QR, catálogos, capacitações, indicadores, relatórios, importação.
 import { api, blob, state, can, BASE } from './api.js';
-import { el, mount, toast, modal, confirmar, fmtData, cabecalho, vazio, tabela, clear, baixarBlob, campo } from './ui.js';
+import { el, mount, toast, modal, confirmar, fmtData, cabecalho, vazio, tabela, clear, baixarBlob, campo, navegar } from './ui.js';
 import { qrSvg, urlQr } from './mobile.js';
 
 let usersCache = null;
@@ -70,7 +70,7 @@ const NORMAS = [['ISO 9001', 'ISO 9001'], ['ISO 14001', 'ISO 14001'], ['ISO 4500
 
 // =================== NÃO CONFORMIDADES ===================
 export async function ncs() {
-  const users = await utilizadores();
+  const users = await navegar(location.hash);
   await crudPage({
     titulo: 'Não conformidades, incidentes e oportunidades', rota: 'nonconformities', gerir: can('nc.manage'),
     campos: [
@@ -91,7 +91,7 @@ export async function ncs() {
 
 // =================== AÇÕES ===================
 export async function acoes(params, query) {
-  const users = await utilizadores();
+  const users = await navegar(location.hash);
   const ncsList = (await api('GET', '/nonconformities')).items;
   const hoje = new Date().toISOString().slice(0, 10);
   const filtro = (query.get('nc') ? '&nc_id=' + query.get('nc') : '');
@@ -110,7 +110,7 @@ export async function acoes(params, query) {
       { label: 'Prazo', render: (x) => el('span', { class: x.due_date && x.due_date < hoje && ['pendente', 'em_curso'].includes(x.status) ? 'atrasado' : '' }, fmtData(x.due_date)) },
       { label: 'Estado', key: 'status' }, { label: 'Eficácia', key: 'efficacy' },
       { label: '', render: (x) => (+x.owner_user_id === state.me.user.id && !can('nc.manage') && ['pendente', 'em_curso'].includes(x.status))
-        ? el('button', { class: 'btn mini', onclick: async (e) => { e.stopPropagation(); await api('PUT', '/actions/' + x.id, { status: 'concluida' }); toast('Ação marcada como concluída.', 'ok'); acoes(params, query); } }, 'Concluir') : '' }],
+        ? el('button', { class: 'btn mini', onclick: async (e) => { e.stopPropagation(); await api('PUT', '/actions/' + x.id, { status: 'concluida' }); toast('Ação marcada como concluída.', 'ok'); navegar(location.hash); } }, 'Concluir') : '' }],
   });
 }
 
@@ -125,7 +125,7 @@ export async function calendario(params, query) {
   const to = new Date(ano, mes + 1, 0);
   const iso = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
   const r = await api('GET', `/calendar?from=${iso(from)}&to=${iso(to)}`);
-  const users = await utilizadores();
+  const users = await navegar(location.hash);
   const camposEv = [
     { name: 'title', label: 'Título', required: true }, { name: 'event_type', label: 'Tipo', type: 'select', options: TIPOS_EV, required: true },
     { name: 'start_date', label: 'Data', type: 'date', required: true }, { name: 'end_date', label: 'Data de fim', type: 'date' },
@@ -138,14 +138,14 @@ export async function calendario(params, query) {
   const novo = async (data) => {
     const v = await formulario('Novo evento', camposEv, { start_date: data || iso(new Date()) });
     if (!v) return;
-    try { await api('POST', '/events', v); toast('Evento guardado no servidor.', 'ok'); calendario(params, query); } catch (e) { toast(e.message, 'erro'); }
+    try { await api('POST', '/events', v); toast('Evento guardado no servidor.', 'ok'); navegar(location.hash); } catch (e) { toast(e.message, 'erro'); }
   };
   const editar = async (ev) => {
     if (ev.derived) { if (ev.link) location.hash = ev.link; return; }
     if (!can('calendar.manage')) { modal(ev.title, el('p', null, ev.description || ''), [{ label: 'Fechar', value: 1 }]); return; }
     const v = await formulario('Editar evento', camposEv, ev);
     if (!v) return;
-    try { await api('PUT', '/events/' + ev.id, v); toast('Evento atualizado.', 'ok'); calendario(params, query); } catch (e) { toast(e.message, 'erro'); }
+    try { await api('PUT', '/events/' + ev.id, v); toast('Evento atualizado.', 'ok'); navegar(location.hash); } catch (e) { toast(e.message, 'erro'); }
   };
   // grelha mensal
   const porDia = {};
@@ -163,7 +163,7 @@ export async function calendario(params, query) {
   const importar = el('input', { type: 'file', accept: '.json,application/json', hidden: true });
   importar.addEventListener('change', async () => {
     const fd = new FormData(); fd.append('file', importar.files[0]);
-    try { const x = await api('POST', '/calendar/import-legacy', fd); toast(`Importados ${x.importados} evento(s); ignorados ${x.ignorados}.`, 'ok'); calendario(params, query); } catch (e) { toast(e.message, 'erro'); }
+    try { const x = await api('POST', '/calendar/import-legacy', fd); toast(`Importados ${x.importados} evento(s); ignorados ${x.ignorados}.`, 'ok'); navegar(location.hash); } catch (e) { toast(e.message, 'erro'); }
   });
   mount(cabecalho('Calendário do SGI', can('calendar.manage') ? el('button', { class: 'btn', onclick: () => novo() }, '＋ Evento') : null,
     can('calendar.manage') ? el('button', { class: 'btn sec', onclick: () => importar.click(), title: 'Ficheiro JSON do calendário antigo (Descarregar → Descarregar como JSON)' }, '⬆ Importar calendário antigo') : null, importar),
@@ -215,7 +215,7 @@ export async function equipamento(params) {
         el('button', { class: 'btn sec', onclick: () => { location.hash = '#/etiquetas?ids=' + a.id; } }, '🖨 Imprimir etiqueta'),
         can('assets.manage') ? el('button', { class: 'btn sec', onclick: async () => {
           if (!await confirmar('Gerar novo QR?', 'As etiquetas já impressas deixam de funcionar.', 'Gerar novo', true)) return;
-          await api('POST', `/assets/${a.id}/regenerate-qr`); equipamento(params);
+          await api('POST', `/assets/${a.id}/regenerate-qr`); navegar(location.hash);
         } }, 'Gerar novo código') : null)),
     el('section', { class: 'cartao' }, el('h2', null, 'Registos deste equipamento'), regs.records.length ? tabela([
       { label: 'Ref.', key: 'ref' }, { label: 'Título', key: 'title' }, { label: 'Estado', key: 'status' }, { label: 'Data', render: (x) => fmtData(x.updated_at, true) }],

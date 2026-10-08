@@ -61,7 +61,17 @@ function matchRoute(hash) {
 }
 
 let rendering = 0;
-async function render() {
+// Redesenhos em série: um ecrã antigo nunca desenha por cima de um mais recente.
+let fila = Promise.resolve();
+let pendente = false;
+function render() {
+  if (pendente) return fila;
+  pendente = true;
+  fila = fila.then(() => { pendente = false; document.querySelectorAll('.modal-fundo').forEach((m) => m.remove()); return renderAgora(); }).catch((e) => console.error(e));
+  return fila;
+}
+
+async function renderAgora() {
   const my = ++rendering;
   const hash = location.hash || '#/inicio';
   if (hash.startsWith('#/redefinir/')) {
@@ -85,7 +95,7 @@ async function render() {
   try {
     await m.fn(m.params, m.query);
   } catch (e) {
-    if (my !== rendering) return;
+    if (my !== rendering || e.cancelado) return;
     console.error(e);
     if (e instanceof ApiError && e.status === 503 && e.code === 'atualizacao_pendente') {
       mount(el('div', { class: 'cartao aviso' }, el('h1', null, 'Sistema em atualização'), el('p', null, e.message),
