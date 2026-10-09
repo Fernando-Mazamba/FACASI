@@ -10,7 +10,7 @@
 	<string>O SGI permite anexar fotografias já existentes como evidência.</string>
 	<key>WKAppBoundDomains</key>
 	<array>
-		<string>textesgi.sistemaiso.net</string>
+		<string>facasi.continentalconsulting.org</string>
 	</array>
   <key>CAPACITOR_DEBUG</key>
 	<string>$(CAPACITOR_DEBUG)</string>

@@ -19,7 +19,7 @@
 <tr><td>Extensões PHP obrigatórias</td><td>pdo_mysql, openssl, mbstring, json, fileinfo, dom, zip</td><td>O assistente verifica-as e indica as que faltam.</td></tr>
 <tr><td>Extensões opcionais</td><td>gd (recompressão de fotografias), curl (notificações push)</td><td>Sem elas, o sistema funciona com funcionalidade reduzida.</td></tr>
 <tr><td>Base de dados</td><td>MySQL 5.7+ / 8.x ou MariaDB 10.3+</td><td>Não precisa de privilégio SUPER (não há triggers nem procedimentos). Testado em MariaDB 10.11.</td></tr>
-<tr><td>Servidor web</td><td>Apache ou LiteSpeed com <code>.htaccess</code></td><td>Funciona numa subpasta (ex.: <code>https://textesgi.sistemaiso.net/sgi/</code>). Não precisa de mod_rewrite.</td></tr>
+<tr><td>Servidor web</td><td>Apache ou LiteSpeed com <code>.htaccess</code></td><td>Funciona numa subpasta (ex.: <code>https://facasi.continentalconsulting.org/sgi/</code>). Não precisa de mod_rewrite.</td></tr>
 <tr><td>HTTPS</td><td>Obrigatório em produção</td><td>A aplicação instalável (PWA), a câmara e a localização só funcionam com HTTPS. Ative o certificado gratuito em cPanel → <em>SSL/TLS Status</em> (AutoSSL).</td></tr>
 <tr><td>Node.js / Composer</td><td><strong>Não são necessários</strong> no servidor</td><td>Tudo é entregue pronto (sem passo de compilação no servidor).</td></tr>
 <tr><td>Cron</td><td>Opcional</td><td>Sem cron, as tarefas diárias correm sozinhas uma vez por dia no primeiro acesso.</td></tr>
@@ -34,12 +34,18 @@
 <div class="nota">O assistente confirma que as 3 partes foram extraídas: cada ficheiro é verificado contra o manifesto <code>PACOTE.json</code> (SHA-256). Se faltar uma parte, a instalação não avança e indica qual falta.</div>
 
 <h2>3. Instalação no cPanel (passo a passo, sem Terminal)</h2>
+<div class="alerta"><strong>Domínio da FACASI: <code>facasi.continentalconsulting.org</code>.</strong> Neste repositório, o ficheiro <code>CNAME</code> indica que este subdomínio está (ou esteve) apontado para o <strong>GitHub Pages</strong>. O GitHub Pages só serve páginas estáticas: <strong>não executa PHP nem MySQL</strong>, por isso o SGI não funciona lá. Antes de instalar, escolha uma das opções:
+<ol>
+<li><strong>Usar o mesmo subdomínio para o SGI:</strong> no cPanel → <em>Domínios</em> → crie <code>facasi.continentalconsulting.org</code>; no fornecedor de DNS de <code>continentalconsulting.org</code>, substitua o registo <code>CNAME</code> de <code>facasi</code> (que aponta para <code>…github.io</code>) por um registo <code>A</code> com o IP do servidor cPanel (cPanel → <em>Informações do servidor</em> → «Endereço IP partilhado»); remova o domínio personalizado nas definições do GitHub Pages. Aguarde a propagação do DNS e ative o AutoSSL. O endereço do SGI fica <code>https://facasi.continentalconsulting.org/sgi/</code>.</li>
+<li><strong>Manter o site estático no GitHub Pages:</strong> crie outro subdomínio no cPanel (ex.: <code>sgi.continentalconsulting.org</code>) e instale lá. Nesse caso, configure a aplicação nativa com esse endereço (<code>npm run configurar -- https://sgi.continentalconsulting.org/sgi/</code>).</li>
+</ol>
+Para confirmar: abra <code>https://facasi.continentalconsulting.org/sgi/instalar/</code>. Se aparecer «404 — There isn't a GitHub Pages site here» ou a página do GitHub, o DNS ainda não aponta para o cPanel.</div>
 <ol class="passos">
 <li><strong>Criar a base de dados.</strong> cPanel → <em>Bases de dados MySQL</em> → «Criar nova base de dados» (ex.: <code>conta_sgi</code>).</li>
 <li><strong>Criar o utilizador da base.</strong> Na mesma página → «Adicionar novo utilizador» com uma palavra-passe forte (use o gerador). Anote-a.</li>
 <li><strong>Dar privilégios.</strong> «Adicionar utilizador à base de dados» → escolha o utilizador e a base → marque <em>TODOS OS PRIVILÉGIOS</em> → «Fazer alterações».</li>
 <li><strong>Escolher a versão do PHP.</strong> cPanel → <em>Selecionar versão do PHP</em> → 8.2 ou 8.3 → separador <em>Extensões</em>: confirme pdo_mysql, mbstring, fileinfo, zip, gd, curl, dom, openssl.</li>
-<li><strong>Enviar o pacote.</strong> cPanel → <em>Gestor de ficheiros</em> → abra a pasta do domínio/subdomínio (ex.: <code>public_html</code> ou a pasta do subdomínio <code>textesgi</code>) → <em>Carregar</em> → envie as 3 partes ZIP.</li>
+<li><strong>Enviar o pacote.</strong> cPanel → <em>Gestor de ficheiros</em> → abra a pasta do domínio/subdomínio (ex.: <code>public_html</code> ou a pasta do subdomínio <code>facasi</code>) → <em>Carregar</em> → envie as 3 partes ZIP.</li>
 <li><strong>Extrair.</strong> Selecione cada ZIP → <em>Extrair</em> → confirme a pasta atual. Repita para as 3 partes. Deve ficar uma pasta <code>sgi/</code>. Pode apagar os ZIP depois.</li>
 <li><strong>(Recomendado) Pasta de dados fora da pasta pública.</strong> No Gestor de ficheiros, ao nível da pasta <em>home</em> (acima de <code>public_html</code>), crie <code>sgi-dados</code>. O assistente sugere este caminho automaticamente quando é possível.</li>
 <li><strong>Abrir o assistente.</strong> No navegador: <code>https://SEU-DOMINIO/sgi/instalar/</code>.</li>

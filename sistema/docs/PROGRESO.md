@@ -50,3 +50,4 @@ Registo de progresso por etapas. Se a sessão for interrompida, continuar a part
   ida e volta 165/165 a 390 px e 165/165 a 1280 px em cada servidor (73 formulários, 3746 campos; 92 documentos de consulta).
 - Pacote validado como no cPanel: com 2 partes o instalador recusa e indica a parte em falta; com 3 instala (165 documentos).
 - Pendente do lado da FACASI/infraestrutura: ver docs/PENDENCIAS.html.
+- 2026-10-09: domínio de produção definido: https://facasi.continentalconsulting.org/sgi/ (Capacitor server.url/allowNavigation/WKAppBoundDomains e documentação atualizados; aviso sobre o CNAME do GitHub Pages em INSTALACAO.html).

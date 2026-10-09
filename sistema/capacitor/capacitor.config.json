@@ -3,10 +3,10 @@
   "appName": "SGI FACASI",
   "webDir": "www",
   "server": {
-    "url": "https://textesgi.sistemaiso.net/sgi/",
+    "url": "https://facasi.continentalconsulting.org/sgi/",
     "cleartext": false,
     "errorPath": "erro.html",
-    "allowNavigation": ["textesgi.sistemaiso.net"]
+    "allowNavigation": ["facasi.continentalconsulting.org"]
   },
   "android": {
     "allowMixedContent": false,

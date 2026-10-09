@@ -3,7 +3,7 @@
 import fs from 'node:fs';
 const url = process.argv[2];
 if (!url || !/^https:\/\/[^/]+\/.*$/.test(url)) {
-  console.error('Indique o endereço completo do SGI com https, por exemplo: npm run configurar -- https://textesgi.sistemaiso.net/sgi/');
+  console.error('Indique o endereço completo do SGI com https, por exemplo: npm run configurar -- https://facasi.continentalconsulting.org/sgi/');
   process.exit(1);
 }
 const u = new URL(url.endsWith('/') ? url : url + '/');
